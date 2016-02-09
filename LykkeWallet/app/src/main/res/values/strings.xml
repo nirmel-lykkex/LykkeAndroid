@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="email_hint">Email</string>
+    <string name="fullname_hint">FullName</string>
+    <string name="mobile_hint">Mobile</string>
+    <string name="first_password_hint">Password</string>
+    <string name="seond_password_hint">Second tiome password</string>
 </resources>

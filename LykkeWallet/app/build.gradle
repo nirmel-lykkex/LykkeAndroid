@@ -6,13 +6,15 @@ buildscript {
     dependencies {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         //Fabric Crashlytics
-        classpath 'io.fabric.tools:gradle:1.+'
+        //classpath 'io.fabric.tools:gradle:1.+'
+
+
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 23
@@ -35,7 +37,6 @@ android {
 
 def AAVersion = '3.3.1'
 
-
 apt {
     arguments {
         androidManifestFile variant.outputs[0].processResources.manifestFile
@@ -53,9 +54,10 @@ dependencies {
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
-        transitive = true;
-    }
+    //compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
+      //  transitive = true;
+    //}
+    compile 'com.github.oxo42:stateless4j:2.4.2'
 }
 
 
