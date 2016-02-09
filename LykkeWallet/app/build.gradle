@@ -54,9 +54,11 @@ dependencies {
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    //compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
-      //  transitive = true;
-    //}
+    
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
+
     compile 'com.github.oxo42:stateless4j:2.4.2'
 }
 

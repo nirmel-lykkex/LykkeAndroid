@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lykkex.LykkeWallet" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +11,9 @@
         android:theme="@style/AppTheme"
         android:name=".gui.LykkeApplication_">
 
-        <meta-data android:name = "com.crashlytics.ApiKey"
-            android:value = "TODO" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f6c20cf95679b1a5f41d4abc481094a5046ea101" />
 
         <activity
             android:name=".FieldActivity_"
