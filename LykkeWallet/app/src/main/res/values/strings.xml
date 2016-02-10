@@ -9,4 +9,7 @@
     <string name="mobile_hint">Mobile</string>
     <string name="first_password_hint">Password</string>
     <string name="seond_password_hint">Second tiome password</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_next">Next</string>
+    <string name="action_login_in">action_login_in</string>
 </resources>

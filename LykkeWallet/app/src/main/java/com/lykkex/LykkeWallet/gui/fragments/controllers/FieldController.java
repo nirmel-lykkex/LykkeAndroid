@@ -42,4 +42,8 @@ public class FieldController {
                 break;
         }
     }
+
+    public FieldState getCurrentState(){
+        return stateMachine.getState();
+    }
 }
