@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.rest.registration.models;
+package com.lykkex.LykkeWallet.rest.registration.response.models;
 
 import com.google.gson.annotations.SerializedName;
 

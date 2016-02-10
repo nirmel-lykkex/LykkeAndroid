@@ -9,5 +9,6 @@ public enum FieldTrigger {
     FullNameScreen,
     MobileScreen,
     FirstPasswordScreen,
-    SecondPasswordScreen
+    SecondPasswordScreen,
+    SendRegistrationRequst
 }

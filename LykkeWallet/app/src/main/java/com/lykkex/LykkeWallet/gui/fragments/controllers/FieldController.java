@@ -19,12 +19,15 @@ public class FieldController {
 
     @Bean FieldStateMachine stateMachine;
 
-    public void init(FieldFragment fragment){
-        stateMachine.init(FieldState.Idle, fragment);
+    public void init(FieldFragment fragment, FieldState state){
+        stateMachine.init(state, fragment);
     }
 
     public void fire(){
         switch (stateMachine.getState()){
+            case Idle:
+                stateMachine.fire(FieldTrigger.EmailScreen);
+                break;
             case EmailScreen:
                 stateMachine.fire(FieldTrigger.FullNameScreen);
                 break;
@@ -38,7 +41,7 @@ public class FieldController {
                 stateMachine.fire(FieldTrigger.SecondPasswordScreen);
                 break;
             case SecondPasswordScreen:
-                //TODO
+                stateMachine.fire(FieldTrigger.SendRegistrationRequst);
                 break;
         }
     }

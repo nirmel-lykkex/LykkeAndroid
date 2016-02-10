@@ -5,10 +5,9 @@ import android.text.TextWatcher;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.rest.registration.RegistrationApi;
 import com.lykkex.LykkeWallet.rest.registration.callback.AccountExisDataCallback;
-import com.lykkex.LykkeWallet.rest.registration.models.AccountExisData;
-import com.lykkex.LykkeWallet.rest.registration.models.AcountExisResult;
+import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExisData;
+import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExisResult;
 
 import retrofit2.Call;
 

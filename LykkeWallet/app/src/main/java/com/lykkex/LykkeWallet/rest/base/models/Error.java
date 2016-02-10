@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.rest.registration.base.models;
+package com.lykkex.LykkeWallet.rest.base.models;
 
 /**
  * Created by e.kazimirova on 09.02.2016.

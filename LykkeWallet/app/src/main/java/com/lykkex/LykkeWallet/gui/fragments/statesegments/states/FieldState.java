@@ -9,5 +9,6 @@ public enum  FieldState {
     FullNameScreen,
     MobileScreen,
     FirstPasswordScreen,
-    SecondPasswordScreen
+    SecondPasswordScreen,
+    SendRegistrationRequst
 }

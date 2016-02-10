@@ -1,7 +1,7 @@
 package com.lykkex.LykkeWallet.rest.registration.callback;
 
 import com.lykkex.LykkeWallet.gui.utils.validation.ValidationListener;
-import com.lykkex.LykkeWallet.rest.registration.models.AccountExisData;
+import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExisData;
 
 import retrofit2.Call;
 import retrofit2.Callback;

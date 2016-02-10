@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-
-import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment_;
 
 import org.androidannotations.annotations.AfterViews;

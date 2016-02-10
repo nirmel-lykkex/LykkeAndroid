@@ -6,6 +6,7 @@ import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 import com.github.oxo42.stateless4j.delegates.Action;
 import com.github.oxo42.stateless4j.triggers.TriggerWithParameters1;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
@@ -56,7 +57,9 @@ public class FieldStateMachine  {
                     public void doIt() {
                         fragment.initEmailState();
                     }
-                });
+                })
+                .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
+                .permit(FieldTrigger.Idle, FieldState.Idle);
 
         config.configure(FieldState.FullNameScreen)
                 .onEntry(new Action() {
@@ -64,7 +67,9 @@ public class FieldStateMachine  {
                     public void doIt() {
                         fragment.initFullNameState();
                     }
-                });
+                })
+                .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
+                .permit(FieldTrigger.Idle, FieldState.Idle);
 
         config.configure(FieldState.MobileScreen)
                 .onEntry(new Action() {
@@ -72,7 +77,10 @@ public class FieldStateMachine  {
                     public void doIt() {
                         fragment.initMobileState();
                     }
-                });
+                })
+                .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
+                .permit(FieldTrigger.Idle, FieldState.Idle);
+
 
 
         config.configure(FieldState.FirstPasswordScreen)
@@ -81,7 +89,9 @@ public class FieldStateMachine  {
                     public void doIt() {
                         fragment.initFirstPasswordState();
                     }
-                });
+                })
+                .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
+                .permit(FieldTrigger.Idle, FieldState.Idle);
 
 
         config.configure(FieldState.SecondPasswordScreen)
@@ -89,6 +99,16 @@ public class FieldStateMachine  {
                     @Override
                     public void doIt() {
                         fragment.initSecondPasswordState();
+                    }
+                })
+                .permit(FieldTrigger.SendRegistrationRequst, FieldState.SendRegistrationRequst)
+                .permit(FieldTrigger.Idle, FieldState.Idle);
+
+        config.configure(FieldState.SendRegistrationRequst)
+                .onEntry(new Action() {
+                    @Override
+                    public void doIt() {
+                        fragment.sendRegistrationRequest();
                     }
                 });
 

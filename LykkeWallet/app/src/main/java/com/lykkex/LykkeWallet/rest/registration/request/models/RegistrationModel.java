@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.rest.registration.models;
+package com.lykkex.LykkeWallet.rest.registration.request.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +20,7 @@ public class RegistrationModel {
     private String password;
 
     @SerializedName("ClientInfo")
-    private String clientInfo;
+    private String clientInfo; //TODO "<Тип устройства>; Model:<Модель>; Os:<OS>; Screen:<Screen>"
 
     public String getEmail() {
         return email;
