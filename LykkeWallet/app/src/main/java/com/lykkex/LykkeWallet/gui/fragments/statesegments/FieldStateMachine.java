@@ -165,6 +165,7 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
+                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
                 .permit(FieldTrigger.EmailScreenBack, FieldState.EmailScreenBack);
 
         config.configure(FieldState.MobileScreenBack)
@@ -204,6 +205,7 @@ public class FieldStateMachine  {
                         fragment.initBackPressedPasswordSignIn();
                     }
                 })
+                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen)
                 .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
                 .permit(FieldTrigger.EmailSignInScreenBack, FieldState.EmailScreenBack)
                 .permit(FieldTrigger.EmailScreenBack, FieldState.EmailScreenBack);
