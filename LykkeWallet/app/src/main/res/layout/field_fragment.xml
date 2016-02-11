@@ -9,7 +9,8 @@
         android:id="@+id/validationField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relProgress"
+        android:layout_marginTop="51dp"
+        android:layout_below="@+id/imageViewLogo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -87,9 +88,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageViewLogo"
         android:src="@drawable/logo"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="56dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/progressBar"
+        android:layout_alignEnd="@+id/progressBar" />
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -101,12 +103,12 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
         android:id="@+id/relProgress"
         android:layout_below="@+id/imageViewLogo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -141,7 +143,7 @@
             android:layout_height="1dp"
             android:background="@color/grey_text"
             android:id="@+id/imageView3"
-            android:layout_alignTop="@+id/imageView2"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imgSecond"
             android:layout_toEndOf="@+id/imgSecond" />
 
@@ -150,7 +152,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/unsubmit_form_circle"
             android:id="@+id/imgThird"
-            android:layout_alignTop="@+id/imgSecond"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageView3"
             android:layout_toEndOf="@+id/imageView3"
             android:layout_marginLeft="-5dp" />
@@ -160,7 +162,7 @@
             android:layout_height="1dp"
             android:background="@color/grey_text"
             android:id="@+id/imageView4"
-            android:layout_alignTop="@+id/imageView3"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imgThird"
             android:layout_toEndOf="@+id/imgThird" />
 
@@ -169,7 +171,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imgForth"
             android:background="@drawable/unsubmit_form_circle"
-            android:layout_alignTop="@+id/imgThird"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageView4"
             android:layout_toEndOf="@+id/imageView4"
             android:layout_marginLeft="-5dp" />
