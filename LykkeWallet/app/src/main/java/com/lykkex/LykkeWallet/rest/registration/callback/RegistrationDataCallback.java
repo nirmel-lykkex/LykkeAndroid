@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.rest.registration.callback;
 
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -16,6 +17,10 @@ import retrofit2.Response;
  */
 public class RegistrationDataCallback implements Callback<RegistrationData> {
 
+    private ProgressBar progressBar;
+    public RegistrationDataCallback(){
+        this.progressBar = progressBar;
+    }
     @Override
     public void onResponse(Call<RegistrationData> call, Response<RegistrationData> response) {
         if (response != null && response.body() != null && response.body().getError()==null) {
