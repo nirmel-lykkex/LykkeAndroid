@@ -65,7 +65,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initEmailState() {
         model.setIsReady(false);
         validationEditText.setReady(false);
-        editTextField.setText("");
+        editTextField.setText(model.getEmail());
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
         editTextField.setHint(R.string.email_hint);
@@ -76,7 +76,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         model.setIsReady(false);
         validationEditText.setReady(false);
         model.setEmail(editTextField.getText().toString());
-        editTextField.setText("");
+        editTextField.setText(model.getFullName());
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
         editTextField.addTextChangedListener(simpleTextWatcher);
@@ -88,7 +88,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         model.setIsReady(false);
         validationEditText.setReady(false);
         model.setFullName(editTextField.getText().toString());
-        editTextField.setText("");
+        editTextField.setText(model.getMobile());
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
         editTextField.addTextChangedListener(simpleTextWatcher);
         editTextField.setHint(R.string.mobile_hint);
@@ -99,7 +99,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         model.setIsReady(false);
         validationEditText.setReady(false);
         model.setMobile(editTextField.getText().toString());
-        editTextField.setText("");
+        editTextField.setText(model.getPasswordFirst());
         editTextField.removeTextChangedListener(simpleTextWatcher);
         if (secondeTextWatcher != null) {
             editTextField.removeTextChangedListener(secondeTextWatcher);
@@ -113,7 +113,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         model.setIsReady(false);
         validationEditText.setReady(false);
         model.setPasswordFirst(editTextField.getText().toString());
-        editTextField.setText("");
+        editTextField.setText(model.getSecondPassword());
         secondeTextWatcher = new PasswordTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
                 model.getPasswordFirst(), validationEditText);
         editTextField.addTextChangedListener(secondeTextWatcher);
@@ -134,8 +134,45 @@ public class RegistrationGuiSegment implements ValidationListener {
         }
     }
 
-    public EmailTextWatcher getEmailTextWatcher() {
-        return emailTextWatcher;
+    public void initBackPressedFullName(){
+        model.setIsReady(true);
+        model.setFullName(editTextField.getText().toString());
+        editTextField.removeTextChangedListener(simpleTextWatcher);
+        editTextField.removeTextChangedListener(secondeTextWatcher);
+        editTextField.removeTextChangedListener(firstPasswordTextWatcher);
+        editTextField.addTextChangedListener(emailTextWatcher);
+        editTextField.setText(model.getEmail());
+        buttonAction.setText(R.string.action_sign_up);
+    }
+
+    public void initBackPressedMobile() {
+        model.setIsReady(true);
+        model.setMobile(editTextField.getText().toString());
+        editTextField.removeTextChangedListener(emailTextWatcher);
+        editTextField.removeTextChangedListener(secondeTextWatcher);
+        editTextField.removeTextChangedListener(firstPasswordTextWatcher);
+        editTextField.addTextChangedListener(simpleTextWatcher);
+        editTextField.setText(model.getFullName());
+    }
+
+    public void initBackPressedFirstPasswordScreen(){
+        model.setIsReady(true);
+        editTextField.removeTextChangedListener(emailTextWatcher);
+        editTextField.removeTextChangedListener(simpleTextWatcher);
+        editTextField.removeTextChangedListener(secondeTextWatcher);
+        editTextField.addTextChangedListener(firstPasswordTextWatcher);
+        model.setPasswordFirst(editTextField.getText().toString());
+        editTextField.setText(model.getMobile());
+    }
+
+    public void initBackPressedSecondPasswordScreen(){
+        model.setIsReady(true);
+        editTextField.removeTextChangedListener(emailTextWatcher);
+        editTextField.removeTextChangedListener(simpleTextWatcher);
+        editTextField.removeTextChangedListener(firstPasswordTextWatcher);
+        editTextField.addTextChangedListener(secondeTextWatcher);
+        model.setSecondPassword(editTextField.getText().toString());
+        editTextField.setText(model.getPasswordFirst());
     }
 
 

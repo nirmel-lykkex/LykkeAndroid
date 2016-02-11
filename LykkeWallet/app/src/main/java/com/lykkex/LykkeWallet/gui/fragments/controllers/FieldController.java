@@ -52,22 +52,48 @@ public class FieldController {
             case PasswordSignInScreen:
                 stateMachine.fire(FieldTrigger.SendAuthRequest);
                 break;
+            case FullNameScreenBack:
+                stateMachine.fire(FieldTrigger.FullNameScreen);
+                break;
+            case MobileScreenBack:
+                stateMachine.fire(FieldTrigger.MobileScreen);
+                break;
+            case FirstPasswordScreenBack:
+                stateMachine.fire(FieldTrigger.FirstPasswordScreen);
+                break;
+            case SecondPasswordScreenBack:
+                stateMachine.fire(FieldTrigger.SecondPasswordScreen);
+                break;
         }
     }
 
     public void fireBackPressed(){
         switch (stateMachine.getState()){
+            case EmailScreen:
+                stateMachine.fire(FieldTrigger.EmailScreenBack);
             case FullNameScreen:
-                stateMachine.fire(FieldTrigger.EmailScreen);
+                stateMachine.fire(FieldTrigger.FullNameScreenBack);
                 break;
             case MobileScreen:
-                stateMachine.fire(FieldTrigger.FullNameScreen);
+                stateMachine.fire(FieldTrigger.MobileScreenBack);
                 break;
             case FirstPasswordScreen:
-                stateMachine.fire(FieldTrigger.MobileScreen);
+                stateMachine.fire(FieldTrigger.FirstPasswordScreenBack);
                 break;
             case SecondPasswordScreen:
-                stateMachine.fire(FieldTrigger.FirstPasswordScreen);
+                stateMachine.fire(FieldTrigger.SecondPasswordScreenBack);
+                break;
+            case SecondPasswordScreenBack:
+                stateMachine.fire(FieldTrigger.FirstPasswordScreenBack);
+                break;
+            case FirstPasswordScreenBack:
+                stateMachine.fire(FieldTrigger.MobileScreenBack);
+                break;
+            case MobileScreenBack:
+                stateMachine.fire(FieldTrigger.FullNameScreenBack);
+                break;
+            case FullNameScreenBack:
+                stateMachine.fire(FieldTrigger.EmailScreenBack);
                 break;
         }
     }

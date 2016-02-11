@@ -15,10 +15,9 @@ public enum  FieldState {
     SendRegistrationRequst,
     SendAuthRequest,
     EmailScreenBack,
-    EmailSignInScreenBack,
     PasswordSignInScreenBack,
     FullNameScreenBack,
     MobileScreenBack,
     FirstPasswordScreenBack,
-    SecondPasswordScreenBack,
+    SecondPasswordScreenBack
 }

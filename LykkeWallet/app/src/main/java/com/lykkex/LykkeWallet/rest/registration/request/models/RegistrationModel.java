@@ -8,19 +8,19 @@ import com.google.gson.annotations.SerializedName;
 public class RegistrationModel {
 
     @SerializedName("Email")
-    private String email;
+    private String email = "";
 
     @SerializedName("FullName")
-    private String fullName;
+    private String fullName = "";
 
     @SerializedName("ContactPhone")
-    private String contactPhone;
+    private String contactPhone = "";
 
     @SerializedName("Password")
-    private String password;
+    private String password = "";
 
     @SerializedName("ClientInfo")
-    private String clientInfo; //TODO "<Тип устройства>; Model:<Модель>; Os:<OS>; Screen:<Screen>"
+    private String clientInfo = ""; //TODO "<Тип устройства>; Model:<Модель>; Os:<OS>; Screen:<Screen>"
 
     public String getEmail() {
         return email;

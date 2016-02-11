@@ -108,8 +108,29 @@ public class FieldFragment extends Fragment {
     }
 
 
+    public void initBackPressed(){
+        getActivity().finish();
+    }
+
+    public void initBackPressedFullName(){
+        registrationGuiSegment.initBackPressedFullName();
+    }
+
+    public void initBackPressedMobile(){
+        registrationGuiSegment.initBackPressedMobile();
+    }
+
+    public void initBackPressedFirstPasswordScreen(){
+        registrationGuiSegment.initBackPressedFirstPasswordScreen();
+    }
+
+    public void initBackPressedSecondPasswordScreen(){
+        registrationGuiSegment.initBackPressedSecondPasswordScreen();
+    }
+
     public void initOnBackPressed(){
         if (controller.getCurrentState() == FieldState.Idle ||
+                controller.getCurrentState() == FieldState.EmailScreenBack ||
                 controller.getCurrentState() == FieldState.EmailScreen) {
             getActivity().finish();
         } else {

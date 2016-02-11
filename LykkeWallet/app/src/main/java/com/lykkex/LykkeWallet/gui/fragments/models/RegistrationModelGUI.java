@@ -7,7 +7,7 @@ import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel
  */
 public class RegistrationModelGUI extends RegistrationModel {
 
-    private String secondPassword;
+    private String secondPassword = "";
     private boolean isReady = false;
 
 
