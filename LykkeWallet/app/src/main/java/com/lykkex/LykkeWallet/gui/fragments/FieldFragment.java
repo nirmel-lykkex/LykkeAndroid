@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,21 +51,20 @@ public class FieldFragment extends Fragment {
     @Bean RegistrationGuiSegment registrationGuiSegment;
     @Bean LoginGuiSegment loginGuiSegment;
 
-    @ViewById ImageButton buttonAction;
+    @ViewById Button buttonAction;
     @ViewById RelativeLayout validationField;
     @ViewById EditText editTextField;
     @ViewById ImageView imageWell;
     @ViewById Button buttonClear;
-    @ViewById TextView textViewButton;
+    @ViewById ProgressBar progressBar;
 
 
     @AfterViews
     public void afterViews() {
         controller.init(this, FieldState.EmailScreen);
         registrationGuiSegment.init(editTextField, imageWell,buttonClear,
-               buttonAction,  controller, textViewButton);
-        loginGuiSegment.init(editTextField,  buttonAction, imageWell,buttonClear,controller,
-                textViewButton);
+               buttonAction,  controller, progressBar);
+        loginGuiSegment.init(editTextField,  buttonAction, imageWell,buttonClear,controller, progressBar);
         initEmailState();
     }
 
@@ -107,12 +107,6 @@ public class FieldFragment extends Fragment {
 
     @Click(R.id.buttonAction)
     public void clickAction() {
-        registrationGuiSegment.clickAction();
-        loginGuiSegment.clickAction();
-    }
-
-    @Click(R.id.textViewButton)
-    public void clickTextViewAction() {
         registrationGuiSegment.clickAction();
         loginGuiSegment.clickAction();
     }

@@ -7,10 +7,11 @@
 
     <RelativeLayout
         android:id="@+id/validationField"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relProgress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <EditText
             android:paddingLeft="7dp"
@@ -18,12 +19,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/editTextField"
             android:background="@drawable/filed_background"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:layout_marginBottom="80dp" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -50,10 +52,11 @@
             android:layout_marginRight="7dp"/>
     </RelativeLayout>
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:enabled="false"
         android:background="@drawable/submitbutton"
         android:id="@+id/buttonAction"
         android:layout_below="@+id/validationField"
@@ -78,24 +81,96 @@
         android:layout_above="@+id/imageView"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:textColor="@color/grey_text"
-        android:clickable="true"
-        android:id="@+id/textViewButton"
-        android:layout_alignTop="@+id/buttonAction"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/buttonAction" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageViewLogo"
         android:src="@drawable/logo"
-        android:layout_above="@+id/validationField"
+        android:layout_marginTop="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_below="@+id/buttonAction"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="81dp" />
+        android:layout_marginTop="24dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:text="New Text"
+        android:id="@+id/relProgress"
+        android:layout_below="@+id/imageViewLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgFirst"
+            android:background="@drawable/submit_form_circle"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:background="@color/grey_text"
+            android:id="@+id/imageView2"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgFirst"
+            android:layout_toEndOf="@+id/imgFirst" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSecond"
+            android:background="@drawable/unsubmit_form_circle"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView2"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_marginLeft="-5dp" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:background="@color/grey_text"
+            android:id="@+id/imageView3"
+            android:layout_alignTop="@+id/imageView2"
+            android:layout_toRightOf="@+id/imgSecond"
+            android:layout_toEndOf="@+id/imgSecond" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/unsubmit_form_circle"
+            android:id="@+id/imgThird"
+            android:layout_alignTop="@+id/imgSecond"
+            android:layout_toRightOf="@+id/imageView3"
+            android:layout_toEndOf="@+id/imageView3"
+            android:layout_marginLeft="-5dp" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:background="@color/grey_text"
+            android:id="@+id/imageView4"
+            android:layout_alignTop="@+id/imageView3"
+            android:layout_toRightOf="@+id/imgThird"
+            android:layout_toEndOf="@+id/imgThird" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgForth"
+            android:background="@drawable/unsubmit_form_circle"
+            android:layout_alignTop="@+id/imgThird"
+            android:layout_toRightOf="@+id/imageView4"
+            android:layout_toEndOf="@+id/imageView4"
+            android:layout_marginLeft="-5dp" />
+    </RelativeLayout>
 </RelativeLayout>

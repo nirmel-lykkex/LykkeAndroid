@@ -20,10 +20,10 @@ public class ValidationEditText implements View.OnClickListener{
     private EditText editTextField;
     private ImageView imageViewWell;
     private Button buttonClear;
-    private ImageButton buttonAction;
+    private Button buttonAction;
 
     public ValidationEditText(EditText editText, ImageView imageView, Button button,
-                              ImageButton buttonAction) {
+                              Button buttonAction) {
         this.editTextField = editText;
         this.imageViewWell = imageView;
         this.buttonClear = button;

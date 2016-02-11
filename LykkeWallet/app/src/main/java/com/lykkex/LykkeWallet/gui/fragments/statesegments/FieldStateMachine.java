@@ -204,7 +204,8 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
-                .permit(FieldTrigger.EmailSignInScreenBack, FieldState.EmailScreenBack);
+                .permit(FieldTrigger.EmailSignInScreenBack, FieldState.EmailScreenBack)
+                .permit(FieldTrigger.EmailScreenBack, FieldState.EmailScreenBack);
         return config;
     }
 

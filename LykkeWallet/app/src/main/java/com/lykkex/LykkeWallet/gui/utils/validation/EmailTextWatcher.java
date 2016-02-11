@@ -2,6 +2,8 @@ package com.lykkex.LykkeWallet.gui.utils.validation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -19,6 +21,7 @@ public class EmailTextWatcher implements TextWatcher {
 
     private AccountExistDataCallback callback;
     private ValidationEditText editText;
+    private ProgressBar progressBar;
 
     private static String REGEX_VALIDATION = "(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}" +
     "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
@@ -28,9 +31,11 @@ public class EmailTextWatcher implements TextWatcher {
             "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"+
             "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 
-    public EmailTextWatcher(ValidationListener<AcountExistResult> listener, ValidationEditText editText) {
-        this.callback = new AccountExistDataCallback(listener);
+    public EmailTextWatcher(ValidationListener<AcountExistResult> listener, ValidationEditText editText,
+                            ProgressBar progressBar) {
+        this.callback = new AccountExistDataCallback(listener, progressBar);
         this.editText = editText;
+        this.progressBar = progressBar;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class EmailTextWatcher implements TextWatcher {
             editText.setButtonClearVisibilty(false);
         }
             if (charSequence.toString().matches(REGEX_VALIDATION)){
+                progressBar.setVisibility(View.VISIBLE);
                 Call<AccountExistData> call  = LykkeApplication_.getInstance().getRegistrationApi().accountExis(charSequence.toString());
                 call.enqueue(callback);
              } else {
