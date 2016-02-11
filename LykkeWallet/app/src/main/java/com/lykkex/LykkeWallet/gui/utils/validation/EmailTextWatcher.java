@@ -3,6 +3,8 @@ package com.lykkex.LykkeWallet.gui.utils.validation;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -30,12 +32,14 @@ public class EmailTextWatcher implements TextWatcher {
             "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"+
             "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"+
             "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+    private Button buttonAction;
 
     public EmailTextWatcher(ValidationListener<AcountExistResult> listener, ValidationEditText editText,
-                            ProgressBar progressBar) {
+                            ProgressBar progressBar, Button buttnAction) {
         this.callback = new AccountExistDataCallback(listener, progressBar);
         this.editText = editText;
         this.progressBar = progressBar;
+        this.buttonAction = buttnAction;
     }
 
     @Override
@@ -43,6 +47,7 @@ public class EmailTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        buttonAction.setEnabled(false);
         if (charSequence.toString().length() >= Constants.MIN_COUNT_SYMBOL) {
             editText.setButtonClearVisibilty(true);
         }else {

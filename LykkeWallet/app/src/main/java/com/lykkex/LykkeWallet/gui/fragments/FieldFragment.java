@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,44 +60,53 @@ public class FieldFragment extends Fragment {
     @ViewById Button buttonClear;
     @ViewById ProgressBar progressBar;
     @ViewById RelativeLayout relProgress;
+    @ViewById ImageView imageViewLogo;
+    @ViewById TextView tvInfo;
 
+    private ActionBar actionBar;
+
+    public void setUpActionBar(ActionBar actionBar){
+        this.actionBar = actionBar;
+    }
 
     @AfterViews
     public void afterViews() {
         controller.init(this, FieldState.EmailScreen);
         registrationGuiSegment.init(editTextField, imageWell,buttonClear,
-               buttonAction,  controller, progressBar);
-        loginGuiSegment.init(editTextField,  buttonAction, imageWell,buttonClear,controller, progressBar);
+               buttonAction,  controller, progressBar, imageViewLogo, relProgress,
+                tvInfo);
+        loginGuiSegment.init(editTextField,  buttonAction, imageWell,buttonClear,controller,
+                progressBar, relProgress, imageViewLogo);
         initEmailState();
     }
 
     public void initEmailState() {
-        relProgress.setVisibility(View.GONE);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         registrationGuiSegment.initEmailState();
     }
 
     public void initFullNameState() {
-        relProgress.setVisibility(View.VISIBLE);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         registrationGuiSegment.initFullNameState();
     }
 
     public void initMobileState() {
-        relProgress.setVisibility(View.VISIBLE);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         registrationGuiSegment.initMobileState();
     }
 
     public void initFirstPasswordState() {
-        relProgress.setVisibility(View.VISIBLE);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         registrationGuiSegment.initFirstPasswordState();
     }
 
     public void initSecondPasswordState() {
-        relProgress.setVisibility(View.VISIBLE);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         registrationGuiSegment.initSecondPasswordState();
     }
 
     public void initPasswordSignInScreen(){
-        relProgress.setVisibility(View.VISIBLE);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         loginGuiSegment.initPasswordSignInScreen();
     }
 
@@ -147,7 +157,8 @@ public class FieldFragment extends Fragment {
     public void initOnBackPressed(){
         if (controller.getCurrentState() == FieldState.Idle ||
                 controller.getCurrentState() == FieldState.EmailScreenBack ||
-                controller.getCurrentState() == FieldState.EmailScreen) {
+                controller.getCurrentState() == FieldState.EmailScreen ||
+                controller.getCurrentState() == FieldState.EmailSignInScreen) {
             getActivity().finish();
         } else {
             controller.fireBackPressed();

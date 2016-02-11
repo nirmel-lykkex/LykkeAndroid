@@ -8,7 +8,8 @@
     <string name="fullname_hint">FullName</string>
     <string name="mobile_hint">Mobile</string>
     <string name="first_password_hint">Password</string>
-    <string name="seond_password_hint">Second tiome password</string>
+    <string name="seond_password_hint">Second time password</string>
+    <string name="complete_your_profile">Complete your profile</string>
     <string name="action_sign_up">SIGN UP</string>
     <string name="action_sing_in">SIGN IN</string>
     <string name="action_next">NEXT</string>
