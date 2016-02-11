@@ -126,7 +126,8 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen);
 
         config.configure(FieldState.PasswordSignInScreen)
                 .onEntry(new Action() {
