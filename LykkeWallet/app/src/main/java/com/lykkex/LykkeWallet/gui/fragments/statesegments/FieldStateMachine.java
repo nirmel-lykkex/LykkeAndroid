@@ -115,6 +115,12 @@ public class FieldStateMachine  {
                 });
 
         config.configure(FieldState.EmailSignInScreen)
+                .onEntry(new Action() {
+                    @Override
+                    public void doIt() {
+                        fragment.initEmailSignInScreen();
+                    }
+                })
                 .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
                 .permit(FieldTrigger.Idle, FieldState.Idle);
 

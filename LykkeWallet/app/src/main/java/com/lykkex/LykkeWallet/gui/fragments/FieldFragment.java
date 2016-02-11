@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
+import com.lykkex.LykkeWallet.gui.fragments.guisegments.LoginGuiSegment;
+import com.lykkex.LykkeWallet.gui.fragments.guisegments.RegistrationGuiSegment;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
@@ -40,9 +42,11 @@ import retrofit2.Response;
  * Created by e.kazimirova on 09.02.2016.
  */
 @EFragment(R.layout.field_fragment)
-public class FieldFragment extends Fragment implements ValidationListener {
+public class FieldFragment extends Fragment {
 
     @Bean FieldController controller;
+    @Bean RegistrationGuiSegment registrationGuiSegment;
+    @Bean LoginGuiSegment loginGuiSegment;
 
     @ViewById Button buttonAction;
     @ViewById RelativeLayout validationField;
@@ -50,168 +54,59 @@ public class FieldFragment extends Fragment implements ValidationListener {
     @ViewById ImageView imageWell;
     @ViewById Button buttonClear;
 
-    private ValidationEditText validationEditText;
-
-    private EmailTextWatcher emailTextWatcher;
-    private SimpleTextWatcher simpleTextWatcher;
-    private SimpleTextWatcher firstPasswordTextWatcher;
-    private PasswordTextWatcher secondeTextWatcher;
-
-    private RegistrationModelGUI model;
-    private AuthModelGUI authRequest;
 
     @AfterViews
     public void afterViews() {
         controller.init(this, FieldState.EmailScreen);
-        model = new RegistrationModelGUI();
-        authRequest = new AuthModelGUI();
-
-        validationEditText = new ValidationEditText(editTextField, imageWell, buttonClear);
-        emailTextWatcher = new EmailTextWatcher(this, validationEditText);
-        simpleTextWatcher = new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL, this,
-                validationEditText);
-        firstPasswordTextWatcher = new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
-                validationEditText);
-        //TODO определить на каком этапе регистрации
+        registrationGuiSegment.init(editTextField, imageWell,buttonClear,
+               buttonAction,  controller);
+        loginGuiSegment.init(editTextField,  buttonAction, imageWell,buttonClear,controller);
         initEmailState();
     }
 
     public void initEmailState() {
-        model.setIsReady(false);
-        validationEditText.setReady(false);
-        editTextField.setText("");
-        editTextField.removeTextChangedListener(simpleTextWatcher);
-        editTextField.addTextChangedListener(emailTextWatcher);
-        editTextField.setHint(R.string.email_hint);
-        buttonAction.setText(R.string.action_sign_up);
+        registrationGuiSegment.initEmailState();
     }
 
     public void initFullNameState() {
-        model.setIsReady(false);
-        validationEditText.setReady(false);
-        model.setEmail(editTextField.getText().toString());
-        editTextField.setText("");
-        editTextField.removeTextChangedListener(emailTextWatcher);
-        editTextField.removeTextChangedListener(firstPasswordTextWatcher);
-        editTextField.addTextChangedListener(simpleTextWatcher);
-        editTextField.setHint(R.string.fullname_hint);
-        buttonAction.setText(R.string.action_next);
+        registrationGuiSegment.initFullNameState();
     }
 
     public void initMobileState() {
-        model.setIsReady(false);
-        validationEditText.setReady(false);
-        model.setFullName(editTextField.getText().toString());
-        editTextField.setText("");
-        editTextField.removeTextChangedListener(firstPasswordTextWatcher);
-        editTextField.addTextChangedListener(simpleTextWatcher);
-        editTextField.setHint(R.string.mobile_hint);
-        buttonAction.setText(R.string.action_next);
+        registrationGuiSegment.initMobileState();
     }
 
     public void initFirstPasswordState() {
-        model.setIsReady(false);
-        validationEditText.setReady(false);
-        model.setMobile(editTextField.getText().toString());
-        editTextField.setText("");
-        editTextField.removeTextChangedListener(simpleTextWatcher);
-        if (secondeTextWatcher != null) {
-            editTextField.removeTextChangedListener(secondeTextWatcher);
-        }
-        editTextField.addTextChangedListener(firstPasswordTextWatcher);
-        editTextField.setHint(R.string.first_password_hint);
-        buttonAction.setText(R.string.action_next);
+        registrationGuiSegment.initFirstPasswordState();
     }
 
     public void initSecondPasswordState() {
-        model.setIsReady(false);
-        validationEditText.setReady(false);
-        model.setPasswordFirst(editTextField.getText().toString());
-        editTextField.setText("");
-        secondeTextWatcher = new PasswordTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
-                model.getPasswordFirst(), validationEditText);
-        editTextField.addTextChangedListener(secondeTextWatcher);
-        editTextField.setHint(R.string.seond_password_hint);
-        buttonAction.setText(R.string.action_next);
+        registrationGuiSegment.initSecondPasswordState();
     }
 
     public void initPasswordSignInScreen(){
-        authRequest.setEmail(editTextField.getText().toString());
-        editTextField.setText("");
-        editTextField.removeTextChangedListener(emailTextWatcher);
-        editTextField.addTextChangedListener(firstPasswordTextWatcher);
-        authRequest.setIsReady(false);
-        editTextField.setHint(R.string.first_password_hint);
-        buttonAction.setText(R.string.action_next);
+        loginGuiSegment.initPasswordSignInScreen();
     }
 
     public void sendRegistrationRequest(){
-        if (model.isReady()) {
-            RegistrationDataCallback callback = new RegistrationDataCallback();
-            Call<RegistrationData> call = LykkeApplication_.getInstance().getRegistrationApi().registration(model);
-            call.enqueue(callback);
-        }
+        registrationGuiSegment.sendRegistrationRequest();
     }
 
     public void sendAuthRequest(){
-        authRequest.setPassword(editTextField.getText().toString());
-        if (model.isReady()) {
-            LoginDataCallback callback = new LoginDataCallback();
-            Call<AuthModelData> call = LykkeApplication_.getInstance().getRegistrationApi().getAuth(authRequest);
-            call.enqueue(callback);
-        }
+        loginGuiSegment.sendAuthRequest();
+    }
+
+    public void initEmailSignInScreen(){
+        registrationGuiSegment.clearEditText();
+        loginGuiSegment.initEmailSignIn();
     }
 
     @Click(R.id.buttonAction)
     public void clickAction() {
-        if (model.isReady()) {
-            controller.fire();
-        }
+        registrationGuiSegment.clickAction();
+        loginGuiSegment.clickAction();
     }
 
-    @Override
-    public void onSuccess(Object result) {
-        buttonAction.setEnabled(true);
-        validationEditText.setReady(true);
-        switch (controller.getCurrentState()) {
-            case EmailScreen:
-                model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
-                if (!model.isReady()) {
-                    buttonAction.setText(R.string.action_sing_in);
-                    controller.fire(FieldTrigger.EmailSignInScreen);
-                    authRequest.setIsReady(true);
-                    model.setIsReady(true);
-                }
-                break;
-            case FullNameScreen:
-                model.setIsReady(true);
-                break;
-            case MobileScreen:
-                model.setIsReady(true);
-                break;
-            case FirstPasswordScreen:
-                model.setIsReady(true);
-                break;
-            case SecondPasswordScreen:
-                model.setIsReady(true);
-                break;
-            case PasswordSignInScreen:
-                model.setIsReady(true);
-                break;
-            case EmailSignInScreen:
-                model.setIsReady(true);
-                break;
-
-        }
-    }
-
-    @Override
-    public void onFail(com.lykkex.LykkeWallet.rest.base.models.Error error) {
-        model.setIsReady(false);
-        buttonAction.setEnabled(false);
-        validationEditText.setReady(false);
-        model.setIsReady(false);
-    }
 
     public void initOnBackPressed(){
         if (controller.getCurrentState() == FieldState.Idle ||
