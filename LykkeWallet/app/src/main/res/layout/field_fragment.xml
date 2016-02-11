@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editTextField"
@@ -29,7 +29,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:background="#000000"
+            android:background="@android:drawable/ic_delete"
             android:id="@+id/buttonClear"
             android:visibility="gone"
             android:layout_marginRight="11dp"
@@ -50,10 +50,11 @@
             android:layout_marginRight="7dp"/>
     </RelativeLayout>
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/submitbutton"
         android:id="@+id/buttonAction"
         android:layout_below="@+id/validationField"
         android:layout_centerHorizontal="true" />
@@ -76,4 +77,25 @@
         android:id="@+id/textView"
         android:layout_above="@+id/imageView"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:textColor="@color/grey_text"
+        android:clickable="true"
+        android:id="@+id/textViewButton"
+        android:layout_alignTop="@+id/buttonAction"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/buttonAction" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewLogo"
+        android:src="@drawable/logo"
+        android:layout_above="@+id/validationField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp" />
 </RelativeLayout>

@@ -3,7 +3,9 @@ package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -35,19 +37,21 @@ public class RegistrationGuiSegment implements ValidationListener {
     private ValidationEditText validationEditText;
     private FieldController controller;
     private EditText editTextField;
-    private Button buttonAction;
+    private ImageButton buttonAction;
     private EmailTextWatcher emailTextWatcher;
     private SimpleTextWatcher simpleTextWatcher;
     private SimpleTextWatcher firstPasswordTextWatcher;
     private PasswordTextWatcher secondeTextWatcher;
     private RegistrationModelGUI model;
+    private TextView textViewButton;
 
 
     public void init(EditText editText, ImageView imageWell, Button buttonClear,
-                     Button buttonAction,
-                     FieldController controller){
+                     ImageButton buttonAction,
+                     FieldController controller, TextView textViewButton){
         this.editTextField = editText;
         this.buttonAction = buttonAction;
+        this.textViewButton = textViewButton;
         this.controller = controller;
 
         model = new RegistrationModelGUI();
@@ -69,7 +73,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
         editTextField.setHint(R.string.email_hint);
-        buttonAction.setText(R.string.action_sign_up);
+        textViewButton.setText(R.string.action_sign_up);
     }
 
     public void initFullNameState() {
@@ -81,7 +85,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
         editTextField.addTextChangedListener(simpleTextWatcher);
         editTextField.setHint(R.string.fullname_hint);
-        buttonAction.setText(R.string.action_next);
+        textViewButton.setText(R.string.action_next);
     }
 
     public void initMobileState() {
@@ -92,7 +96,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
         editTextField.addTextChangedListener(simpleTextWatcher);
         editTextField.setHint(R.string.mobile_hint);
-        buttonAction.setText(R.string.action_next);
+        textViewButton.setText(R.string.action_next);
     }
 
     public void initFirstPasswordState() {
@@ -106,7 +110,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         }
         editTextField.addTextChangedListener(firstPasswordTextWatcher);
         editTextField.setHint(R.string.first_password_hint);
-        buttonAction.setText(R.string.action_next);
+        textViewButton.setText(R.string.action_next);
     }
 
     public void initSecondPasswordState() {
@@ -118,7 +122,7 @@ public class RegistrationGuiSegment implements ValidationListener {
                 model.getPasswordFirst(), validationEditText);
         editTextField.addTextChangedListener(secondeTextWatcher);
         editTextField.setHint(R.string.seond_password_hint);
-        buttonAction.setText(R.string.action_next);
+        textViewButton.setText(R.string.action_next);
     }
 
     public void clearEditText(){
@@ -142,7 +146,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
         editTextField.setText(model.getEmail());
-        buttonAction.setText(R.string.action_sign_up);
+        textViewButton.setText(R.string.action_sign_up);
     }
 
     public void initBackPressedMobile() {
@@ -194,7 +198,7 @@ public class RegistrationGuiSegment implements ValidationListener {
             case EmailScreen:
                 model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
                 if (!model.isReady()) {
-                    buttonAction.setText(R.string.action_sing_in);
+                    textViewButton.setText(R.string.action_sing_in);
                     controller.fire(FieldTrigger.EmailSignInScreen);
                 }
                 break;

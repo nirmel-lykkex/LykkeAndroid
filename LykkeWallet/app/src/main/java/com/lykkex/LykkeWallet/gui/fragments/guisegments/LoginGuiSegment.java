@@ -2,7 +2,9 @@ package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -19,6 +21,7 @@ import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 
@@ -31,13 +34,14 @@ public class LoginGuiSegment implements ValidationListener{
     private ValidationEditText validationEditText;
     private AuthModelGUI authRequest;
     private EditText editTextField;
-    private Button buttonAction;
+    private ImageButton buttonAction;
     private FieldController controller;
     private SimpleTextWatcher passwordTextWatcher;
     private EmailTextWatcher emailTextWatcher;
+    private TextView textViewButton;
 
-    public void init(EditText editTextField,  Button buttonAction,ImageView imageWell, Button buttonClear,
-                     FieldController controller){
+    public void init(EditText editTextField,  ImageButton buttonAction,ImageView imageWell, Button buttonClear,
+                     FieldController controller, TextView textViewButton){
         authRequest = new AuthModelGUI();
         this.editTextField = editTextField;
         validationEditText =  new ValidationEditText(editTextField, imageWell, buttonClear);
@@ -46,6 +50,7 @@ public class LoginGuiSegment implements ValidationListener{
                 validationEditText);
         emailTextWatcher = new EmailTextWatcher(this, validationEditText);
 
+        this.textViewButton = textViewButton;
         this.buttonAction = buttonAction;
         this.controller = controller;
     }
@@ -57,7 +62,7 @@ public class LoginGuiSegment implements ValidationListener{
         editTextField.addTextChangedListener(passwordTextWatcher);
         authRequest.setIsReady(false);
         editTextField.setHint(R.string.first_password_hint);
-        buttonAction.setText(R.string.action_next);
+        textViewButton.setText(R.string.action_next);
     }
 
     public void initEmailSignIn(){
@@ -81,7 +86,7 @@ public class LoginGuiSegment implements ValidationListener{
         editTextField.removeTextChangedListener(passwordTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
         editTextField.setText(authRequest.getEmail());
-        buttonAction.setText(R.string.action_sing_in);
+        textViewButton.setText(R.string.action_sing_in);
     }
 
     public void clickAction() {
