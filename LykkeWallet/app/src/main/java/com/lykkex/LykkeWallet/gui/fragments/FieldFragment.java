@@ -128,6 +128,10 @@ public class FieldFragment extends Fragment {
         registrationGuiSegment.initBackPressedSecondPasswordScreen();
     }
 
+    public void initBackPressedPasswordSignIn(){
+        loginGuiSegment.initBackPressedPasswordSignIn();
+    }
+
     public void initOnBackPressed(){
         if (controller.getCurrentState() == FieldState.Idle ||
                 controller.getCurrentState() == FieldState.EmailScreenBack ||

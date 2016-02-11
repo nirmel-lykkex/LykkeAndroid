@@ -34,21 +34,26 @@ public class LoginGuiSegment implements ValidationListener{
     private Button buttonAction;
     private FieldController controller;
     private SimpleTextWatcher passwordTextWatcher;
+    private EmailTextWatcher emailTextWatcher;
 
     public void init(EditText editTextField,  Button buttonAction,ImageView imageWell, Button buttonClear,
                      FieldController controller){
         authRequest = new AuthModelGUI();
         this.editTextField = editTextField;
         validationEditText =  new ValidationEditText(editTextField, imageWell, buttonClear);
+
         passwordTextWatcher = new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
                 validationEditText);
+        emailTextWatcher = new EmailTextWatcher(this, validationEditText);
+
         this.buttonAction = buttonAction;
         this.controller = controller;
     }
 
     public void initPasswordSignInScreen(){
         authRequest.setEmail(editTextField.getText().toString());
-        editTextField.setText("");
+        editTextField.setText(authRequest.getPassword());
+        editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.addTextChangedListener(passwordTextWatcher);
         authRequest.setIsReady(false);
         editTextField.setHint(R.string.first_password_hint);
@@ -68,6 +73,15 @@ public class LoginGuiSegment implements ValidationListener{
             Call<AuthModelData> call = LykkeApplication_.getInstance().getRegistrationApi().getAuth(authRequest);
             call.enqueue(callback);
         }
+    }
+
+    public void initBackPressedPasswordSignIn(){
+        authRequest.setIsReady(true);
+        authRequest.setPassword(editTextField.getText().toString());
+        editTextField.removeTextChangedListener(passwordTextWatcher);
+        editTextField.addTextChangedListener(emailTextWatcher);
+        editTextField.setText(authRequest.getEmail());
+        buttonAction.setText(R.string.action_sing_in);
     }
 
     public void clickAction() {

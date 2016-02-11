@@ -138,7 +138,7 @@ public class FieldStateMachine  {
                 .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
                 .permit(FieldTrigger.SendAuthRequest, FieldState.SendAuthRequest)
                 .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.EmailSignInScreenBack, FieldState.EmailScreenBack);
+                .permit(FieldTrigger.PasswordSignInScreenBack, FieldState.PasswordSignInScreenBack);
 
         config.configure(FieldState.SendAuthRequest)
                 .onEntry(new Action() {
@@ -196,6 +196,15 @@ public class FieldStateMachine  {
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
                 .permit(FieldTrigger.FirstPasswordScreenBack, FieldState.FirstPasswordScreenBack);
 
+        config.configure(FieldState.PasswordSignInScreenBack)
+                .onEntry(new Action() {
+                    @Override
+                    public void doIt() {
+                        fragment.initBackPressedPasswordSignIn();
+                    }
+                })
+                .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
+                .permit(FieldTrigger.EmailSignInScreenBack, FieldState.EmailScreenBack);
         return config;
     }
 

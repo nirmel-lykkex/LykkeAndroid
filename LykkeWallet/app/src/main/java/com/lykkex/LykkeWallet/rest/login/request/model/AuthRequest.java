@@ -8,10 +8,10 @@ import com.google.gson.annotations.SerializedName;
 public class AuthRequest {
 
     @SerializedName("Email")
-    protected String email;
+    protected String email = "";
 
     @SerializedName("Password")
-    protected String password;
+    protected String password = "";
 
     @SerializedName("ClientInfo")
     protected String clientInfo;

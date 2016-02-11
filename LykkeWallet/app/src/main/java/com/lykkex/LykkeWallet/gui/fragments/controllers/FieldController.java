@@ -64,6 +64,9 @@ public class FieldController {
             case SecondPasswordScreenBack:
                 stateMachine.fire(FieldTrigger.SecondPasswordScreen);
                 break;
+            case PasswordSignInScreenBack:
+                stateMachine.fire(FieldTrigger.PasswordSignInScreen);
+                break;
         }
     }
 
@@ -93,6 +96,12 @@ public class FieldController {
                 stateMachine.fire(FieldTrigger.FullNameScreenBack);
                 break;
             case FullNameScreenBack:
+                stateMachine.fire(FieldTrigger.EmailScreenBack);
+                break;
+            case PasswordSignInScreen:
+                stateMachine.fire(FieldTrigger.PasswordSignInScreenBack);
+                break;
+            case PasswordSignInScreenBack:
                 stateMachine.fire(FieldTrigger.EmailScreenBack);
                 break;
         }
