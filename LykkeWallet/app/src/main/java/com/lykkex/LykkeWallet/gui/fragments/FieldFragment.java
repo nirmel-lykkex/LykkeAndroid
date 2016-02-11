@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -57,6 +58,7 @@ public class FieldFragment extends Fragment {
     @ViewById ImageView imageWell;
     @ViewById Button buttonClear;
     @ViewById ProgressBar progressBar;
+    @ViewById RelativeLayout relProgress;
 
 
     @AfterViews
@@ -69,26 +71,32 @@ public class FieldFragment extends Fragment {
     }
 
     public void initEmailState() {
+        relProgress.setVisibility(View.GONE);
         registrationGuiSegment.initEmailState();
     }
 
     public void initFullNameState() {
+        relProgress.setVisibility(View.VISIBLE);
         registrationGuiSegment.initFullNameState();
     }
 
     public void initMobileState() {
+        relProgress.setVisibility(View.VISIBLE);
         registrationGuiSegment.initMobileState();
     }
 
     public void initFirstPasswordState() {
+        relProgress.setVisibility(View.VISIBLE);
         registrationGuiSegment.initFirstPasswordState();
     }
 
     public void initSecondPasswordState() {
+        relProgress.setVisibility(View.VISIBLE);
         registrationGuiSegment.initSecondPasswordState();
     }
 
     public void initPasswordSignInScreen(){
+        relProgress.setVisibility(View.VISIBLE);
         loginGuiSegment.initPasswordSignInScreen();
     }
 

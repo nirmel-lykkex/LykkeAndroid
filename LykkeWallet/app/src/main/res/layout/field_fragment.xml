@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:enabled="false"
+        android:textColor="@color/grey_text"
         android:background="@drawable/submitbutton"
         android:id="@+id/buttonAction"
         android:layout_below="@+id/validationField"
@@ -101,7 +102,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="New Text"
+        android:visibility="gone"
         android:id="@+id/relProgress"
         android:layout_below="@+id/imageViewLogo"
         android:layout_centerHorizontal="true"

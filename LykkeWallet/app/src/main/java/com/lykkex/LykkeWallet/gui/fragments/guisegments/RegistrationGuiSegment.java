@@ -68,6 +68,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initEmailState() {
         model.setIsReady(false);
         validationEditText.setReady(false);
+        buttonAction.setEnabled(false);
         editTextField.setText(model.getEmail());
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
@@ -78,6 +79,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initFullNameState() {
         model.setIsReady(false);
         validationEditText.setReady(false);
+        buttonAction.setEnabled(false);
         model.setEmail(editTextField.getText().toString());
         editTextField.setText(model.getFullName());
         editTextField.removeTextChangedListener(emailTextWatcher);
@@ -90,6 +92,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initMobileState() {
         model.setIsReady(false);
         validationEditText.setReady(false);
+        buttonAction.setEnabled(false);
         model.setFullName(editTextField.getText().toString());
         editTextField.setText(model.getMobile());
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
@@ -101,6 +104,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initFirstPasswordState() {
         model.setIsReady(false);
         validationEditText.setReady(false);
+        buttonAction.setEnabled(false);
         model.setMobile(editTextField.getText().toString());
         editTextField.setText(model.getPasswordFirst());
         editTextField.removeTextChangedListener(simpleTextWatcher);
@@ -115,6 +119,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initSecondPasswordState() {
         model.setIsReady(false);
         validationEditText.setReady(false);
+        buttonAction.setEnabled(false);
         model.setPasswordFirst(editTextField.getText().toString());
         editTextField.setText(model.getSecondPassword());
         secondeTextWatcher = new PasswordTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,

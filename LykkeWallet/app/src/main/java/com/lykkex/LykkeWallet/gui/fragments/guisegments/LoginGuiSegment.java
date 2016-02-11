@@ -55,6 +55,9 @@ public class LoginGuiSegment implements ValidationListener{
     }
 
     public void initPasswordSignInScreen(){
+        authRequest.setIsReady(false);
+        validationEditText.setReady(false);
+        buttonAction.setEnabled(false);
         authRequest.setEmail(editTextField.getText().toString());
         editTextField.setText(authRequest.getPassword());
         editTextField.removeTextChangedListener(emailTextWatcher);
@@ -80,8 +83,7 @@ public class LoginGuiSegment implements ValidationListener{
     }
 
     public void initBackPressedPasswordSignIn(){
-        authRequest.setIsReady(false);
-        validationEditText.setReady(false);
+        authRequest.setIsReady(true);
         authRequest.setPassword(editTextField.getText().toString());
         editTextField.removeTextChangedListener(passwordTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
