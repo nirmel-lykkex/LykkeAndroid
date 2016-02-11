@@ -77,7 +77,9 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initEmailState() {
         model.setIsReady(false);
-        editTextField.setText(model.getEmail());
+        if (!model.getEmail().isEmpty()) {
+            editTextField.setText(model.getEmail());
+        }
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
 
@@ -240,6 +242,7 @@ public class RegistrationGuiSegment implements ValidationListener {
             case EmailScreen:
                 model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
                 if (!model.isReady()) {
+                    editTextField.removeTextChangedListener(emailTextWatcher);
                     buttonAction.setText(R.string.action_sing_in);
                     controller.fire(FieldTrigger.EmailSignInScreen);
                 }

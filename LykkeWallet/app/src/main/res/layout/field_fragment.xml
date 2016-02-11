@@ -33,7 +33,7 @@
             android:id="@+id/buttonClear"
             android:layout_marginRight="16dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="14dp"
             android:visibility="gone" />
 
         <ImageView
