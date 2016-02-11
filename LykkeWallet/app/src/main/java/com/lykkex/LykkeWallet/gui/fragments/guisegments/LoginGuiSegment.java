@@ -44,7 +44,7 @@ public class LoginGuiSegment implements ValidationListener{
                      FieldController controller, TextView textViewButton){
         authRequest = new AuthModelGUI();
         this.editTextField = editTextField;
-        validationEditText =  new ValidationEditText(editTextField, imageWell, buttonClear);
+        validationEditText =  new ValidationEditText(editTextField, imageWell, buttonClear, buttonAction);
 
         passwordTextWatcher = new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
                 validationEditText);

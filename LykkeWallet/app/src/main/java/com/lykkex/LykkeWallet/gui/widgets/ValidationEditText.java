@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.lykkex.LykkeWallet.R;
@@ -19,17 +20,22 @@ public class ValidationEditText implements View.OnClickListener{
     private EditText editTextField;
     private ImageView imageViewWell;
     private Button buttonClear;
+    private ImageButton buttonAction;
 
-    public ValidationEditText(EditText editText, ImageView imageView, Button button) {
+    public ValidationEditText(EditText editText, ImageView imageView, Button button,
+                              ImageButton buttonAction) {
         this.editTextField = editText;
         this.imageViewWell = imageView;
         this.buttonClear = button;
+        this.buttonAction = buttonAction;
         button.setOnClickListener(this);
     }
     public void setReady(boolean isReady){
         if (isReady) {
+            buttonAction.setEnabled(true);
             imageViewWell.setVisibility(View.VISIBLE);
         } else {
+            buttonAction.setEnabled(false);
             imageViewWell.setVisibility(View.GONE);
         }
     }

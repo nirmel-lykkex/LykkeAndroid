@@ -56,7 +56,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
         model = new RegistrationModelGUI();
 
-        validationEditText = new ValidationEditText(editTextField, imageWell, buttonClear);
+        validationEditText = new ValidationEditText(editTextField, imageWell, buttonClear, buttonAction);
 
         emailTextWatcher = new EmailTextWatcher(this, validationEditText);
         simpleTextWatcher = new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL, this,
