@@ -117,6 +117,14 @@ public class LoginGuiSegment implements ValidationListener{
             case PasswordSignInScreen:
                 authRequest.setIsReady(true);
                 break;
+            case PasswordSignInScreenBack:
+                authRequest.setIsReady(((AcountExistResult) result).isEmailRegistered());
+                if (!authRequest.isReady()) {
+                    editTextField.removeTextChangedListener(emailTextWatcher);
+                    buttonAction.setText(R.string.action_sign_up);
+                    controller.fire(FieldTrigger.EmailScreen);
+                }
+                break;
             case EmailSignInScreen:
                 authRequest.setIsReady(((AcountExistResult) result).isEmailRegistered());
                 if (!authRequest.isReady()) {

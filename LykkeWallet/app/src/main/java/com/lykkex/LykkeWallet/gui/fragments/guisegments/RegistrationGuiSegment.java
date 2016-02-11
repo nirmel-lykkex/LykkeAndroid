@@ -83,6 +83,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
 
+        editTextField.setText(editTextField.getText().toString());
         relProgress.setVisibility(View.GONE);
         tvInfo.setVisibility(View.GONE);
         imageViewLogo.setVisibility(View.VISIBLE);
@@ -94,7 +95,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initFullNameState() {
         model.setIsReady(false);
-        tvInfo.setVisibility(View.GONE);
+        tvInfo.setVisibility(View.VISIBLE);
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
         editTextField.removeTextChangedListener(emailTextWatcher);
@@ -176,6 +177,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         model.setIsReady(true);
         relProgress.setVisibility(View.GONE);
         imageViewLogo.setVisibility(View.VISIBLE);
+        tvInfo.setVisibility(View.GONE);
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
@@ -239,6 +241,14 @@ public class RegistrationGuiSegment implements ValidationListener {
         buttonAction.setEnabled(true);
         validationEditText.setReady(true);
         switch (controller.getCurrentState()) {
+            case FullNameScreenBack:
+                model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
+                if (!model.isReady()) {
+                    editTextField.removeTextChangedListener(emailTextWatcher);
+                    buttonAction.setText(R.string.action_sing_in);
+                    controller.fire(FieldTrigger.EmailSignInScreen);
+                }
+                break;
             case EmailScreen:
                 model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
                 if (!model.isReady()) {
