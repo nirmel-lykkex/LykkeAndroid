@@ -13,5 +13,12 @@ public enum FieldTrigger {
     FirstPasswordScreen,
     SecondPasswordScreen,
     SendRegistrationRequst,
-    SendAuthRequest
+    SendAuthRequest,
+    EmailScreenBack,
+    EmailSignInScreenBack,
+    PasswordSignInScreenBack,
+    FullNameScreenBack,
+    MobileScreenBack,
+    FirstPasswordScreenBack,
+    SecondPasswordScreenBack,
 }

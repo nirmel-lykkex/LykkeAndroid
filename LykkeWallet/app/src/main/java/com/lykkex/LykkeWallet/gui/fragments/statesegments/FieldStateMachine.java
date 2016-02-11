@@ -72,7 +72,8 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .permit(FieldTrigger.EmailScreenBack,FieldState.EmailScreenBack );
 
         config.configure(FieldState.MobileScreen)
                 .onEntry(new Action() {
@@ -82,7 +83,8 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .permit(FieldTrigger.FullNameScreenBack,FieldState.FullNameScreenBack );
 
 
         config.configure(FieldState.FirstPasswordScreen)
@@ -93,7 +95,8 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .permit(FieldTrigger.MobileScreenBack,FieldState.MobileScreenBack );
 
 
         config.configure(FieldState.SecondPasswordScreen)
@@ -104,7 +107,8 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.SendRegistrationRequst, FieldState.SendRegistrationRequst)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .permit(FieldTrigger.FirstPasswordScreenBack,FieldState.FirstPasswordScreenBack );
 
         config.configure(FieldState.SendRegistrationRequst)
                 .onEntry(new Action() {
@@ -133,7 +137,8 @@ public class FieldStateMachine  {
                 })
                 .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
                 .permit(FieldTrigger.SendAuthRequest, FieldState.SendAuthRequest)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .permit(FieldTrigger.EmailSignInScreenBack,FieldState.EmailSignInScreenBack );
 
         config.configure(FieldState.SendAuthRequest)
                 .onEntry(new Action() {
