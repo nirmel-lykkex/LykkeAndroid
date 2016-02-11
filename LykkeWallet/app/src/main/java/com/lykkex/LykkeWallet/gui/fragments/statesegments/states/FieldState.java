@@ -7,8 +7,11 @@ public enum  FieldState {
     Idle,
     EmailScreen,
     FullNameScreen,
+    EmailSignInScreen,
+    PasswordSignInScreen,
     MobileScreen,
     FirstPasswordScreen,
     SecondPasswordScreen,
-    SendRegistrationRequst
+    SendRegistrationRequst,
+    SendAuthRequest
 }

@@ -6,9 +6,12 @@ package com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers;
 public enum FieldTrigger {
     Idle,
     EmailScreen,
+    EmailSignInScreen,
+    PasswordSignInScreen,
     FullNameScreen,
     MobileScreen,
     FirstPasswordScreen,
     SecondPasswordScreen,
-    SendRegistrationRequst
+    SendRegistrationRequst,
+    SendAuthRequest
 }

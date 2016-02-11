@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.rest.registration.response.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
 
 /**
  * Created by e.kazimirova on 10.02.2016.
@@ -8,29 +9,16 @@ import com.google.gson.annotations.SerializedName;
 public class RegistrationResult {
 
     @SerializedName("Token")
-    private String token;
+    protected String token;
 
     @SerializedName("PersonalData")
-    private String personalData;
+    protected PersonalData personalData;
 
-    @SerializedName("FullName")
-    private String fullName;
+    public PersonalData getPersonalData() {
+        return personalData;
+    }
 
-    @SerializedName("Email")
-    private String email;
-
-    @SerializedName("Phone")
-    private String phone;
-
-    @SerializedName("Country")
-    private String country;
-
-    @SerializedName("Address")
-    private String address;
-
-    @SerializedName("City")
-    private String city;
-
-    @SerializedName("Zip")
-    private String zip;
+    public String getToken() {
+        return token;
+    }
 }

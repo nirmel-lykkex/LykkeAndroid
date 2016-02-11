@@ -23,6 +23,9 @@ public class FieldController {
         stateMachine.init(state, fragment);
     }
 
+    public void fire(FieldTrigger trigger){
+        stateMachine.fire(trigger);
+    }
     public void fire(){
         switch (stateMachine.getState()){
             case Idle:
@@ -42,6 +45,29 @@ public class FieldController {
                 break;
             case SecondPasswordScreen:
                 stateMachine.fire(FieldTrigger.SendRegistrationRequst);
+                break;
+            case EmailSignInScreen:
+                stateMachine.fire(FieldTrigger.PasswordSignInScreen);
+                break;
+            case PasswordSignInScreen:
+                stateMachine.fire(FieldTrigger.SendAuthRequest);
+                break;
+        }
+    }
+
+    public void fireBackPressed(){
+        switch (stateMachine.getState()){
+            case FullNameScreen:
+                stateMachine.fire(FieldTrigger.EmailScreen);
+                break;
+            case MobileScreen:
+                stateMachine.fire(FieldTrigger.FullNameScreen);
+                break;
+            case FirstPasswordScreen:
+                stateMachine.fire(FieldTrigger.MobileScreen);
+                break;
+            case SecondPasswordScreen:
+                stateMachine.fire(FieldTrigger.FirstPasswordScreen);
                 break;
         }
     }

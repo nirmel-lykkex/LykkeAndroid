@@ -49,6 +49,8 @@ public class FieldStateMachine  {
                 .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
+                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
+                .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
                 .ignore(FieldTrigger.Idle);
 
         config.configure(FieldState.EmailScreen)
@@ -59,7 +61,8 @@ public class FieldStateMachine  {
                     }
                 })
                 .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen);
 
         config.configure(FieldState.FullNameScreen)
                 .onEntry(new Action() {
@@ -80,7 +83,6 @@ public class FieldStateMachine  {
                 })
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
                 .permit(FieldTrigger.Idle, FieldState.Idle);
-
 
 
         config.configure(FieldState.FirstPasswordScreen)
@@ -112,6 +114,28 @@ public class FieldStateMachine  {
                     }
                 });
 
+        config.configure(FieldState.EmailSignInScreen)
+                .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
+                .permit(FieldTrigger.Idle, FieldState.Idle);
+
+        config.configure(FieldState.PasswordSignInScreen)
+                .onEntry(new Action() {
+                    @Override
+                    public void doIt() {
+                        fragment.initPasswordSignInScreen();
+                    }
+                })
+                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
+                .permit(FieldTrigger.SendAuthRequest, FieldState.SendAuthRequest)
+                .permit(FieldTrigger.Idle, FieldState.Idle);
+
+        config.configure(FieldState.SendAuthRequest)
+                .onEntry(new Action() {
+                    @Override
+                    public void doIt() {
+                        fragment.sendAuthRequest();
+                    }
+                });
 
         return config;
     }
