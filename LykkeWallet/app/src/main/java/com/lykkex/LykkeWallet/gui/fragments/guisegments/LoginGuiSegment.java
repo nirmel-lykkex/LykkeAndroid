@@ -94,6 +94,7 @@ public class LoginGuiSegment implements ValidationListener{
     public void initPasswordSignInScreen(){
         actionbar.setDisplayHomeAsUpEnabled(true);
         authRequest.setIsReady(false);
+        validationEditTextLogin.setButtonClearVisibilty(true);
         validationEditText.setReady(false);
         editTextLogin.setHint(R.string.email_hint);
         buttonAction.setEnabled(false);
@@ -107,6 +108,7 @@ public class LoginGuiSegment implements ValidationListener{
         authRequest.setEmail(editTextField.getText().toString());
         editTextField.setText(authRequest.getPassword());
         authRequest.setIsReady(false);
+        validationEditTextLogin.setReady(true);
         editTextField.setHint(R.string.first_password_hint);
         editTextField.setSelection(editTextField.getText().toString().length());
         buttonAction.setText(R.string.action_next);
@@ -161,12 +163,11 @@ public class LoginGuiSegment implements ValidationListener{
     public void onSuccess(Object result) {
         switch (controller.getCurrentState()) {
             case PasswordSignInScreen:
-                if (result == null) {
-                    validationEditTextLogin.setReady(false);
-                } else {
-                    validationEditTextLogin.setReady(true);
+                if (result != null) {
+                    validationEditTextLogin.setReady(((AcountExistResult) result).isEmailRegistered());
                 }
-                if (editTextField.getText().toString().isEmpty()){
+                if (editTextField.getText().toString().isEmpty() &&
+                        editTextField.getText().toString().length()<Constants.MIN_COUNT_SYMBOL_PASSWORD){
                     validationEditText.setReady(false);
                     buttonAction.setEnabled(false);
                     authRequest.setIsReady(false);
