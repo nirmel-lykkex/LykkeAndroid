@@ -18,4 +18,7 @@
     <string name="what_should_i_know">WHAT I SHOULD KNOW?</string>
     <string name="registration">REGISTRATION</string>
     <string name="login">LOGIN</string>
+    <string name="reshoot">PLEASE, RESHOOT</string>
+    <string name="save">NICE, SUBMIT</string>
+    <string name="make_selfie">Make a selfie</string>
 </resources>
