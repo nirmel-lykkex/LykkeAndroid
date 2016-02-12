@@ -270,9 +270,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
 
     public void clickAction() {
-        if (model.isReady()) {
-            controller.fire();
-        }
+        controller.fire();
     }
 
     public ValidationEditText getValidationEditText() {

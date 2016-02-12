@@ -162,9 +162,7 @@ public class LoginGuiSegment implements ValidationListener{
     }
 
     public void clickAction() {
-        if (authRequest.isReady()) {
-            controller.fire();
-        }
+        controller.fire();
     }
 
     @Override
@@ -229,11 +227,15 @@ public class LoginGuiSegment implements ValidationListener{
                 buttonAction.setEnabled(true);
                 Toast.makeText(activity, "Something going wrong. Try again", Toast.LENGTH_LONG).show();
                 break;
+            case PasswordSignInScreen:
+                validationEditText.setButtonClearVisibilty(false);
+                break;
             default:
                 authRequest.setIsReady(false);
                 buttonAction.setEnabled(false);
                 validationEditText.setReady(false);
                 break;
         }
+
     }
 }
