@@ -2,7 +2,9 @@ package com.lykkex.LykkeWallet.rest.registration.callback;
 
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.utils.validation.ValidationListener;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 
@@ -30,12 +32,14 @@ public class AccountExistDataCallback implements Callback<AccountExistData> {
             listener.onSuccess(response.body().getResult());
         }else if (response != null && response.body() != null){
             listener.onFail(response.body().getError());
+            Toast.makeText(LykkeApplication_.getInstance(), "Something going wrong. Try again", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onFailure(Call<AccountExistData> call, Throwable t) {
         progressBar.setVisibility(View.GONE);
-        listener.onFail(null); //TODO
+        listener.onFail(null);
+        Toast.makeText(LykkeApplication_.getInstance(), "Something going wrong. Try again", Toast.LENGTH_LONG).show();
     }
 }
