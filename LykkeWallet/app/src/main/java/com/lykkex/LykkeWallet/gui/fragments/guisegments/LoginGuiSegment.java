@@ -61,6 +61,8 @@ public class LoginGuiSegment implements ValidationListener{
     private Button buttonClearLogin;
     private ImageView imageWellLogin;
     private TextView tvInfo;
+    private ImageView imageViewWhat;
+    private TextView textViewWhat;
 
     private ValidationEditText validationEditTextLogin;
 
@@ -70,7 +72,7 @@ public class LoginGuiSegment implements ValidationListener{
                       Activity activity,  EditText editTextFieldLogin,
                              RelativeLayout validationFieldLogin,
                              Button buttonClearLogin,
-                             ImageView imageWellLogin){
+                             ImageView imageWellLogin, TextView textViewWhat, ImageView imageViewWhat){
         authRequest = new AuthModelGUI();
         this.editTextField = editTextField;
         this.imageLogo = imageLogo;
@@ -78,6 +80,8 @@ public class LoginGuiSegment implements ValidationListener{
         this.progressBar = progressBar;
         this.relProgress = relProgress;
         this.actionbar = actionbar;
+        this.textViewWhat = textViewWhat;
+        this.imageViewWhat = imageViewWhat;
         this.activity = activity;
         this.editTextLogin = editTextFieldLogin;
         this.validationFieldLogin = validationFieldLogin;
@@ -95,13 +99,16 @@ public class LoginGuiSegment implements ValidationListener{
     public void initPasswordSignInScreen(){
         actionbar.setDisplayHomeAsUpEnabled(true);
         authRequest.setIsReady(false);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
         actionbar.setTitle(R.string.login);
-        validationEditTextLogin.setButtonClearVisibilty(true);
+        validationEditTextLogin.setButtonClearVisibilty(false);
+        validationEditTextLogin.setReady(false);
         validationEditText.setReady(false);
         editTextLogin.setHint(R.string.email_hint);
         buttonAction.setEnabled(false);
         imageLogo.setVisibility(View.GONE);
-        tvInfo.setVisibility(View.VISIBLE);
+        tvInfo.setVisibility(View.GONE);
         tvInfo.setText(R.string.inside);
         buttonAction.setText(R.string.action_log_in);
         validationEditTextLogin.setEditTextEnabled(false);
@@ -111,7 +118,6 @@ public class LoginGuiSegment implements ValidationListener{
         authRequest.setEmail(editTextField.getText().toString());
         editTextField.setText(authRequest.getPassword());
         authRequest.setIsReady(false);
-        validationEditTextLogin.setReady(true);
         editTextField.setHint(R.string.first_password_hint);
         editTextField.setSelection(editTextField.getText().toString().length());
         buttonAction.setText(R.string.action_next);
@@ -119,16 +125,19 @@ public class LoginGuiSegment implements ValidationListener{
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextLogin.addTextChangedListener(emailTextWatcherLogin);
         editTextField.addTextChangedListener(passwordTextWatcher);
+        buttonAction.setEnabled(false);
     }
 
     public void initEmailSignIn(){
+        imageViewWhat.setVisibility(View.VISIBLE);
+        textViewWhat.setVisibility(View.VISIBLE);
         actionbar.setTitle(R.string.app_name);
         actionbar.setDisplayHomeAsUpEnabled(false);
         authRequest.setIsReady(true);
         validationEditText.setEditTextEnabled(true);
         validationFieldLogin.setVisibility(View.GONE);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        validationEditText.setReady(true);
+        validationEditText.setReady(false);
         editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.addTextChangedListener(emailTextWatcher);
     }
@@ -146,6 +155,8 @@ public class LoginGuiSegment implements ValidationListener{
 
     public void initBackPressedPasswordSignIn(){
         authRequest.setIsReady(true);
+        imageViewWhat.setVisibility(View.VISIBLE);
+        textViewWhat.setVisibility(View.VISIBLE);
         actionbar.setTitle(R.string.app_name);
         actionbar.setDisplayHomeAsUpEnabled(false);
         authRequest.setPassword(editTextField.getText().toString());
@@ -190,6 +201,12 @@ public class LoginGuiSegment implements ValidationListener{
                 validationEditTextLogin.setReady(false);
                 validationEditTextLogin.setButtonClearVisibilty(false);
                 validationEditTextLogin.setEditTextEnabled(false);
+                if (editTextField.getText().toString().isEmpty() &&
+                        editTextField.getText().toString().length()<Constants.MIN_COUNT_SYMBOL_PASSWORD) {
+                    buttonAction.setEnabled(false);
+                } else {
+                    buttonAction.setEnabled(true);
+                }
                 break;
             case PasswordSignInScreenBack:
                 buttonAction.setEnabled(true);

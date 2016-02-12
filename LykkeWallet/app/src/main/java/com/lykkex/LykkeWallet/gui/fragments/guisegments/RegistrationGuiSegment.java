@@ -57,13 +57,14 @@ public class RegistrationGuiSegment implements ValidationListener {
     private TextView tvInfo;
     private ActionBar actionBar;
     private Activity activity;
-
+    private ImageView imageViewWhat;
+    private TextView textViewWhat;
 
     public void init(EditText editText, ImageView imageWell, Button buttonClear,
                      Button buttonAction,
                      FieldController controller, ProgressBar progressBar, ImageView imageViewLogo,
                      RelativeLayout relProgress, TextView tvInfo,  ActionBar actionBar,
-                     Activity activity){
+                     Activity activity, TextView textViewWhat, ImageView imageViewWhat){
         this.editTextField = editText;
         this.progressBar = progressBar;
         this.actionBar = actionBar;
@@ -73,6 +74,8 @@ public class RegistrationGuiSegment implements ValidationListener {
         this.tvInfo = tvInfo;
         this.controller = controller;
         this.activity = activity;
+        this.textViewWhat = textViewWhat;
+        this.imageViewWhat = imageViewWhat;
 
         model = new RegistrationModelGUI();
 
@@ -88,6 +91,8 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initEmailState() {
         model.setIsReady(false);
+        imageViewWhat.setVisibility(View.VISIBLE);
+        textViewWhat.setVisibility(View.VISIBLE);
         actionBar.setTitle(R.string.app_name);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -106,6 +111,9 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initFullNameState() {
         model.setIsReady(false);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
+        tvInfo.setText(R.string.complete_your_profile);
         actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT );
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -127,7 +135,10 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initMobileState() {
         model.setIsReady(false);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
         actionBar.setTitle(R.string.registration);
+        tvInfo.setText(R.string.complete_your_profile);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
         actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
@@ -146,7 +157,10 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initFirstPasswordState() {
         model.setIsReady(false);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
         actionBar.setTitle(R.string.registration);
+        tvInfo.setText(R.string.complete_your_profile);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
@@ -168,6 +182,8 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initSecondPasswordState() {
         model.setIsReady(false);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
         actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -202,6 +218,9 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initBackPressedFullName(){
         model.setIsReady(true);
+        imageViewWhat.setVisibility(View.VISIBLE);
+        textViewWhat.setVisibility(View.VISIBLE);
+        tvInfo.setText(R.string.complete_your_profile);
         actionBar.setTitle(R.string.app_name);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -222,7 +241,10 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initBackPressedMobile() {
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        tvInfo.setText(R.string.complete_your_profile);
         actionBar.setTitle(R.string.registration);
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
@@ -239,6 +261,9 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initBackPressedFirstPasswordScreen(){
         model.setIsReady(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
+        tvInfo.setText(R.string.complete_your_profile);
         actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
         editTextField.setHint(R.string.email_hint);
@@ -255,6 +280,9 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initBackPressedSecondPasswordScreen(){
         model.setIsReady(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        imageViewWhat.setVisibility(View.GONE);
+        textViewWhat.setVisibility(View.GONE);
+        tvInfo.setText(R.string.complete_your_profile);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         editTextField.setHint(R.string.first_password_hint);
         actionBar.setTitle(R.string.registration);
