@@ -1,5 +1,9 @@
 package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,9 +12,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.SelfieActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
@@ -49,19 +55,24 @@ public class RegistrationGuiSegment implements ValidationListener {
     private ImageView imageViewLogo;
     private RelativeLayout relProgress;
     private TextView tvInfo;
+    private ActionBar actionBar;
+    private Activity activity;
 
 
     public void init(EditText editText, ImageView imageWell, Button buttonClear,
                      Button buttonAction,
                      FieldController controller, ProgressBar progressBar, ImageView imageViewLogo,
-                     RelativeLayout relProgress, TextView tvInfo){
+                     RelativeLayout relProgress, TextView tvInfo,  ActionBar actionBar,
+                     Activity activity){
         this.editTextField = editText;
         this.progressBar = progressBar;
+        this.actionBar = actionBar;
         this.imageViewLogo = imageViewLogo;
         this.relProgress = relProgress;
         this.buttonAction = buttonAction;
         this.tvInfo = tvInfo;
         this.controller = controller;
+        this.activity = activity;
 
         model = new RegistrationModelGUI();
 
@@ -77,13 +88,12 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initEmailState() {
         model.setIsReady(false);
-        if (!model.getEmail().isEmpty()) {
-            editTextField.setText(model.getEmail());
-        }
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
-
         editTextField.setText(editTextField.getText().toString());
+        editTextField.setSelection(editTextField.getText().toString().length());
         relProgress.setVisibility(View.GONE);
         tvInfo.setVisibility(View.GONE);
         imageViewLogo.setVisibility(View.VISIBLE);
@@ -95,6 +105,8 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initFullNameState() {
         model.setIsReady(false);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT );
+        actionBar.setDisplayHomeAsUpEnabled(true);
         tvInfo.setVisibility(View.VISIBLE);
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
@@ -106,12 +118,15 @@ public class RegistrationGuiSegment implements ValidationListener {
         buttonAction.setEnabled(false);
         model.setEmail(editTextField.getText().toString());
         editTextField.setText(model.getFullName());
+        editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.setHint(R.string.fullname_hint);
         buttonAction.setText(R.string.action_next);
     }
 
     public void initMobileState() {
         model.setIsReady(false);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
         validationEditText.setReady(false);
@@ -121,12 +136,15 @@ public class RegistrationGuiSegment implements ValidationListener {
         buttonAction.setEnabled(false);
         model.setFullName(editTextField.getText().toString());
         editTextField.setText(model.getMobile());
+        editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.setHint(R.string.mobile_hint);
         buttonAction.setText(R.string.action_next);
     }
 
     public void initFirstPasswordState() {
         model.setIsReady(false);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
         editTextField.removeTextChangedListener(simpleTextWatcher);
@@ -138,6 +156,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         buttonAction.setEnabled(false);
         model.setMobile(editTextField.getText().toString());
         editTextField.setText(model.getPasswordFirst());
+        editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.addTextChangedListener(firstPasswordTextWatcher);
         editTextField.setHint(R.string.first_password_hint);
         buttonAction.setText(R.string.action_next);
@@ -145,16 +164,19 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initSecondPasswordState() {
         model.setIsReady(false);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
         validationEditText.setReady(false);
+        model.setPasswordFirst(editTextField.getText().toString());
         secondeTextWatcher = new PasswordTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
                 model.getPasswordFirst(), validationEditText);
         editTextField.addTextChangedListener(secondeTextWatcher);
 
         buttonAction.setEnabled(false);
-        model.setPasswordFirst(editTextField.getText().toString());
         editTextField.setText(model.getSecondPassword());
+        editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.setHint(R.string.seond_password_hint);
         buttonAction.setText(R.string.action_next);
     }
@@ -167,7 +189,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void sendRegistrationRequest(){
         if (model.isReady()) {
             buttonAction.setEnabled(false);
-            RegistrationDataCallback callback = new RegistrationDataCallback(progressBar);
+            RegistrationDataCallback callback = new RegistrationDataCallback(progressBar, this);
             Call<RegistrationData> call = LykkeApplication_.getInstance().getRegistrationApi().registration(model);
             call.enqueue(callback);
         }
@@ -175,6 +197,8 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initBackPressedFullName(){
         model.setIsReady(true);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         relProgress.setVisibility(View.GONE);
         imageViewLogo.setVisibility(View.VISIBLE);
         tvInfo.setVisibility(View.GONE);
@@ -185,11 +209,14 @@ public class RegistrationGuiSegment implements ValidationListener {
 
         model.setFullName(editTextField.getText().toString());
         editTextField.setText(model.getEmail());
+        editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.setHint(R.string.email_hint);
         buttonAction.setText(R.string.action_sign_up);
     }
 
     public void initBackPressedMobile() {
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
@@ -199,30 +226,37 @@ public class RegistrationGuiSegment implements ValidationListener {
         model.setIsReady(true);
         model.setMobile(editTextField.getText().toString());
         editTextField.setText(model.getFullName());
+        editTextField.setSelection(editTextField.getText().toString().length());
     }
 
     public void initBackPressedFirstPasswordScreen(){
         model.setIsReady(true);
-
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
         editTextField.setHint(R.string.email_hint);
         editTextField.removeTextChangedListener(emailTextWatcher);
-        editTextField.removeTextChangedListener(simpleTextWatcher);
+        editTextField.removeTextChangedListener(firstPasswordTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
-        editTextField.addTextChangedListener(firstPasswordTextWatcher);
+        editTextField.addTextChangedListener(simpleTextWatcher);
+
         model.setPasswordFirst(editTextField.getText().toString());
         editTextField.setText(model.getMobile());
+        editTextField.setSelection(editTextField.getText().toString().length());
     }
 
     public void initBackPressedSecondPasswordScreen(){
         model.setIsReady(true);
-
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         editTextField.setHint(R.string.first_password_hint);
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(simpleTextWatcher);
-        editTextField.removeTextChangedListener(firstPasswordTextWatcher);
-        editTextField.addTextChangedListener(secondeTextWatcher);
+        editTextField.removeTextChangedListener(secondeTextWatcher);
+
+        editTextField.addTextChangedListener(firstPasswordTextWatcher);
         model.setSecondPassword(editTextField.getText().toString());
         editTextField.setText(model.getPasswordFirst());
+        editTextField.setSelection(editTextField.getText().toString().length());
     }
 
 
@@ -242,11 +276,13 @@ public class RegistrationGuiSegment implements ValidationListener {
         validationEditText.setReady(true);
         switch (controller.getCurrentState()) {
             case FullNameScreenBack:
-                model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
-                if (!model.isReady()) {
-                    editTextField.removeTextChangedListener(emailTextWatcher);
-                    buttonAction.setText(R.string.action_sing_in);
-                    controller.fire(FieldTrigger.EmailSignInScreen);
+                if (result != null) {
+                    model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
+                    if (!model.isReady()) {
+                        editTextField.removeTextChangedListener(emailTextWatcher);
+                        buttonAction.setText(R.string.action_sing_in);
+                        controller.fire(FieldTrigger.EmailSignInScreen);
+                    }
                 }
                 break;
             case EmailScreen:
@@ -269,6 +305,12 @@ public class RegistrationGuiSegment implements ValidationListener {
             case SecondPasswordScreen:
                 model.setIsReady(true);
                 break;
+            case SendRegistrationRequst:
+                Intent intent = new Intent();
+                intent.setClass(activity, SelfieActivity_.class);
+                activity.startActivity(intent);
+                activity.finish();
+                break;
         }
     }
 
@@ -277,5 +319,11 @@ public class RegistrationGuiSegment implements ValidationListener {
         model.setIsReady(false);
         buttonAction.setEnabled(false);
         validationEditText.setReady(false);
+        switch (controller.getCurrentState()){
+            case SendRegistrationRequst:
+                buttonAction.setEnabled(true);
+                Toast.makeText(activity, "Something going wrong. Try again", Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 }

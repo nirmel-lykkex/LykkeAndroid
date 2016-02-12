@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet;
+package com.lykkex.LykkeWallet.gui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment_;
 

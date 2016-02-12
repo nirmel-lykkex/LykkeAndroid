@@ -9,7 +9,7 @@
         android:id="@+id/validationField"
         android:layout_width="310dp"
         android:layout_height="43dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="55dp"
         android:layout_below="@+id/relMain"
         android:layout_centerHorizontal="true">
 
@@ -113,6 +113,51 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/validationFieldLogin"
+        android:layout_width="310dp"
+        android:layout_height="43dp"
+        android:visibility="gone"
+        android:layout_below="@+id/relMain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:paddingLeft="7dp"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:id="@+id/editTextFieldLogin"
+            android:layout_centerVertical="true"
+            android:background="@drawable/filed_background"
+            android:layout_centerHorizontal="true"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@android:drawable/ic_delete"
+            android:id="@+id/buttonClearLogin"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="14dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/imageWellLogin"
+            android:background="@drawable/ready"
+            android:adjustViewBounds="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="wrap_content"

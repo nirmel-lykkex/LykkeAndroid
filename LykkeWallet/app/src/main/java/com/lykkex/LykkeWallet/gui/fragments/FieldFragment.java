@@ -62,6 +62,10 @@ public class FieldFragment extends Fragment {
     @ViewById RelativeLayout relProgress;
     @ViewById ImageView imageViewLogo;
     @ViewById TextView tvInfo;
+    @ViewById EditText editTextFieldLogin;
+    @ViewById RelativeLayout validationFieldLogin;
+    @ViewById Button buttonClearLogin;
+    @ViewById ImageView imageWellLogin;
 
     private ActionBar actionBar;
 
@@ -74,9 +78,12 @@ public class FieldFragment extends Fragment {
         controller.init(this, FieldState.EmailScreen);
         registrationGuiSegment.init(editTextField, imageWell,buttonClear,
                buttonAction,  controller, progressBar, imageViewLogo, relProgress,
-                tvInfo);
+                tvInfo, actionBar, getActivity());
         loginGuiSegment.init(editTextField,  buttonAction, imageWell,buttonClear,controller,
-                progressBar, relProgress, imageViewLogo);
+                progressBar, tvInfo, relProgress, imageViewLogo, actionBar, getActivity(), editTextFieldLogin,
+                validationFieldLogin,
+                buttonClearLogin,
+                imageWellLogin);
         initEmailState();
     }
 

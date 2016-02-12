@@ -12,6 +12,8 @@
     <string name="complete_your_profile">Complete your profile</string>
     <string name="action_sign_up">SIGN UP</string>
     <string name="action_sing_in">SIGN IN</string>
+    <string name = "inside">Login</string>
+    <string name="action_log_in">LOG IN</string>
     <string name="action_next">NEXT</string>
     <string name="what_should_i_know">WHAT I SHOULD KNOW?</string>
 </resources>

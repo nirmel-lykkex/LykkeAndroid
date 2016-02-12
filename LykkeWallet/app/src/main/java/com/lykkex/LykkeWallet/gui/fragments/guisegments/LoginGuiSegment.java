@@ -1,5 +1,10 @@
 package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.text.InputType;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -10,6 +15,8 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.MainActivity_;
+import com.lykkex.LykkeWallet.gui.SelfieActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
@@ -42,44 +49,80 @@ public class LoginGuiSegment implements ValidationListener{
     private FieldController controller;
     private SimpleTextWatcher passwordTextWatcher;
     private EmailTextWatcher emailTextWatcher;
+    private EmailTextWatcher emailTextWatcherLogin;
     private RelativeLayout relProgress;
     private ImageView imageLogo;
     private ProgressBar progressBar;
+    private ActionBar actionbar;
+    private Activity activity;
+    private EditText editTextLogin;
+    private RelativeLayout validationFieldLogin;
+    private Button buttonClearLogin;
+    private ImageView imageWellLogin;
+    private TextView tvInfo;
+
+    private ValidationEditText validationEditTextLogin;
 
     public void init(EditText editTextField,  Button buttonAction,ImageView imageWell, Button buttonClear,
-                     FieldController controller, ProgressBar progressBar,
-                     RelativeLayout relProgress, ImageView imageLogo){
+                     FieldController controller, ProgressBar progressBar, TextView tvInfo,
+                     RelativeLayout relProgress, ImageView imageLogo, ActionBar actionbar,
+                      Activity activity,  EditText editTextFieldLogin,
+                             RelativeLayout validationFieldLogin,
+                             Button buttonClearLogin,
+                             ImageView imageWellLogin){
         authRequest = new AuthModelGUI();
         this.editTextField = editTextField;
         this.imageLogo = imageLogo;
+        this.tvInfo = tvInfo;
         this.progressBar = progressBar;
         this.relProgress = relProgress;
-        validationEditText =  new ValidationEditText(editTextField, imageWell, buttonClear, buttonAction);
+        this.actionbar = actionbar;
+        this.activity = activity;
+        this.editTextLogin = editTextFieldLogin;
+        this.validationFieldLogin = validationFieldLogin;
 
+        validationEditText =  new ValidationEditText(editTextField, imageWell, buttonClear, buttonAction);
+        validationEditTextLogin = new ValidationEditText(editTextFieldLogin, imageWellLogin, buttonClearLogin, buttonAction);
         passwordTextWatcher = new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
                 validationEditText);
         emailTextWatcher = new EmailTextWatcher(this, validationEditText, progressBar, buttonAction);
-
+        emailTextWatcherLogin= new EmailTextWatcher(this, validationEditTextLogin, progressBar, buttonAction);
         this.buttonAction = buttonAction;
         this.controller = controller;
     }
 
     public void initPasswordSignInScreen(){
+        actionbar.setDisplayHomeAsUpEnabled(true);
         authRequest.setIsReady(false);
         validationEditText.setReady(false);
+        editTextLogin.setHint(R.string.email_hint);
         buttonAction.setEnabled(false);
+        imageLogo.setVisibility(View.GONE);
+        tvInfo.setVisibility(View.VISIBLE);
+        tvInfo.setText(R.string.inside);
+        buttonAction.setText(R.string.action_log_in);
+        validationFieldLogin.setVisibility(View.VISIBLE);
+        editTextLogin.setText(editTextField.getText().toString());
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         authRequest.setEmail(editTextField.getText().toString());
         editTextField.setText(authRequest.getPassword());
-        editTextField.removeTextChangedListener(emailTextWatcher);
-        editTextField.addTextChangedListener(passwordTextWatcher);
         authRequest.setIsReady(false);
         editTextField.setHint(R.string.first_password_hint);
+        editTextField.setSelection(editTextField.getText().toString().length());
         buttonAction.setText(R.string.action_next);
+        validationEditText.setButtonClearVisibilty(false);
+        editTextField.removeTextChangedListener(emailTextWatcher);
+        editTextLogin.addTextChangedListener(emailTextWatcherLogin);
+        editTextField.addTextChangedListener(passwordTextWatcher);
     }
 
     public void initEmailSignIn(){
+        actionbar.setDisplayHomeAsUpEnabled(false);
         authRequest.setIsReady(true);
+        validationFieldLogin.setVisibility(View.GONE);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         validationEditText.setReady(true);
+        editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.addTextChangedListener(emailTextWatcher);
     }
 
@@ -100,6 +143,11 @@ public class LoginGuiSegment implements ValidationListener{
         editTextField.removeTextChangedListener(passwordTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
         editTextField.setText(authRequest.getEmail());
+        validationFieldLogin.setVisibility(View.GONE);
+        imageLogo.setVisibility(View.VISIBLE);
+        tvInfo.setVisibility(View.GONE);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        editTextField.setSelection(editTextField.getText().toString().length());
         buttonAction.setText(R.string.action_sing_in);
     }
 
@@ -111,14 +159,30 @@ public class LoginGuiSegment implements ValidationListener{
 
     @Override
     public void onSuccess(Object result) {
-        buttonAction.setEnabled(true);
-        validationEditText.setReady(true);
         switch (controller.getCurrentState()) {
             case PasswordSignInScreen:
-                authRequest.setIsReady(true);
+                if (result == null) {
+                    validationEditTextLogin.setReady(false);
+                } else {
+                    validationEditTextLogin.setReady(true);
+                }
+                if (editTextField.getText().toString().isEmpty()){
+                    validationEditText.setReady(false);
+                    buttonAction.setEnabled(false);
+                    authRequest.setIsReady(false);
+                } else {
+                    validationEditText.setButtonClearVisibilty(true);
+                    validationEditText.setReady(true);
+                    if (result != null) {
+                        buttonAction.setEnabled(true);
+                        authRequest.setIsReady(true);
+                    }
+                }
                 break;
             case PasswordSignInScreenBack:
+                buttonAction.setEnabled(true);
                 authRequest.setIsReady(((AcountExistResult) result).isEmailRegistered());
+                validationEditTextLogin.setReady(((AcountExistResult) result).isEmailRegistered());
                 if (!authRequest.isReady()) {
                     editTextField.removeTextChangedListener(emailTextWatcher);
                     buttonAction.setText(R.string.action_sign_up);
@@ -126,12 +190,20 @@ public class LoginGuiSegment implements ValidationListener{
                 }
                 break;
             case EmailSignInScreen:
+                buttonAction.setEnabled(true);
+                validationEditText.setReady(true);
                 authRequest.setIsReady(((AcountExistResult) result).isEmailRegistered());
                 if (!authRequest.isReady()) {
                     editTextField.removeTextChangedListener(emailTextWatcher);
                     buttonAction.setText(R.string.action_sign_up);
                     controller.fire(FieldTrigger.EmailScreen);
                 }
+                break;
+            case SendAuthRequest:
+                Intent intent = new Intent();
+                intent.setClass(activity, MainActivity_.class);
+                activity.startActivity(intent);
+                activity.finish();
                 break;
         }
     }

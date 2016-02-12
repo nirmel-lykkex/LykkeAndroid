@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.rest.registration.callback;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -19,23 +20,26 @@ import retrofit2.Response;
 public class RegistrationDataCallback implements Callback<RegistrationData> {
 
     private ProgressBar progressBar;
-    public RegistrationDataCallback(ProgressBar progressBar){
+    private ValidationListener listener;
+
+    public RegistrationDataCallback(ProgressBar progressBar, ValidationListener listener){
         this.progressBar = progressBar;
         progressBar.setVisibility(View.VISIBLE);
+        this.listener = listener;
     }
     @Override
     public void onResponse(Call<RegistrationData> call, Response<RegistrationData> response) {
         progressBar.setVisibility(View.GONE);
         if (response != null && response.body() != null && response.body().getError()==null) {
-            Toast.makeText(LykkeApplication_.getInstance(), "Success", Toast.LENGTH_SHORT).show();
+            listener.onSuccess(null);
         }else if (response != null && response.body() != null){
-            Toast.makeText(LykkeApplication_.getInstance(), "Fail", Toast.LENGTH_SHORT).show();
+            listener.onFail(null);
         }
     }
 
     @Override
     public void onFailure(Call<RegistrationData> call, Throwable t) {
         progressBar.setVisibility(View.GONE);
-        Toast.makeText(LykkeApplication_.getInstance(), "Fail", Toast.LENGTH_SHORT).show();
+        listener.onFail(null);
     }
 }
