@@ -15,12 +15,13 @@ import com.lykkex.LykkeWallet.R;
 /**
  * Created by e.kazimirova on 10.02.2016.
  */
-public class ValidationEditText implements View.OnClickListener{
+public class ValidationEditText implements View.OnClickListener, View.OnFocusChangeListener{
 
     private EditText editTextField;
     private ImageView imageViewWell;
     private Button buttonClear;
     private Button buttonAction;
+    private boolean isClearVisible = false;
 
     public ValidationEditText(EditText editText, ImageView imageView, Button button,
                               Button buttonAction) {
@@ -29,6 +30,7 @@ public class ValidationEditText implements View.OnClickListener{
         this.buttonClear = button;
         this.buttonAction = buttonAction;
         button.setOnClickListener(this);
+        editTextField.setOnFocusChangeListener(this);
     }
     public void setReady(boolean isReady){
         if (isReady) {
@@ -50,10 +52,16 @@ public class ValidationEditText implements View.OnClickListener{
     public void setButtonClearVisibilty(boolean isVisible){
         if (isVisible) {
             buttonClear.setVisibility(View.VISIBLE);
+            isClearVisible = true;
         } else {
             buttonClear.setVisibility(View.GONE);
+            isClearVisible = false;
         }
         buttonClear.invalidate();
+    }
+
+    public void setEditTextEnabled(boolean isEnabled){
+        editTextField.setEnabled(isEnabled);
     }
 
     public  String getText(){
@@ -67,5 +75,14 @@ public class ValidationEditText implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         editTextField.setText("");
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        if (b && isClearVisible) {
+            buttonClear.setVisibility(View.VISIBLE);
+        } else if (!b) {
+            buttonClear.setVisibility(View.GONE);
+        }
     }
 }

@@ -88,6 +88,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initEmailState() {
         model.setIsReady(false);
+        actionBar.setTitle(R.string.app_name);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         actionBar.setDisplayHomeAsUpEnabled(false);
         editTextField.removeTextChangedListener(simpleTextWatcher);
@@ -105,6 +106,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initFullNameState() {
         model.setIsReady(false);
+        actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT );
         actionBar.setDisplayHomeAsUpEnabled(true);
         tvInfo.setVisibility(View.VISIBLE);
@@ -125,6 +127,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initMobileState() {
         model.setIsReady(false);
+        actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
         actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
@@ -143,6 +146,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initFirstPasswordState() {
         model.setIsReady(false);
+        actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
@@ -164,6 +168,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initSecondPasswordState() {
         model.setIsReady(false);
+        actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         actionBar.setDisplayHomeAsUpEnabled(true);
         relProgress.setVisibility(View.VISIBLE);
@@ -197,6 +202,7 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     public void initBackPressedFullName(){
         model.setIsReady(true);
+        actionBar.setTitle(R.string.app_name);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         actionBar.setDisplayHomeAsUpEnabled(false);
         relProgress.setVisibility(View.GONE);
@@ -217,6 +223,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initBackPressedMobile() {
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.registration);
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
@@ -232,6 +239,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void initBackPressedFirstPasswordScreen(){
         model.setIsReady(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.registration);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
         editTextField.setHint(R.string.email_hint);
         editTextField.removeTextChangedListener(emailTextWatcher);
@@ -249,6 +257,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         actionBar.setDisplayHomeAsUpEnabled(true);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         editTextField.setHint(R.string.first_password_hint);
+        actionBar.setTitle(R.string.registration);
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
@@ -286,11 +295,13 @@ public class RegistrationGuiSegment implements ValidationListener {
                 }
                 break;
             case EmailScreen:
-                model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
-                if (!model.isReady()) {
-                    editTextField.removeTextChangedListener(emailTextWatcher);
-                    buttonAction.setText(R.string.action_sing_in);
-                    controller.fire(FieldTrigger.EmailSignInScreen);
+                if (result != null) {
+                    model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
+                    if (!model.isReady()) {
+                        editTextField.removeTextChangedListener(emailTextWatcher);
+                        buttonAction.setText(R.string.action_sing_in);
+                        controller.fire(FieldTrigger.EmailSignInScreen);
+                    }
                 }
                 break;
             case FullNameScreen:
