@@ -142,6 +142,7 @@ public class LoginGuiSegment implements ValidationListener{
 
     public void initBackPressedPasswordSignIn(){
         authRequest.setIsReady(true);
+        actionbar.setDisplayHomeAsUpEnabled(false);
         authRequest.setPassword(editTextField.getText().toString());
         editTextField.removeTextChangedListener(passwordTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
