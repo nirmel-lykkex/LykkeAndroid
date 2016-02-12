@@ -316,13 +316,15 @@ public class RegistrationGuiSegment implements ValidationListener {
 
     @Override
     public void onFail(com.lykkex.LykkeWallet.rest.base.models.Error error) {
-        model.setIsReady(false);
-        buttonAction.setEnabled(false);
-        validationEditText.setReady(false);
         switch (controller.getCurrentState()){
             case SendRegistrationRequst:
                 buttonAction.setEnabled(true);
                 Toast.makeText(activity, "Something going wrong. Try again", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                model.setIsReady(false);
+                buttonAction.setEnabled(false);
+                validationEditText.setReady(false);
                 break;
         }
     }

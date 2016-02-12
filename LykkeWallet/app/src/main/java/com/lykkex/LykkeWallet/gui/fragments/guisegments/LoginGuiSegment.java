@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -133,7 +134,7 @@ public class LoginGuiSegment implements ValidationListener{
         authRequest.setPassword(editTextField.getText().toString());
         if (authRequest.isReady()) {
             buttonAction.setEnabled(false);
-            LoginDataCallback callback = new LoginDataCallback(progressBar);
+            LoginDataCallback callback = new LoginDataCallback(progressBar, this);
             Call<AuthModelData> call = LykkeApplication_.getInstance().getRegistrationApi().getAuth(authRequest);
             call.enqueue(callback);
         }
@@ -174,7 +175,7 @@ public class LoginGuiSegment implements ValidationListener{
                 } else {
                     validationEditText.setButtonClearVisibilty(true);
                     validationEditText.setReady(true);
-                    if (result != null) {
+                    if (validationEditText.isReady()) {
                         buttonAction.setEnabled(true);
                         authRequest.setIsReady(true);
                     }
@@ -211,8 +212,16 @@ public class LoginGuiSegment implements ValidationListener{
 
     @Override
     public void onFail(com.lykkex.LykkeWallet.rest.base.models.Error error) {
-        authRequest.setIsReady(false);
-        buttonAction.setEnabled(false);
-        validationEditText.setReady(false);
+        switch (controller.getCurrentState()){
+            case SendRegistrationRequst:
+                buttonAction.setEnabled(true);
+                Toast.makeText(activity, "Something going wrong. Try again", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                authRequest.setIsReady(false);
+                buttonAction.setEnabled(false);
+                validationEditText.setReady(false);
+                break;
+        }
     }
 }

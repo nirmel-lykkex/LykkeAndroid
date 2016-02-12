@@ -40,6 +40,13 @@ public class ValidationEditText implements View.OnClickListener{
         }
     }
 
+    public boolean isReady(){
+        if (imageViewWell.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        return false;
+    }
+
     public void setButtonClearVisibilty(boolean isVisible){
         if (isVisible) {
             buttonClear.setVisibility(View.VISIBLE);
