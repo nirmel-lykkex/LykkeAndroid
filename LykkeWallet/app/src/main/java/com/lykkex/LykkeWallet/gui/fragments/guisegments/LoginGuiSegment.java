@@ -228,6 +228,7 @@ public class LoginGuiSegment implements ValidationListener{
                 Toast.makeText(activity, "Something going wrong. Try again", Toast.LENGTH_LONG).show();
                 break;
             case PasswordSignInScreen:
+                validationEditText.setReady(false);
                 validationEditText.setButtonClearVisibilty(false);
                 break;
             default:
