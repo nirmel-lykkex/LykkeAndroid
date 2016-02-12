@@ -270,7 +270,9 @@ public class RegistrationGuiSegment implements ValidationListener {
 
 
     public void clickAction() {
-        controller.fire();
+        if (model.isReady()) {
+            controller.fire();
+        }
     }
 
     public ValidationEditText getValidationEditText() {
@@ -281,6 +283,7 @@ public class RegistrationGuiSegment implements ValidationListener {
     public void onSuccess(Object result) {
         buttonAction.setEnabled(true);
         validationEditText.setReady(true);
+        model.setIsReady(true);
         switch (controller.getCurrentState()) {
             case FullNameScreenBack:
                 if (result != null) {

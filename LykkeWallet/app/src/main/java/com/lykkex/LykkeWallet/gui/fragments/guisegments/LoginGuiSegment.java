@@ -162,7 +162,9 @@ public class LoginGuiSegment implements ValidationListener{
     }
 
     public void clickAction() {
-        controller.fire();
+        if (authRequest.isReady()) {
+            controller.fire();
+        }
     }
 
     @Override
@@ -180,10 +182,8 @@ public class LoginGuiSegment implements ValidationListener{
                 } else {
                     validationEditText.setButtonClearVisibilty(true);
                     validationEditText.setReady(true);
-                    if (validationEditText.isReady()) {
-                        buttonAction.setEnabled(true);
-                        authRequest.setIsReady(true);
-                    }
+                    buttonAction.setEnabled(true);
+                    authRequest.setIsReady(true);
                 }
                 validationEditText.setReady(false);
                 validationEditText.setButtonClearVisibilty(false);
