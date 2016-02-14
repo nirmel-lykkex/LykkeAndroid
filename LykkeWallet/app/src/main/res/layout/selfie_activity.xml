@@ -98,15 +98,16 @@
         android:id="@+id/imgPreview"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:visibility="gone"
+        android:background="#000000"
+        android:visibility="visible"
         android:layout_below="@+id/relProgress"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_above="@+id/buttake_photo"
-        android:layout_marginBottom="15dp" />
+        android:layout_above="@+id/retake"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/retake"
@@ -116,25 +117,26 @@
         android:text="@string/reshoot"
         android:background="@drawable/sign_inactive"
         android:layout_above="@+id/submit"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_alignLeft="@+id/submit"
         android:layout_alignStart="@+id/submit"
-        android:layout_alignRight="@+id/submit"
-        android:layout_alignEnd="@+id/submit" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reshoot"
+        android:text="@string/save"
         android:background="@drawable/sign_active"
         android:id="@+id/submit"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/camera_preview"
-        android:layout_alignEnd="@+id/camera_preview"
-        android:layout_alignLeft="@+id/camera_preview"
-        android:layout_alignStart="@+id/camera_preview"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -151,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Take"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/buttake_photo"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -164,14 +166,14 @@
         android:id="@+id/buttonFile"
         android:layout_alignBottom="@+id/buttake_photo"
         android:layout_alignParentLeft="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selfie"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/buttonOpenSelfie"
         android:layout_alignBottom="@+id/buttake_photo"
         android:layout_alignParentRight="true"

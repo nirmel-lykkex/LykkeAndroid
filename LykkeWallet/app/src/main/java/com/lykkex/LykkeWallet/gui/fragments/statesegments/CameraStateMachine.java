@@ -64,7 +64,7 @@ public class CameraStateMachine {
                 })
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
-                .permit(CameraTrigger.IdCard, CameraState.Idle);
+                .permit(CameraTrigger.Idle, CameraState.Idle);
 
         config.configure(CameraState.IdCard)
                 .onEntry(new Action() {

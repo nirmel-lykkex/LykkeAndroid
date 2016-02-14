@@ -190,6 +190,8 @@ public class SelfieActivity extends Activity {
 
     @Click(R.id.submit)
     public void clickSubmit(){
+        mCamera.startPreview();
+        guiSegment.retake();
         guiSegment.submit();
     }
 
@@ -202,7 +204,6 @@ public class SelfieActivity extends Activity {
     public void initSelfie(){
         guiSegment.initSelfie();
         initBackCamera();
-
         mCameraPreview = new CameraPreview(this, mCamera);
         camera_preview.addView(mCameraPreview);
     }

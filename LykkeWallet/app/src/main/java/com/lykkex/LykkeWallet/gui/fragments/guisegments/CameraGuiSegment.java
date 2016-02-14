@@ -1,6 +1,8 @@
 package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.UiThread;
 import android.view.View;
 import android.widget.Button;
@@ -103,22 +105,18 @@ public class CameraGuiSegment implements CallBackListener {
         model.setIsDone(false);
         model.setIsFront(false);
         initGuiPhoto();
-        activity.initBackCamera();
-
     }
 
     public void initIdCard(){
         model.setIsDone(false);
         model.setIsFront(false);
         initGuiPhoto();
-        activity.initBackCamera();
     }
 
     public void initSelfie(){
         model.setIsDone(false);
         model.setIsFront(true);
         initGuiPhoto();
-        activity.openSelfie();
     }
 
     private void initGuiPhoto(){
@@ -137,14 +135,18 @@ public class CameraGuiSegment implements CallBackListener {
     public void initPhotoTaken(String path){
         model.setIsDone(true);
 
-        imgPreview.setVisibility(View.GONE);
+        imgPreview.setVisibility(View.VISIBLE);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+        imgPreview.setImageBitmap(bitmap);
         retake.setVisibility(View.VISIBLE);
         submit.setVisibility(View.VISIBLE);
 
         buttake_photo.setVisibility(View.GONE);
         buttonFile.setVisibility(View.GONE);
         buttonOpenSelfie.setVisibility(View.GONE);
-        //camera_preview.setVisibility(View.VISIBLE);
+        camera_preview.setVisibility(View.GONE);
 
         switch (controller.getCurrentState()){
             case Selfie:
@@ -166,6 +168,7 @@ public class CameraGuiSegment implements CallBackListener {
         buttake_photo.setVisibility(View.VISIBLE);
         buttonFile.setVisibility(View.VISIBLE);
         buttonOpenSelfie.setVisibility(View.VISIBLE);
+        initGuiPhoto();
     }
 
     @Override

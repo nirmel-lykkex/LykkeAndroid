@@ -8,13 +8,13 @@ import com.google.gson.annotations.SerializedName;
 public class CameraResult {
 
     @SerializedName("IdCard")
-    private boolean idCard;
+    private boolean idCard = true;
 
     @SerializedName("ProofOfAddress")
-    private boolean proofOfAddress;
+    private boolean proofOfAddress = true;
 
     @SerializedName("Selfie")
-    private boolean selfie;
+    private boolean selfie = true;
 
     public boolean isIdCard() {
         return idCard;
