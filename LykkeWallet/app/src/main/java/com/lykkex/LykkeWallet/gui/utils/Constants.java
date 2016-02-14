@@ -7,5 +7,6 @@ public interface Constants {
 
     int MIN_COUNT_SYMBOL = 1;
     int MIN_COUNT_SYMBOL_PASSWORD = 6;
-    String SYMBOL_COMA = ".";
+    int FILE_SELECT_CODE = 0;
+
 }

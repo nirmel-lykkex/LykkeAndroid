@@ -2,12 +2,9 @@ package com.lykkex.LykkeWallet.rest.login.callback;
 
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.utils.validation.ValidationListener;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
-import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,9 +16,9 @@ import retrofit2.Response;
 public class LoginDataCallback implements Callback<AuthModelData> {
 
     private ProgressBar progressBar;
-    private ValidationListener listener;
+    private CallBackListener listener;
 
-    public LoginDataCallback(ProgressBar progressBar, ValidationListener listener) {
+    public LoginDataCallback(ProgressBar progressBar, CallBackListener listener) {
         this.progressBar = progressBar;
         progressBar.setVisibility(View.VISIBLE);
         this.listener = listener;

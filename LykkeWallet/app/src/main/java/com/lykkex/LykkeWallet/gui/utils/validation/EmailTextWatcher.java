@@ -4,7 +4,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -34,7 +33,7 @@ public class EmailTextWatcher implements TextWatcher {
             "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     private Button buttonAction;
 
-    public EmailTextWatcher(ValidationListener<AcountExistResult> listener, ValidationEditText editText,
+    public EmailTextWatcher(CallBackListener<AcountExistResult> listener, ValidationEditText editText,
                             ProgressBar progressBar, Button buttnAction) {
         this.callback = new AccountExistDataCallback(listener, progressBar);
         this.editText = editText;
@@ -55,7 +54,7 @@ public class EmailTextWatcher implements TextWatcher {
         }
             if (charSequence.toString().matches(REGEX_VALIDATION)){
                 progressBar.setVisibility(View.VISIBLE);
-                Call<AccountExistData> call  = LykkeApplication_.getInstance().getRegistrationApi().accountExis(charSequence.toString());
+                Call<AccountExistData> call  = LykkeApplication_.getInstance().getRestApi().accountExis(charSequence.toString());
                 call.enqueue(callback);
              } else {
                 editText.setReady(false);

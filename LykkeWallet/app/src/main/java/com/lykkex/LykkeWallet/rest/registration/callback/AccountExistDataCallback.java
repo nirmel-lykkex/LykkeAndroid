@@ -5,7 +5,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.utils.validation.ValidationListener;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 
 import retrofit2.Call;
@@ -17,10 +17,10 @@ import retrofit2.Response;
  */
 public class AccountExistDataCallback implements Callback<AccountExistData> {
 
-    private ValidationListener listener;
+    private CallBackListener listener;
     private ProgressBar progressBar;
 
-    public AccountExistDataCallback(ValidationListener listener, ProgressBar progressBar) {
+    public AccountExistDataCallback(CallBackListener listener, ProgressBar progressBar) {
         this.listener = listener;
         this.progressBar = progressBar;
     }

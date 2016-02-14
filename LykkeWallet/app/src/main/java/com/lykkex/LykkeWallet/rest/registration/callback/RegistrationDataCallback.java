@@ -1,13 +1,9 @@
 package com.lykkex.LykkeWallet.rest.registration.callback;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.utils.validation.ValidationListener;
-import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 
 import retrofit2.Call;
@@ -20,9 +16,9 @@ import retrofit2.Response;
 public class RegistrationDataCallback implements Callback<RegistrationData> {
 
     private ProgressBar progressBar;
-    private ValidationListener listener;
+    private CallBackListener listener;
 
-    public RegistrationDataCallback(ProgressBar progressBar, ValidationListener listener){
+    public RegistrationDataCallback(ProgressBar progressBar, CallBackListener listener){
         this.progressBar = progressBar;
         progressBar.setVisibility(View.VISIBLE);
         this.listener = listener;

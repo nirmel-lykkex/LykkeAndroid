@@ -7,7 +7,6 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -24,14 +23,12 @@ import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.PasswordTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextWatcher;
-import com.lykkex.LykkeWallet.gui.utils.validation.ValidationListener;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.ValidationEditText;
-import com.lykkex.LykkeWallet.rest.base.models.*;
 import com.lykkex.LykkeWallet.rest.registration.callback.RegistrationDataCallback;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
 
 import retrofit2.Call;
@@ -40,7 +37,7 @@ import retrofit2.Call;
  * Created by e.kazimirova on 11.02.2016.
  */
 @EBean
-public class RegistrationGuiSegment implements ValidationListener {
+public class RegistrationGuiSegment implements CallBackListener {
 
     private ValidationEditText validationEditText;
     private FieldController controller;
@@ -211,7 +208,7 @@ public class RegistrationGuiSegment implements ValidationListener {
         if (model.isReady()) {
             buttonAction.setEnabled(false);
             RegistrationDataCallback callback = new RegistrationDataCallback(progressBar, this);
-            Call<RegistrationData> call = LykkeApplication_.getInstance().getRegistrationApi().registration(model);
+            Call<RegistrationData> call = LykkeApplication_.getInstance().getRestApi().registration(model);
             call.enqueue(callback);
         }
     }

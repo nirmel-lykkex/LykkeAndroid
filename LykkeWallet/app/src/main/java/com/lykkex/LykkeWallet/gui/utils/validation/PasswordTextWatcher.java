@@ -1,7 +1,6 @@
 package com.lykkex.LykkeWallet.gui.utils.validation;
 
 import android.text.Editable;
-import android.text.TextWatcher;
 
 import com.lykkex.LykkeWallet.gui.widgets.ValidationEditText;
 
@@ -12,7 +11,7 @@ public class PasswordTextWatcher extends SimpleTextWatcher {
 
     private String passwordFirst;
 
-    public PasswordTextWatcher(int count, ValidationListener listener, String passwordFirst, ValidationEditText editText){
+    public PasswordTextWatcher(int count, CallBackListener listener, String passwordFirst, ValidationEditText editText){
         super(count, listener, editText);
         this.passwordFirst = passwordFirst;
     }

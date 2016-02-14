@@ -12,10 +12,10 @@ import com.lykkex.LykkeWallet.gui.widgets.ValidationEditText;
 public class SimpleTextWatcher implements TextWatcher {
 
     protected int minCount = 0;
-    protected ValidationListener listener;
+    protected CallBackListener listener;
     protected ValidationEditText editText;
 
-    public SimpleTextWatcher(int count, ValidationListener listener, ValidationEditText editText){
+    public SimpleTextWatcher(int count, CallBackListener listener, ValidationEditText editText){
         this.minCount = count;
         this.listener = listener;
         this.editText = editText;
