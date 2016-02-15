@@ -14,6 +14,9 @@ public class CameraModelGUI extends CameraResult {
     private String pathSelfie;
     private String pathIdCard;
     private String pathProofAddress;
+    private boolean isSelfieSend = false;
+    private boolean isCardIdeSend = false;
+    private boolean isProofAddressSend = false;
 
     public String getPathSelfie() {
         return pathSelfie;
@@ -61,6 +64,34 @@ public class CameraModelGUI extends CameraResult {
 
     public void setIsFront(boolean isFront) {
         this.isFront = isFront;
+    }
+
+    public boolean isProofAddressSend() {
+        return isProofAddressSend;
+    }
+
+    public void setIsProofAddressSend(boolean isProofAddressSend) {
+        this.isProofAddressSend = isProofAddressSend;
+    }
+
+    public void setPathSelfie(String pathSelfie) {
+        this.pathSelfie = pathSelfie;
+    }
+
+    public boolean isSelfieSend() {
+        return isSelfieSend;
+    }
+
+    public void setIsSelfieSend(boolean isSelfieSend) {
+        this.isSelfieSend = isSelfieSend;
+    }
+
+    public boolean isCardIdeSend() {
+        return isCardIdeSend;
+    }
+
+    public void setIsCardIdeSend(boolean isCardIdeSend) {
+        this.isCardIdeSend = isCardIdeSend;
     }
 
 }

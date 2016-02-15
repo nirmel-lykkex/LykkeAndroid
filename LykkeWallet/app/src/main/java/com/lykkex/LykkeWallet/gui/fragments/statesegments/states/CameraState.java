@@ -7,5 +7,6 @@ public enum CameraState {
     Idle,
     IdCard,
     ProofOfAddress,
-    Selfie
+    Selfie,
+    SelfieBack
 }

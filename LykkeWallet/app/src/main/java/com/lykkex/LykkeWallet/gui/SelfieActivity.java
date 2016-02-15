@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
@@ -17,6 +19,7 @@ import com.lykkex.LykkeWallet.gui.fragments.CameraPreview;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.guisegments.CameraGuiSegment;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -35,40 +38,63 @@ import java.util.Date;
  * Created by e.kazimirova on 12.02.2016.
  */
 @EActivity(R.layout.selfie_activity)
-public class SelfieActivity extends Activity {
+public class SelfieActivity extends ActionBarActivity {
 
-    private android.hardware.Camera mCamera;
+    public android.hardware.Camera mCamera;
     private CameraPreview mCameraPreview;
     public ProgressDialog dialog;
 
     private CameraGuiSegment guiSegment;
     @ViewById FrameLayout camera_preview;
     @ViewById Button submit;
+    @ViewById TextView tvTitle;
     @ViewById Button buttake_photo;
     @ViewById Button buttonFile;
     @ViewById Button buttonOpenSelfie;
     @ViewById Button retake;
     @ViewById ImageView imgPreview;
+    @ViewById ImageView imgSecond;
+    @ViewById ImageView imgThird;
+    @ViewById ImageView imgForth;
     @Bean CameraController controller;
 
     /** Called when the activity is first created. */
     @AfterViews
     public void afterViews() {
+        RegistrationResult info = null;
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            info = (RegistrationResult)getIntent().getExtras().getSerializable(Constants.EXTRA_PERSON_DATA);
+        }
         dialog = new ProgressDialog(this);
+        dialog.setMessage(getString(R.string.loading));
+        showProgress();
         guiSegment = new CameraGuiSegment();
-        dialog.show();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.registration);
         guiSegment.init(this, controller,camera_preview,
                 submit,
                 buttake_photo,
                 buttonFile,
                 buttonOpenSelfie,
                 retake,
-                imgPreview);
+                imgPreview,
+                info,
+                imgSecond,
+                imgThird,
+                imgForth, tvTitle);
 
     }
 
     public void initBackCamera(){
         mCamera = getCameraInstance();
+    }
+
+    public void showProgress(){
+        dialog.show();
+    }
+
+    public void dismissProgress(){
+        dialog.dismiss();
     }
 
     @Click(R.id.buttake_photo)
@@ -96,7 +122,8 @@ public class SelfieActivity extends Activity {
             case Constants.FILE_SELECT_CODE:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-
+                    String path = uri.getPath();
+                    guiSegment.initPhotoTaken(path);
                 }
                 break;
         }
@@ -203,9 +230,16 @@ public class SelfieActivity extends Activity {
 
     public void initSelfie(){
         guiSegment.initSelfie();
-        initBackCamera();
+        openSelfie();
+        if (mCamera == null) {
+            initBackCamera();
+        }
         mCameraPreview = new CameraPreview(this, mCamera);
         camera_preview.addView(mCameraPreview);
+    }
+
+    public void initSelfieBack(){
+        guiSegment.initSelfie();
     }
 
     public void initIdCard(){
@@ -213,10 +247,15 @@ public class SelfieActivity extends Activity {
     }
 
     public void init(){
-        dialog.dismiss();
+       dismissProgress();
     }
 
     public void initProofOfAddress(){
         guiSegment.initProofOfAddress();
+    }
+
+    @Override
+    public void onBackPressed(){
+        guiSegment.onBackPress();
     }
 }

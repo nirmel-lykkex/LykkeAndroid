@@ -2,10 +2,12 @@ package com.lykkex.LykkeWallet.rest.login.response.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by e.kazimirova on 11.02.2016.
  */
-public class PersonalData {
+public class PersonalData implements Serializable{
 
     @SerializedName("FullName")
     private String fullName;

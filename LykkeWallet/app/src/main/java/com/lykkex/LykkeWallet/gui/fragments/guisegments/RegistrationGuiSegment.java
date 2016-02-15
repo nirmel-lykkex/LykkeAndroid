@@ -345,6 +345,7 @@ public class RegistrationGuiSegment implements CallBackListener {
             case SendRegistrationRequst:
                 Intent intent = new Intent();
                 intent.setClass(activity, SelfieActivity_.class);
+                intent.putExtra(Constants.EXTRA_PERSON_DATA, ((RegistrationData)result).getResult());
                 activity.startActivity(intent);
                 activity.finish();
                 break;

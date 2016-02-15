@@ -53,6 +53,7 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
+                .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
                 .ignore(CameraTrigger.Idle);
 
         config.configure(CameraState.Selfie)
@@ -75,6 +76,7 @@ public class CameraStateMachine {
                 })
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
+                .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
                 .permit(CameraTrigger.Idle, CameraState.Idle);
 
         config.configure(CameraState.ProofOfAddress)
@@ -86,6 +88,18 @@ public class CameraStateMachine {
                 })
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
+                .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
+                .permit(CameraTrigger.Idle, CameraState.Idle);
+
+        config.configure(CameraState.SelfieBack)
+                .onEntry(new Action() {
+                    @Override
+                    public void doIt() {
+                        activity.initSelfieBack();
+                    }
+                })
+                .permit(CameraTrigger.IdCard, CameraState.IdCard)
+                .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
                 .permit(CameraTrigger.Idle, CameraState.Idle);
 
         return config;

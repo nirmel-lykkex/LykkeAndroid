@@ -135,6 +135,7 @@ public class LoginGuiSegment implements CallBackListener {
         validationEditText.setReady(false);
         editTextField.setSelection(editTextField.getText().toString().length());
         editTextField.addTextChangedListener(emailTextWatcher);
+        buttonAction.setEnabled(true);
     }
 
 

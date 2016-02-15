@@ -1,28 +1,46 @@
 package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.UiThread;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.KysActivity_;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.SelfieActivity;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.camera.callback.CheckDocumentCallBack;
+import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
+import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
+import com.lykkex.LykkeWallet.rest.camera.request.models.CameraType;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
+import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
+import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
+import com.lykkex.LykkeWallet.rest.registration.callback.RegistrationDataCallback;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
+import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationResult;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+
+import java.io.ByteArrayOutputStream;
 
 import retrofit2.Call;
 
@@ -44,6 +62,11 @@ public class CameraGuiSegment implements CallBackListener {
     private Button buttonOpenSelfie;
     private Button retake;
     private ImageView imgPreview;
+    private RegistrationResult info;
+    private ImageView imgSecond;
+    private ImageView imgThird;
+    private ImageView imgForth;
+    private TextView tvTitle;
 
 
     public void init(SelfieActivity activity, CameraController controller,
@@ -53,9 +76,12 @@ public class CameraGuiSegment implements CallBackListener {
                             Button buttonFile,
                             Button buttonOpenSelfie,
                              Button retake,
-                             ImageView imgPreview
+                             ImageView imgPreview, RegistrationResult info,
+                     ImageView imgSecond, ImageView imgThird, ImageView imgForth,
+                     TextView tvTitle
     ) {
         model = new CameraModelGUI();
+        this.info = info;
         this.activity = activity;
         this.camera_preview = camera_preview;
         this.submit = submit;
@@ -65,28 +91,43 @@ public class CameraGuiSegment implements CallBackListener {
         this.retake = retake;
         this.imgPreview = imgPreview;
         this.controller = controller;
+        this.imgSecond = imgSecond;
+        this.imgThird = imgThird;
+        this.imgForth = imgForth;
+        this.tvTitle = tvTitle;
         controller.init(activity, CameraState.Idle);
-       // CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
-        //TODO
-        //Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().checkDocuments(new PersonalData());
-        //call.enqueue(callback);
-        controller.fire(CameraTrigger.Selfie);
+        CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
+        Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
+                checkDocuments(Constants.PART_AUTHORIZATION + info.getToken());
+        call.enqueue(callback);
     }
 
     public void submit(){
         if (model.isDone()){
             switch (controller.getCurrentState()){
                 case Selfie:
-                    if (model.isIdCard()){
-                        controller.fire(CameraTrigger.IdCard);
+                    if (!model.isSelfieSend()) {
+                        activity.showProgress();
+                        sendImage(model.getPathSelfie(), CameraType.Selfie);
+                    }
+                    break;
+                case SelfieBack:
+                    if (!model.isSelfieSend()) {
+                        activity.showProgress();
+                        sendImage(model.getPathSelfie(), CameraType.Selfie);
                     }
                     break;
                 case IdCard:
-                    if (model.isProofOfAddress()){
-                        controller.fire(CameraTrigger.ProofOfAddress);
+                    if (!model.isSelfieSend()) {
+                        activity.showProgress();
+                        sendImage(model.getPathIdCard(), CameraType.IdCard);
                     }
                     break;
                 case ProofOfAddress:
+                    if (!model.isSelfieSend()) {
+                        activity.showProgress();
+                        sendImage(model.getPathProofAddress(), CameraType.ProofOfAddress);
+                    }
                     break;
             }
         }
@@ -98,25 +139,45 @@ public class CameraGuiSegment implements CallBackListener {
             activity.initBackCamera();
         } else {
             activity.openSelfie();
+            if (activity.mCamera == null) {
+                activity.initBackCamera();
+            }
         }
     }
 
     public void initProofOfAddress(){
         model.setIsDone(false);
         model.setIsFront(false);
+        imgSecond.setBackgroundResource(R.drawable.ready);
+        imgThird.setBackgroundResource(R.drawable.ready);
+        imgForth.setBackgroundResource(R.drawable.submit_form_circle);
+        tvTitle.setText(R.string.proof_adress);
         initGuiPhoto();
+        if (model.getPathProofAddress() != null && !model.getPathProofAddress().isEmpty()) {
+            initPhotoTaken(model.getPathSelfie());
+        }
     }
 
     public void initIdCard(){
         model.setIsDone(false);
         model.setIsFront(false);
+        imgSecond.setBackgroundResource(R.drawable.ready);
+        imgThird.setBackgroundResource(R.drawable.submit_form_circle);
+        tvTitle.setText(R.string.id_card);
         initGuiPhoto();
+        if (model.getPathIdCard() != null && !model.getPathIdCard().isEmpty()) {
+            initPhotoTaken(model.getPathSelfie());
+        }
     }
 
     public void initSelfie(){
         model.setIsDone(false);
         model.setIsFront(true);
+        tvTitle.setText(R.string.make_selfie);
         initGuiPhoto();
+        if (model != null && model.getPathSelfie() != null && !model.getPathSelfie().isEmpty()) {
+            initPhotoTaken(model.getPathSelfie());
+        }
     }
 
     private void initGuiPhoto(){
@@ -138,8 +199,11 @@ public class CameraGuiSegment implements CallBackListener {
         imgPreview.setVisibility(View.VISIBLE);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.outHeight = camera_preview.getMeasuredHeight();
+        options.outWidth = camera_preview.getMeasuredWidth();
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-        imgPreview.setImageBitmap(bitmap);
+        Drawable drawable = new BitmapDrawable(activity.getResources(), bitmap);
+        imgPreview.setBackgroundDrawable(drawable);
         retake.setVisibility(View.VISIBLE);
         submit.setVisibility(View.VISIBLE);
 
@@ -169,6 +233,53 @@ public class CameraGuiSegment implements CallBackListener {
         buttonFile.setVisibility(View.VISIBLE);
         buttonOpenSelfie.setVisibility(View.VISIBLE);
         initGuiPhoto();
+        switch (controller.getCurrentState()) {
+            case Selfie:
+                model.setIsSelfieSend(false);
+                break;
+            case IdCard:
+                model.setIsCardIdeSend(false);
+                break;
+            case ProofOfAddress:
+                model.setIsProofAddressSend(false);
+                break;
+        }
+    }
+
+    private String compressImage(String path){
+        Bitmap bm = BitmapFactory.decodeFile(path);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] byteArrayImage = baos.toByteArray();
+        return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+    }
+
+    private void sendImage(String path, CameraType type){
+        CameraModel model = new CameraModel();
+        model.setExt(Constants.JPG);
+        model.setData(compressImage(path));
+        model.setType(type.toString());
+        SendDocumentsDataCallback callback = new SendDocumentsDataCallback(this);
+        Call<PersonData> call  = LykkeApplication_.getInstance().getRestApi().
+                kysDocuments(Constants.PART_AUTHORIZATION + info.getToken(), model);
+        call.enqueue(callback);
+    }
+
+    public void onBackPress(){
+        switch (controller.getCurrentState()) {
+            case Idle:
+                activity.finish();
+                break;
+            case Selfie:
+                activity.finish();
+                break;
+            case IdCard:
+                controller.fire(CameraTrigger.SelfieBack);
+                break;
+            case ProofOfAddress:
+                controller.fire(CameraTrigger.IdCard);
+                break;
+        }
     }
 
     @Override
@@ -177,28 +288,63 @@ public class CameraGuiSegment implements CallBackListener {
             case Idle:
                 activity.dialog.dismiss();
                 if (result != null) {
-                    CameraData data = (CameraData) result;
-                    if (data.getResult() != null) {
-                        model.setIdCard(data.getResult().isIdCard());
-                        model.setProofOfAddress(data.getResult().isProofOfAddress());
-                        model.setSelfie(data.getResult().isSelfie());
-                        if (data.getResult().isSelfie()){
+                    CameraResult data = (CameraResult) result;
+                    if (data != null) {
+                        model.setIdCard(data.isIdCard());
+                        model.setProofOfAddress(data.isProofOfAddress());
+                        model.setSelfie(data.isSelfie());
+                        if (data.isSelfie()){
                             controller.fire(CameraTrigger.Selfie);
+                            model.setIsDone(false);
+                        } else if (data.isIdCard()) {
+                            controller.fire(CameraTrigger.IdCard);
+                            model.setIsDone(false);
+                        } else if (data.isProofOfAddress()) {
+                            controller.fire(CameraTrigger.ProofOfAddress);
                             model.setIsDone(false);
                         }
                     }
                 }
+                break;
+            case Selfie:
+                activity.dismissProgress();
+                if (model.isIdCard()){
+                    controller.fire(CameraTrigger.IdCard);
+                }
+                break;
+            case SelfieBack:
+                if (!model.isSelfieSend()) {
+                    activity.dismissProgress();
+                    model.setIsSelfieSend(true);
+                }
+                if (model.isIdCard()){
+                    controller.fire(CameraTrigger.IdCard);
+                }
+                break;
+            case IdCard:
+                if (!model.isCardIdeSend()) {
+                    activity.dismissProgress();
+                    model.setIsCardIdeSend(true);
+                }
+                if (model.isIdCard()){
+                    controller.fire(CameraTrigger.ProofOfAddress);
+                }
+                break;
+            case ProofOfAddress:
+                if (!model.isProofAddressSend()) {
+                    activity.dismissProgress();
+                    model.setIsProofAddressSend(true);
+                }
+                Intent intent = new Intent();
+                intent.setClass(activity, KysActivity_.class);
+                activity.finish();
+                activity.startActivity(intent);
                 break;
         }
     }
 
     @Override
     public void onFail(com.lykkex.LykkeWallet.rest.base.models.Error error) {
-        model.setIdCard(true);
-        model.setProofOfAddress(true);
-        model.setSelfie(true);
-        controller.fire(CameraTrigger.Selfie);
-        model.setIsDone(false);
-
+        activity.dismissProgress();
     }
 }
