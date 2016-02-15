@@ -68,32 +68,44 @@ public class FieldFragment extends Fragment {
     }
 
     public void initEmailState() {
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         registrationGuiSegment.initEmailState();
     }
 
     public void initFullNameState() {
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         registrationGuiSegment.initFullNameState();
     }
 
     public void initMobileState() {
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         registrationGuiSegment.initMobileState();
     }
 
     public void initFirstPasswordState() {
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         registrationGuiSegment.initFirstPasswordState();
     }
 
     public void initSecondPasswordState() {
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         registrationGuiSegment.initSecondPasswordState();
     }
 
     public void initPasswordSignInScreen(){
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         loginGuiSegment.initPasswordSignInScreen();
     }
 

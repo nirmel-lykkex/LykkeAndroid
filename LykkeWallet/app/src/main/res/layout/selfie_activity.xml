@@ -2,7 +2,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+    <RelativeLayout
+        android:id="@+id/wasCreateRel"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgWasCreated"
+            android:background="@drawable/created_lyyke"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="111dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Was created + info"
+            android:textColor="@color/grey_text"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvWasCreated"
+            android:layout_below="@+id/imgWasCreated"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/get_started"
+            android:id="@+id/btnStart"
+            android:textColor="@color/grey_text"
+            android:background="@drawable/sign_active"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/sendDocumentRel"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -10,6 +52,8 @@
         android:id="@+id/relProgress"
         android:layout_marginTop="20dp"
         android:visibility="visible"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@+id/tvTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp">
@@ -187,4 +231,7 @@
         android:layout_marginTop="15dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+
 </RelativeLayout>

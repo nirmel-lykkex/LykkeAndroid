@@ -8,5 +8,6 @@ public enum CameraState {
     IdCard,
     ProofOfAddress,
     Selfie,
-    SelfieBack
+    SelfieBack,
+    CheckStatus
 }

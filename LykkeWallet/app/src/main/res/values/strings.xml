@@ -22,6 +22,7 @@
     <string name="save">NICE, SUBMIT</string>
     <string name="make_selfie">Make a selfie</string>
     <string name="id_card">Make a photo of your passport or other ID</string>
-    <string name="proof_adress">proof adress CHANGE STRING</string>
+    <string name="proof_adress">Make a photo of your Proof of Address</string>
     <string name="loading">Loading</string>
+    <string name="get_started">GET STARTED</string>
 </resources>

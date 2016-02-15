@@ -8,5 +8,6 @@ public enum CameraTrigger {
     IdCard,
     SelfieBack,
     ProofOfAddress,
-    Selfie
+    Selfie,
+    CheckStatus
 }

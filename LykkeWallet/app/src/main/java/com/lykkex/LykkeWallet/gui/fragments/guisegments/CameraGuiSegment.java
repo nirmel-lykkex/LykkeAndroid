@@ -137,10 +137,19 @@ public class CameraGuiSegment implements CallBackListener {
     public void changeCamera(){
         if(model.isFront()){
             activity.initBackCamera();
+            model.setIsFront(false);
+            if (activity.mCamera != null) {
+                activity.mCamera.startPreview();
+            }
         } else {
             activity.openSelfie();
             if (activity.mCamera == null) {
                 activity.initBackCamera();
+            } else {
+                model.setIsFront(true);
+            }
+            if (activity.mCamera != null) {
+                activity.mCamera.startPreview();
             }
         }
     }
@@ -335,6 +344,10 @@ public class CameraGuiSegment implements CallBackListener {
                     activity.dismissProgress();
                     model.setIsProofAddressSend(true);
                 }
+                controller.fire(CameraTrigger.CheckStatus);
+                break;
+            case CheckStatus:
+
                 Intent intent = new Intent();
                 intent.setClass(activity, KysActivity_.class);
                 activity.finish();

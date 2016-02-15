@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,8 @@ public class SelfieActivity extends ActionBarActivity {
     @ViewById ImageView imgThird;
     @ViewById ImageView imgForth;
     @Bean CameraController controller;
+    @ViewById RelativeLayout wasCreateRel;
+    @ViewById  RelativeLayout sendDocumentRel;
 
     /** Called when the activity is first created. */
     @AfterViews
@@ -114,6 +117,11 @@ public class SelfieActivity extends ActionBarActivity {
     @Click(R.id.buttonFile)
     public void clickFile(){
         showFileChooser();
+    }
+
+    public void checkStatus(){
+        sendDocumentRel.setVisibility(View.GONE);
+        wasCreateRel.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -229,6 +237,7 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initSelfie(){
+        sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initSelfie();
         openSelfie();
         if (mCamera == null) {
@@ -239,10 +248,12 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initSelfieBack(){
+        sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initSelfie();
     }
 
     public void initIdCard(){
+        sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initIdCard();
     }
 
@@ -251,6 +262,7 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initProofOfAddress(){
+        sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initProofOfAddress();
     }
 

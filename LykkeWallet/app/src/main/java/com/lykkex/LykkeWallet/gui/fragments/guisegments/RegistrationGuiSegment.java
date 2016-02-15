@@ -90,9 +90,12 @@ public class RegistrationGuiSegment implements CallBackListener {
         model.setIsReady(false);
         imageViewWhat.setVisibility(View.VISIBLE);
         textViewWhat.setVisibility(View.VISIBLE);
-        actionBar.setTitle(R.string.app_name);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.app_name);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.addTextChangedListener(emailTextWatcher);
         editTextField.setText(editTextField.getText().toString());
@@ -111,9 +114,12 @@ public class RegistrationGuiSegment implements CallBackListener {
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
         tvInfo.setText(R.string.complete_your_profile);
-        actionBar.setTitle(R.string.registration);
-        editTextField.setInputType(InputType.TYPE_CLASS_TEXT );
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.registration);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT);
+
         tvInfo.setVisibility(View.VISIBLE);
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
@@ -134,10 +140,13 @@ public class RegistrationGuiSegment implements CallBackListener {
         model.setIsReady(false);
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
-        actionBar.setTitle(R.string.registration);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.registration);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         tvInfo.setText(R.string.complete_your_profile);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
         validationEditText.setReady(false);
@@ -156,10 +165,14 @@ public class RegistrationGuiSegment implements CallBackListener {
         model.setIsReady(false);
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
-        actionBar.setTitle(R.string.registration);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.registration);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        }
         tvInfo.setText(R.string.complete_your_profile);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
         editTextField.removeTextChangedListener(simpleTextWatcher);
@@ -181,9 +194,12 @@ public class RegistrationGuiSegment implements CallBackListener {
         model.setIsReady(false);
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
-        actionBar.setTitle(R.string.registration);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.registration);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
         relProgress.setVisibility(View.VISIBLE);
         imageViewLogo.setVisibility(View.GONE);
         validationEditText.setReady(false);
@@ -218,9 +234,12 @@ public class RegistrationGuiSegment implements CallBackListener {
         imageViewWhat.setVisibility(View.VISIBLE);
         textViewWhat.setVisibility(View.VISIBLE);
         tvInfo.setText(R.string.complete_your_profile);
-        actionBar.setTitle(R.string.app_name);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.app_name);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+
         relProgress.setVisibility(View.GONE);
         imageViewLogo.setVisibility(View.VISIBLE);
         tvInfo.setVisibility(View.GONE);
@@ -240,9 +259,12 @@ public class RegistrationGuiSegment implements CallBackListener {
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT);
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.registration);
+        }
         tvInfo.setText(R.string.complete_your_profile);
-        actionBar.setTitle(R.string.registration);
+
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
         editTextField.removeTextChangedListener(firstPasswordTextWatcher);
@@ -257,11 +279,14 @@ public class RegistrationGuiSegment implements CallBackListener {
 
     public void initBackPressedFirstPasswordScreen(){
         model.setIsReady(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.registration);
+        }
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
         tvInfo.setText(R.string.complete_your_profile);
-        actionBar.setTitle(R.string.registration);
+
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
         editTextField.setHint(R.string.email_hint);
         editTextField.removeTextChangedListener(emailTextWatcher);
@@ -276,13 +301,16 @@ public class RegistrationGuiSegment implements CallBackListener {
 
     public void initBackPressedSecondPasswordScreen(){
         model.setIsReady(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.registration);
+        }
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
         tvInfo.setText(R.string.complete_your_profile);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         editTextField.setHint(R.string.first_password_hint);
-        actionBar.setTitle(R.string.registration);
+
         editTextField.removeTextChangedListener(emailTextWatcher);
         editTextField.removeTextChangedListener(simpleTextWatcher);
         editTextField.removeTextChangedListener(secondeTextWatcher);
