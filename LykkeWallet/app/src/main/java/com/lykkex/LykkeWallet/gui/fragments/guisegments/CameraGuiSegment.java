@@ -116,21 +116,26 @@ public class CameraGuiSegment implements CallBackListener {
                     if (!model.isSelfieSend()) {
                         activity.showProgress();
                         sendImage(model.getPathSelfie(), CameraType.Selfie);
+                    } else {
+                        controller.fire(CameraTrigger.IdCard);
                     }
                     break;
                 case IdCard:
-                    if (!model.isSelfieSend()) {
+                    if (!model.isCardIdeSend()) {
                         activity.showProgress();
                         sendImage(model.getPathIdCard(), CameraType.IdCard);
+                    } else {
+                        controller.fire(CameraTrigger.ProofOfAddress);
                     }
                     break;
                 case ProofOfAddress:
-                    if (!model.isSelfieSend()) {
+                    if (!model.isProofOfAddress()) {
                         activity.showProgress();
                         sendImage(model.getPathProofAddress(), CameraType.ProofOfAddress);
                     }
                     break;
             }
+
         }
     }
 

@@ -73,7 +73,7 @@ public class SelfieActivity extends ActionBarActivity {
         dialog.setMessage(getString(R.string.loading));
         showProgress();
         guiSegment = new CameraGuiSegment();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle(R.string.registration);
         guiSegment.init(this, controller,camera_preview,
                 submit,
@@ -243,7 +243,6 @@ public class SelfieActivity extends ActionBarActivity {
     @Click(R.id.submit)
     public void clickSubmit(){
         mCamera.startPreview();
-        guiSegment.retake();
         guiSegment.submit();
     }
 
@@ -255,6 +254,7 @@ public class SelfieActivity extends ActionBarActivity {
 
     public void initSelfie(){
         sendDocumentRel.setVisibility(View.VISIBLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         guiSegment.initSelfie();
         //openSelfie();
         if (mCamera == null) {
@@ -265,11 +265,13 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initSelfieBack(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initSelfie();
     }
 
     public void initIdCard(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initIdCard();
     }
@@ -279,6 +281,7 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initProofOfAddress(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initProofOfAddress();
     }

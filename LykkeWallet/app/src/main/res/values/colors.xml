@@ -2,6 +2,7 @@
 <resources>
     <item name="white" type="color">#ffffff</item>
     <item name="grey_text" type="color">#dedede</item>
+    <item name="grey_dark_text" type="color">#3f4d60</item>
 
 
 </resources>
