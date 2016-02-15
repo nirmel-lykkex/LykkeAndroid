@@ -140,16 +140,16 @@ public class CameraGuiSegment implements CallBackListener {
             activity.initBackCamera();
             model.setIsFront(false);
         } else {
-            activity.openSelfie();
+          //  activity.openSelfie();
             if (activity.mCamera == null) {
                 activity.initBackCamera();
             } else {
                 model.setIsFront(true);
             }
         }
-        activity.mCameraPreview = new CameraPreview(activity, activity.mCamera);
-        camera_preview.addView(activity.mCameraPreview);
-        activity.mCamera.startPreview();
+       // activity.mCameraPreview = new CameraPreview(activity, activity.mCamera);
+       // camera_preview.addView(activity.mCameraPreview);
+//        activity.mCamera.startPreview();
     }
 
     public void initProofOfAddress(){

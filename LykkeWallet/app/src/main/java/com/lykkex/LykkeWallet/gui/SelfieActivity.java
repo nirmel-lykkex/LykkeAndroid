@@ -164,9 +164,10 @@ public class SelfieActivity extends ActionBarActivity {
 
     private android.hardware.Camera getCameraInstance() {
         if (mCamera != null) {
-            mCamera.stopPreview();
-            mCameraPreview.getHolder().removeCallback(mCameraPreview);
-            mCamera.release();
+           // mCamera.stopPreview();
+           // mCamera.setPreviewCallback(null);
+          //  mCameraPreview.getHolder().removeCallback(mCameraPreview);
+           // mCamera.release();
         }
         android.hardware.Camera camera = null;
         try {
@@ -255,7 +256,7 @@ public class SelfieActivity extends ActionBarActivity {
     public void initSelfie(){
         sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initSelfie();
-        openSelfie();
+        //openSelfie();
         if (mCamera == null) {
             initBackCamera();
         }
