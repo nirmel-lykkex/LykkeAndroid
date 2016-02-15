@@ -19,6 +19,7 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.KysActivity_;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.SelfieActivity;
+import com.lykkex.LykkeWallet.gui.fragments.CameraPreview;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
@@ -138,9 +139,6 @@ public class CameraGuiSegment implements CallBackListener {
         if(model.isFront()){
             activity.initBackCamera();
             model.setIsFront(false);
-            if (activity.mCamera != null) {
-                activity.mCamera.startPreview();
-            }
         } else {
             activity.openSelfie();
             if (activity.mCamera == null) {
@@ -148,10 +146,10 @@ public class CameraGuiSegment implements CallBackListener {
             } else {
                 model.setIsFront(true);
             }
-            if (activity.mCamera != null) {
-                activity.mCamera.startPreview();
-            }
         }
+        activity.mCameraPreview = new CameraPreview(activity, activity.mCamera);
+        camera_preview.addView(activity.mCameraPreview);
+        activity.mCamera.startPreview();
     }
 
     public void initProofOfAddress(){

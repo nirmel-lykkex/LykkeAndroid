@@ -43,7 +43,7 @@ import java.util.Date;
 public class SelfieActivity extends ActionBarActivity {
 
     public android.hardware.Camera mCamera;
-    private CameraPreview mCameraPreview;
+    public CameraPreview mCameraPreview;
     public ProgressDialog dialog;
 
     private CameraGuiSegment guiSegment;
@@ -165,6 +165,7 @@ public class SelfieActivity extends ActionBarActivity {
     private android.hardware.Camera getCameraInstance() {
         if (mCamera != null) {
             mCamera.stopPreview();
+            mCameraPreview.getHolder().removeCallback(mCameraPreview);
             mCamera.release();
         }
         android.hardware.Camera camera = null;
