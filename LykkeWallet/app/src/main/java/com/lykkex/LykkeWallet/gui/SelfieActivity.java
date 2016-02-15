@@ -7,6 +7,7 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -89,7 +90,10 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initBackCamera(){
-        mCamera = getCameraInstance();
+        Camera cam = getCameraInstance();
+        if (cam != null) {
+            mCamera = cam;
+        }
     }
 
     public void showProgress(){
@@ -111,7 +115,10 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void openSelfie(){
-        mCamera = openFrontFacingCameraGingerbread();
+        Camera cam = openFrontFacingCameraGingerbread();
+        if (cam != null) {
+            mCamera = cam;
+        }
     }
 
     @Click(R.id.buttonFile)
@@ -156,6 +163,10 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     private android.hardware.Camera getCameraInstance() {
+        if (mCamera != null) {
+            mCamera.stopPreview();
+            mCamera.release();
+        }
         android.hardware.Camera camera = null;
         try {
             camera = android.hardware.Camera.open();
@@ -205,6 +216,10 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     private Camera openFrontFacingCameraGingerbread() {
+        if (mCamera != null) {
+            mCamera.stopPreview();
+            mCamera.release();
+        }
         int cameraCount = 0;
         Camera cam = null;
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
