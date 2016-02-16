@@ -245,7 +245,7 @@ public class CameraGuiSegment implements CallBackListener {
                 w);*/
         return rotatedBitmap;
     }
-    public void initPhotoTaken(String path, boolean isFile){
+    public void initPhotoTaken(String path){
         model.setIsDone(true);
 
         camera_preview.setVisibility(View.GONE);
