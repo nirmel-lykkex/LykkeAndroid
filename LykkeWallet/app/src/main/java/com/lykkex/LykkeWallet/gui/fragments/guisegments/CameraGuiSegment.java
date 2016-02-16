@@ -169,7 +169,7 @@ public class CameraGuiSegment implements CallBackListener {
         tvTitle.setText(R.string.proof_adress);
         initGuiPhoto();
         if (model.getPathProofAddress() != null && !model.getPathProofAddress().isEmpty()) {
-            initPhotoTakenFromFile(model.getPathProofAddress());
+            initPhotoTakenFromFile(model.getPathProofAddress(), false);
         }
     }
 
@@ -181,7 +181,7 @@ public class CameraGuiSegment implements CallBackListener {
         tvTitle.setText(R.string.id_card);
         initGuiPhoto();
         if (model.getPathIdCard() != null && !model.getPathIdCard().isEmpty()) {
-            initPhotoTakenFromFile(model.getPathIdCard());
+            initPhotoTakenFromFile(model.getPathIdCard(), false);
         }
     }
 
@@ -195,7 +195,7 @@ public class CameraGuiSegment implements CallBackListener {
         buttonFile.setVisibility(View.GONE);
 
         if (model != null && model.getPathSelfie() != null && !model.getPathSelfie().isEmpty()) {
-            initPhotoTakenFromFile(model.getPathSelfie());
+            initPhotoTakenFromFile(model.getPathSelfie(), false);
         }
     }
 
@@ -219,8 +219,19 @@ public class CameraGuiSegment implements CallBackListener {
     }
 
 
-    public void initPhotoTakenFromFile(String path) {
-        initPhotoTaken(path);
+    public void initPhotoTakenFromFile(String path, boolean isRealFile) {
+        if (isRealFile) {
+            switch (controller.getCurrentState()) {
+                case IdCard:
+                    model.setCardIdFile(true);
+                    break;
+                case ProofOfAddress:
+                    model.setProofAddressFile(true);
+                    break;
+            }
+        }
+        initPhotoTaken(path, false);
+
         imgPreview.setVisibility(View.VISIBLE);
         camera_preview.setVisibility(View.GONE);
 
@@ -228,17 +239,54 @@ public class CameraGuiSegment implements CallBackListener {
 
     private Bitmap cropImage(Bitmap srcBmp){
         Matrix matrix = new Matrix();
-        if (controller.getCurrentState() == CameraState.Selfie ||
-                controller.getCurrentState() == CameraState.SelfieBack) {
-            matrix.postRotate(270);
-        } else {
-            matrix.postRotate(90);
+        int angle = 0;
+        switch (controller.getCurrentState()){
+            case Selfie:
+                matrix.postRotate(270);
+                angle = 270;
+                break;
+            case SelfieBack:
+                matrix.postRotate(270);
+                angle = 270;
+                break;
+            case IdCard:
+                if (model.isCardIdFile()){
+                    angle = 0;
+                } else if (model.isCardIdFront()){
+                    matrix.postRotate(270);
+                    angle = 270;
+                } else {
+                    matrix.postRotate(90);
+                    angle = 90;
+                }
+             break;
+            case ProofOfAddress:
+                if (model.isProofAddressFile()){
+                    angle = 0;
+
+                } else if (model.isProofAddressFront()){
+                    matrix.postRotate(270);
+                    angle = 270;
+                } else {
+                    matrix.postRotate(90);
+                    angle = 90;
+                }
+                break;
+
         }
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(srcBmp,srcBmp.getWidth(),
                 srcBmp.getHeight(),true);
         Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0,
                 scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
 
+        if (angle == 270) {
+            Matrix m = new Matrix();
+            m.preScale(-1, 1);
+            Bitmap src = rotatedBitmap;
+            Bitmap dst = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), m, false);
+            dst.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+            return dst;
+        } else
       /* rotatedBitmap = Bitmap.createBitmap(
                 scaledBitmap,
                 scaledBitmap.getWidth()/2 - w,
@@ -247,9 +295,21 @@ public class CameraGuiSegment implements CallBackListener {
                 w);*/
         return rotatedBitmap;
     }
-    public void initPhotoTaken(String path){
+    public void initPhotoTaken(String path, boolean isSecondTime){
         model.setIsDone(true);
 
+        if (!isSecondTime) {
+            if (model.isFront()) {
+                switch (controller.getCurrentState()) {
+                    case IdCard:
+                        model.setCardIdFront(true);
+                        break;
+                    case ProofOfAddress:
+                        model.setProofAddressFront(true);
+                        break;
+                }
+            }
+        }
         imgPreview.setVisibility(View.VISIBLE);
         camera_preview.setVisibility(View.GONE);
         BitmapFactory.Options options = new BitmapFactory.Options();

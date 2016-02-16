@@ -17,6 +17,61 @@ public class CameraModelGUI extends CameraResult {
     private boolean isSelfieSend = false;
     private boolean isCardIdeSend = false;
     private boolean isProofAddressSend = false;
+    private boolean isSelfieFront = true;
+    private boolean isCardIdFront = false;
+    private boolean isProofAddressFront = false;
+    private boolean isSelfieFile = true;
+
+    public boolean isCardIdFile() {
+        return isCardIdFile;
+    }
+
+    public void setCardIdFile(boolean cardIdFile) {
+        isCardIdFile = cardIdFile;
+    }
+
+    public boolean isSelfieFile() {
+        return isSelfieFile;
+    }
+
+    public void setSelfieFile(boolean selfieFile) {
+        isSelfieFile = selfieFile;
+    }
+
+    public boolean isProofAddressFront() {
+        return isProofAddressFront;
+    }
+
+    public void setProofAddressFront(boolean proofAddressFront) {
+        isProofAddressFront = proofAddressFront;
+    }
+
+    public boolean isCardIdFront() {
+        return isCardIdFront;
+    }
+
+    public void setCardIdFront(boolean cardIdFront) {
+        isCardIdFront = cardIdFront;
+    }
+
+    public boolean isSelfieFront() {
+        return isSelfieFront;
+    }
+
+    public void setSelfieFront(boolean selfieFront) {
+        isSelfieFront = selfieFront;
+    }
+
+    public boolean isProofAddressFile() {
+        return isProofAddressFile;
+    }
+
+    public void setProofAddressFile(boolean proofAddressFile) {
+        isProofAddressFile = proofAddressFile;
+    }
+
+    private boolean isCardIdFile = false;
+    private boolean isProofAddressFile = false;
 
     public String getPathSelfie() {
         return pathSelfie;

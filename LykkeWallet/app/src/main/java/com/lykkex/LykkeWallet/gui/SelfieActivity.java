@@ -214,7 +214,7 @@ public class SelfieActivity extends ActionBarActivity {
                         } else {
                             path = getPath19(this, uri);
                         }
-                        guiSegment.initPhotoTakenFromFile(path);
+                        guiSegment.initPhotoTakenFromFile(path, true);
                     } catch (IllegalStateException ex){}
                 }
                 break;
@@ -313,7 +313,7 @@ public class SelfieActivity extends ActionBarActivity {
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
-                guiSegment.initPhotoTaken(pictureFile.getAbsolutePath());
+                guiSegment.initPhotoTaken(pictureFile.getAbsolutePath(), false);
             } catch (FileNotFoundException e) {
 
             } catch (IOException e) {
