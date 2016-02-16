@@ -24,6 +24,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -492,9 +493,11 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initProofOfAddress(){
+        wasCreateRel.setVisibility(View.GONE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.registration);
         sendDocumentRel.setVisibility(View.VISIBLE);
+        initBackCamera();
         guiSegment.initProofOfAddress();
     }
 
@@ -502,4 +505,15 @@ public class SelfieActivity extends ActionBarActivity {
     public void onBackPressed(){
         guiSegment.onBackPress();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

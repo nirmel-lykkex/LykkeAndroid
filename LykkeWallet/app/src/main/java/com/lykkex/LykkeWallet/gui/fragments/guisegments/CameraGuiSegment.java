@@ -220,7 +220,7 @@ public class CameraGuiSegment implements CallBackListener {
     public void initPhotoTakenFromFile(String path) {
         initPhotoTaken(path);
         imgPreview.setVisibility(View.VISIBLE);
-        camera_preview.setVisibility(View.INVISIBLE);
+        camera_preview.setVisibility(View.GONE);
 
     }
 
@@ -248,9 +248,12 @@ public class CameraGuiSegment implements CallBackListener {
     public void initPhotoTaken(String path){
         model.setIsDone(true);
 
+        imgPreview.setVisibility(View.VISIBLE);
         camera_preview.setVisibility(View.GONE);
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inDither = true;
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
         bitmap = cropImage(bitmap);
         Drawable drawable = new BitmapDrawable(activity.getResources(), bitmap);
@@ -261,11 +264,6 @@ public class CameraGuiSegment implements CallBackListener {
         buttake_photo.setVisibility(View.GONE);
         buttonFile.setVisibility(View.GONE);
         buttonOpenSelfie.setVisibility(View.GONE);
-        RelativeLayout.LayoutParams lp = ((RelativeLayout.LayoutParams)camera_preview.getLayoutParams());
-        lp.leftMargin = (int) convertToDp(100);
-        lp.rightMargin = (int) convertToDp(100);
-        camera_preview.setLayoutParams(lp);
-        camera_preview.setVisibility(View.GONE);
 
         switch (controller.getCurrentState()){
             case SelfieBack:
@@ -347,6 +345,9 @@ public class CameraGuiSegment implements CallBackListener {
                 break;
             case ProofOfAddress:
                 controller.fire(CameraTrigger.IdCard);
+                break;
+            case CheckStatus:
+                controller.fire(CameraTrigger.ProofOfAddress);
                 break;
         }
     }
