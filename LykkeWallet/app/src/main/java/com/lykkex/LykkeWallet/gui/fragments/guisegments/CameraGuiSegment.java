@@ -166,7 +166,7 @@ public class CameraGuiSegment implements CallBackListener {
         tvTitle.setText(R.string.proof_adress);
         initGuiPhoto();
         if (model.getPathProofAddress() != null && !model.getPathProofAddress().isEmpty()) {
-            initPhotoTaken(model.getPathSelfie());
+            initPhotoTakenFromFile(model.getPathSelfie());
         }
     }
 
@@ -178,7 +178,7 @@ public class CameraGuiSegment implements CallBackListener {
         tvTitle.setText(R.string.id_card);
         initGuiPhoto();
         if (model.getPathIdCard() != null && !model.getPathIdCard().isEmpty()) {
-            initPhotoTaken(model.getPathIdCard());
+            initPhotoTakenFromFile(model.getPathIdCard());
         }
     }
 
@@ -192,7 +192,7 @@ public class CameraGuiSegment implements CallBackListener {
         buttonFile.setVisibility(View.GONE);
 
         if (model != null && model.getPathSelfie() != null && !model.getPathSelfie().isEmpty()) {
-            initPhotoTaken(model.getPathSelfie());
+            initPhotoTakenFromFile(model.getPathSelfie());
         }
     }
 
