@@ -201,7 +201,7 @@ public class SelfieActivity extends ActionBarActivity {
                     } else {
                         path = getPath19(this, uri);
                     }
-                    guiSegment.initPhotoTaken(path);
+                    guiSegment.initPhotoTakenFromFile(path);
                 }
                 break;
         }
@@ -430,7 +430,6 @@ public class SelfieActivity extends ActionBarActivity {
 
     @Click(R.id.submit)
     public void clickSubmit(){
-        mCamera.startPreview();
         guiSegment.submit();
     }
 

@@ -206,10 +206,16 @@ public class CameraGuiSegment implements CallBackListener {
     }
 
 
+    public void initPhotoTakenFromFile(String path) {
+        initPhotoTaken(path);
+        imgPreview.setVisibility(View.VISIBLE);
+        camera_preview.setVisibility(View.GONE);
+
+    }
     public void initPhotoTaken(String path){
         model.setIsDone(true);
 
-        imgPreview.setVisibility(View.VISIBLE);
+        //imgPreview.setVisibility(View.VISIBLE);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         options.outHeight = camera_preview.getMeasuredHeight();
@@ -223,7 +229,7 @@ public class CameraGuiSegment implements CallBackListener {
         buttake_photo.setVisibility(View.GONE);
         buttonFile.setVisibility(View.GONE);
         buttonOpenSelfie.setVisibility(View.GONE);
-        camera_preview.setVisibility(View.GONE);
+      //  camera_preview.setVisibility(View.GONE);
 
         switch (controller.getCurrentState()){
             case Selfie:
