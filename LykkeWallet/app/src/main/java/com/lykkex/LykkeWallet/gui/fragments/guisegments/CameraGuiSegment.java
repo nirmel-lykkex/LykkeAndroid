@@ -75,13 +75,13 @@ public class CameraGuiSegment implements CallBackListener {
 
 
     public void init(SelfieActivity activity, CameraController controller,
-                    FrameLayout camera_preview,
-                            Button submit,
-                            Button buttake_photo,
-                            Button buttonFile,
-                            Button buttonOpenSelfie,
-                             Button retake,
-                             ImageView imgPreview, RegistrationResult info,
+                     FrameLayout camera_preview,
+                     Button submit,
+                     Button buttake_photo,
+                     Button buttonFile,
+                     Button buttonOpenSelfie,
+                     Button retake,
+                     ImageView imgPreview, RegistrationResult info,
                      ImageView imgSecond, ImageView imgThird, ImageView imgForth,
                      TextView tvTitle
     ) {
@@ -206,6 +206,13 @@ public class CameraGuiSegment implements CallBackListener {
         buttonFile.setVisibility(View.VISIBLE);
         buttonOpenSelfie.setVisibility(View.VISIBLE);
         camera_preview.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) camera_preview.getLayoutParams();
+        lp.width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        lp.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        lp.leftMargin = (int) convertToDp(0);
+        lp.rightMargin = (int) convertToDp(0);
+
+        camera_preview.setLayoutParams(lp);
 
     }
 
@@ -213,24 +220,22 @@ public class CameraGuiSegment implements CallBackListener {
     public void initPhotoTakenFromFile(String path) {
         initPhotoTaken(path);
         imgPreview.setVisibility(View.VISIBLE);
-        camera_preview.setVisibility(View.GONE);
+        camera_preview.setVisibility(View.INVISIBLE);
 
     }
 
-    private Bitmap cropImage(Bitmap srcBmp, int h, int w){
+    private Bitmap cropImage(Bitmap srcBmp){
         Matrix matrix = new Matrix();
-        matrix.postRotate(270);
+        if (controller.getCurrentState() == CameraState.Selfie ||
+                controller.getCurrentState() == CameraState.SelfieBack) {
+            matrix.postRotate(270);
+        } else {
+            matrix.postRotate(90);
+        }
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(srcBmp,srcBmp.getWidth(),
                 srcBmp.getHeight(),true);
         Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0,
                 scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
-
-         rotatedBitmap = Bitmap.createBitmap(
-                 rotatedBitmap,
-                 0,
-                 rotatedBitmap.getHeight()-h,
-                 w,
-                 h);
 
       /* rotatedBitmap = Bitmap.createBitmap(
                 scaledBitmap,
@@ -243,11 +248,11 @@ public class CameraGuiSegment implements CallBackListener {
     public void initPhotoTaken(String path){
         model.setIsDone(true);
 
-        imgPreview.setVisibility(View.VISIBLE);
+        imgPreview.setVisibility(View.GONE);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-       // bitmap = cropImage(bitmap, camera_preview.getMeasuredHeight(),camera_preview.getMeasuredWidth());
+        bitmap = cropImage(bitmap);
         Drawable drawable = new BitmapDrawable(activity.getResources(), bitmap);
         imgPreview.setBackgroundDrawable(drawable);
         retake.setVisibility(View.VISIBLE);
@@ -260,9 +265,12 @@ public class CameraGuiSegment implements CallBackListener {
         lp.leftMargin = (int) convertToDp(100);
         lp.rightMargin = (int) convertToDp(100);
         camera_preview.setLayoutParams(lp);
-        camera_preview.setVisibility(View.GONE);
+        //camera_preview.setVisibility(View.GONE);
 
         switch (controller.getCurrentState()){
+            case SelfieBack:
+                model.setPathSeldie(path);
+                break;
             case Selfie:
                 model.setPathSeldie(path);
                 break;

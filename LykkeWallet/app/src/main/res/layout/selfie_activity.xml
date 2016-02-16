@@ -59,117 +59,135 @@
 
     <RelativeLayout
         android:id="@+id/sendDocumentRel"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/relProgress"
-            android:layout_marginTop="20dp"
-            android:visibility="visible"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/tvTitle"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imgFirst"
-                android:background="@drawable/ready"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <View
-                android:layout_width="40dp"
-                android:layout_height="1dp"
-                android:background="@color/grey_text"
-                android:id="@+id/imageView2"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imgFirst"
-                android:layout_toEndOf="@+id/imgFirst" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imgSecond"
-                android:background="@drawable/submit_form_circle"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView2"
-                android:layout_toEndOf="@+id/imageView2"
-                android:layout_marginLeft="-5dp" />
-
-            <View
-                android:layout_width="40dp"
-                android:layout_height="1dp"
-                android:background="@color/grey_text"
-                android:id="@+id/imageView3"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imgSecond"
-                android:layout_toEndOf="@+id/imgSecond" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/unsubmit_form_circle"
-                android:id="@+id/imgThird"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView3"
-                android:layout_toEndOf="@+id/imageView3"
-                android:layout_marginLeft="-5dp" />
-
-            <View
-                android:layout_width="40dp"
-                android:layout_height="1dp"
-                android:background="@color/grey_text"
-                android:id="@+id/imageView4"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imgThird"
-                android:layout_toEndOf="@+id/imgThird" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imgForth"
-                android:background="@drawable/unsubmit_form_circle"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView4"
-                android:layout_toEndOf="@+id/imageView4"
-                android:layout_marginLeft="-5dp" />
-        </RelativeLayout>
         <FrameLayout
             android:id="@+id/camera_preview"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relProgress"
+            android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
             android:layout_above="@+id/relButtons" />
+        <RelativeLayout
+            android:id="@+id/relTop"
+            android:background="@color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/make_selfie"
+            android:id="@+id/tvTitle"
+            android:textSize="18sp"
+            android:textColor="@color/grey_dark_text"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:id="@+id/relProgress"
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/tvTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgFirst"
+                    android:background="@drawable/ready"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_text"
+                    android:id="@+id/imageView2"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imgFirst"
+                    android:layout_toEndOf="@+id/imgFirst" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgSecond"
+                    android:background="@drawable/submit_form_circle"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView2"
+                    android:layout_toEndOf="@+id/imageView2"
+                    android:layout_marginLeft="-5dp" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_text"
+                    android:id="@+id/imageView3"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imgSecond"
+                    android:layout_toEndOf="@+id/imgSecond" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/unsubmit_form_circle"
+                    android:id="@+id/imgThird"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView3"
+                    android:layout_toEndOf="@+id/imageView3"
+                    android:layout_marginLeft="-5dp" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_text"
+                    android:id="@+id/imageView4"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imgThird"
+                    android:layout_toEndOf="@+id/imgThird" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgForth"
+                    android:background="@drawable/unsubmit_form_circle"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView4"
+                    android:layout_toEndOf="@+id/imageView4"
+                    android:layout_marginLeft="-5dp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/imgPreview"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:visibility="visible"
-            android:layout_below="@+id/relProgress"
+            android:layout_below="@+id/relTop"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_above="@+id/relButtons" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:id="@+id/relButtons"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="120dp"
+            android:background="@color/white"
+            android:layout_height="130dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true">
 
@@ -256,17 +274,7 @@
                 </RelativeLayout>
               </LinearLayout>
         </RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/make_selfie"
-            android:id="@+id/tvTitle"
-            android:textSize="18sp"
-            android:textColor="@color/grey_dark_text"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
 

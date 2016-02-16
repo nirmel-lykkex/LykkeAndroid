@@ -304,7 +304,7 @@ public class SelfieActivity extends ActionBarActivity {
     android.hardware.Camera.PictureCallback mPicture = new android.hardware.Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, android.hardware.Camera camera) {
-            /*File pictureFile = getOutputMediaFile();
+            File pictureFile = getOutputMediaFile();
             if (pictureFile == null) {
                 return;
             }
@@ -316,55 +316,7 @@ public class SelfieActivity extends ActionBarActivity {
             } catch (FileNotFoundException e) {
 
             } catch (IOException e) {
-            }*/
-            File pictureFile = getOutputMediaFile();
-            if (data != null) {
-                int screenWidth = camera_preview.getMeasuredWidth();
-                int screenHeight =  camera_preview.getMeasuredHeight()/2;
-                Bitmap bm = BitmapFactory.decodeByteArray(data, 0, (data != null) ? data.length : 0);
-
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // Notice that width and height are reversed
-                    Matrix mtx = new Matrix();
-                    mtx.postRotate(270);
-                    int x = 0;
-                    if (bm.getWidth()-screenWidth >0) {
-                        x = bm.getWidth()-screenWidth;
-                    }
-                    int y = 0;
-                    if (bm.getHeight() - screenHeight >0){
-                        y = bm.getHeight()-screenHeight;
-                    }
-                    bm = Bitmap.createBitmap(bm, x, y,
-                            screenWidth, screenHeight, mtx,true);
-                    Matrix m = new Matrix();
-                    m.preScale(-1, 1);
-                    bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
-                    bm.setDensity(DisplayMetrics.DENSITY_DEFAULT);
-                } else {
-                    Bitmap scaled = Bitmap.createScaledBitmap(bm, screenWidth, screenHeight, true);
-                    bm = scaled;
-                }
-
-                FileOutputStream out = null;
-                try {
-                    out = new FileOutputStream(pictureFile);
-                    bm.compress(Bitmap.CompressFormat.PNG, 50, out); // bmp is your Bitmap instance
-                    guiSegment.initPhotoTaken(pictureFile.getAbsolutePath());
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (out != null) {
-                            out.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
-
         }
     };
 
@@ -405,13 +357,8 @@ public class SelfieActivity extends ActionBarActivity {
             }
         }
 
-        if (camera_preview.getMeasuredHeight() == 0) {
-            initPreview(getWindowManager().getDefaultDisplay().getWidth(),
-                    getWindowManager().getDefaultDisplay().getHeight()/2);
-        } else {
-            initPreview(getWindowManager().getDefaultDisplay().getWidth(),
-                    camera_preview.getMeasuredHeight());
-        }
+        initPreview(getWindowManager().getDefaultDisplay().getWidth(),
+                getWindowManager().getDefaultDisplay().getHeight());
 
     }
 
