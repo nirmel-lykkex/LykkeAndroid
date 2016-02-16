@@ -3,16 +3,19 @@ package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.UiThread;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
@@ -229,6 +232,10 @@ public class CameraGuiSegment implements CallBackListener {
         buttake_photo.setVisibility(View.GONE);
         buttonFile.setVisibility(View.GONE);
         buttonOpenSelfie.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams lp = ((RelativeLayout.LayoutParams)camera_preview.getLayoutParams());
+        lp.leftMargin = (int) convertToDp(100);
+        lp.rightMargin = (int) convertToDp(100);
+        camera_preview.setLayoutParams(lp);
       //  camera_preview.setVisibility(View.GONE);
 
         switch (controller.getCurrentState()){
@@ -244,6 +251,10 @@ public class CameraGuiSegment implements CallBackListener {
         }
     }
 
+    private float  convertToDp(int px) {
+        float dp =  px / activity.getResources().getDisplayMetrics().density;
+        return dp;
+    }
     public void retake(){
         retake.setVisibility(View.GONE);
         submit.setVisibility(View.GONE);
