@@ -129,7 +129,7 @@ public class CameraGuiSegment implements CallBackListener {
                     }
                     break;
                 case ProofOfAddress:
-                    if (!model.isProofOfAddress()) {
+                    if (!model.isProofAddressSend()) {
                         activity.showProgress();
                         sendImage(model.getPathProofAddress(), CameraType.ProofOfAddress);
                     }
@@ -145,16 +145,13 @@ public class CameraGuiSegment implements CallBackListener {
             activity.initBackCamera();
             model.setIsFront(false);
         } else {
-          //  activity.openSelfie();
+            activity.openSelfie();
             if (activity.mCamera == null) {
                 activity.initBackCamera();
             } else {
                 model.setIsFront(true);
             }
         }
-       // activity.mCameraPreview = new CameraPreview(activity, activity.mCamera);
-       // camera_preview.addView(activity.mCameraPreview);
-//        activity.mCamera.startPreview();
     }
 
     public void initProofOfAddress(){
@@ -178,15 +175,19 @@ public class CameraGuiSegment implements CallBackListener {
         tvTitle.setText(R.string.id_card);
         initGuiPhoto();
         if (model.getPathIdCard() != null && !model.getPathIdCard().isEmpty()) {
-            initPhotoTaken(model.getPathSelfie());
+            initPhotoTaken(model.getPathIdCard());
         }
     }
 
     public void initSelfie(){
+        model.setIsFront(true);
         model.setIsDone(false);
         model.setIsFront(true);
         tvTitle.setText(R.string.make_selfie);
         initGuiPhoto();
+        buttonOpenSelfie.setVisibility(View.GONE);
+        buttonFile.setVisibility(View.GONE);
+
         if (model != null && model.getPathSelfie() != null && !model.getPathSelfie().isEmpty()) {
             initPhotoTaken(model.getPathSelfie());
         }
@@ -242,9 +243,16 @@ public class CameraGuiSegment implements CallBackListener {
         submit.setVisibility(View.GONE);
 
         buttake_photo.setVisibility(View.VISIBLE);
-        buttonFile.setVisibility(View.VISIBLE);
-        buttonOpenSelfie.setVisibility(View.VISIBLE);
+
         initGuiPhoto();
+        if(controller.getCurrentState() != CameraState.Selfie &&
+                controller.getCurrentState() != CameraState.SelfieBack) {
+            buttonFile.setVisibility(View.VISIBLE);
+            buttonOpenSelfie.setVisibility(View.VISIBLE);
+        } else {
+            buttonFile.setVisibility(View.GONE);
+            buttonOpenSelfie.setVisibility(View.GONE);
+        }
         switch (controller.getCurrentState()) {
             case Selfie:
                 model.setIsSelfieSend(false);
@@ -261,7 +269,7 @@ public class CameraGuiSegment implements CallBackListener {
     private String compressImage(String path){
         Bitmap bm = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bm.compress(Bitmap.CompressFormat.JPEG, 60, baos);
         byte[] byteArrayImage = baos.toByteArray();
         return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
     }

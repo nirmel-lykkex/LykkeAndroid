@@ -25,7 +25,7 @@ public class SendDocumentsDataCallback implements Callback<PersonData> {
     public void onResponse(Call<PersonData> call, Response<PersonData> response) {
         if (response != null && response.body() != null && response.body().getError()==null) {
             listener.onSuccess(null);
-        }else if (response != null && response.body() != null){
+        }else if (response != null){
             listener.onFail(null);
         }
     }
