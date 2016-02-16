@@ -8,6 +8,12 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
+import android.graphics.Matrix;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
@@ -41,10 +47,14 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -194,14 +204,16 @@ public class SelfieActivity extends ActionBarActivity {
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     String path;
-                    if (Integer.parseInt(Build.VERSION.SDK) >= 11 && (Integer.parseInt(Build.VERSION.SDK) <= 18)){
-                        path = getPath11to18(this, uri);
-                    } else if (Integer.parseInt(Build.VERSION.SDK) <= 11){
-                        path = getPath11(this, uri);
-                    } else {
-                        path = getPath19(this, uri);
-                    }
-                    guiSegment.initPhotoTakenFromFile(path);
+                    try {
+                        if (Integer.parseInt(Build.VERSION.SDK) >= 11 && (Integer.parseInt(Build.VERSION.SDK) <= 18)) {
+                            path = getPath11to18(this, uri);
+                        } else if (Integer.parseInt(Build.VERSION.SDK) <= 11) {
+                            path = getPath11(this, uri);
+                        } else {
+                            path = getPath19(this, uri);
+                        }
+                        guiSegment.initPhotoTakenFromFile(path);
+                    } catch (IllegalStateException ex){}
                 }
                 break;
         }
@@ -238,6 +250,7 @@ public class SelfieActivity extends ActionBarActivity {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getPath19(final Context context, final Uri uri) {
+
         String filePath = "";
         String wholeID = DocumentsContract.getDocumentId(uri);
 
@@ -290,7 +303,7 @@ public class SelfieActivity extends ActionBarActivity {
     android.hardware.Camera.PictureCallback mPicture = new android.hardware.Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, android.hardware.Camera camera) {
-            File pictureFile = getOutputMediaFile();
+            /*File pictureFile = getOutputMediaFile();
             if (pictureFile == null) {
                 return;
             }
@@ -302,14 +315,54 @@ public class SelfieActivity extends ActionBarActivity {
             } catch (FileNotFoundException e) {
 
             } catch (IOException e) {
+            }*/
+            File pictureFile = getOutputMediaFile();
+            if (data != null) {
+                int screenWidth = mCameraPreview.getLayoutParams().width;
+                int screenHeight =  mCameraPreview.getLayoutParams().height;
+                Bitmap bm = BitmapFactory.decodeByteArray(data, 0, (data != null) ? data.length : 0);
+
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    // Notice that width and height are reversed
+                    Matrix mtx = new Matrix();
+                    mtx.postRotate(270);
+                    bm = Bitmap.createBitmap(bm, bm.getWidth()-screenWidth, bm.getHeight()-screenHeight,
+                            screenWidth, screenWidth, mtx,true);
+                    Matrix m = new Matrix();
+                    m.preScale(-1, 1);
+                    bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
+                    bm.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+                } else {
+                    Bitmap scaled = Bitmap.createScaledBitmap(bm, screenWidth, screenHeight, true);
+                    bm = scaled;
+                }
+
+                FileOutputStream out = null;
+                try {
+                    out = new FileOutputStream(pictureFile);
+                    bm.compress(Bitmap.CompressFormat.PNG, 50, out); // bmp is your Bitmap instance
+                    guiSegment.initPhotoTaken(pictureFile.getAbsolutePath());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (out != null) {
+                            out.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+
         }
     };
 
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(
                 Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                 "MyCameraApp");
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {

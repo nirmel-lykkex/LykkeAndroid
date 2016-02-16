@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.UiThread;
@@ -215,15 +216,38 @@ public class CameraGuiSegment implements CallBackListener {
         camera_preview.setVisibility(View.GONE);
 
     }
+
+    private Bitmap cropImage(Bitmap srcBmp, int h, int w){
+        Matrix matrix = new Matrix();
+        matrix.postRotate(270);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(srcBmp,srcBmp.getWidth(),
+                srcBmp.getHeight(),true);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0,
+                scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
+         rotatedBitmap = Bitmap.createBitmap(
+                 rotatedBitmap,
+                 0,
+                 rotatedBitmap.getHeight()-h,
+                 w,
+                 h);
+
+      /* rotatedBitmap = Bitmap.createBitmap(
+                scaledBitmap,
+                scaledBitmap.getWidth()/2 - w,
+                0,
+                h,
+                w);*/
+        return rotatedBitmap;
+    }
     public void initPhotoTaken(String path){
         model.setIsDone(true);
 
-        //imgPreview.setVisibility(View.VISIBLE);
+        imgPreview.setVisibility(View.VISIBLE);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        options.outHeight = camera_preview.getMeasuredHeight();
-        options.outWidth = camera_preview.getMeasuredWidth();
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+       // bitmap = cropImage(bitmap, camera_preview.getMeasuredHeight(),camera_preview.getMeasuredWidth());
         Drawable drawable = new BitmapDrawable(activity.getResources(), bitmap);
         imgPreview.setBackgroundDrawable(drawable);
         retake.setVisibility(View.VISIBLE);
@@ -236,7 +260,7 @@ public class CameraGuiSegment implements CallBackListener {
         lp.leftMargin = (int) convertToDp(100);
         lp.rightMargin = (int) convertToDp(100);
         camera_preview.setLayoutParams(lp);
-      //  camera_preview.setVisibility(View.GONE);
+        camera_preview.setVisibility(View.GONE);
 
         switch (controller.getCurrentState()){
             case Selfie:
