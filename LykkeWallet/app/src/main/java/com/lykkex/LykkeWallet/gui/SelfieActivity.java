@@ -357,8 +357,8 @@ public class SelfieActivity extends ActionBarActivity {
             }
         }
 
-        initPreview(getWindowManager().getDefaultDisplay().getWidth(),
-                getWindowManager().getDefaultDisplay().getHeight());
+       /* initPreview(getWindowManager().getDefaultDisplay().getWidth(),
+                getWindowManager().getDefaultDisplay().getHeight());*/
 
     }
 
