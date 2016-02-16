@@ -136,6 +136,8 @@ public class CameraGuiSegment implements CallBackListener {
                     if (!model.isProofAddressSend()) {
                         activity.showProgress();
                         sendImage(model.getPathProofAddress(), CameraType.ProofOfAddress);
+                    } else {
+                        controller.fire(CameraTrigger.CheckStatus);
                     }
                     break;
             }
@@ -300,8 +302,12 @@ public class CameraGuiSegment implements CallBackListener {
             buttonFile.setVisibility(View.GONE);
             buttonOpenSelfie.setVisibility(View.GONE);
         }
+
         switch (controller.getCurrentState()) {
             case Selfie:
+                model.setIsSelfieSend(false);
+                break;
+            case SelfieBack:
                 model.setIsSelfieSend(false);
                 break;
             case IdCard:
@@ -377,7 +383,11 @@ public class CameraGuiSegment implements CallBackListener {
                 }
                 break;
             case Selfie:
-                activity.dismissProgress();
+                if (!model.isSelfieSend()) {
+                    activity.dismissProgress();
+                    model.setIsSelfieSend(true);
+                }
+
                 if (model.isIdCard()){
                     controller.fire(CameraTrigger.IdCard);
                 }

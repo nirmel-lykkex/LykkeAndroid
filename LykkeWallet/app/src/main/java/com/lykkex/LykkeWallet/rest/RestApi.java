@@ -4,6 +4,7 @@ package com.lykkex.LykkeWallet.rest;
 
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
+import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.login.request.model.AuthRequest;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
@@ -41,4 +42,7 @@ public interface RestApi {
     @POST("/api/KycStatus")
     Call<PersonData> kysDocuments(@Header("Authorization") String authorization,
             @Body CameraModel cameraModel);
+
+    @GET("/api/KycStatus")
+    Call<DocumentAnswerData> kysDocuments(@Header("Authorization") String authorization);
 }
