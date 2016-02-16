@@ -245,10 +245,10 @@ public class CameraGuiSegment implements CallBackListener {
                 w);*/
         return rotatedBitmap;
     }
-    public void initPhotoTaken(String path){
+    public void initPhotoTaken(String path, boolean isFile){
         model.setIsDone(true);
 
-        imgPreview.setVisibility(View.GONE);
+        camera_preview.setVisibility(View.GONE);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
@@ -265,7 +265,7 @@ public class CameraGuiSegment implements CallBackListener {
         lp.leftMargin = (int) convertToDp(100);
         lp.rightMargin = (int) convertToDp(100);
         camera_preview.setLayoutParams(lp);
-        //camera_preview.setVisibility(View.GONE);
+        camera_preview.setVisibility(View.GONE);
 
         switch (controller.getCurrentState()){
             case SelfieBack:
