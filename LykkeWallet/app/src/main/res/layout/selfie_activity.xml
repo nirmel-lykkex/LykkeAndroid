@@ -20,12 +20,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Was created + info"
-            android:textColor="@color/grey_text"
-            android:layout_marginTop="10dp"
+            android:text="@string/proedure_approve"
             android:id="@+id/tvWasCreated"
+            android:gravity="center"
             android:layout_below="@+id/imgWasCreated"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -37,11 +40,26 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/dear_it_checked"
+            android:id="@+id/textView3"
+            android:gravity="center"
+            android:layout_below="@+id/tvWasCreated"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp" />
     </RelativeLayout>
 
 
     <RelativeLayout
         android:id="@+id/sendDocumentRel"
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 

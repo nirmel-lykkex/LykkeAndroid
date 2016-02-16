@@ -20,6 +20,7 @@
             android:value="f6c20cf95679b1a5f41d4abc481094a5046ea101" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".gui.FieldActivity_"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize">
@@ -28,7 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gui.SelfieActivity_">
+        <activity android:screenOrientation="portrait"
+            android:name=".gui.SelfieActivity_">
 
         </activity>
         <activity android:name=".gui.MainActivity_"/>

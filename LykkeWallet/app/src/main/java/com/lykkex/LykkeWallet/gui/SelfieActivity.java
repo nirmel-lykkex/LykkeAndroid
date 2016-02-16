@@ -193,6 +193,7 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void checkStatus(){
+        getSupportActionBar().setTitle(R.string.send_document);
         sendDocumentRel.setVisibility(View.GONE);
         wasCreateRel.setVisibility(View.VISIBLE);
     }
@@ -318,16 +319,24 @@ public class SelfieActivity extends ActionBarActivity {
             }*/
             File pictureFile = getOutputMediaFile();
             if (data != null) {
-                int screenWidth = mCameraPreview.getLayoutParams().width;
-                int screenHeight =  mCameraPreview.getLayoutParams().height;
+                int screenWidth = camera_preview.getMeasuredWidth();
+                int screenHeight =  camera_preview.getMeasuredHeight()/2;
                 Bitmap bm = BitmapFactory.decodeByteArray(data, 0, (data != null) ? data.length : 0);
 
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     // Notice that width and height are reversed
                     Matrix mtx = new Matrix();
                     mtx.postRotate(270);
-                    bm = Bitmap.createBitmap(bm, bm.getWidth()-screenWidth, bm.getHeight()-screenHeight,
-                            screenWidth, screenWidth, mtx,true);
+                    int x = 0;
+                    if (bm.getWidth()-screenWidth >0) {
+                        x = bm.getWidth()-screenWidth;
+                    }
+                    int y = 0;
+                    if (bm.getHeight() - screenHeight >0){
+                        y = bm.getHeight()-screenHeight;
+                    }
+                    bm = Bitmap.createBitmap(bm, x, y,
+                            screenWidth, screenHeight, mtx,true);
                     Matrix m = new Matrix();
                     m.preScale(-1, 1);
                     bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
@@ -396,7 +405,13 @@ public class SelfieActivity extends ActionBarActivity {
             }
         }
 
-        initPreview(camera_preview.getMeasuredWidth(), camera_preview.getMeasuredHeight());
+        if (camera_preview.getMeasuredHeight() == 0) {
+            initPreview(getWindowManager().getDefaultDisplay().getWidth(),
+                    getWindowManager().getDefaultDisplay().getHeight()/2);
+        } else {
+            initPreview(getWindowManager().getDefaultDisplay().getWidth(),
+                    camera_preview.getMeasuredHeight());
+        }
 
     }
 
@@ -473,7 +488,7 @@ public class SelfieActivity extends ActionBarActivity {
                 try {
                     cam = Camera.open(camIdx);
                 } catch (RuntimeException e) {
-
+                    return null;
                 }
             }
         }
@@ -493,8 +508,10 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initSelfie(){
+        wasCreateRel.setVisibility(View.GONE);
         sendDocumentRel.setVisibility(View.VISIBLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle(R.string.registration);
         guiSegment.initSelfie();
         openSelfie();
         if (mCamera == null) {
@@ -503,7 +520,9 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initSelfieBack(){
+        wasCreateRel.setVisibility(View.GONE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle(R.string.registration);
         openSelfie();
         if (mCamera == null) {
             initBackCamera();
@@ -513,7 +532,9 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void initIdCard(){
+        wasCreateRel.setVisibility(View.GONE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.registration);
         sendDocumentRel.setVisibility(View.VISIBLE);
         initBackCamera();
         guiSegment.initIdCard();
@@ -525,6 +546,7 @@ public class SelfieActivity extends ActionBarActivity {
 
     public void initProofOfAddress(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.registration);
         sendDocumentRel.setVisibility(View.VISIBLE);
         guiSegment.initProofOfAddress();
     }

@@ -11,9 +11,12 @@
     <string name="seond_password_hint">Confirm password</string>
     <string name="complete_your_profile">Complete your profile</string>
     <string name="action_sign_up">SIGN UP</string>
+    <string name="proedure_approve">Approve procedure</string>
+    <string name="dear_it_checked">Dear, we should check your information</string>
     <string name="action_sing_in">SIGN IN</string>
     <string name = "inside">Login</string>
     <string name="action_log_in">LOG IN</string>
+    <string name="send_document">SEND DOCUMENT</string>
     <string name="action_next">NEXT</string>
     <string name="what_should_i_know">WHAT I SHOULD KNOW?</string>
     <string name="registration">REGISTRATION</string>
