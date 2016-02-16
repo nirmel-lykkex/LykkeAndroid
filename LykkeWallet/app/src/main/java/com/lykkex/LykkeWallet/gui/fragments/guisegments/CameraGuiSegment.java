@@ -167,7 +167,7 @@ public class CameraGuiSegment implements CallBackListener {
         tvTitle.setText(R.string.proof_adress);
         initGuiPhoto();
         if (model.getPathProofAddress() != null && !model.getPathProofAddress().isEmpty()) {
-            initPhotoTakenFromFile(model.getPathSelfie());
+            initPhotoTakenFromFile(model.getPathProofAddress());
         }
     }
 
