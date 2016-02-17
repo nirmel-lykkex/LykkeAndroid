@@ -43,6 +43,7 @@ public interface RestApi {
     Call<PersonData> kysDocuments(@Header("Authorization") String authorization,
             @Body CameraModel cameraModel);
 
+    @TIMEOUT(10000)
     @GET("/api/KycStatus")
     Call<DocumentAnswerData> kysDocuments(@Header("Authorization") String authorization);
 }

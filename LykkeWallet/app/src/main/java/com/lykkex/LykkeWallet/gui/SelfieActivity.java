@@ -18,6 +18,7 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -30,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +41,10 @@ import com.lykkex.LykkeWallet.gui.fragments.CameraPreview;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.guisegments.CameraGuiSegment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
+import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
+import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationResult;
 
 import org.androidannotations.annotations.AfterViews;
@@ -60,6 +65,8 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
 
 /**
  * Created by e.kazimirova on 12.02.2016.
@@ -83,6 +90,7 @@ public class SelfieActivity extends ActionBarActivity {
     @ViewById ImageView imgSecond;
     @ViewById ImageView imgThird;
     @ViewById ImageView imgForth;
+    @ViewById ProgressBar progressBar;
     @Bean CameraController controller;
     @ViewById RelativeLayout wasCreateRel;
     @ViewById  RelativeLayout sendDocumentRel;
@@ -91,9 +99,6 @@ public class SelfieActivity extends ActionBarActivity {
     @AfterViews
     public void afterViews() {
         RegistrationResult info = null;
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            info = (RegistrationResult)getIntent().getExtras().getSerializable(Constants.EXTRA_PERSON_DATA);
-        }
         dialog = new ProgressDialog(this);
         dialog.setMessage(getString(R.string.loading));
         showProgress();
@@ -107,10 +112,9 @@ public class SelfieActivity extends ActionBarActivity {
                 buttonOpenSelfie,
                 retake,
                 imgPreview,
-                info,
                 imgSecond,
                 imgThird,
-                imgForth, tvTitle);
+                imgForth, tvTitle, progressBar);
 
     }
 
@@ -453,6 +457,38 @@ public class SelfieActivity extends ActionBarActivity {
     public void clickReTake(){
         mCamera.startPreview();
         guiSegment.retake();
+    }
+
+    @Click(R.id.btnStart)
+    public void clickBtnStart(){
+        controller.fire(CameraTrigger.CheckingStatus);
+    }
+
+    private Handler mHandler = new Handler();
+
+    public void sendRequestForCheck(){
+        Log.e("Liza ", "send document started");
+        guiSegment.sendDocumentForCheck();
+        if (isShouldContinue) {
+            initHandler();
+        }
+    }
+
+    private boolean isShouldContinue = true;
+    public void stopHandler(){
+        isShouldContinue = false;
+        mHandler.removeCallbacks(run);
+    }
+
+    private Runnable run = new Runnable() {
+        @Override
+        public void run() {
+            sendRequestForCheck();
+        }
+    };
+
+    private void initHandler(){
+        mHandler.postDelayed(run, Constants.DELAY_15000);
     }
 
     public void initSelfie(){

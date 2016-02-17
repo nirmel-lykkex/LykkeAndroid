@@ -33,7 +33,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/get_started"
+            android:text="@string/submit"
             android:id="@+id/btnStart"
             android:textColor="@color/grey_text"
             android:background="@drawable/sign_active"
@@ -54,12 +54,20 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_margin="10dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 
     <RelativeLayout
         android:id="@+id/sendDocumentRel"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 

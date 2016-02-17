@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,24 +29,27 @@ import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
+import com.lykkex.LykkeWallet.gui.fragments.storage.SetUpPref_;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.camera.callback.CheckDocumentCallBack;
+import com.lykkex.LykkeWallet.rest.camera.callback.CheckSecurityDocumentCallBack;
 import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraType;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
+import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
+import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerResult;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
-import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
-import com.lykkex.LykkeWallet.rest.registration.callback.RegistrationDataCallback;
-import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
-import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationResult;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 
@@ -67,12 +71,14 @@ public class CameraGuiSegment implements CallBackListener {
     private Button buttonOpenSelfie;
     private Button retake;
     private ImageView imgPreview;
-    private RegistrationResult info;
     private ImageView imgSecond;
     private ImageView imgThird;
     private ImageView imgForth;
     private TextView tvTitle;
+    private ProgressBar progressBar;
 
+    private UserPref_ userPref;
+    private SetUpPref_ setUpPref;
 
     public void init(SelfieActivity activity, CameraController controller,
                      FrameLayout camera_preview,
@@ -81,12 +87,14 @@ public class CameraGuiSegment implements CallBackListener {
                      Button buttonFile,
                      Button buttonOpenSelfie,
                      Button retake,
-                     ImageView imgPreview, RegistrationResult info,
-                     ImageView imgSecond, ImageView imgThird, ImageView imgForth,
-                     TextView tvTitle
-    ) {
+                     ImageView imgPreview,
+                     ImageView imgSecond,
+                     ImageView imgThird,
+                     ImageView imgForth,
+                     TextView tvTitle, ProgressBar progressBar) {
+        userPref = new UserPref_(activity);
+        setUpPref = new SetUpPref_(activity);
         model = new CameraModelGUI();
-        this.info = info;
         this.activity = activity;
         this.camera_preview = camera_preview;
         this.submit = submit;
@@ -100,10 +108,11 @@ public class CameraGuiSegment implements CallBackListener {
         this.imgThird = imgThird;
         this.imgForth = imgForth;
         this.tvTitle = tvTitle;
+        this.progressBar = progressBar;
         controller.init(activity, CameraState.Idle);
         CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
         Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
-                checkDocuments(Constants.PART_AUTHORIZATION + info.getToken());
+                checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
         call.enqueue(callback);
     }
 
@@ -394,8 +403,20 @@ public class CameraGuiSegment implements CallBackListener {
         model.setType(type.toString());
         SendDocumentsDataCallback callback = new SendDocumentsDataCallback(this);
         Call<PersonData> call  = LykkeApplication_.getInstance().getRestApi().
-                kysDocuments(Constants.PART_AUTHORIZATION + info.getToken(), model);
+                kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get(), model);
         call.enqueue(callback);
+    }
+
+    private ArrayList<Call<DocumentAnswerData>> listCallDoc = new ArrayList<>();
+
+    public void sendDocumentForCheck(){
+        setUpPref.isCheckingStatusStart().put(true);
+        progressBar.setVisibility(View.VISIBLE);
+        CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this);
+        Call<DocumentAnswerData> call  = LykkeApplication_.getInstance().getRestApi().
+                kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+        call.enqueue(callback);
+        listCallDoc.add(call);
     }
 
     public void onBackPress(){
@@ -466,7 +487,7 @@ public class CameraGuiSegment implements CallBackListener {
                     activity.dismissProgress();
                     model.setIsCardIdeSend(true);
                 }
-                if (model.isIdCard()){
+                if (model.isProofOfAddress()){
                     controller.fire(CameraTrigger.ProofOfAddress);
                 }
                 break;
@@ -478,11 +499,29 @@ public class CameraGuiSegment implements CallBackListener {
                 controller.fire(CameraTrigger.CheckStatus);
                 break;
             case CheckStatus:
-
-                Intent intent = new Intent();
-                intent.setClass(activity, KysActivity_.class);
-                activity.finish();
-                activity.startActivity(intent);
+                controller.fire(CameraTrigger.CheckingStatus);
+                break;
+            case CheckingStatus:
+                if (listCallDoc.size() >3) {
+                    for (Call<DocumentAnswerData> call : listCallDoc) {
+                        call.cancel();
+                    }
+                }
+                if (result != null && result instanceof DocumentAnswerResult
+                        && ((DocumentAnswerResult)result).getKysStatus() != null) {
+                    progressBar.setVisibility(View.GONE);
+                    setUpPref.isCheckingStatusStart().put(false);
+                    for (Call<DocumentAnswerData> call : listCallDoc) {
+                        call.cancel();
+                    }
+                    activity.stopHandler();
+                    Intent intent = new Intent();
+                    intent.setClass(activity, KysActivity_.class);
+                    intent.putExtra(Constants.EXTRA_KYS_STATUS,
+                            ((DocumentAnswerResult)result).getKysStatus());
+                    activity.finish();
+                    activity.startActivity(intent);
+                }
                 break;
         }
     }

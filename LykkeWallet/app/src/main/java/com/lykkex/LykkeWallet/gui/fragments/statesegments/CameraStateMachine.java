@@ -55,6 +55,7 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
                 .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
+                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .ignore(CameraTrigger.Idle);
 
         config.configure(CameraState.Selfie)
@@ -67,6 +68,7 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
+                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle);
 
         config.configure(CameraState.IdCard)
@@ -80,6 +82,7 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
                 .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
+                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle);
 
         config.configure(CameraState.ProofOfAddress)
@@ -92,6 +95,7 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
+                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle);
 
@@ -104,6 +108,7 @@ public class CameraStateMachine {
                 })
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
+                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle);
 
@@ -116,6 +121,16 @@ public class CameraStateMachine {
                 })
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
+                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
+                .permit(CameraTrigger.Idle, CameraState.Idle);
+
+        config.configure(CameraState.CheckingStatus)
+                .onEntry(new Action() {
+                    @Override
+                    public void doIt() {
+                        activity.sendRequestForCheck();
+                    }
+                })
                 .permit(CameraTrigger.Idle, CameraState.Idle);
 
         return config;

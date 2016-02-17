@@ -19,6 +19,7 @@ import com.lykkex.LykkeWallet.gui.SelfieActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.PasswordTextWatcher;
@@ -373,7 +374,7 @@ public class RegistrationGuiSegment implements CallBackListener {
             case SendRegistrationRequst:
                 Intent intent = new Intent();
                 intent.setClass(activity, SelfieActivity_.class);
-                intent.putExtra(Constants.EXTRA_PERSON_DATA, ((RegistrationData)result).getResult());
+                new UserPref_(activity).authToken().put(((RegistrationData) result).getResult().getToken());
                 activity.startActivity(intent);
                 activity.finish();
                 break;

@@ -9,5 +9,6 @@ public enum CameraState {
     ProofOfAddress,
     Selfie,
     SelfieBack,
-    CheckStatus
+    CheckStatus,
+    CheckingStatus
 }
