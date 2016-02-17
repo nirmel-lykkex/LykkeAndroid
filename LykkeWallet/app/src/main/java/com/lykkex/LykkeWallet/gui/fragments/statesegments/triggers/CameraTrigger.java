@@ -10,5 +10,6 @@ public enum CameraTrigger {
     ProofOfAddress,
     Selfie,
     CheckStatus,
+    SubmitStatus,
     CheckingStatus
 }

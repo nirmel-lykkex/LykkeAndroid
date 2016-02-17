@@ -39,11 +39,15 @@ public interface RestApi {
     @GET("/api/CheckDocumentsToUpload")
     Call<CameraData> checkDocuments(@Header("Authorization") String authorization);
 
-    @POST("/api/KycStatus")
+    @POST("/api/KycDocuments")
     Call<PersonData> kysDocuments(@Header("Authorization") String authorization,
             @Body CameraModel cameraModel);
 
     @TIMEOUT(10000)
     @GET("/api/KycStatus")
-    Call<DocumentAnswerData> kysDocuments(@Header("Authorization") String authorization);
+    Call<DocumentAnswerData> getKycStatus(@Header("Authorization") String authorization);
+
+    @TIMEOUT(10000)
+    @POST("/api/KycStatus")
+    Call<PersonalData> kysDocuments(@Header("Authorization") String authorization);
 }

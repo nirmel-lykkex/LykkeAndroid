@@ -10,5 +10,6 @@ public enum CameraState {
     Selfie,
     SelfieBack,
     CheckStatus,
-    CheckingStatus
+    CheckingStatus,
+    SubmitStatus
 }

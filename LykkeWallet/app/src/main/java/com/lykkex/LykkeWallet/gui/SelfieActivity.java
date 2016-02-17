@@ -461,7 +461,7 @@ public class SelfieActivity extends ActionBarActivity {
 
     @Click(R.id.btnStart)
     public void clickBtnStart(){
-        controller.fire(CameraTrigger.CheckingStatus);
+        controller.fire(CameraTrigger.SubmitStatus);
     }
 
     private Handler mHandler = new Handler();
@@ -489,6 +489,10 @@ public class SelfieActivity extends ActionBarActivity {
 
     private void initHandler(){
         mHandler.postDelayed(run, Constants.DELAY_15000);
+    }
+
+    public void getDocument(){
+        guiSegment.getDocument();
     }
 
     public void initSelfie(){

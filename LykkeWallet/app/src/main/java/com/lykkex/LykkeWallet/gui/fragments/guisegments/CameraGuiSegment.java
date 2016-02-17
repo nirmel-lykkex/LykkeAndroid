@@ -36,6 +36,7 @@ import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.camera.callback.CheckDocumentCallBack;
 import com.lykkex.LykkeWallet.rest.camera.callback.CheckSecurityDocumentCallBack;
 import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
+import com.lykkex.LykkeWallet.rest.camera.callback.SubmitDocumentsDataCallback;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraType;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
@@ -43,6 +44,7 @@ import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerResult;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
+import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -412,11 +414,22 @@ public class CameraGuiSegment implements CallBackListener {
     public void sendDocumentForCheck(){
         setUpPref.isCheckingStatusStart().put(true);
         progressBar.setVisibility(View.VISIBLE);
+
         CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this);
         Call<DocumentAnswerData> call  = LykkeApplication_.getInstance().getRestApi().
-                kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+                getKycStatus(Constants.PART_AUTHORIZATION + userPref.authToken().get());
         call.enqueue(callback);
         listCallDoc.add(call);
+
+    }
+
+    public void getDocument(){
+        setUpPref.isCheckingStatusStart().put(true);
+        progressBar.setVisibility(View.VISIBLE);
+        SubmitDocumentsDataCallback callback = new SubmitDocumentsDataCallback(this);
+        Call<PersonalData> call = LykkeApplication_.getInstance().getRestApi().
+                kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+        call.enqueue(callback);
     }
 
     public void onBackPress(){
@@ -428,13 +441,27 @@ public class CameraGuiSegment implements CallBackListener {
                 activity.finish();
                 break;
             case IdCard:
-                controller.fire(CameraTrigger.SelfieBack);
+                if (model.isSelfie()) {
+                    controller.fire(CameraTrigger.SelfieBack);
+                }
                 break;
             case ProofOfAddress:
-                controller.fire(CameraTrigger.IdCard);
+                if (model.isIdCard()) {
+                    controller.fire(CameraTrigger.IdCard);
+                } else if (model.isSelfie()) {
+                    controller.fire(CameraTrigger.SelfieBack);
+                }
                 break;
             case CheckStatus:
                 controller.fire(CameraTrigger.ProofOfAddress);
+                if (model.isProofOfAddress()){
+                    controller.fire(CameraTrigger.ProofOfAddress);
+                } else   if (model.isIdCard()) {
+                    controller.fire(CameraTrigger.IdCard);
+                } else if (model.isSelfie()) {
+                    controller.fire(CameraTrigger.SelfieBack);
+                }
+
                 break;
         }
     }
@@ -471,6 +498,10 @@ public class CameraGuiSegment implements CallBackListener {
 
                 if (model.isIdCard()){
                     controller.fire(CameraTrigger.IdCard);
+                } else if(model.isProofOfAddress()) {
+                    controller.fire(CameraTrigger.ProofOfAddress);
+                } else {
+                    controller.fire(CameraTrigger.CheckStatus);
                 }
                 break;
             case SelfieBack:
@@ -480,6 +511,10 @@ public class CameraGuiSegment implements CallBackListener {
                 }
                 if (model.isIdCard()){
                     controller.fire(CameraTrigger.IdCard);
+                } else if(model.isProofOfAddress()) {
+                    controller.fire(CameraTrigger.ProofOfAddress);
+                } else {
+                    controller.fire(CameraTrigger.CheckStatus);
                 }
                 break;
             case IdCard:
@@ -489,6 +524,8 @@ public class CameraGuiSegment implements CallBackListener {
                 }
                 if (model.isProofOfAddress()){
                     controller.fire(CameraTrigger.ProofOfAddress);
+                } else {
+                    controller.fire(CameraTrigger.CheckStatus);
                 }
                 break;
             case ProofOfAddress:
@@ -522,6 +559,9 @@ public class CameraGuiSegment implements CallBackListener {
                     activity.finish();
                     activity.startActivity(intent);
                 }
+                break;
+            case SubmitStatus:
+                controller.fire(CameraTrigger.CheckingStatus);
                 break;
         }
     }
