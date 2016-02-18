@@ -106,7 +106,7 @@ public class SelfieActivity extends ActionBarActivity {
     public void afterViews() {
         RegistrationResult info = null;
         dialog = new ProgressDialog(this);
-        dialog.setMessage(getString(R.string.loading));
+        dialog.setMessage(getString(R.string.waiting));
         showProgress();
         guiSegment = new CameraGuiSegment();
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);

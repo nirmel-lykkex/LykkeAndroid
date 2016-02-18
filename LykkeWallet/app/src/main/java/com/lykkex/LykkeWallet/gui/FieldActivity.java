@@ -17,6 +17,7 @@ import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.SetUpPref_;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 import org.androidannotations.annotations.AfterViews;
@@ -28,8 +29,8 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 public class FieldActivity extends ActionBarActivity {
 
     private Fragment currentFragment;
-    @Pref
-    SetUpPref_ setUpPref;
+    @Pref SetUpPref_ setUpPref;
+    @Pref UserPref_ userPref;
 
 
     @AfterViews
@@ -42,17 +43,12 @@ public class FieldActivity extends ActionBarActivity {
             ((FieldFragment_) currentFragment).setUpActionBar(actionBar);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragmentContainer, currentFragment).commit();
-        } else if (!setUpPref.kysStatusStart().get().isEmpty()){
-            Intent intent = new Intent();
-            intent.setClass(this, KysActivity_.class);
-            finish();
-            startActivity(intent);
-        } else if (!setUpPref.isSelfieStatusStart().get()){
+        } else if (setUpPref.isSelfieStatusStart().get()){
             Intent intent = new Intent();
             intent.setClass(this, SelfieActivity_.class);
             finish();
             startActivity(intent);
-        } else {
+        } else if (!setUpPref.kysStatusStart().get().isEmpty()){
             Intent intent = new Intent();
             intent.setClass(this, KysActivity_.class);
             finish();

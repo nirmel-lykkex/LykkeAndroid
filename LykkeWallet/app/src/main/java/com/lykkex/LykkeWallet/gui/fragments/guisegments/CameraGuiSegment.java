@@ -311,34 +311,21 @@ public class CameraGuiSegment implements CallBackListener {
         rotatedBitmap = Bitmap.createBitmap(srcBmp, 0, 0,
                     srcBmp.getWidth(), srcBmp.getHeight(), matrix, true);
 
-        if (rotatedBitmap.getWidth() >= rotatedBitmap.getHeight()){
-
-            rotatedBitmap = Bitmap.createBitmap(
-                    rotatedBitmap,
-                    rotatedBitmap.getWidth()/2 - rotatedBitmap.getHeight()/2,
-                    0,
-                    rotatedBitmap.getHeight(),
-                    rotatedBitmap.getHeight()
-            );
-
-        }else{
-
-            rotatedBitmap = Bitmap.createBitmap(
-                    rotatedBitmap,
-                    0,
-                    rotatedBitmap.getHeight()/2 - rotatedBitmap.getWidth()/2,
-                    rotatedBitmap.getWidth(),
-                    rotatedBitmap.getWidth()
-            );
-        }
         double coef = (double)camera_preview.getMeasuredWidth() / (double)(
                 camera_preview.getMeasuredHeight() - relTop.getMeasuredHeight() -
                 relButtons.getMeasuredHeight());
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap,
-                (int) Math.round(rotatedBitmap.getWidth() / coef),
-                (int) Math.round(rotatedBitmap.getHeight() / coef)
+                (int) Math.round(rotatedBitmap.getWidth()),
+                (int) Math.round(rotatedBitmap.getHeight())
                 , true);
 
+
+        scaledBitmap = Bitmap.createBitmap(
+                scaledBitmap,
+                scaledBitmap.getWidth()/2- imgPreview.getMeasuredWidth()/2,
+                scaledBitmap.getHeight()/2 - imgPreview.getMeasuredWidth()/2,
+                imgPreview.getMeasuredWidth(),
+                imgPreview.getMeasuredWidth());
         if (angle == 270) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);
@@ -438,7 +425,7 @@ public class CameraGuiSegment implements CallBackListener {
     private String compressImage(String path){
         Bitmap bm = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 60, baos);
+        bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
         byte[] byteArrayImage = baos.toByteArray();
         return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
     }
