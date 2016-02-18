@@ -1,5 +1,10 @@
-LykkeWallet/.gradle
-LykkeWallet/.idea
-LykkeWallet/.DS_Store
-LykkeWallet/*.iml
-LykkeWallet/build
+.idea
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+/LykkeWallet/app/build
+/LykkeWallet/app/app-release.apk
