@@ -6,3 +6,5 @@
 .DS_Store
 /build
 /captures
+/LykkeWallet/app/build
+/LykkeWallet/app/app-release.apk
