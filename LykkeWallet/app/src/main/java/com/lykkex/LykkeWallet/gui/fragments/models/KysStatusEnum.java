@@ -6,5 +6,6 @@ package com.lykkex.LykkeWallet.gui.fragments.models;
 public enum KysStatusEnum {
     NeedToFillData,
     Ok,
-    RestrictedArea
+    RestrictedArea,
+    Reject
 }

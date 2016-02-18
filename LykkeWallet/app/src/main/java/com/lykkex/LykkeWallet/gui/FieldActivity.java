@@ -45,13 +45,16 @@ public class FieldActivity extends ActionBarActivity {
         } else if (!setUpPref.kysStatusStart().get().isEmpty()){
             Intent intent = new Intent();
             intent.setClass(this, KysActivity_.class);
-            intent.putExtra(Constants.EXTRA_KYS_STATUS,
-                    KysStatusEnum.valueOf(setUpPref.kysStatusStart().get()));
+            finish();
+            startActivity(intent);
+        } else if (!setUpPref.isSelfieStatusStart().get()){
+            Intent intent = new Intent();
+            intent.setClass(this, SelfieActivity_.class);
             finish();
             startActivity(intent);
         } else {
             Intent intent = new Intent();
-            intent.setClass(this, SelfieActivity_.class);
+            intent.setClass(this, KysActivity_.class);
             finish();
             startActivity(intent);
         }

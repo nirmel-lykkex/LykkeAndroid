@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/okay_understand"
+            android:visibility="gone"
             android:id="@+id/btnUnderstandOops"
             android:textColor="@color/grey_dark_text"
             android:background="@drawable/sign_inactive"
@@ -68,14 +69,14 @@
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/wasCreateRel"
+        android:id="@+id/sendDocumentRel"
         android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imgWasCreated"
+            android:id="@+id/imgsendDocument"
             android:background="@drawable/created_lyyke"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -86,37 +87,24 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/was_created"
-            android:id="@+id/tvWasCreated"
+            android:id="@+id/tvsendDocument"
             android:gravity="center"
-            android:layout_below="@+id/imgWasCreated"
+            android:layout_below="@+id/imgsendDocument"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_margin="10dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/get_started"
-            android:id="@+id/btnStart"
-            android:textColor="@color/grey_text"
-            android:background="@drawable/sign_active"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
-            android:layout_alignRight="@+id/textView3"
-            android:layout_alignEnd="@+id/textView3"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_alignStart="@+id/textView3" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/succes_setup_document"
-            android:id="@+id/textView3"
+            android:id="@+id/textViewsendDocument"
             android:gravity="center"
-            android:layout_below="@+id/tvWasCreated"
+            android:layout_below="@+id/tvsendDocument"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
@@ -126,9 +114,9 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBarsendDocument"
             android:visibility="gone"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/textViewsendDocument"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
@@ -194,6 +182,71 @@
             android:id="@+id/progressBarUpdate"
             android:visibility="gone"
             android:layout_below="@+id/tvUpdate"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/wasCreateRel"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgWasCreated"
+            android:background="@drawable/created_lyyke"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="111dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/proedure_approve"
+            android:id="@+id/tvWasCreated"
+            android:gravity="center"
+            android:layout_below="@+id/imgWasCreated"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/get_started"
+            android:id="@+id/btnStart"
+            android:textColor="@color/grey_text"
+            android:background="@drawable/sign_active"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_alignEnd="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/dear_it_checked"
+            android:id="@+id/textView3"
+            android:gravity="center"
+            android:layout_below="@+id/tvWasCreated"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            android:layout_below="@+id/textView3"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>

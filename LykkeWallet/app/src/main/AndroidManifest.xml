@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".gui.MainActivity_"/>
         <activity android:name=".gui.KysActivity_"/>
+        <activity android:name=".gui.PinActivity_"/>
     </application>
 
 </manifest>

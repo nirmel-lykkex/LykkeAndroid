@@ -117,17 +117,10 @@ public class CameraGuiSegment implements CallBackListener {
         this.relTop = relTop;
         this.progressBar = progressBar;
         controller.init(activity, CameraState.Idle);
-        if (!setUpPref.isCheckingStatusStart().get()) {
-            CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
-            Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
-                    checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
-            call.enqueue(callback);
-        } else {
-            activity.dismissProgress();
-            activity.checkStatus();
-            progressBar.setVisibility(View.VISIBLE);
-            controller.fire(CameraTrigger.SubmitStatus);
-        }
+        CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
+        Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
+                checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+        call.enqueue(callback);
     }
 
     public void submit(){
@@ -183,7 +176,19 @@ public class CameraGuiSegment implements CallBackListener {
         }
     }
 
-    public void initProofOfAddress(){
+    public void initCheckStatus(android.support.v7.app.ActionBar actionBar) {
+        if (!model.isProofOfAddress()) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        } else {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+    public void initProofOfAddress(android.support.v7.app.ActionBar actionBar){
+        if (!model.isIdCard()) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        } else {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         model.setIsDone(false);
         model.setIsFront(false);
         imgSecond.setBackgroundResource(R.drawable.ready);
@@ -196,7 +201,12 @@ public class CameraGuiSegment implements CallBackListener {
         }
     }
 
-    public void initIdCard(){
+    public void initIdCard(android.support.v7.app.ActionBar actionBar){
+        if (!model.isSelfie()) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        } else {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         model.setIsDone(false);
         model.setIsFront(false);
         imgSecond.setBackgroundResource(R.drawable.ready);
@@ -446,19 +456,9 @@ public class CameraGuiSegment implements CallBackListener {
 
     private ArrayList<Call<DocumentAnswerData>> listCallDoc = new ArrayList<>();
 
-    public void sendDocumentForCheck(){
-        setUpPref.isCheckingStatusStart().put(true);
-        progressBar.setVisibility(View.VISIBLE);
-
-        CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this);
-        Call<DocumentAnswerData> call  = LykkeApplication_.getInstance().getRestApi().
-                getKycStatus(Constants.PART_AUTHORIZATION + userPref.authToken().get());
-        call.enqueue(callback);
-        listCallDoc.add(call);
-
-    }
 
     public void getDocument(){
+        activity.showProgress();
         setUpPref.isCheckingStatusStart().put(true);
         progressBar.setVisibility(View.VISIBLE);
         SubmitDocumentsDataCallback callback = new SubmitDocumentsDataCallback(this);
@@ -573,29 +573,9 @@ public class CameraGuiSegment implements CallBackListener {
             case CheckStatus:
                 controller.fire(CameraTrigger.CheckingStatus);
                 break;
-            case CheckingStatus:
-                if (listCallDoc.size() >3) {
-                    for (Call<DocumentAnswerData> call : listCallDoc) {
-                        call.cancel();
-                    }
-                }
-                if (result != null && result instanceof DocumentAnswerResult
-                        && ((DocumentAnswerResult)result).getKysStatus() != null) {
-                    progressBar.setVisibility(View.GONE);
-                    setUpPref.isCheckingStatusStart().put(false);
-                    for (Call<DocumentAnswerData> call : listCallDoc) {
-                        call.cancel();
-                    }
-                    activity.stopHandler();
-                    Intent intent = new Intent();
-                    intent.setClass(activity, KysActivity_.class);
-                    intent.putExtra(Constants.EXTRA_KYS_STATUS,
-                            ((DocumentAnswerResult)result).getKysStatus());
-                    activity.finish();
-                    activity.startActivity(intent);
-                }
-                break;
+
             case SubmitStatus:
+                activity.dismissProgress();
                 if (result != null && result instanceof PersonalData) {
                     PersonalData data = (PersonalData)result;
                     if (data.getAddress() != null) {
@@ -625,7 +605,9 @@ public class CameraGuiSegment implements CallBackListener {
                         userPref.zip().put(data.getAddress());
                     }
                 }
-                controller.fire(CameraTrigger.CheckingStatus);
+                Intent intent = new Intent();
+                intent.setClass(activity, KysActivity_.class);
+                activity.startActivity(intent);
                 break;
         }
     }

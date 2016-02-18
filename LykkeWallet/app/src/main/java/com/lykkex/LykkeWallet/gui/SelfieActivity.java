@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -144,6 +145,7 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void showProgress(){
+        dialog.setCancelable(false);
         dialog.show();
     }
 
@@ -209,6 +211,7 @@ public class SelfieActivity extends ActionBarActivity {
         wasCreateRel.setVisibility(View.VISIBLE);
         textView3.setText(String.format(getString(R.string.dear_it_checked),
                 new UserPref_(this).fullName().get()));
+        guiSegment.initCheckStatus(getSupportActionBar());
     }
 
     @Override
@@ -483,33 +486,6 @@ public class SelfieActivity extends ActionBarActivity {
         controller.fire(CameraTrigger.SubmitStatus);
     }
 
-    private Handler mHandler = new Handler();
-
-    public void sendRequestForCheck(){
-        Log.e("Liza ", "send document started");
-        guiSegment.sendDocumentForCheck();
-        if (isShouldContinue) {
-            initHandler();
-        }
-    }
-
-    private boolean isShouldContinue = true;
-    public void stopHandler(){
-        isShouldContinue = false;
-        mHandler.removeCallbacks(run);
-    }
-
-    private Runnable run = new Runnable() {
-        @Override
-        public void run() {
-            sendRequestForCheck();
-        }
-    };
-
-    private void initHandler(){
-        mHandler.postDelayed(run, Constants.DELAY_15000);
-    }
-
     public void getDocument(){
         btnStart.setEnabled(false);
         guiSegment.getDocument();
@@ -545,7 +521,7 @@ public class SelfieActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(R.string.registration);
         sendDocumentRel.setVisibility(View.VISIBLE);
         initBackCamera();
-        guiSegment.initIdCard();
+        guiSegment.initIdCard(getSupportActionBar());
     }
 
     public void init(){
@@ -558,7 +534,7 @@ public class SelfieActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(R.string.registration);
         sendDocumentRel.setVisibility(View.VISIBLE);
         initBackCamera();
-        guiSegment.initProofOfAddress();
+        guiSegment.initProofOfAddress(getSupportActionBar());
     }
 
     @Override

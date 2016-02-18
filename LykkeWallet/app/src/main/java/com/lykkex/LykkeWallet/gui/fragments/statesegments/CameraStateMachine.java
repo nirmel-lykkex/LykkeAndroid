@@ -71,7 +71,8 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
                 .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus);
+                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
+                .ignore(CameraTrigger.Selfie);
 
         config.configure(CameraState.IdCard)
                 .onEntry(new Action() {
@@ -86,7 +87,8 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
                 .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus);
+                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
+                .ignore(CameraTrigger.IdCard);
 
         config.configure(CameraState.ProofOfAddress)
                 .onEntry(new Action() {
@@ -101,7 +103,8 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus);
+                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
+                .ignore(CameraTrigger.ProofOfAddress);
 
         config.configure(CameraState.SelfieBack)
                 .onEntry(new Action() {
@@ -115,7 +118,8 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus);
+                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
+                .ignore(CameraTrigger.SelfieBack);
 
         config.configure(CameraState.CheckStatus)
                 .onEntry(new Action() {
@@ -130,17 +134,10 @@ public class CameraStateMachine {
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
                 .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus);
+                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
+                .ignore(CameraTrigger.CheckStatus);
 
-        config.configure(CameraState.CheckingStatus)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        activity.sendRequestForCheck();
-                    }
-                })
-                .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus);
+
 
         config.configure(CameraState.SubmitStatus)
                 .onEntry(new Action() {
@@ -150,7 +147,8 @@ public class CameraStateMachine {
                     }
                 })
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus);
+                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
+                .ignore(CameraTrigger.SubmitStatus);
 
         return config;
 
