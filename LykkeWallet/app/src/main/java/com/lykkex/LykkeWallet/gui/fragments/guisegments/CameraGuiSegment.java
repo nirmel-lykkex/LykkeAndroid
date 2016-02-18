@@ -298,14 +298,29 @@ public class CameraGuiSegment implements CallBackListener {
 
         }
         Bitmap rotatedBitmap;
-        if (srcBmp.getWidth() >= srcBmp.getHeight()) {
-            rotatedBitmap = Bitmap.createBitmap(srcBmp, 0, 0,
-                    srcBmp.getHeight(), srcBmp.getHeight(), matrix, true);
-        } else {
-            rotatedBitmap = Bitmap.createBitmap(srcBmp, 0, 0,
-                    srcBmp.getWidth(), srcBmp.getWidth(), matrix, true);
-        }
+        rotatedBitmap = Bitmap.createBitmap(srcBmp, 0, 0,
+                    srcBmp.getWidth(), srcBmp.getHeight(), matrix, true);
 
+        if (rotatedBitmap.getWidth() >= rotatedBitmap.getHeight()){
+
+            rotatedBitmap = Bitmap.createBitmap(
+                    rotatedBitmap,
+                    rotatedBitmap.getWidth()/2 - rotatedBitmap.getHeight()/2,
+                    0,
+                    rotatedBitmap.getHeight(),
+                    rotatedBitmap.getHeight()
+            );
+
+        }else{
+
+            rotatedBitmap = Bitmap.createBitmap(
+                    rotatedBitmap,
+                    0,
+                    rotatedBitmap.getHeight()/2 - rotatedBitmap.getWidth()/2,
+                    rotatedBitmap.getWidth(),
+                    rotatedBitmap.getWidth()
+            );
+        }
         double coef = (double)camera_preview.getMeasuredWidth() / (double)(
                 camera_preview.getMeasuredHeight() - relTop.getMeasuredHeight() -
                 relButtons.getMeasuredHeight());
@@ -314,14 +329,14 @@ public class CameraGuiSegment implements CallBackListener {
                 (int) Math.round(rotatedBitmap.getHeight() / coef)
                 , true);
 
-        if (angle == 180) {
+        if (angle == 270) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);
             Bitmap src = scaledBitmap;
             Bitmap dst = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), m, false);
             dst.setDensity(DisplayMetrics.DENSITY_DEFAULT);
             //return dst;
-            return scaledBitmap;
+            return dst;
         } else {
             return scaledBitmap;
         }

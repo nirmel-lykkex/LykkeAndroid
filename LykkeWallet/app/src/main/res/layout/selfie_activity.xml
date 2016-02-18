@@ -71,6 +71,7 @@
     <RelativeLayout
         android:id="@+id/sendDocumentRel"
         android:visibility="visible"
+        android:background="@color/white"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
