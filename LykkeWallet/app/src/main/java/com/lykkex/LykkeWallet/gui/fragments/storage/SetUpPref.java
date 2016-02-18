@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.storage;
 
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
+import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
 /**
@@ -11,4 +12,10 @@ public interface SetUpPref {
 
     @DefaultBoolean(false)
     boolean isCheckingStatusStart();
+
+    @DefaultBoolean(false)
+    boolean isSelfieStatusStart();
+
+    @DefaultString("")
+    String kysStatusStart();
 }

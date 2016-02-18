@@ -42,6 +42,7 @@ import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.guisegments.CameraGuiSegment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
@@ -80,6 +81,7 @@ public class SelfieActivity extends ActionBarActivity {
 
     private CameraGuiSegment guiSegment;
     @ViewById FrameLayout camera_preview;
+    @ViewById Button btnStart;
     @ViewById Button submit;
     @ViewById TextView tvTitle;
     @ViewById Button buttake_photo;
@@ -94,6 +96,7 @@ public class SelfieActivity extends ActionBarActivity {
     @Bean CameraController controller;
     @ViewById RelativeLayout wasCreateRel;
     @ViewById  RelativeLayout sendDocumentRel;
+    @ViewById TextView textView3;
 
     /** Called when the activity is first created. */
     @AfterViews
@@ -201,6 +204,8 @@ public class SelfieActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(R.string.send_document);
         sendDocumentRel.setVisibility(View.GONE);
         wasCreateRel.setVisibility(View.VISIBLE);
+        textView3.setText(String.format(getString(R.string.dear_it_checked),
+                new UserPref_(this).fullName().get()));
     }
 
     @Override
@@ -492,6 +497,7 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void getDocument(){
+        btnStart.setEnabled(false);
         guiSegment.getDocument();
     }
 

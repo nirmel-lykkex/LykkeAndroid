@@ -112,10 +112,17 @@ public class CameraGuiSegment implements CallBackListener {
         this.tvTitle = tvTitle;
         this.progressBar = progressBar;
         controller.init(activity, CameraState.Idle);
-        CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
-        Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
-                checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
-        call.enqueue(callback);
+        if (!setUpPref.isCheckingStatusStart().get()) {
+            CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
+            Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
+                    checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+            call.enqueue(callback);
+        } else {
+            activity.dismissProgress();
+            activity.checkStatus();
+            progressBar.setVisibility(View.VISIBLE);
+            controller.fire(CameraTrigger.SubmitStatus);
+        }
     }
 
     public void submit(){
@@ -561,6 +568,35 @@ public class CameraGuiSegment implements CallBackListener {
                 }
                 break;
             case SubmitStatus:
+                if (result != null && result instanceof PersonalData) {
+                    PersonalData data = (PersonalData)result;
+                    if (data.getAddress() != null) {
+                        userPref.address().put(data.getAddress());
+                    }
+
+                    if (data.getCity() != null) {
+                        userPref.city().put(data.getAddress());
+                    }
+
+                    if (data.getCountry() != null) {
+                        userPref.country().put(data.getAddress());
+                    }
+
+                    if (data.getEmail() != null) {
+                        userPref.email().put(data.getAddress());
+                    }
+                    if (data.getFullName() != null) {
+                        userPref.fullName().put(data.getAddress());
+                    }
+
+                    if (data.getPhone() != null) {
+                        userPref.phone().put(data.getAddress());
+                    }
+
+                    if (data.getZip() != null) {
+                        userPref.zip().put(data.getAddress());
+                    }
+                }
                 controller.fire(CameraTrigger.CheckingStatus);
                 break;
         }

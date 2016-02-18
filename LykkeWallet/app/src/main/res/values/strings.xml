@@ -13,6 +13,8 @@
     <string name="action_sign_up">SIGN UP</string>
     <string name="proedure_approve">KYC PROCEDURE</string>
     <string name="dear_it_checked">Dear %s you are about being reviewed by our KYC team.\nIt may take up to 15-20 minutes</string>
+    <string name="succes_setup_document">Dear %s, thank you for your patience. Your documents are in order. Lets set up our security.</string>
+    <string name="reupdate_doc">Dear %s, we\'re terribly sorry, but our compliance department have not accepted some of your documents. Please upload them one more time.</string>
     <string name="action_sing_in">SIGN IN</string>
     <string name = "inside">Login</string>
     <string name="action_log_in">LOG IN</string>
@@ -32,5 +34,6 @@
     <string name="get_started">GET STARTED</string>
     <string name="okay_understand"> OKAY, I UNDERSTAND</string>
     <string name="oops">OOPS!</string>
-    <string name="was_created">CREATED bla bla </string>
+    <string name="was_created">LYKKE WALLET WAS SUCCESSFULLY CREATED!</string>
+    <string name="info_oops">Dear %s, we\'re terribly sorry, but Lykke Wallet can\'t be created based on the KYC information that you have provided.</string>
 </resources>

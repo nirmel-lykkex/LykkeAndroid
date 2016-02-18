@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
@@ -14,25 +15,46 @@ import android.widget.FrameLayout;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment_;
+import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
+import com.lykkex.LykkeWallet.gui.fragments.storage.SetUpPref_;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.activity_main)
 public class FieldActivity extends ActionBarActivity {
 
     private Fragment currentFragment;
+    @Pref
+    SetUpPref_ setUpPref;
 
 
     @AfterViews
     public void afterViews(){
-        currentFragment = new FieldFragment_();
+        if (!setUpPref.isCheckingStatusStart().get() && !setUpPref.isSelfieStatusStart().get()
+                && setUpPref.kysStatusStart().get().isEmpty()) {
+            currentFragment = new FieldFragment_();
 
-        ActionBar actionBar = getSupportActionBar();
-        ((FieldFragment_)currentFragment).setUpActionBar(actionBar);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, currentFragment).commit();
+            ActionBar actionBar = getSupportActionBar();
+            ((FieldFragment_) currentFragment).setUpActionBar(actionBar);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragmentContainer, currentFragment).commit();
+        } else if (!setUpPref.kysStatusStart().get().isEmpty()){
+            Intent intent = new Intent();
+            intent.setClass(this, KysActivity_.class);
+            intent.putExtra(Constants.EXTRA_KYS_STATUS,
+                    KysStatusEnum.valueOf(setUpPref.kysStatusStart().get()));
+            finish();
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(this, SelfieActivity_.class);
+            finish();
+            startActivity(intent);
+        }
     }
 
     @Override

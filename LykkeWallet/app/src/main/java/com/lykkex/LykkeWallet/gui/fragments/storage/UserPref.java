@@ -11,4 +11,25 @@ public interface UserPref {
 
     @DefaultString("")
     String authToken();
+
+    @DefaultString("")
+    String fullName();
+
+    @DefaultString("")
+    String email();
+
+    @DefaultString("")
+    String phone();
+
+    @DefaultString("")
+    String country();
+
+    @DefaultString("")
+    String address();
+
+    @DefaultString("")
+    String city();
+
+    @DefaultString("")
+    String zip();
 }
