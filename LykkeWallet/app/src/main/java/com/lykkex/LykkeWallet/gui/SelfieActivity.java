@@ -81,6 +81,8 @@ public class SelfieActivity extends ActionBarActivity {
 
     private CameraGuiSegment guiSegment;
     @ViewById FrameLayout camera_preview;
+    @ViewById RelativeLayout relTop;
+    @ViewById RelativeLayout relButtons;
     @ViewById Button btnStart;
     @ViewById Button submit;
     @ViewById TextView tvTitle;
@@ -117,7 +119,8 @@ public class SelfieActivity extends ActionBarActivity {
                 imgPreview,
                 imgSecond,
                 imgThird,
-                imgForth, tvTitle, progressBar);
+                imgForth, tvTitle, progressBar,
+                relTop, relButtons);
 
     }
 
@@ -367,16 +370,27 @@ public class SelfieActivity extends ActionBarActivity {
             }
         }
 
-       /* initPreview(getWindowManager().getDefaultDisplay().getWidth(),
-                getWindowManager().getDefaultDisplay().getHeight());*/
+        initPreview(getWindowManager().getDefaultDisplay().getWidth(),
+                getWindowManager().getDefaultDisplay().getHeight());
 
     }
 
     private void initPreview(int width, int height) {
         if (mCamera != null && mCameraPreview != null && mCameraPreview.getHolder() != null) {
-
+            int param = 0;
             Camera.Parameters parameters = mCamera.getParameters();
-            Camera.Size size = getBestPreviewSize(width, height, parameters);
+            Camera.Size size = getBestPreviewSize(width, height, parameters, param);
+
+
+            while (size == null && param <100) {
+                param +=10;
+                size = getBestPreviewSize(width, height, parameters, param);
+            }
+
+            while (size == null && param >-100) {
+                param -=10;
+                size = getBestPreviewSize(width, height, parameters, param);
+            }
 
             if (size != null) {
                 parameters.setPreviewSize(size.width, size.height);
@@ -403,11 +417,11 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     private Camera.Size getBestPreviewSize(int width, int height,
-                                           Camera.Parameters parameters) {
+                                           Camera.Parameters parameters, int param) {
         Camera.Size result = null;
 
         for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
-            if (size.width <= width && size.height <= height) {
+            if (size.width <= width + param && size.height <= height + param) {
                 if (result == null) {
                     result = size;
                 } else {

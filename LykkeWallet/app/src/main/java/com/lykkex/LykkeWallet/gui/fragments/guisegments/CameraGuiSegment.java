@@ -78,6 +78,8 @@ public class CameraGuiSegment implements CallBackListener {
     private ImageView imgForth;
     private TextView tvTitle;
     private ProgressBar progressBar;
+    private RelativeLayout relTop;
+    private RelativeLayout relButtons;
 
     private UserPref_ userPref;
     private SetUpPref_ setUpPref;
@@ -93,7 +95,8 @@ public class CameraGuiSegment implements CallBackListener {
                      ImageView imgSecond,
                      ImageView imgThird,
                      ImageView imgForth,
-                     TextView tvTitle, ProgressBar progressBar) {
+                     TextView tvTitle, ProgressBar progressBar,
+                     RelativeLayout relTop, RelativeLayout relButtons) {
         userPref = new UserPref_(activity);
         setUpPref = new SetUpPref_(activity);
         model = new CameraModelGUI();
@@ -110,6 +113,8 @@ public class CameraGuiSegment implements CallBackListener {
         this.imgThird = imgThird;
         this.imgForth = imgForth;
         this.tvTitle = tvTitle;
+        this.relButtons = relButtons;
+        this.relTop = relTop;
         this.progressBar = progressBar;
         controller.init(activity, CameraState.Idle);
         if (!setUpPref.isCheckingStatusStart().get()) {
@@ -292,26 +297,34 @@ public class CameraGuiSegment implements CallBackListener {
                 break;
 
         }
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(srcBmp,srcBmp.getWidth(),
-                srcBmp.getHeight(),true);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0,
-                scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+        Bitmap rotatedBitmap;
+        if (srcBmp.getWidth() >= srcBmp.getHeight()) {
+            rotatedBitmap = Bitmap.createBitmap(srcBmp, 0, 0,
+                    srcBmp.getHeight(), srcBmp.getHeight(), matrix, true);
+        } else {
+            rotatedBitmap = Bitmap.createBitmap(srcBmp, 0, 0,
+                    srcBmp.getWidth(), srcBmp.getWidth(), matrix, true);
+        }
 
-        if (angle == 270) {
+        double coef = (double)camera_preview.getMeasuredWidth() / (double)(
+                camera_preview.getMeasuredHeight() - relTop.getMeasuredHeight() -
+                relButtons.getMeasuredHeight());
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap,
+                (int) Math.round(rotatedBitmap.getWidth() / coef),
+                (int) Math.round(rotatedBitmap.getHeight() / coef)
+                , true);
+
+        if (angle == 180) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);
-            Bitmap src = rotatedBitmap;
+            Bitmap src = scaledBitmap;
             Bitmap dst = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), m, false);
             dst.setDensity(DisplayMetrics.DENSITY_DEFAULT);
-            return dst;
-        } else
-      /* rotatedBitmap = Bitmap.createBitmap(
-                scaledBitmap,
-                scaledBitmap.getWidth()/2 - w,
-                0,
-                h,
-                w);*/
-        return rotatedBitmap;
+            //return dst;
+            return scaledBitmap;
+        } else {
+            return scaledBitmap;
+        }
     }
     public void initPhotoTaken(String path, boolean isSecondTime){
         model.setIsDone(true);
@@ -337,7 +350,7 @@ public class CameraGuiSegment implements CallBackListener {
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
         bitmap = cropImage(bitmap);
         Drawable drawable = new BitmapDrawable(activity.getResources(), bitmap);
-        imgPreview.setBackgroundDrawable(drawable);
+        imgPreview.setImageDrawable(drawable);
         retake.setVisibility(View.VISIBLE);
         submit.setVisibility(View.VISIBLE);
 
