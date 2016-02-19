@@ -1,30 +1,57 @@
 package com.lykkex.LykkeWallet.gui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.fragments.storage.SetUpPref_;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
+import com.lykkex.LykkeWallet.rest.base.models.Error;
+import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPin;
+import com.lykkex.LykkeWallet.rest.pin.request.model.PinRequest;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import retrofit2.Call;
 
 /**
  * Created by LIZA on 18.02.2016.
  */
 @EActivity(R.layout.pin_activity)
-public class PinActivity extends Activity{
+public class PinActivity extends Activity implements CallBackListener{
 
     private String pin = "";
+    private boolean isSetupFirstTime = false;
+    private int countRetry = 0;
     @ViewById ImageView imgFirst;
     @ViewById ImageView imgSecond;
     @ViewById ImageView imgThird;
     @ViewById ImageView imgFour;
+    @ViewById RelativeLayout relPin;
+    @ViewById RelativeLayout relResult;
+    @Pref UserPref_ userPref;
+    @Pref
+    SetUpPref_ setUpPref;
+
+    ProgressDialog dialog;
 
     @AfterViews
     public void afterViews(){
-
+        setUpPref.isInteredPin().put(true);
+        userPref.pin().put("");
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+        dialog.setMessage(getString(R.string.waiting));
     }
 
     @Click(R.id.btnOne)
@@ -89,7 +116,7 @@ public class PinActivity extends Activity{
 
     @Click(R.id.btnRemove)
     public void clickBtnRemove(){
-        pin = pin.substring(0, pin.length()-2);
+        pin = pin.substring(0, pin.length()-1);
         setUpVisibility();
     }
 
@@ -117,8 +144,43 @@ public class PinActivity extends Activity{
                 imgFirst.setImageResource(R.drawable.pin_setup);
                 imgSecond.setImageResource(R.drawable.pin_setup);
                 imgThird.setImageResource(R.drawable.pin_setup);
-                imgFour.setImageResource(R.drawable.pin_un_setup);
+                imgFour.setImageResource(R.drawable.pin_setup);
+                if (userPref.pin().get().isEmpty()){
+                    userPref.pin().put(pin);
+                   resetUp();
+                } else if (userPref.pin().get().equals(pin)){
+                    dialog.show();
+                    CallBackPin callback = new CallBackPin(this);
+                    Call<Error> call  = LykkeApplication_.getInstance().getRestApi().
+                            postPinSecurite(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
+                                    new PinRequest((pin)));
+                    call.enqueue(callback);
+                } else {
+                    resetUp();
+                    Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_LONG).show();
+                    userPref.pin().put("");
+                }
                 break;
         }
+    }
+
+    private void resetUp(){
+        pin = "";
+        imgFirst.setImageResource(R.drawable.pin_un_setup);
+        imgSecond.setImageResource(R.drawable.pin_un_setup);
+        imgThird.setImageResource(R.drawable.pin_un_setup);
+        imgFour.setImageResource(R.drawable.pin_un_setup);
+    }
+
+    @Override
+    public void onSuccess(Object result) {
+        dialog.dismiss();
+        relPin.setVisibility(View.GONE);
+        relResult.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onFail(Error error) {
+
     }
 }

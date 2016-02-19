@@ -43,14 +43,21 @@ public class FieldActivity extends ActionBarActivity {
             ((FieldFragment_) currentFragment).setUpActionBar(actionBar);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragmentContainer, currentFragment).commit();
-        } else if (setUpPref.isSelfieStatusStart().get()){
+        } else if (setUpPref.isSelfieStatusStart().get() &&
+                setUpPref.kysStatusStart().get().isEmpty()){
             Intent intent = new Intent();
             intent.setClass(this, SelfieActivity_.class);
             finish();
             startActivity(intent);
-        } else if (!setUpPref.kysStatusStart().get().isEmpty()){
+        } else if (!setUpPref.kysStatusStart().get().isEmpty() &&
+                !setUpPref.isInteredPin().get()){
             Intent intent = new Intent();
             intent.setClass(this, KysActivity_.class);
+            finish();
+            startActivity(intent);
+        } else if (setUpPref.isInteredPin().get()){
+            Intent intent = new Intent();
+            intent.setClass(this, PinActivity_.class);
             finish();
             startActivity(intent);
         }

@@ -43,7 +43,7 @@ public class KysActivity extends Activity implements CallBackListener {
     @ViewById TextView tvUpdate;
     @ViewById TextView textView3;
     @ViewById TextView tvInfoOops;
-    @ViewById TextView tvsendDocument;
+    @ViewById TextView textViewsendDocument;
 
     @Pref UserPref_ userPref;
     @Pref SetUpPref_ setUpPref;
@@ -85,7 +85,8 @@ public class KysActivity extends Activity implements CallBackListener {
     private Handler mHandler = new Handler();
 
     public void sendDocumentForCheck(){
-        tvsendDocument.setText(String.format(getString(R.string.dear_it_checked),
+        setUpPref.kysStatusStart().put(KysStatusEnum.Reject.toString());
+        textViewsendDocument.setText(String.format(getString(R.string.dear_it_checked),
                 new UserPref_(this).fullName().get()));
         setUpPref.isCheckingStatusStart().put(true);
         progressBarsendDocument.setVisibility(View.VISIBLE);

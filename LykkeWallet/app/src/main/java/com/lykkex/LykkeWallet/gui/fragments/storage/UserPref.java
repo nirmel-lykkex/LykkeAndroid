@@ -32,4 +32,7 @@ public interface UserPref {
 
     @DefaultString("")
     String zip();
+
+    @DefaultString("")
+    String pin();
 }

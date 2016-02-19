@@ -2,7 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:id="@+id/relPin"
+    android:visibility="visible"
+    android:layout_height="match_parent">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -182,12 +186,79 @@
             android:layout_column="1" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="28dp"
             android:id="@+id/btnRemove"
             android:layout_row="3"
             android:layout_gravity="center"
             android:background="@drawable/remove"
             android:layout_column="2" />
     </GridLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relResult"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgCongrc"
+            android:background="@drawable/created_lyyke"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="111dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/congrac"
+            android:id="@+id/tvInfo"
+            android:gravity="center"
+            android:layout_below="@+id/imgCongrc"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:visibility="visible"
+            android:id="@+id/btnSubmit"
+            android:textColor="@color/white"
+            android:background="@drawable/sign_active"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_alignRight="@+id/tvInformation"
+            android:layout_alignEnd="@+id/tvInformation"
+            android:layout_alignLeft="@+id/tvInformation"
+            android:layout_alignStart="@+id/tvInformation" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/code_generated"
+            android:id="@+id/tvInformation"
+            android:gravity="center"
+            android:layout_below="@+id/tvInfo"
+            android:layout_alignRight="@+id/tvInfo"
+            android:layout_alignEnd="@+id/tvInfo"
+            android:layout_toRightOf="@+id/progressBar"
+            android:layout_toEndOf="@+id/progressBar"
+            android:layout_alignLeft="@+id/tvInfo"
+            android:layout_alignStart="@+id/tvInfo" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            android:layout_below="@+id/tvInfoOops"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 </RelativeLayout>

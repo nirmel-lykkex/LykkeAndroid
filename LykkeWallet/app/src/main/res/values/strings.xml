@@ -19,7 +19,10 @@
     <string name = "inside">Login</string>
     <string name="action_log_in">LOG IN</string>
     <string name="send_document">Submit documents</string>
+    <string name="wrong_pin">You put wrong pin. Please, try again</string>
 
+    <string name="ok">OK</string>
+    <string name="congrac">Congration!</string>
     <string name="action_next">NEXT</string>
     <string name="what_should_i_know">WHAT I SHOULD KNOW?</string>
     <string name="registration">REGISTRATION</string>
@@ -36,4 +39,5 @@
     <string name="oops">OOPS!</string>
     <string name="was_created">LYKKE WALLET WAS SUCCESSFULLY CREATED!</string>
     <string name="info_oops">Dear %s, we\'re terribly sorry, but Lykke Wallet can\'t be created based on the KYC information that you have provided.</string>
+    <string name="code_generated">Your private code is generated</string>
 </resources>

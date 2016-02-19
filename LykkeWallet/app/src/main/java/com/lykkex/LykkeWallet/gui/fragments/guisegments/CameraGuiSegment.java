@@ -320,12 +320,34 @@ public class CameraGuiSegment implements CallBackListener {
                 , true);
 
 
+        int x =scaledBitmap.getWidth()/2- activity.getWindowManager().getDefaultDisplay().getWidth()/2;
+        int y =scaledBitmap.getHeight()/2 -activity.getWindowManager().getDefaultDisplay().getWidth()/2;
+
+        if(x<0){
+            scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap,
+                    (int) Math.round(rotatedBitmap.getWidth() *coef),
+                    (int) Math.round(rotatedBitmap.getHeight() *coef)
+                    , true);
+            x = scaledBitmap.getWidth()/2-activity.getWindowManager().getDefaultDisplay().getWidth()/2;
+            y =scaledBitmap.getHeight()/2 - activity.getWindowManager().getDefaultDisplay().getWidth()/2;
+        }
+        while(y<0){
+            scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap,
+                    (int) Math.round(rotatedBitmap.getWidth() *coef),
+                    (int) Math.round(rotatedBitmap.getHeight() *coef)
+                    , true);
+            x = scaledBitmap.getWidth()/2- activity.getWindowManager().getDefaultDisplay().getWidth()/2;
+            y =scaledBitmap.getHeight()/2 - activity.getWindowManager().getDefaultDisplay().getWidth()/2;
+        }
+
+        int width = imgPreview.getMeasuredWidth();
+
         scaledBitmap = Bitmap.createBitmap(
                 scaledBitmap,
-                scaledBitmap.getWidth()/2- imgPreview.getMeasuredWidth()/2,
-                scaledBitmap.getHeight()/2 - imgPreview.getMeasuredWidth()/2,
-                imgPreview.getMeasuredWidth(),
-                imgPreview.getMeasuredWidth());
+                x,
+                y,
+                width,
+                width);
         if (angle == 270) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);

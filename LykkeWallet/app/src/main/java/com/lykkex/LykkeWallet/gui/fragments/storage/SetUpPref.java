@@ -16,6 +16,9 @@ public interface SetUpPref {
     @DefaultBoolean(false)
     boolean isSelfieStatusStart();
 
+    @DefaultBoolean(false)
+    boolean isInteredPin();
+
     @DefaultString("")
     String kysStatusStart();
 }

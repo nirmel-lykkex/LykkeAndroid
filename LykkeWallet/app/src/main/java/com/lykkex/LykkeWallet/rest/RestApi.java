@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.rest;
 
 
 
+import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
@@ -9,12 +10,14 @@ import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.login.request.model.AuthRequest;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
+import com.lykkex.LykkeWallet.rest.pin.request.model.PinRequest;
 import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -50,4 +53,9 @@ public interface RestApi {
     @TIMEOUT(10000)
     @POST("/api/KycStatus")
     Call<PersonalData> kysDocuments(@Header("Authorization") String authorization);
+
+    @POST ("/api/PinSecurity")
+    Call<Error> postPinSecurite(@Header("Authorization")String authorization,
+                                @Body PinRequest pin);
+
 }
