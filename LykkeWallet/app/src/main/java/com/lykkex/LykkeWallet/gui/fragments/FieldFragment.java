@@ -1,7 +1,10 @@
 package com.lykkex.LykkeWallet.gui.fragments;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +28,7 @@ import org.androidannotations.annotations.ViewById;
  * Created by e.kazimirova on 09.02.2016.
  */
 @EFragment(R.layout.field_fragment)
-public class FieldFragment extends Fragment {
+public class FieldFragment extends Fragment  {
 
     @Bean FieldController controller;
     @Bean RegistrationGuiSegment registrationGuiSegment;
@@ -68,6 +71,7 @@ public class FieldFragment extends Fragment {
     }
 
     public void initEmailState() {
+        actionBar.hide();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -75,6 +79,7 @@ public class FieldFragment extends Fragment {
     }
 
     public void initFullNameState() {
+        actionBar.show();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -89,6 +94,7 @@ public class FieldFragment extends Fragment {
     }
 
     public void initFirstPasswordState() {
+        actionBar.hide();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -96,6 +102,7 @@ public class FieldFragment extends Fragment {
     }
 
     public void initSecondPasswordState() {
+        actionBar.show();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -128,12 +135,27 @@ public class FieldFragment extends Fragment {
         loginGuiSegment.clickAction();
     }
 
+    @Click(R.id.relBackground)
+    public void clickClearArea(){
+        if (controller.getCurrentState() == FieldState.EmailScreen
+                || controller.getCurrentState() == FieldState.EmailSignInScreen ||
+                controller.getCurrentState() == FieldState.FullNameScreenBack) {
+            if (editTextField != null) {
+                InputMethodManager imm = (InputMethodManager)getActivity().
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextField.getWindowToken(), 0);
+            }
+            editTextField.clearFocus();
+        }
+    }
+
 
     public void initBackPressed(){
         getActivity().finish();
     }
 
     public void initBackPressedFullName(){
+        actionBar.hide();
         registrationGuiSegment.initBackPressedFullName();
     }
 

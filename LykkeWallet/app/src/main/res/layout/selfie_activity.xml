@@ -32,7 +32,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="@string/submit"
             android:id="@+id/btnStart"
             android:textColor="@color/grey_text"
@@ -206,7 +206,7 @@
             <Button
                 android:id="@+id/retake"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:text="@string/reshoot"
                 android:layout_marginRight="10dp"
@@ -221,7 +221,7 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:text="@string/save"
                 android:background="@drawable/sign_active"
                 android:id="@+id/submit"

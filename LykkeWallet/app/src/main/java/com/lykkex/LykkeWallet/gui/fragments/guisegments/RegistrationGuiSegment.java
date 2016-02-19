@@ -120,7 +120,7 @@ public class RegistrationGuiSegment implements CallBackListener {
             actionBar.setTitle(R.string.registration);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        editTextField.setInputType(InputType.TYPE_CLASS_TEXT);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         tvInfo.setVisibility(View.VISIBLE);
         relProgress.setVisibility(View.VISIBLE);
@@ -258,7 +258,7 @@ public class RegistrationGuiSegment implements CallBackListener {
     }
 
     public void initBackPressedMobile() {
-        editTextField.setInputType(InputType.TYPE_CLASS_TEXT);
+        editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         imageViewWhat.setVisibility(View.GONE);
         textViewWhat.setVisibility(View.GONE);
         if (actionBar != null) {

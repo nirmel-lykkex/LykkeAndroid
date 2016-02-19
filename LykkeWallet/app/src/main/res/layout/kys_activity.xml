@@ -32,7 +32,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="@string/okay_understand"
             android:visibility="gone"
             android:id="@+id/btnUnderstandOops"
@@ -150,7 +150,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="@string/okay_understand"
             android:id="@+id/btnUpdate"
             android:textColor="@color/grey_text"
@@ -215,7 +215,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="@string/get_started"
             android:id="@+id/btnStart"
             android:textColor="@color/grey_text"

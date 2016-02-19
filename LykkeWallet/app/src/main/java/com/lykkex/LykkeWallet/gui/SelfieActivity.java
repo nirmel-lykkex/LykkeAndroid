@@ -155,7 +155,12 @@ public class SelfieActivity extends ActionBarActivity {
 
     @Click(R.id.buttake_photo)
     public void takePhoto(){
-        mCamera.takePicture(null, null, mPicture);
+        try {
+            mCamera.takePicture(null, null, mPicture);
+        } catch (RuntimeException ex){
+            initBackCamera();
+            mCamera.takePicture(null, null, mPicture);
+        }
     }
 
     @Click(R.id.buttonOpenSelfie)
