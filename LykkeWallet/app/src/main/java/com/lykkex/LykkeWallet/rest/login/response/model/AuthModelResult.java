@@ -14,4 +14,19 @@ public class AuthModelResult extends RegistrationResult {
     @SerializedName("PinIsEntered")
     private String pinIsEntered;
 
+    public String getPinIsEntered() {
+        return pinIsEntered;
+    }
+
+    public void setPinIsEntered(String pinIsEntered) {
+        this.pinIsEntered = pinIsEntered;
+    }
+
+    public String getKycStatus() {
+        return kycStatus;
+    }
+
+    public void setKycStatus(String kycStatus) {
+        this.kycStatus = kycStatus;
+    }
 }
