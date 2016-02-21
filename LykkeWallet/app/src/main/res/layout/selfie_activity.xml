@@ -96,6 +96,8 @@
             android:textSize="18sp"
             android:textColor="@color/grey_dark_text"
             android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
             <RelativeLayout
@@ -192,7 +194,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_above="@+id/relButtons" />
 
         <RelativeLayout
@@ -237,6 +238,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_height="fill_parent"
                 android:orientation="horizontal"
                 android:weightSum="3"
