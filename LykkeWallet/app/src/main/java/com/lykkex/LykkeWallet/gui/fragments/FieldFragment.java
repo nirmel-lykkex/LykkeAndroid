@@ -71,7 +71,7 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initEmailState() {
-        actionBar.hide();
+        actionBar.show();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -127,7 +127,7 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initEmailSignInScreen(){
-        actionBar.hide();
+        actionBar.show();
         registrationGuiSegment.clearEditText();
         loginGuiSegment.initEmailSignIn();
     }
@@ -158,7 +158,7 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initBackPressedFullName(){
-        actionBar.hide();
+        actionBar.show();
         registrationGuiSegment.initBackPressedFullName();
     }
 
