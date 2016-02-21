@@ -37,6 +37,7 @@
     <string name="get_started">GET STARTED</string>
     <string name="okay_understand"> OKAY, I UNDERSTAND</string>
     <string name="oops">OOPS!</string>
+    <string name="cancel_waiting">Tap to cancel the upload operation</string>
     <string name="was_created">LYKKE WALLET WAS SUCCESSFULLY CREATED!</string>
     <string name="info_oops">Dear %s, we\'re terribly sorry, but Lykke Wallet can\'t be created based on the KYC information that you have provided.</string>
     <string name="code_generated">Your private code is generated</string>

@@ -450,13 +450,19 @@ public class CameraGuiSegment implements CallBackListener {
         return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
     }
 
+    Call<PersonData> call;
+
+    public void cancelRequest(){
+        call.cancel();
+    }
+
     private void sendImage(String path, CameraType type){
         CameraModel model = new CameraModel();
         model.setExt(Constants.JPG);
         model.setData(compressImage(path));
         model.setType(type.toString());
         SendDocumentsDataCallback callback = new SendDocumentsDataCallback(this);
-        Call<PersonData> call  = LykkeApplication_.getInstance().getRestApi().
+        call  = LykkeApplication_.getInstance().getRestApi().
                 kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get(), model);
         call.enqueue(callback);
     }
@@ -465,7 +471,7 @@ public class CameraGuiSegment implements CallBackListener {
 
 
     public void getDocument(){
-        activity.showProgress();
+        activity.showProgressWithoutCancel();
         setUpPref.isCheckingStatusStart().put(true);
        // progressBar.setVisibility(View.VISIBLE);
         SubmitDocumentsDataCallback callback = new SubmitDocumentsDataCallback(this);

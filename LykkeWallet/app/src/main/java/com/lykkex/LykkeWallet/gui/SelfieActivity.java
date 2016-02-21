@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -106,8 +107,7 @@ public class SelfieActivity extends ActionBarActivity {
     public void afterViews() {
         RegistrationResult info = null;
         dialog = new ProgressDialog(this);
-        dialog.setMessage(getString(R.string.waiting));
-        showProgress();
+        showProgressWithoutCancel();
         guiSegment = new CameraGuiSegment();
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle(R.string.registration);
@@ -146,12 +146,21 @@ public class SelfieActivity extends ActionBarActivity {
 
     public void showProgressWithoutCancel(){
         dialog.setCancelable(false);
+        dialog.setMessage(getString(R.string.waiting));
         dialog.show();
     }
 
     public void showProgress(){
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
+        dialog.setMessage(getString(R.string.cancel_waiting));
         dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                guiSegment.cancelRequest();
+                dialog.dismiss();
+            }
+        });
     }
 
     public void dismissProgress(){
