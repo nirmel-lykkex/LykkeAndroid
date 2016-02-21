@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
@@ -37,6 +38,8 @@ public class PinActivity extends Activity implements CallBackListener{
     @ViewById ImageView imgSecond;
     @ViewById ImageView imgThird;
     @ViewById ImageView imgFour;
+    @ViewById
+    TextView textView4;
     @ViewById RelativeLayout relPin;
     @ViewById RelativeLayout relResult;
     @Pref UserPref_ userPref;
@@ -47,6 +50,7 @@ public class PinActivity extends Activity implements CallBackListener{
 
     @AfterViews
     public void afterViews(){
+        textView4.setText("");
         setUpPref.isInteredPin().put(true);
         userPref.pin().put("");
         dialog = new ProgressDialog(this);
@@ -147,7 +151,8 @@ public class PinActivity extends Activity implements CallBackListener{
                 imgFour.setImageResource(R.drawable.pin_setup);
                 if (userPref.pin().get().isEmpty()){
                     userPref.pin().put(pin);
-                   resetUp();
+                    resetUp();
+                    textView4.setText(R.string.re_enter_pin);
                 } else if (userPref.pin().get().equals(pin)){
                     dialog.show();
                     CallBackPin callback = new CallBackPin(this);
@@ -157,7 +162,7 @@ public class PinActivity extends Activity implements CallBackListener{
                     call.enqueue(callback);
                 } else {
                     resetUp();
-                    Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_LONG).show();
+                    textView4.setText(R.string.wrong_pin);
                     userPref.pin().put("");
                 }
                 break;

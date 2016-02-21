@@ -19,7 +19,8 @@
     <string name = "inside">Login</string>
     <string name="action_log_in">LOG IN</string>
     <string name="send_document">SUBMIT DOCUMENTS</string>
-    <string name="wrong_pin">You put wrong pin. Please, try again</string>
+    <string name="wrong_pin">Pins do not match</string>
+    <string name="re_enter_pin">Re-enter pin</string>
 
     <string name="ok">OK</string>
     <string name="congrac">Congration!</string>

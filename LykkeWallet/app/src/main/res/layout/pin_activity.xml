@@ -80,8 +80,9 @@
         android:rowCount="7"
         android:columnCount="3"
         android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true">
 
         <Button
@@ -194,7 +195,16 @@
             android:background="@drawable/remove"
             android:layout_column="2" />
     </GridLayout>
-    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        android:id="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/relativeLayout" />
+</RelativeLayout>
     <RelativeLayout
         android:id="@+id/relResult"
         android:visibility="gone"
