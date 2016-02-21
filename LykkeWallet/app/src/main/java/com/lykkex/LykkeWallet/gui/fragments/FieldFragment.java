@@ -87,6 +87,7 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initMobileState() {
+        actionBar.show();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -94,7 +95,7 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initFirstPasswordState() {
-        actionBar.hide();
+        actionBar.show();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -110,6 +111,7 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initPasswordSignInScreen(){
+        actionBar.show();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
@@ -125,6 +127,7 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initEmailSignInScreen(){
+        actionBar.hide();
         registrationGuiSegment.clearEditText();
         loginGuiSegment.initEmailSignIn();
     }
@@ -160,18 +163,22 @@ public class FieldFragment extends Fragment  {
     }
 
     public void initBackPressedMobile(){
+        actionBar.show();
         registrationGuiSegment.initBackPressedMobile();
     }
 
     public void initBackPressedFirstPasswordScreen(){
+        actionBar.show();
         registrationGuiSegment.initBackPressedFirstPasswordScreen();
     }
 
     public void initBackPressedSecondPasswordScreen(){
+        actionBar.show();
         registrationGuiSegment.initBackPressedSecondPasswordScreen();
     }
 
     public void initBackPressedPasswordSignIn(){
+        actionBar.show();
         loginGuiSegment.initBackPressedPasswordSignIn();
     }
 

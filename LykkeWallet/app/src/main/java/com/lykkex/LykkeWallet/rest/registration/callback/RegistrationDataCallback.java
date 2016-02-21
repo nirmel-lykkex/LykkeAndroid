@@ -20,12 +20,12 @@ public class RegistrationDataCallback implements Callback<RegistrationData> {
 
     public RegistrationDataCallback(ProgressBar progressBar, CallBackListener listener){
         this.progressBar = progressBar;
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
         this.listener = listener;
     }
     @Override
     public void onResponse(Call<RegistrationData> call, Response<RegistrationData> response) {
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
         if (response != null && response.body() != null && response.body().getError()==null) {
             listener.onSuccess(response.body());
         }else if (response != null && response.body() != null){
@@ -35,7 +35,7 @@ public class RegistrationDataCallback implements Callback<RegistrationData> {
 
     @Override
     public void onFailure(Call<RegistrationData> call, Throwable t) {
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
         listener.onFail(null);
     }
 }

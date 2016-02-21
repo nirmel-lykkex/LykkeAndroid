@@ -144,6 +144,11 @@ public class SelfieActivity extends ActionBarActivity {
         }
     }
 
+    public void showProgressWithoutCancel(){
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
     public void showProgress(){
         dialog.setCancelable(false);
         dialog.show();

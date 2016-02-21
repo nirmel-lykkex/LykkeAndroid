@@ -7,15 +7,15 @@
         android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imgOps"
             android:background="@drawable/opps"
+            android:layout_marginTop="60dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="111dp" />
-
+            android:layout_centerHorizontal="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,6 @@
             android:text="@string/okay_understand"
             android:visibility="gone"
             android:id="@+id/btnUnderstandOops"
-            android:textColor="@color/grey_dark_text"
             android:background="@drawable/sign_inactive"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="15dp"
@@ -73,15 +72,15 @@
         android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imgsendDocument"
             android:background="@drawable/created_lyyke"
+            android:layout_marginTop="60dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="111dp" />
-
+            android:layout_centerHorizontal="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,9 +129,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/imgWasUpdate"
             android:background="@drawable/opps"
+            android:layout_marginTop="60dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="111dp" />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,14 +189,15 @@
         android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imgWasCreated"
             android:background="@drawable/created_lyyke"
+            android:layout_marginTop="60dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="111dp" />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"

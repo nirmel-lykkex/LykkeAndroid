@@ -116,6 +116,9 @@ public class CameraGuiSegment implements CallBackListener {
         this.relButtons = relButtons;
         this.relTop = relTop;
         this.progressBar = progressBar;
+        imgSecond.setBackgroundResource(R.drawable.ready);
+        imgThird.setBackgroundResource(R.drawable.submit_form_circle);
+        imgForth.setBackgroundResource(R.drawable.unsubmit_form_circle);
         controller.init(activity, CameraState.Idle);
         CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
         Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
@@ -191,9 +194,6 @@ public class CameraGuiSegment implements CallBackListener {
         }
         model.setIsDone(false);
         model.setIsFront(false);
-        imgSecond.setBackgroundResource(R.drawable.ready);
-        imgThird.setBackgroundResource(R.drawable.ready);
-        imgForth.setBackgroundResource(R.drawable.submit_form_circle);
         tvTitle.setText(R.string.proof_adress);
         initGuiPhoto();
         if (model.getPathProofAddress() != null && !model.getPathProofAddress().isEmpty()) {
@@ -209,8 +209,6 @@ public class CameraGuiSegment implements CallBackListener {
         }
         model.setIsDone(false);
         model.setIsFront(false);
-        imgSecond.setBackgroundResource(R.drawable.ready);
-        imgThird.setBackgroundResource(R.drawable.submit_form_circle);
         tvTitle.setText(R.string.id_card);
         initGuiPhoto();
         if (model.getPathIdCard() != null && !model.getPathIdCard().isEmpty()) {
@@ -384,7 +382,7 @@ public class CameraGuiSegment implements CallBackListener {
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
         bitmap = cropImage(bitmap);
         Drawable drawable = new BitmapDrawable(activity.getResources(), bitmap);
-        imgPreview.setImageDrawable(drawable);
+        imgPreview.setBackgroundDrawable(drawable);
         retake.setVisibility(View.VISIBLE);
         submit.setVisibility(View.VISIBLE);
 
@@ -469,7 +467,7 @@ public class CameraGuiSegment implements CallBackListener {
     public void getDocument(){
         activity.showProgress();
         setUpPref.isCheckingStatusStart().put(true);
-        progressBar.setVisibility(View.VISIBLE);
+       // progressBar.setVisibility(View.VISIBLE);
         SubmitDocumentsDataCallback callback = new SubmitDocumentsDataCallback(this);
         Call<PersonalData> call = LykkeApplication_.getInstance().getRestApi().
                 kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());

@@ -18,7 +18,7 @@
     <string name="action_sing_in">SIGN IN</string>
     <string name = "inside">Login</string>
     <string name="action_log_in">LOG IN</string>
-    <string name="send_document">Submit documents</string>
+    <string name="send_document">SUBMIT DOCUMENTS</string>
     <string name="wrong_pin">You put wrong pin. Please, try again</string>
 
     <string name="ok">OK</string>

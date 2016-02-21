@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.guisegments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.text.InputType;
@@ -222,8 +223,14 @@ public class RegistrationGuiSegment implements CallBackListener {
         validationEditText.setReady(false);
     }
 
+    ProgressDialog dialog;
     public void sendRegistrationRequest(){
+        dialog = new ProgressDialog(activity);
+        dialog.setMessage(activity.getString(
+                R.string.waiting));
+        dialog.setCancelable(false);
         if (model.isReady()) {
+            dialog.show();
             buttonAction.setEnabled(false);
             RegistrationDataCallback callback = new RegistrationDataCallback(progressBar, this);
             Call<RegistrationData> call = LykkeApplication_.getInstance().getRestApi().registration(model);
@@ -373,6 +380,7 @@ public class RegistrationGuiSegment implements CallBackListener {
                 model.setIsReady(true);
                 break;
             case SendRegistrationRequst:
+                dialog.dismiss();
                 Intent intent = new Intent();
                 intent.setClass(activity, SelfieActivity_.class);
                 new UserPref_(activity).authToken().put(((RegistrationData) result).getResult().getToken());
