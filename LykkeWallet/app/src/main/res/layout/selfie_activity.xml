@@ -213,6 +213,7 @@
                 android:background="@drawable/sign_inactive"
                 android:layout_above="@+id/submit"
                 android:visibility="gone"
+                android:textColor="@color/black"
                 android:layout_alignLeft="@+id/submit"
                 android:layout_alignStart="@+id/submit"
                 android:layout_alignParentRight="true"
@@ -256,7 +257,7 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <Button
@@ -265,7 +266,7 @@
                         android:background="@drawable/make_photo"
                         android:visibility="visible"
                         android:id="@+id/buttake_photo"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true" />
                 </RelativeLayout>
 
