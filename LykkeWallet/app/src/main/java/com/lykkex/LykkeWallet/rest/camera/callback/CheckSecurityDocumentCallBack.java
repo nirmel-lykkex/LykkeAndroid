@@ -1,8 +1,10 @@
 package com.lykkex.LykkeWallet.rest.camera.callback;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
+import com.lykkex.LykkeWallet.rest.base.models.BaseCallBack;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 
@@ -13,28 +15,28 @@ import retrofit2.Response;
 /**
  * Created by e.kazimirova on 14.02.2016.
  */
-public class CheckSecurityDocumentCallBack implements Callback<DocumentAnswerData> {
+public class CheckSecurityDocumentCallBack extends BaseCallBack<DocumentAnswerData> {
 
-    private CallBackListener listener;
-
-    public CheckSecurityDocumentCallBack(CallBackListener listener) {
-        this.listener = listener;
+    public CheckSecurityDocumentCallBack(CallBackListener listener, Activity activity) {
+        super(listener, activity);
     }
 
     @Override
     public void onResponse(Call<DocumentAnswerData> call, Response<DocumentAnswerData> response) {
-        if (response != null && response.body() != null && response.body().getError()==null) {
-            Log.e("Liza ", "onSucess ");
-            listener.onSuccess(response.body().getResult());
-        }else if (response != null && response.body() != null){
-            Log.e("Liza ", "onFail ");
-            listener.onFail(response.body().getError());
+        super.onResponse(call, response);
+        if (!isCancel) {
+            if (response != null && response.body() != null && response.body().getError() == null) {
+                listener.onSuccess(response.body().getResult());
+            } else if (response != null && response.body() != null) {
+                listener.onFail(response.body().getError());
+            }
         }
     }
 
     @Override
     public void onFailure(Call<DocumentAnswerData> call, Throwable t) {
-        Log.e("Liza ", "onFail ");
-        listener.onFail(null);
+        if (!isCancel) {
+            listener.onFail(null);
+        }
     }
 }

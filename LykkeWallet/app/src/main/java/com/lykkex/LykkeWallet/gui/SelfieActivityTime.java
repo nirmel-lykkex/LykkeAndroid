@@ -1,56 +1,28 @@
 package com.lykkex.LykkeWallet.gui;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageFormat;
-import android.graphics.Matrix;
-import android.graphics.Rect;
-import android.graphics.YuvImage;
 import android.hardware.Camera;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.os.Handler;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AlertDialog;
-import android.text.Layout;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.commonsware.cwac.camera.CameraHost;
+import com.commonsware.cwac.camera.CameraHostProvider;
+import com.commonsware.cwac.camera.CameraView;
+import com.commonsware.cwac.camera.PictureTransaction;
+import com.commonsware.cwac.camera.SimpleCameraHost;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.CameraPreview;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.guisegments.CameraGuiSegment;
-import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
-import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
-import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.gui.widgets.DialogProgress;
-import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
-import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
-import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -58,34 +30,26 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import retrofit2.Call;
 
 /**
  * Created by e.kazimirova on 12.02.2016.
  */
 @EActivity(R.layout.selfie_activity)
-public class SelfieActivity extends ActionBarActivity {
+public class SelfieActivityTime extends ActionBarActivity implements CameraHostProvider {
 
-    public android.hardware.Camera mCamera;
+    public Camera mCamera;
     public CameraPreview mCameraPreview;
     public ProgressDialog dialog;
-    public DialogProgress progressDialog = new DialogProgress();
+
+    private File photoPath;
 
     private CameraGuiSegment guiSegment;
     @ViewById FrameLayout camera_preview;
+
+    @ViewById ImageButton ivTakenPhoto;
+    @ViewById CameraView cameraView;
+
     @ViewById RelativeLayout relTop;
     @ViewById RelativeLayout relButtons;
     @ViewById Button btnStart;
@@ -105,10 +69,28 @@ public class SelfieActivity extends ActionBarActivity {
     @ViewById  RelativeLayout sendDocumentRel;
     @ViewById TextView textView3;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cameraView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cameraView.onPause();
+    }
+
+    @Click(R.id.buttake_photo)
+    public void click(){
+        cameraView.takePicture(true, true);
+    }
+
     /** Called when the activity is first created. */
     @AfterViews
     public void afterViews() {
-        RegistrationResult info = null;
+    }
+       /* RegistrationResult info = null;
         dialog = new ProgressDialog(this);
         showProgressWithoutCancel();
         guiSegment = new CameraGuiSegment();
@@ -154,14 +136,22 @@ public class SelfieActivity extends ActionBarActivity {
     }
 
     public void showProgress(){
-        progressDialog.setUpCurrentCall(guiSegment.getRequest(),
-                guiSegment.getCallBack());
-        progressDialog.show(getFragmentManager(), "dlg1");
+        dialog.setCancelable(true);
+        dialog.setMessage(getString(R.string.cancel_waiting));
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                guiSegment.cancelRequest();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
     public void dismissProgress(){
         dialog.dismiss();
-        progressDialog.dismiss();
     }
 
     @Click(R.id.buttake_photo)
@@ -201,7 +191,7 @@ public class SelfieActivity extends ActionBarActivity {
         showFileChooser();
     }
 
-    public void onPause(){
+   /* public void onPause(){
         super.onPause();
         if(mCamera != null)
         {
@@ -310,8 +300,8 @@ public class SelfieActivity extends ActionBarActivity {
 
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+  *///      intent.setType("*/*");
+      /*  intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         try {
             startActivityForResult(
@@ -566,6 +556,69 @@ public class SelfieActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }*/
+
+
+    @Override
+    public CameraHost getCameraHost() {
+        return new MyCameraHost(this);
+    }
+
+    class MyCameraHost extends SimpleCameraHost {
+
+        private Camera.Size previewSize;
+
+        public MyCameraHost(Context ctxt) {
+            super(ctxt);
+        }
+
+        @Override
+        public boolean useFullBleedPreview() {
+            return true;
+        }
+
+        @Override
+        public boolean mirrorFFC(){
+            return true;
+        }
+
+        @Override
+        public boolean useFrontFacingCamera() {
+            return true;
+        }
+        @Override
+        public Camera.Size getPictureSize(PictureTransaction xact, Camera.Parameters parameters) {
+            return previewSize;
+        }
+
+        @Override
+        public Camera.Parameters adjustPreviewParameters(Camera.Parameters parameters) {
+            Camera.Parameters parameters1 = super.adjustPreviewParameters(parameters);
+            previewSize = parameters1.getPreviewSize();
+            return parameters1;
+        }
+
+        @Override
+        public void saveImage(PictureTransaction xact, final Bitmap bitmap) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showTakenPicture(bitmap);
+                }
+            });
+        }
+
+        @Override
+        public void saveImage(PictureTransaction xact, byte[] image) {
+            super.saveImage(xact, image);
+            photoPath = getPhotoPath();
+        }
+    }
+
+    private void showTakenPicture(Bitmap bitmap) {
+        cameraView.setVisibility(View.GONE);
+        ivTakenPhoto.setImageBitmap(bitmap);
+        ivTakenPhoto.setVisibility(View.VISIBLE);
     }
 
 }

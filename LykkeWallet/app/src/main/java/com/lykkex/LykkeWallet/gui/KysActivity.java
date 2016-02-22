@@ -91,7 +91,7 @@ public class KysActivity extends Activity implements CallBackListener {
         setUpPref.isCheckingStatusStart().put(true);
         progressBarsendDocument.setVisibility(View.VISIBLE);
         sendDocumentRel.setVisibility(View.VISIBLE);
-        CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this);
+        CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this, this);
         Call<DocumentAnswerData> call  = LykkeApplication_.getInstance().getRestApi().
                 getKycStatus(Constants.PART_AUTHORIZATION + userPref.authToken().get());
         call.enqueue(callback);

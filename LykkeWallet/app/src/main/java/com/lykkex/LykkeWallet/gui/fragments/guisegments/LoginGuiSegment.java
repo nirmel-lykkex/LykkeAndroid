@@ -26,6 +26,7 @@ import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.ValidationEditText;
 import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
+import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelResult;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
 
 import org.androidannotations.annotations.EBean;
@@ -143,7 +144,7 @@ public class LoginGuiSegment implements CallBackListener {
         authRequest.setPassword(editTextField.getText().toString());
         if (authRequest.isReady()) {
             buttonAction.setEnabled(false);
-            LoginDataCallback callback = new LoginDataCallback(progressBar, this);
+            LoginDataCallback callback = new LoginDataCallback(progressBar, this, activity);
             Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().getAuth(authRequest);
             call.enqueue(callback);
         }
@@ -225,6 +226,12 @@ public class LoginGuiSegment implements CallBackListener {
                 }
                 break;
             case SendAuthRequest:
+                if (result != null && result instanceof AuthModelResult) {
+                    AuthModelResult res = (AuthModelResult) result;
+                    if (!res.getKycStatus().isEmpty()) {
+
+                    }
+                }
                 Intent intent = new Intent();
                 intent.setClass(activity, MainActivity_.class);
                 activity.startActivity(intent);

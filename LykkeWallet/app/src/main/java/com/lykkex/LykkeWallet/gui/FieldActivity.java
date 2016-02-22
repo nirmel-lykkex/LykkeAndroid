@@ -29,38 +29,16 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 public class FieldActivity extends ActionBarActivity {
 
     private Fragment currentFragment;
-    @Pref SetUpPref_ setUpPref;
-    @Pref UserPref_ userPref;
+
 
 
     @AfterViews
     public void afterViews(){
-        if (!setUpPref.isCheckingStatusStart().get() && !setUpPref.isSelfieStatusStart().get()
-                && setUpPref.kysStatusStart().get().isEmpty()) {
-            currentFragment = new FieldFragment_();
-
-            ActionBar actionBar = getSupportActionBar();
-            ((FieldFragment_) currentFragment).setUpActionBar(actionBar);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragmentContainer, currentFragment).commit();
-        } else if (setUpPref.isSelfieStatusStart().get() &&
-                setUpPref.kysStatusStart().get().isEmpty()){
-            Intent intent = new Intent();
-            intent.setClass(this, SelfieActivity_.class);
-            finish();
-            startActivity(intent);
-        } else if (!setUpPref.kysStatusStart().get().isEmpty() &&
-                !setUpPref.isInteredPin().get()){
-            Intent intent = new Intent();
-            intent.setClass(this, KysActivity_.class);
-            finish();
-            startActivity(intent);
-        } else if (setUpPref.isInteredPin().get()){
-            Intent intent = new Intent();
-            intent.setClass(this, PinActivity_.class);
-            finish();
-            startActivity(intent);
-        }
+        currentFragment = new FieldFragment_();
+        ActionBar actionBar = getSupportActionBar();
+        ((FieldFragment_) currentFragment).setUpActionBar(actionBar);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragmentContainer, currentFragment).commit();
     }
 
     @Override

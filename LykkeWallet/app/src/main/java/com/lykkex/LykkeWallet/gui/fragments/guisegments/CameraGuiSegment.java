@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.KysActivity_;
+import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.SelfieActivity;
 import com.lykkex.LykkeWallet.gui.fragments.CameraPreview;
@@ -120,7 +121,7 @@ public class CameraGuiSegment implements CallBackListener {
         imgThird.setBackgroundResource(R.drawable.submit_form_circle);
         imgForth.setBackgroundResource(R.drawable.unsubmit_form_circle);
         controller.init(activity, CameraState.Idle);
-        CheckDocumentCallBack callback = new CheckDocumentCallBack(this);
+        CheckDocumentCallBack callback = new CheckDocumentCallBack(this, activity);
         Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
                 checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
         call.enqueue(callback);
@@ -131,13 +132,11 @@ public class CameraGuiSegment implements CallBackListener {
             switch (controller.getCurrentState()){
                 case Selfie:
                     if (!model.isSelfieSend()) {
-                        activity.showProgress();
                         sendImage(model.getPathSelfie(), CameraType.Selfie);
                     }
                     break;
                 case SelfieBack:
                     if (!model.isSelfieSend()) {
-                        activity.showProgress();
                         sendImage(model.getPathSelfie(), CameraType.Selfie);
                     } else {
                         controller.fire(CameraTrigger.IdCard);
@@ -145,7 +144,6 @@ public class CameraGuiSegment implements CallBackListener {
                     break;
                 case IdCard:
                     if (!model.isCardIdeSend()) {
-                        activity.showProgress();
                         sendImage(model.getPathIdCard(), CameraType.IdCard);
                     } else {
                         controller.fire(CameraTrigger.ProofOfAddress);
@@ -153,7 +151,6 @@ public class CameraGuiSegment implements CallBackListener {
                     break;
                 case ProofOfAddress:
                     if (!model.isProofAddressSend()) {
-                        activity.showProgress();
                         sendImage(model.getPathProofAddress(), CameraType.ProofOfAddress);
                     } else {
                         controller.fire(CameraTrigger.CheckStatus);
@@ -451,9 +448,14 @@ public class CameraGuiSegment implements CallBackListener {
     }
 
     Call<PersonData> call;
+    SendDocumentsDataCallback callBackSendDocuments;
 
-    public void cancelRequest(){
-        call.cancel();
+    public Call<PersonData> getRequest(){
+        return call;
+    }
+
+    public SendDocumentsDataCallback getCallBack(){
+        return callBackSendDocuments;
     }
 
     private void sendImage(String path, CameraType type){
@@ -461,10 +463,12 @@ public class CameraGuiSegment implements CallBackListener {
         model.setExt(Constants.JPG);
         model.setData(compressImage(path));
         model.setType(type.toString());
-        SendDocumentsDataCallback callback = new SendDocumentsDataCallback(this);
+        callBackSendDocuments = new SendDocumentsDataCallback(this, activity);
         call  = LykkeApplication_.getInstance().getRestApi().
                 kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get(), model);
-        call.enqueue(callback);
+        call.enqueue(callBackSendDocuments);
+        activity.showProgress();
+
     }
 
     private ArrayList<Call<DocumentAnswerData>> listCallDoc = new ArrayList<>();
@@ -474,7 +478,7 @@ public class CameraGuiSegment implements CallBackListener {
         activity.showProgressWithoutCancel();
         setUpPref.isCheckingStatusStart().put(true);
        // progressBar.setVisibility(View.VISIBLE);
-        SubmitDocumentsDataCallback callback = new SubmitDocumentsDataCallback(this);
+        SubmitDocumentsDataCallback callback = new SubmitDocumentsDataCallback(this, activity);
         Call<PersonalData> call = LykkeApplication_.getInstance().getRestApi().
                 kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
         call.enqueue(callback);

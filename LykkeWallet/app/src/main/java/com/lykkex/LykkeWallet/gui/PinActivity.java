@@ -155,7 +155,7 @@ public class PinActivity extends Activity implements CallBackListener{
                     textView4.setText(R.string.re_enter_pin);
                 } else if (userPref.pin().get().equals(pin)){
                     dialog.show();
-                    CallBackPin callback = new CallBackPin(this);
+                    CallBackPin callback = new CallBackPin(this, this);
                     Call<Error> call  = LykkeApplication_.getInstance().getRestApi().
                             postPinSecurite(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
                                     new PinRequest((pin)));

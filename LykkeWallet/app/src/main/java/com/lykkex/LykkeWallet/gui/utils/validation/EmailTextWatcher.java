@@ -35,7 +35,7 @@ public class EmailTextWatcher implements TextWatcher {
 
     public EmailTextWatcher(CallBackListener<AcountExistResult> listener, ValidationEditText editText,
                             ProgressBar progressBar, Button buttnAction) {
-        this.callback = new AccountExistDataCallback(listener, progressBar);
+        this.callback = new AccountExistDataCallback(listener, progressBar, null);
         this.editText = editText;
         this.progressBar = progressBar;
         this.buttonAction = buttnAction;

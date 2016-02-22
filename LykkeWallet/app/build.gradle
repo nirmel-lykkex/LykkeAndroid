@@ -2,6 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url 'https://s3.amazonaws.com/repo.commonsware.com'
+        }
     }
     dependencies {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
@@ -46,11 +49,15 @@ apt {
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven {
+        url 'https://s3.amazonaws.com/repo.commonsware.com'
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.commonsware.cwac:camera:0.6.+'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'

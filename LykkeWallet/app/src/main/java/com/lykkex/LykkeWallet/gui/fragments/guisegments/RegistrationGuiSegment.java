@@ -232,7 +232,7 @@ public class RegistrationGuiSegment implements CallBackListener {
         if (model.isReady()) {
             dialog.show();
             buttonAction.setEnabled(false);
-            RegistrationDataCallback callback = new RegistrationDataCallback(progressBar, this);
+            RegistrationDataCallback callback = new RegistrationDataCallback(progressBar, this, activity);
             Call<RegistrationData> call = LykkeApplication_.getInstance().getRestApi().registration(model);
             call.enqueue(callback);
         }
