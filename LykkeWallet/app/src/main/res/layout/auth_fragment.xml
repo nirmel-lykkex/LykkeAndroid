@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@color/white"
+    android:focusable="true">
+
+    <EditText
+        android:paddingLeft="7dp"
+        android:enabled="false"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/editTextLogin"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/filed_background"
+        android:layout_alignParentTop="true"
+        android:paddingRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp" />
+
+    <EditText
+        android:paddingLeft="7dp"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:inputType="textPassword"
+        android:layout_marginLeft="8dp"
+        android:hint="@string/first_password_hint"
+        android:textColor="@color/black"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/filed_background"
+        android:id="@+id/editTextPassword"
+        android:layout_below="@+id/editTextLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="8dp" />
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:text="@string/action_next"
+        android:textColor="@color/grey_text"
+        android:background="@drawable/submitbutton"
+        android:id="@+id/buttonLogin"
+        android:layout_below="@+id/editTextPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/buttonLogin"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

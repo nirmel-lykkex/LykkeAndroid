@@ -53,10 +53,10 @@
     </RelativeLayout>
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="45dp"
         android:layout_marginTop="10dp"
         android:enabled="false"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
         android:textColor="@color/grey_text"
         android:background="@drawable/submitbutton"
         android:id="@+id/buttonAction"

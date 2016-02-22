@@ -1,12 +1,14 @@
 package com.lykkex.LykkeWallet.gui.fragments.statesegments;
 
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 import com.github.oxo42.stateless4j.delegates.Action;
 import com.github.oxo42.stateless4j.triggers.TriggerWithParameters1;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
@@ -21,13 +23,13 @@ public class FieldStateMachine  {
 
 
     private StateMachine<FieldState, FieldTrigger> mOverloadState;
-    private FieldFragment fragment;
+    private BaseFragment fragment;
 
     protected StateMachine<FieldState, FieldTrigger> buildStateMachine(FieldState initialState) {
         return new StateMachine<>(initialState, getConfig());
     }
 
-    public void init(FieldState startState, FieldFragment fragment) {
+    public void init(FieldState startState, BaseFragment fragment) {
         this.fragment = fragment;
         this.mOverloadState = buildStateMachine(startState);
     }
@@ -57,7 +59,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initEmailState();
+                        ((FieldFragment)fragment).initEmailState();
                     }
                 })
                 .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
@@ -68,7 +70,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initFullNameState();
+                        ((FieldFragment)fragment).initFullNameState();
                     }
                 })
                 .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
@@ -79,7 +81,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initMobileState();
+                        ((FieldFragment)fragment).initMobileState();
                     }
                 })
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
@@ -91,7 +93,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initFirstPasswordState();
+                        ((FieldFragment)fragment).initFirstPasswordState();
                     }
                 })
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
@@ -103,7 +105,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initSecondPasswordState();
+                        ((FieldFragment)fragment).initSecondPasswordState();
                     }
                 })
                 .permit(FieldTrigger.SendRegistrationRequst, FieldState.SendRegistrationRequst)
@@ -114,17 +116,11 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.sendRegistrationRequest();
+                        ((FieldFragment)fragment).sendRegistrationRequest();
                     }
                 });
 
         config.configure(FieldState.EmailSignInScreen)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        fragment.initEmailSignInScreen();
-                    }
-                })
                 .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
                 .permit(FieldTrigger.Idle, FieldState.Idle)
                 .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen);
@@ -133,27 +129,17 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initPasswordSignInScreen();
+                        fragment.onConsume(FieldState.PasswordSignInScreen);
                     }
                 })
-                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
-                .permit(FieldTrigger.SendAuthRequest, FieldState.SendAuthRequest)
                 .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.PasswordSignInScreenBack, FieldState.PasswordSignInScreenBack);
-
-        config.configure(FieldState.SendAuthRequest)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        fragment.sendAuthRequest();
-                    }
-                });
+                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen);
 
         config.configure(FieldState.EmailScreenBack)
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initBackPressed();
+                        ((FieldFragment)fragment).initBackPressed();
                     }
                 });
 
@@ -161,7 +147,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initBackPressedFullName();
+                        ((FieldFragment)fragment).initBackPressedFullName();
                     }
                 })
                 .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
@@ -172,7 +158,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initBackPressedMobile();
+                        ((FieldFragment)fragment).initBackPressedMobile();
                     }
                 })
                 .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
@@ -182,7 +168,7 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initBackPressedFirstPasswordScreen();
+                        ((FieldFragment)fragment).initBackPressedFirstPasswordScreen();
                     }
                 })
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
@@ -192,23 +178,12 @@ public class FieldStateMachine  {
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        fragment.initBackPressedSecondPasswordScreen();
+                        ((FieldFragment)fragment).initBackPressedSecondPasswordScreen();
                     }
                 })
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
                 .permit(FieldTrigger.FirstPasswordScreenBack, FieldState.FirstPasswordScreenBack);
 
-        config.configure(FieldState.PasswordSignInScreenBack)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        fragment.initBackPressedPasswordSignIn();
-                    }
-                })
-                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen)
-                .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
-                .permit(FieldTrigger.EmailSignInScreenBack, FieldState.EmailScreenBack)
-                .permit(FieldTrigger.EmailScreenBack, FieldState.EmailScreenBack);
         return config;
     }
 

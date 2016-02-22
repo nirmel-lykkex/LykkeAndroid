@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui;
+package com.lykkex.LykkeWallet.gui.activity.authentication;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
@@ -30,21 +31,23 @@ public class FieldActivity extends ActionBarActivity {
     private Fragment currentFragment;
 
 
+    public void initFragment(Fragment fragment, Bundle arg){
+        currentFragment = fragment;
+        currentFragment.setArguments(arg);
+        ActionBar actionBar = getSupportActionBar();
+        ((BaseFragment) currentFragment).setUpActionBar(actionBar);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, currentFragment).commit();
+    }
 
     @AfterViews
-    public void afterViews(){
-        currentFragment = new FieldFragment_();
-        ActionBar actionBar = getSupportActionBar();
-        ((FieldFragment_) currentFragment).setUpActionBar(actionBar);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, currentFragment).commit();
+    public void afterViews() {
+        initFragment(new FieldFragment_(), null);
     }
 
     @Override
     public void onBackPressed(){
-        if (currentFragment instanceof FieldFragment_) {
-            ((FieldFragment_)currentFragment).initOnBackPressed();
-        }
+        ((BaseFragment)currentFragment).initOnBackPressed();
     }
 
     @Override

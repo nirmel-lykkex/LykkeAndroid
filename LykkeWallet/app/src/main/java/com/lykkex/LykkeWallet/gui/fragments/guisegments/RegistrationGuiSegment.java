@@ -363,6 +363,7 @@ public class RegistrationGuiSegment implements CallBackListener {
                         editTextField.removeTextChangedListener(emailTextWatcher);
                         buttonAction.setText(R.string.action_sing_in);
                         controller.fire(FieldTrigger.EmailSignInScreen);
+                        model.setIsReady(true);
                     }
                 }
                 break;

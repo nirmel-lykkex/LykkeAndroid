@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v7.app.ActionBar;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
+import com.lykkex.LykkeWallet.gui.activity.authentication.RestoreActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;

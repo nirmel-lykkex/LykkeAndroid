@@ -33,13 +33,13 @@
             android:name=".gui.SelfieActivity_">
 
         </activity>
-        <activity android:name=".gui.FieldActivity_"/>
+        <activity android:name=".gui.activity.authentication.RestoreActivity_"/>
         <activity android:name=".gui.MainActivity_"/>
         <activity android:name=".gui.KysActivity_"/>
         <activity android:name=".gui.SetUpPinActivity_"/>
         <activity android:name=".gui.EnterPinActivity_"/>
-        <activity android:name=".gui.RestoreActivity_"/>
-        <activity android:name=".gui.AuthenticationActivity_"/>
+        <activity android:name=".gui.activity.authentication.AuthenticationActivity_"/>
+        <activity android:name=".gui.activity.authentication.FieldActivity_"/>
     </application>
 
 </manifest>

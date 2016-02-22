@@ -1,7 +1,10 @@
 package com.lykkex.LykkeWallet.gui.fragments.controllers;
 
+import android.support.v4.app.Fragment;
+
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.FieldStateMachine;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
@@ -19,7 +22,7 @@ public class FieldController {
 
     @Bean FieldStateMachine stateMachine;
 
-    public void init(FieldFragment fragment, FieldState state){
+    public void init(BaseFragment fragment, FieldState state){
         stateMachine.init(state, fragment);
     }
 

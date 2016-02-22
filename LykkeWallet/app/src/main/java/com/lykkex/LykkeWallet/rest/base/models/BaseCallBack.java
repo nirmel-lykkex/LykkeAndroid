@@ -6,9 +6,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.FieldActivity_;
+
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.SplashActivity_;
+import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;

@@ -1,9 +1,9 @@
 package com.lykkex.LykkeWallet.gui.fragments;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,10 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
-import com.lykkex.LykkeWallet.gui.fragments.guisegments.LoginGuiSegment;
 import com.lykkex.LykkeWallet.gui.fragments.guisegments.RegistrationGuiSegment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.rest.base.models.Error;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -28,11 +30,10 @@ import org.androidannotations.annotations.ViewById;
  * Created by e.kazimirova on 09.02.2016.
  */
 @EFragment(R.layout.field_fragment)
-public class FieldFragment extends Fragment  {
+public class FieldFragment extends BaseFragment<FieldState>  {
 
     @Bean FieldController controller;
     @Bean RegistrationGuiSegment registrationGuiSegment;
-    @Bean LoginGuiSegment loginGuiSegment;
 
     @ViewById Button buttonAction;
     @ViewById RelativeLayout validationField;
@@ -62,11 +63,6 @@ public class FieldFragment extends Fragment  {
         registrationGuiSegment.init(editTextField, imageWell,buttonClear,
                buttonAction,  controller, progressBar, imageViewLogo, relProgress,
                 tvInfo, actionBar, getActivity(), textView, imageView);
-        loginGuiSegment.init(editTextField,  buttonAction, imageWell,buttonClear,controller,
-                progressBar, tvInfo, relProgress, imageViewLogo, actionBar, getActivity(), editTextFieldLogin,
-                validationFieldLogin,
-                buttonClearLogin,
-                imageWellLogin, textView, imageView);
         initEmailState();
     }
 
@@ -110,32 +106,15 @@ public class FieldFragment extends Fragment  {
         registrationGuiSegment.initSecondPasswordState();
     }
 
-    public void initPasswordSignInScreen(){
-        actionBar.show();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
-        loginGuiSegment.initPasswordSignInScreen();
-    }
 
     public void sendRegistrationRequest(){
         registrationGuiSegment.sendRegistrationRequest();
     }
 
-    public void sendAuthRequest(){
-        loginGuiSegment.sendAuthRequest();
-    }
-
-    public void initEmailSignInScreen(){
-        actionBar.show();
-        registrationGuiSegment.clearEditText();
-        loginGuiSegment.initEmailSignIn();
-    }
 
     @Click(R.id.buttonAction)
     public void clickAction() {
         registrationGuiSegment.clickAction();
-        loginGuiSegment.clickAction();
     }
 
     @Click(R.id.relBackground)
@@ -177,11 +156,6 @@ public class FieldFragment extends Fragment  {
         registrationGuiSegment.initBackPressedSecondPasswordScreen();
     }
 
-    public void initBackPressedPasswordSignIn(){
-        actionBar.show();
-        loginGuiSegment.initBackPressedPasswordSignIn();
-    }
-
     public void initOnBackPressed(){
         if (controller.getCurrentState() == FieldState.Idle ||
                 controller.getCurrentState() == FieldState.EmailScreenBack ||
@@ -190,6 +164,27 @@ public class FieldFragment extends Fragment  {
             getActivity().finish();
         } else {
             controller.fireBackPressed();
+        }
+    }
+
+    @Override
+    public void onSuccess(Object result) {
+
+    }
+
+    @Override
+    public void onFail(Error error) {
+
+    }
+
+    @Override
+    public void onConsume(FieldState state) {
+        switch (state){
+            case PasswordSignInScreen:
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.EXTRA_EMAIL, editTextField.getText().toString());
+                ((FieldActivity)getActivity()).initFragment(new AuthFragment_(), bundle);
+                break;
         }
     }
 }
