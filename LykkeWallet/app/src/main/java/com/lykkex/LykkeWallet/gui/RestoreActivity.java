@@ -73,10 +73,10 @@ public class RestoreActivity extends Activity implements CallBackListener{
                     startActivity(intentRestrictedArea);
                     finish();
                     break;
-                case Reject:
+                case Rejected:
                     Intent intentKys = new Intent();
                     intentKys.putExtra(Constants.EXTRA_KYS_STATUS,
-                            KysStatusEnum.Reject);
+                            KysStatusEnum.Rejected);
                     intentKys.setClass(this, KysActivity_.class);
                     startActivity(intentKys);
                     finish();

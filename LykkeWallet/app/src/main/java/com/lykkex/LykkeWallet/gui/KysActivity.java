@@ -143,7 +143,7 @@ public class KysActivity extends Activity implements CallBackListener {
                 tvInfoOops.setText(String.format(getString(R.string.info_oops),
                         userPref.fullName().get()));
                 break;
-            case Reject:
+            case Rejected:
                 sendDocumentForCheck();
                 break;
         }
