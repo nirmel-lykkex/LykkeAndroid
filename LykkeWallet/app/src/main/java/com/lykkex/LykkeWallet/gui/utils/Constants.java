@@ -14,6 +14,8 @@ public interface Constants {
     long DELAY_5000 = 5000L;
 
     String EXTRA_KYS_STATUS  = "extra_kys_status";
+    String EXTRA_AUTH_REQUEST = "extra_auth";
+    String EXTRA_CAMERA_DATA = "extra_camera_data";
     String PART_AUTHORIZATION = "Bearer ";
     String JPG = "jpg";
 

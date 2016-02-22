@@ -7,5 +7,6 @@ public enum KysStatusEnum {
     NeedToFillData,
     Ok,
     RestrictedArea,
-    Rejected
+    Rejected,
+    Pending
 }

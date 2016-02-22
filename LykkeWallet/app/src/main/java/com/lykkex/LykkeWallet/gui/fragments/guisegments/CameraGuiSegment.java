@@ -118,10 +118,15 @@ public class CameraGuiSegment implements CallBackListener {
         imgThird.setBackgroundResource(R.drawable.submit_form_circle);
         imgForth.setBackgroundResource(R.drawable.unsubmit_form_circle);
         controller.init(activity, CameraState.Idle);
-        CheckDocumentCallBack callback = new CheckDocumentCallBack(this, activity);
-        Call<CameraData> call  = LykkeApplication_.getInstance().getRestApi().
-                checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
-        call.enqueue(callback);
+        if (activity.getIntent() != null && activity.getIntent().getExtras() != null
+                && activity.getIntent().getExtras().getSerializable(Constants.EXTRA_CAMERA_DATA) != null) {
+            onSuccess(activity.getIntent().getExtras().getSerializable(Constants.EXTRA_CAMERA_DATA));
+        } else {
+            CheckDocumentCallBack callback = new CheckDocumentCallBack(this, activity);
+            Call<CameraData> call = LykkeApplication_.getInstance().getRestApi().
+                    checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+            call.enqueue(callback);
+        }
     }
 
     public void submit(){

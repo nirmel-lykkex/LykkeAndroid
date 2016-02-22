@@ -13,9 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lykkex.LykkeWallet.gui.AuthenticationActivity_;
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.MainActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
@@ -24,14 +23,9 @@ import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.ValidationEditText;
-import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
-import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
-import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelResult;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
 
 import org.androidannotations.annotations.EBean;
-
-import retrofit2.Call;
 
 /**
  * Created by e.kazimirova on 11.02.2016.
@@ -144,9 +138,11 @@ public class LoginGuiSegment implements CallBackListener {
         authRequest.setPassword(editTextField.getText().toString());
         if (authRequest.isReady()) {
             buttonAction.setEnabled(false);
-            LoginDataCallback callback = new LoginDataCallback(progressBar, this, activity);
-            Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().getAuth(authRequest);
-            call.enqueue(callback);
+            Intent intent = new Intent();
+            intent.putExtra(Constants.EXTRA_AUTH_REQUEST, authRequest);
+            intent.setClass(activity, AuthenticationActivity_.class);
+            activity.startActivity(intent);
+            activity.finish();
         }
     }
 
@@ -225,18 +221,7 @@ public class LoginGuiSegment implements CallBackListener {
                     controller.fire(FieldTrigger.EmailScreen);
                 }
                 break;
-            case SendAuthRequest:
-                if (result != null && result instanceof AuthModelResult) {
-                    AuthModelResult res = (AuthModelResult) result;
-                    if (!res.getKycStatus().isEmpty()) {
 
-                    }
-                }
-                Intent intent = new Intent();
-                intent.setClass(activity, MainActivity_.class);
-                activity.startActivity(intent);
-                activity.finish();
-                break;
         }
     }
 

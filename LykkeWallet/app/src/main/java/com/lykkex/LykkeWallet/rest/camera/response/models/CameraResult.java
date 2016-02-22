@@ -2,10 +2,12 @@ package com.lykkex.LykkeWallet.rest.camera.response.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by e.kazimirova on 14.02.2016.
  */
-public class CameraResult {
+public class CameraResult implements Serializable{
 
     @SerializedName("IdCard")
     private boolean idCard = true;

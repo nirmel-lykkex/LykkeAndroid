@@ -39,6 +39,7 @@
         <activity android:name=".gui.SetUpPinActivity_"/>
         <activity android:name=".gui.EnterPinActivity_"/>
         <activity android:name=".gui.RestoreActivity_"/>
+        <activity android:name=".gui.AuthenticationActivity_"/>
     </application>
 
 </manifest>

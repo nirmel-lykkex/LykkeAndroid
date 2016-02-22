@@ -26,14 +26,13 @@ import retrofit2.Call;
  * Created by LIZA on 22.02.2016.
  */
 @EActivity(R.layout.restore_activity)
-public class RestoreActivity extends Activity implements CallBackListener{
+public class RestoreActivity extends BaseAuthenticationActivity implements CallBackListener{
 
-    @ViewById ProgressBar progressBar;
-    @Pref UserPref_ userPref;
+
 
     @AfterViews
     public void afterViews(){
-        progressBar.setVisibility(View.VISIBLE);
+        super.afterViews();
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().
                 getRegistrationData(userPref.authToken().get());
@@ -42,43 +41,15 @@ public class RestoreActivity extends Activity implements CallBackListener{
 
     @Override
     public void onSuccess(Object result) {
+        super.onSuccess(result);
         progressBar.setVisibility(View.GONE);
-        if (result != null && result instanceof AuthModelResult) {
-            AuthModelResult res = (AuthModelResult) result;
-            switch (KysStatusEnum.valueOf(res.getKycStatus())){
-                case Ok:
-                    if (res.getPinIsEntered()) {
-                        Intent intent = new Intent();
-                        intent.setClass(this, EnterPinActivity_.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Intent intent = new Intent();
-                        intent.setClass(this, SetUpPinActivity_.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    break;
+        if (result != null && result instanceof AuthModelData) {
+            AuthModelData res = (AuthModelData) result;
+            switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())) {
                 case NeedToFillData:
                     Intent intentSelfie = new Intent();
                     intentSelfie.setClass(this, SelfieActivity_.class);
                     startActivity(intentSelfie);
-                    finish();
-                    break;
-                case RestrictedArea:
-                    Intent intentRestrictedArea = new Intent();
-                    intentRestrictedArea.putExtra(Constants.EXTRA_KYS_STATUS,
-                            KysStatusEnum.RestrictedArea);
-                    intentRestrictedArea.setClass(this, KysActivity_.class);
-                    startActivity(intentRestrictedArea);
-                    finish();
-                    break;
-                case Rejected:
-                    Intent intentKys = new Intent();
-                    intentKys.putExtra(Constants.EXTRA_KYS_STATUS,
-                            KysStatusEnum.Rejected);
-                    intentKys.setClass(this, KysActivity_.class);
-                    startActivity(intentKys);
                     finish();
                     break;
             }

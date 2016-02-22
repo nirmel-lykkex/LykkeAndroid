@@ -119,6 +119,9 @@ public class KysActivity extends Activity implements CallBackListener {
 
     private void fireKysStatus(String kysStatusEnum){
         switch (KysStatusEnum.valueOf(kysStatusEnum)){
+            case Pending:
+                sendDocumentForCheck();
+                break;
             case NeedToFillData:
                 oopsRel.setVisibility(View.GONE);
                 sendDocumentRel.setVisibility(View.GONE);

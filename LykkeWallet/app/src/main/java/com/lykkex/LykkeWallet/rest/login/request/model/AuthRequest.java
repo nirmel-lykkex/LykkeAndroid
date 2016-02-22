@@ -2,10 +2,12 @@ package com.lykkex.LykkeWallet.rest.login.request.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by e.kazimirova on 11.02.2016.
  */
-public class AuthRequest {
+public class AuthRequest implements Serializable{
 
     @SerializedName("Email")
     protected String email = "";
