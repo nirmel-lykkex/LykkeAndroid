@@ -31,12 +31,13 @@ public abstract class BaseCallBack<BaseModel> implements Callback<BaseModel> {
     public BaseCallBack(CallBackListener listener, Activity activity) {
         this.activity = activity;
         this.listener = listener;
-        userPref = new UserPref_(activity);
+        userPref = new UserPref_(LykkeApplication_.getInstance());
     }
 
     @Override
     public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
-        if (response.code() == Constants.ERROR_401 && activity != null) {
+        if ((response.code() == Constants.ERROR_500 ||
+                response.code() == Constants.ERROR_401) && activity != null) {
             userPref.clear();
             Intent intent = new Intent();
             intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);

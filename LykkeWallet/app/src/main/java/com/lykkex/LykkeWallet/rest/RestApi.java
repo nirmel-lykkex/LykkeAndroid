@@ -36,6 +36,10 @@ public interface RestApi {
     Call<RegistrationData> registration(
             @Body RegistrationModel registrationModel);
 
+    @GET("/api/Registration")
+    Call<AuthModelData> getRegistrationData(
+            @Header("Authorization") String authorization);
+
     @POST("/api/Auth")
     Call<AuthModelData> getAuth(@Body AuthRequest request);
 
@@ -56,6 +60,10 @@ public interface RestApi {
 
     @POST ("/api/PinSecurity")
     Call<Error> postPinSecurite(@Header("Authorization")String authorization,
+                                @Body PinRequest pin);
+
+    @GET ("/api/PinSecurity")
+    Call<Error> signInPinSecurite(@Header("Authorization")String authorization,
                                 @Body PinRequest pin);
 
 }

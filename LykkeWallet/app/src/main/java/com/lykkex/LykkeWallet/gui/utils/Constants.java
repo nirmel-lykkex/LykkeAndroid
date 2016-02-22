@@ -6,6 +6,7 @@ package com.lykkex.LykkeWallet.gui.utils;
 public interface Constants {
 
     int ERROR_401 = 401;
+    int ERROR_500 = 500;
     int MIN_COUNT_SYMBOL = 1;
     int MIN_COUNT_SYMBOL_PASSWORD = 6;
     int FILE_SELECT_CODE = 0;

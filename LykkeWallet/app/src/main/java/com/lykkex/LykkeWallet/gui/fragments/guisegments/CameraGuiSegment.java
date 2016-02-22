@@ -30,7 +30,6 @@ import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
-import com.lykkex.LykkeWallet.gui.fragments.storage.SetUpPref_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
@@ -83,7 +82,6 @@ public class CameraGuiSegment implements CallBackListener {
     private RelativeLayout relButtons;
 
     private UserPref_ userPref;
-    private SetUpPref_ setUpPref;
 
     public void init(SelfieActivity activity, CameraController controller,
                      FrameLayout camera_preview,
@@ -99,7 +97,6 @@ public class CameraGuiSegment implements CallBackListener {
                      TextView tvTitle, ProgressBar progressBar,
                      RelativeLayout relTop, RelativeLayout relButtons) {
         userPref = new UserPref_(activity);
-        setUpPref = new SetUpPref_(activity);
         model = new CameraModelGUI();
         this.activity = activity;
         this.camera_preview = camera_preview;
@@ -476,8 +473,6 @@ public class CameraGuiSegment implements CallBackListener {
 
     public void getDocument(){
         activity.showProgressWithoutCancel();
-        setUpPref.isCheckingStatusStart().put(true);
-       // progressBar.setVisibility(View.VISIBLE);
         SubmitDocumentsDataCallback callback = new SubmitDocumentsDataCallback(this, activity);
         Call<PersonalData> call = LykkeApplication_.getInstance().getRestApi().
                 kysDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());

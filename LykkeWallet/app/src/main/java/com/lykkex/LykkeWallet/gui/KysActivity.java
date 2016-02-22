@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
-import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
-import com.lykkex.LykkeWallet.gui.fragments.storage.SetUpPref_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
@@ -46,7 +44,6 @@ public class KysActivity extends Activity implements CallBackListener {
     @ViewById TextView textViewsendDocument;
 
     @Pref UserPref_ userPref;
-    @Pref SetUpPref_ setUpPref;
 
     @ViewById RelativeLayout sendDocumentRel;
     @ViewById ProgressBar progressBarsendDocument;
@@ -54,10 +51,11 @@ public class KysActivity extends Activity implements CallBackListener {
 
     @AfterViews
     public void afterViews(){
-        if (setUpPref.kysStatusStart().get().isEmpty()) {
+        if (getIntent() == null || getIntent().getExtras() ==null ||
+                getIntent().getExtras().getString(Constants.EXTRA_KYS_STATUS) == null) {
             sendDocumentForCheck();
         } else {
-            fireKysStatus(KysStatusEnum.valueOf(setUpPref.kysStatusStart().get()));
+            fireKysStatus(getIntent().getExtras().getString(Constants.EXTRA_KYS_STATUS));
         }
     }
 
@@ -70,7 +68,7 @@ public class KysActivity extends Activity implements CallBackListener {
     public void clickGetStarted(){
         finish();
         Intent intent = new Intent();
-        intent.setClass(this, PinActivity_.class);
+        intent.setClass(this, SetUpPinActivity_.class);
         startActivity(intent);
     }
 
@@ -85,10 +83,8 @@ public class KysActivity extends Activity implements CallBackListener {
     private Handler mHandler = new Handler();
 
     public void sendDocumentForCheck(){
-        setUpPref.kysStatusStart().put(KysStatusEnum.Reject.toString());
         textViewsendDocument.setText(String.format(getString(R.string.dear_it_checked),
                 new UserPref_(this).fullName().get()));
-        setUpPref.isCheckingStatusStart().put(true);
         progressBarsendDocument.setVisibility(View.VISIBLE);
         sendDocumentRel.setVisibility(View.VISIBLE);
         CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this, this);
@@ -121,17 +117,8 @@ public class KysActivity extends Activity implements CallBackListener {
         mHandler.postDelayed(run, Constants.DELAY_15000);
     }
 
-    private void fireKysStatus(KysStatusEnum kysStatusEnum){
-        setUpPref.kysStatusStart().put(kysStatusEnum.toString());
-        KysStatusEnum kysStatus = kysStatusEnum;
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            kysStatus = (KysStatusEnum)
-                    getIntent().getExtras().get(Constants.EXTRA_KYS_STATUS);
-            setUpPref.kysStatusStart().put(kysStatus.toString());
-        } else {
-            kysStatus = KysStatusEnum.valueOf(setUpPref.kysStatusStart().get());
-        }
-        switch (kysStatus){
+    private void fireKysStatus(String kysStatusEnum){
+        switch (KysStatusEnum.valueOf(kysStatusEnum)){
             case NeedToFillData:
                 oopsRel.setVisibility(View.GONE);
                 sendDocumentRel.setVisibility(View.GONE);
@@ -172,12 +159,11 @@ public class KysActivity extends Activity implements CallBackListener {
         if (result != null && result instanceof DocumentAnswerResult
                 && ((DocumentAnswerResult)result).getKysStatus() != null) {
             progressBarsendDocument.setVisibility(View.GONE);
-            setUpPref.isCheckingStatusStart().put(false);
             for (Call<DocumentAnswerData> call : listCallDoc) {
                 call.cancel();
             }
             stopHandler();
-            fireKysStatus(((DocumentAnswerResult)result).getKysStatus());
+            fireKysStatus(((DocumentAnswerResult)result).getKysStatus().toString());
 
         }
     }

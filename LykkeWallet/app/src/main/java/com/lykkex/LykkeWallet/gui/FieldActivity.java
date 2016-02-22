@@ -16,7 +16,6 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.FieldFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
-import com.lykkex.LykkeWallet.gui.fragments.storage.SetUpPref_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 

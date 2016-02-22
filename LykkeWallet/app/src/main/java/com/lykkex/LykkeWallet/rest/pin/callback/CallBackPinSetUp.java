@@ -13,9 +13,9 @@ import retrofit2.Response;
 /**
  * Created by LIZA on 19.02.2016.
  */
-public class CallBackPin extends BaseCallBack<Error> {
+public class CallBackPinSetUp extends BaseCallBack<Error> {
 
-    public CallBackPin(CallBackListener listener, Activity activity) {
+    public CallBackPinSetUp(CallBackListener listener, Activity activity) {
         super(listener, activity);
     }
 

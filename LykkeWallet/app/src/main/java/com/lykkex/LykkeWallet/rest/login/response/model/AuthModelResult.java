@@ -12,13 +12,13 @@ public class AuthModelResult extends RegistrationResult {
     private String kycStatus;
 
     @SerializedName("PinIsEntered")
-    private String pinIsEntered;
+    private boolean pinIsEntered;
 
-    public String getPinIsEntered() {
+    public boolean getPinIsEntered() {
         return pinIsEntered;
     }
 
-    public void setPinIsEntered(String pinIsEntered) {
+    public void setPinIsEntered(boolean pinIsEntered) {
         this.pinIsEntered = pinIsEntered;
     }
 

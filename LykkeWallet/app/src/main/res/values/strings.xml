@@ -43,4 +43,5 @@
     <string name="info_oops">Dear %s, we\'re terribly sorry, but Lykke Wallet can\'t be created based on the KYC information that you have provided.</string>
     <string name="code_generated">Your private code is generated</string>
     <string name="not_authorized">401 Not authorized</string>
+    <string name="connect_to_server">Connection to server.\nPlease, wait...</string>
 </resources>

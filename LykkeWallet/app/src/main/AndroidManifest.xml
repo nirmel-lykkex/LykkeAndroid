@@ -36,7 +36,9 @@
         <activity android:name=".gui.FieldActivity_"/>
         <activity android:name=".gui.MainActivity_"/>
         <activity android:name=".gui.KysActivity_"/>
-        <activity android:name=".gui.PinActivity_"/>
+        <activity android:name=".gui.SetUpPinActivity_"/>
+        <activity android:name=".gui.EnterPinActivity_"/>
+        <activity android:name=".gui.RestoreActivity_"/>
     </application>
 
 </manifest>
