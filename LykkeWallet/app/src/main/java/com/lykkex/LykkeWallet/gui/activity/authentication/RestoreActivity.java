@@ -5,8 +5,9 @@ import android.view.View;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.SelfieActivity_;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
@@ -30,7 +31,7 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
         super.afterViews();
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().
-                getRegistrationData(userPref.authToken().get());
+                getRegistrationData(Constants.PART_AUTHORIZATION + userPref.authToken().get());
         call.enqueue(callback);
     }
 
@@ -43,7 +44,7 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())) {
                 case NeedToFillData:
                     Intent intentSelfie = new Intent();
-                    intentSelfie.setClass(this, SelfieActivity_.class);
+                    intentSelfie.setClass(this,  CameraActivity_.class);
                     startActivity(intentSelfie);
                     finish();
                     break;

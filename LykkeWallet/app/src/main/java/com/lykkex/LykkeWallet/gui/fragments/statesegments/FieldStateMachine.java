@@ -1,15 +1,10 @@
 package com.lykkex.LykkeWallet.gui.fragments.statesegments;
 
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 import com.github.oxo42.stateless4j.delegates.Action;
-import com.github.oxo42.stateless4j.triggers.TriggerWithParameters1;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
-import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
+import com.lykkex.LykkeWallet.gui.fragments.startscreen.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
 

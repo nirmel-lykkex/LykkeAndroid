@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.SelfieActivity_;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
@@ -382,7 +382,7 @@ public class RegistrationGuiSegment implements CallBackListener {
             case SendRegistrationRequst:
                 dialog.dismiss();
                 Intent intent = new Intent();
-                intent.setClass(activity, SelfieActivity_.class);
+                intent.setClass(activity,  CameraActivity_.class);
                 new UserPref_(activity).authToken().put(((RegistrationData) result).getResult().getToken());
                 new UserPref_(activity).fullName().put(((RegistrationData) result).getResult().getPersonalData().getFullName());
                 activity.startActivity(intent);

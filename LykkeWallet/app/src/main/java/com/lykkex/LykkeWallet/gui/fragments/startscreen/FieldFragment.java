@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui.fragments;
+package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.guisegments.RegistrationGuiSegment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
@@ -30,7 +31,7 @@ import org.androidannotations.annotations.ViewById;
  * Created by e.kazimirova on 09.02.2016.
  */
 @EFragment(R.layout.field_fragment)
-public class FieldFragment extends BaseFragment<FieldState>  {
+public class FieldFragment extends BaseFragment<FieldState> {
 
     @Bean FieldController controller;
     @Bean RegistrationGuiSegment registrationGuiSegment;

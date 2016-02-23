@@ -40,7 +40,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.fragments.CameraPreview;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
 import com.lykkex.LykkeWallet.gui.fragments.guisegments.CameraGuiSegment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
@@ -79,7 +78,7 @@ import retrofit2.Call;
 @EActivity(R.layout.selfie_activity)
 public class SelfieActivity extends ActionBarActivity {
 
-    public android.hardware.Camera mCamera;
+   /* public android.hardware.Camera mCamera;
     public CameraPreview mCameraPreview;
     public ProgressDialog dialog;
     public DialogProgress progressDialog = new DialogProgress();
@@ -105,7 +104,6 @@ public class SelfieActivity extends ActionBarActivity {
     @ViewById  RelativeLayout sendDocumentRel;
     @ViewById TextView textView3;
 
-    /** Called when the activity is first created. */
     @AfterViews
     public void afterViews() {
         RegistrationResult info = null;
@@ -310,8 +308,8 @@ public class SelfieActivity extends ActionBarActivity {
 
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+    *///    intent.setType("*/*");
+        /*intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         try {
             startActivityForResult(
@@ -568,4 +566,5 @@ public class SelfieActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+}*/
 }

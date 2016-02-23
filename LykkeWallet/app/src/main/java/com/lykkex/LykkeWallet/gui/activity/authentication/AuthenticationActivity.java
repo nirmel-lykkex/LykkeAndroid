@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.SelfieActivity_;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -58,7 +58,7 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
         } else if (result != null && result instanceof CameraData) {
             Intent intent = new Intent();
             intent.putExtra(Constants.EXTRA_CAMERA_DATA, ((CameraData) result).getResult());
-            intent.setClass(this, SelfieActivity_.class);
+            intent.setClass(this,  CameraActivity_.class);
             startActivity(intent);
             finish();
         }

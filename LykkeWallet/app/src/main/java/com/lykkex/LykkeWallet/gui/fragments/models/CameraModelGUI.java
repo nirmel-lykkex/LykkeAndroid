@@ -3,10 +3,12 @@ package com.lykkex.LykkeWallet.gui.fragments.models;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
 
+import java.io.Serializable;
+
 /**
  * Created by e.kazimirova on 14.02.2016.
  */
-public class CameraModelGUI extends CameraResult {
+public class CameraModelGUI extends CameraResult implements Serializable {
 
     private boolean isFront;
     private boolean isFile;

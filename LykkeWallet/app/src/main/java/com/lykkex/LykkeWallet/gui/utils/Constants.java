@@ -12,11 +12,13 @@ public interface Constants {
     int FILE_SELECT_CODE = 0;
     long DELAY_15000 = 15000L;
     long DELAY_5000 = 5000L;
+    long DELAY_500 = 500L;
 
     String EXTRA_KYS_STATUS  = "extra_kys_status";
     String EXTRA_EMAIL = "extra_email";
     String EXTRA_AUTH_REQUEST = "extra_auth";
     String EXTRA_CAMERA_DATA = "extra_camera_data";
+    String EXTRA_CAMERA_MODEL_GUI = "extra_camera_model_gui";
     String PART_AUTHORIZATION = "Bearer ";
     String JPG = "jpg";
 

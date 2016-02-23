@@ -29,10 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:screenOrientation="portrait"
-            android:name=".gui.SelfieActivity_">
-
-        </activity>
         <activity android:name=".gui.activity.authentication.RestoreActivity_"/>
         <activity android:name=".gui.MainActivity_"/>
         <activity android:name=".gui.KysActivity_"/>
@@ -40,6 +36,7 @@
         <activity android:name=".gui.EnterPinActivity_"/>
         <activity android:name=".gui.activity.authentication.AuthenticationActivity_"/>
         <activity android:name=".gui.activity.authentication.FieldActivity_"/>
+        <activity android:name=".gui.activity.selfie.CameraActivity_"/>
     </application>
 
 </manifest>

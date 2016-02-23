@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -76,7 +78,7 @@ public class KysActivity extends Activity implements CallBackListener {
     public void clickUpdate(){
         finish();
         Intent intent = new Intent();
-        intent.setClass(this, SelfieActivity_.class);
+        intent.setClass(this, CameraActivity_.class);
         startActivity(intent);
     }
 

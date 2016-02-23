@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui.fragments;
+package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.authentication.AuthenticationActivity_;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;

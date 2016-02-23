@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+
     <RelativeLayout
         android:id="@+id/wasCreateRel"
         android:visibility="gone"
@@ -75,31 +76,24 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <FrameLayout
-            android:id="@+id/camera_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/relButtons" />
         <RelativeLayout
             android:id="@+id/relTop"
             android:background="@color/white"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/make_selfie"
-            android:id="@+id/tvTitle"
-            android:textSize="18sp"
-            android:textColor="@color/grey_dark_text"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/make_selfie"
+                android:id="@+id/tvTitle"
+                android:textSize="18sp"
+                android:textColor="@color/grey_dark_text"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:background="@color/white"
@@ -183,19 +177,6 @@
         </RelativeLayout>
 
 
-        <ImageView
-            android:id="@+id/imgPreview"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:visibility="visible"
-            android:layout_below="@+id/relTop"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
-            android:layout_above="@+id/relButtons" />
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:id="@+id/relButtons"
@@ -276,17 +257,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
-                <Button
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/change_photo"
-                    android:visibility="visible"
-                    android:id="@+id/buttonOpenSelfie"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    <Button
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/change_photo"
+                        android:visibility="visible"
+                        android:id="@+id/buttonOpenSelfie"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
                 </RelativeLayout>
-              </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/ivTakenPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:layout_below="@+id/relTop"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/relButtons"
+            android:visibility="gone" />
+
+        <com.commonsware.cwac.camera.CameraView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relTop"
+            android:id="@+id/cameraView"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/relButtons"></com.commonsware.cwac.camera.CameraView>
 
     </RelativeLayout>
 

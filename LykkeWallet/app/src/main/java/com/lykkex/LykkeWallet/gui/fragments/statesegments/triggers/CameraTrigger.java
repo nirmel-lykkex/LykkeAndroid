@@ -6,10 +6,6 @@ package com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers;
 public enum CameraTrigger {
     Idle,
     IdCard,
-    SelfieBack,
     ProofOfAddress,
-    Selfie,
-    CheckStatus,
-    SubmitStatus,
-    CheckingStatus
+    Selfie
 }

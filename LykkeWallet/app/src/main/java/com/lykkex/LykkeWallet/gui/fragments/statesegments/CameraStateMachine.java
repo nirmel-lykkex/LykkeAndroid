@@ -1,15 +1,14 @@
 package com.lykkex.LykkeWallet.gui.fragments.statesegments;
 
+import android.graphics.Camera;
+
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
 import com.github.oxo42.stateless4j.delegates.Action;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.SelfieActivity;
-import com.lykkex.LykkeWallet.gui.fragments.FieldFragment;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
+import com.lykkex.LykkeWallet.gui.fragments.camerascreen.BaseCameraFragment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
-import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
-import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
 
 import org.androidannotations.annotations.EBean;
 
@@ -21,14 +20,14 @@ public class CameraStateMachine {
 
 
     private StateMachine<CameraState, CameraTrigger> mOverloadState;
-    private SelfieActivity activity;
+    private BaseCameraFragment fragment;
 
     protected StateMachine<CameraState, CameraTrigger> buildStateMachine(CameraState initialState) {
         return new StateMachine<>(initialState, getConfig());
     }
 
-    public void init(CameraState startState, SelfieActivity activity) {
-        this.activity = activity;
+    public void init(CameraState startState, BaseCameraFragment fragment) {
+        this.fragment = fragment;
         this.mOverloadState = buildStateMachine(startState);
     }
 
@@ -44,111 +43,35 @@ public class CameraStateMachine {
         StateMachineConfig<CameraState, CameraTrigger> config = new StateMachineConfig<>();
 
         config.configure(CameraState.Idle)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        activity.init();
-                    }
-                })
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
-                .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
-                .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
                 .ignore(CameraTrigger.Idle);
 
         config.configure(CameraState.Selfie)
                 .onEntry(new Action() {
                     @Override
                     public void doIt() {
-                        activity.initSelfie();
+
+                        //activity.onConsume(C);
                     }
                 })
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
-                .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
                 .ignore(CameraTrigger.Selfie);
 
         config.configure(CameraState.IdCard)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        activity.initIdCard();
-                    }
-                })
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
                 .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
-                .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
-                .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
                 .ignore(CameraTrigger.IdCard);
 
         config.configure(CameraState.ProofOfAddress)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        activity.initProofOfAddress();
-                    }
-                })
                 .permit(CameraTrigger.IdCard, CameraState.IdCard)
                 .permit(CameraTrigger.Selfie, CameraState.Selfie)
-                .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
-                .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
                 .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
                 .ignore(CameraTrigger.ProofOfAddress);
-
-        config.configure(CameraState.SelfieBack)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        activity.initSelfieBack();
-                    }
-                })
-                .permit(CameraTrigger.IdCard, CameraState.IdCard)
-                .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
-                .permit(CameraTrigger.CheckStatus, CameraState.CheckStatus)
-                .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
-                .ignore(CameraTrigger.SelfieBack);
-
-        config.configure(CameraState.CheckStatus)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        activity.checkStatus();
-                    }
-                })
-                .permit(CameraTrigger.IdCard, CameraState.IdCard)
-                .permit(CameraTrigger.Selfie, CameraState.Selfie)
-                .permit(CameraTrigger.SelfieBack, CameraState.SelfieBack)
-                .permit(CameraTrigger.ProofOfAddress, CameraState.ProofOfAddress)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
-                .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.SubmitStatus, CameraState.SubmitStatus)
-                .ignore(CameraTrigger.CheckStatus);
-
-
-
-        config.configure(CameraState.SubmitStatus)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        activity.getDocument();
-                    }
-                })
-                .permit(CameraTrigger.Idle, CameraState.Idle)
-                .permit(CameraTrigger.CheckingStatus, CameraState.CheckingStatus)
-                .ignore(CameraTrigger.SubmitStatus);
 
         return config;
 
