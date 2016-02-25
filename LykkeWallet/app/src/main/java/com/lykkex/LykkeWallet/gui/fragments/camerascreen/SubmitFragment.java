@@ -32,12 +32,16 @@ public class SubmitFragment extends BaseFragment{
 
     private CameraModelGUI model;
     @Pref UserPref_ userPref;
-    @ViewById  TextView textView3;
+    @ViewById TextView textView3;
 
     @AfterViews
     public void afterViews(){
-        actionBar.setDisplayHomeAsUpEnabled(true);
         model = (CameraModelGUI) getArguments().getSerializable(Constants.EXTRA_CAMERA_MODEL_GUI);
+        if (model.isProofOfAddress()) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        } else {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         textView3.setText(String.format(getString(R.string.dear_it_checked),
                 userPref.fullName().get()));
     }

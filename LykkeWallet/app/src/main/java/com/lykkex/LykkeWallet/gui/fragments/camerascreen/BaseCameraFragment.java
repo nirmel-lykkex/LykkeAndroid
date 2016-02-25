@@ -272,7 +272,12 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
 
     @Click(R.id.buttake_photo)
     public void clickTakePhoto(){
-        cameraView.takePicture(true, true);
+        try {
+            cameraView.takePicture(true, true);
+        } catch (IllegalStateException e){
+            cameraView.onPause();
+            cameraView.onResume();
+        }
     }
 
     @Click(R.id.retake)
