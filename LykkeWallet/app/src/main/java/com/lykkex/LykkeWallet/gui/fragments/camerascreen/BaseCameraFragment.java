@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraHostProvider;
@@ -161,6 +162,18 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         buttonOpenSelfie.setVisibility(View.GONE);
     }
 
+    public void showTakenFromFile(String path) {
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        cameraView.setVisibility(View.GONE);
+        ivTakenPhoto.setImageBitmap(bitmap);
+        ivTakenPhoto.setVisibility(View.VISIBLE);
+        buttake_photo.setVisibility(View.GONE);
+        retake.setVisibility(View.VISIBLE);
+        submit.setVisibility(View.VISIBLE);
+        buttonFile.setVisibility(View.GONE);
+        buttonOpenSelfie.setVisibility(View.GONE);
+    }
+
     private void setUpViewsMakingPhoto(){
         switch (controller.getCurrentState()){
             case Selfie:
@@ -243,7 +256,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 actionBar.setDisplayHomeAsUpEnabled(true);
                 cameraView.setVisibility(View.GONE);
                 ivTakenPhoto.setVisibility(View.VISIBLE);
-                ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathIdCard()));
+                ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathProofAddress()));
                 buttake_photo.setVisibility(View.GONE);
                 retake.setVisibility(View.VISIBLE);
                 submit.setVisibility(View.VISIBLE);
@@ -277,6 +290,22 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         } catch (IllegalStateException e){
             cameraView.onPause();
             cameraView.onResume();
+        }
+    }
+
+    @Click(R.id.buttonFile)
+    public void clickFile(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        try {
+            getActivity().startActivityForResult(
+                    Intent.createChooser(intent, "Select a File to Upload"),
+                    Constants.FILE_SELECT_CODE);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getActivity(), "Please install a File Manager.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 

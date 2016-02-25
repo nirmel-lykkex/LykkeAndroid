@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
@@ -118,6 +119,26 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
 
     public CameraModelGUI getModel() {
         return model;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Constants.FILE_SELECT_CODE:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    String path;
+                    try {
+                        path = FileUtil.getPath(this, uri);
+                        if (currentFragment instanceof BaseCameraFragment) {
+                            ((BaseCameraFragment)currentFragment).setUpPhotoPath(new File(path));
+                            ((BaseCameraFragment)currentFragment).showTakenFromFile(path);
+                        }
+                    } catch (IllegalStateException ex){}
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
