@@ -146,12 +146,12 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
 
     public void showTakenPicture(Bitmap bitmap) {
         cameraView.setVisibility(View.GONE);
-        /*if (this instanceof CameraSelfieFragment_) {
+        if (this instanceof CameraSelfieFragment_) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, false);
             bitmap.setDensity(DisplayMetrics.DENSITY_DEFAULT);
-        }*/
+        }
         ivTakenPhoto.setImageBitmap(bitmap);
         ivTakenPhoto.setVisibility(View.VISIBLE);
         buttake_photo.setVisibility(View.GONE);
@@ -177,8 +177,14 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 tvTitle.setText(R.string.make_selfie);
                 break;
             case IdCard:
-                actionBar.setDisplayHomeAsUpEnabled(true);
+                if (model.isSelfie()) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                } else {
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                }
                 cameraView.setVisibility(View.VISIBLE);
+                cameraView.onPause();
+                cameraView.onResume();
                 ivTakenPhoto.setVisibility(View.GONE);
                 buttake_photo.setVisibility(View.VISIBLE);
                 retake.setVisibility(View.GONE);
@@ -188,9 +194,15 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 tvTitle.setText(R.string.id_card);
                 break;
             case ProofOfAddress:
-                actionBar.setDisplayHomeAsUpEnabled(true);
+                if (model.isIdCard()) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                } else {
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                }
                 cameraView.setVisibility(View.VISIBLE);
                 ivTakenPhoto.setVisibility(View.GONE);
+                cameraView.onPause();
+                cameraView.onResume();
                 buttake_photo.setVisibility(View.VISIBLE);
                 retake.setVisibility(View.GONE);
                 submit.setVisibility(View.GONE);
