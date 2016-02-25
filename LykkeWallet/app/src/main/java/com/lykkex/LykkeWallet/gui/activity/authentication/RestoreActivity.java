@@ -1,6 +1,8 @@
 package com.lykkex.LykkeWallet.gui.activity.authentication;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.lykkex.LykkeWallet.R;
@@ -24,11 +26,14 @@ import retrofit2.Call;
 @EActivity(R.layout.restore_activity)
 public class RestoreActivity extends BaseAuthenticationActivity implements CallBackListener{
 
-
-
     @AfterViews
-    public void afterViews(){
+    public void afterViews() {
         super.afterViews();
+    }
+
+    public void onStart(){
+        super.onStart();
+        Log.e("Liza", "Restore activity!");
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().
                 getRegistrationData(Constants.PART_AUTHORIZATION + userPref.authToken().get());

@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.camerascreen;
 
 import android.content.Intent;
+import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.KysActivity_;
@@ -18,6 +19,7 @@ import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import retrofit2.Call;
@@ -30,11 +32,14 @@ public class SubmitFragment extends BaseFragment{
 
     private CameraModelGUI model;
     @Pref UserPref_ userPref;
+    @ViewById  TextView textView3;
 
     @AfterViews
     public void afterViews(){
         actionBar.setDisplayHomeAsUpEnabled(true);
         model = (CameraModelGUI) getArguments().getSerializable(Constants.EXTRA_CAMERA_MODEL_GUI);
+        textView3.setText(String.format(getString(R.string.dear_it_checked),
+                userPref.fullName().get()));
     }
 
     @Click(R.id.btnStart)

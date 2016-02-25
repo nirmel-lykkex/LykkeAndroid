@@ -28,8 +28,8 @@ import retrofit2.Call;
 /**
  * Created by LIZA on 22.02.2016.
  */
-@EActivity(R.layout.restore_activity)
-public class BaseAuthenticationActivity extends Activity implements CallBackListener {
+@EActivity
+public abstract class BaseAuthenticationActivity extends Activity implements CallBackListener {
 
     protected  @ViewById ProgressBar progressBar;
     protected  @Pref  UserPref_ userPref;
@@ -44,15 +44,37 @@ public class BaseAuthenticationActivity extends Activity implements CallBackList
         progressBar.setVisibility(View.GONE);
         if (result != null && result instanceof AuthModelData) {
             AuthModelData res = (AuthModelData) result;
-            userPref.address().put(res.getResult().getPersonalData().getAddress());
-            userPref.authToken().put(res.getResult().getToken());
-            userPref.city().put(res.getResult().getPersonalData().getCity());
-            userPref.country().put(res.getResult().getPersonalData().getCountry());
-            userPref.email().put(res.getResult().getPersonalData().getEmail());
-            userPref.fullName().put(res.getResult().getPersonalData().getFullName());
-            userPref.phone().put(res.getResult().getPersonalData().getPhone());
-            userPref.zip().put(res.getResult().getPersonalData().getZip());
+            if (res.getResult().getPersonalData().getAddress() != null) {
+                userPref.address().put(res.getResult().getPersonalData().getAddress());
+            }
 
+            if (res.getResult().getToken() != null) {
+                userPref.authToken().put(res.getResult().getToken());
+            }
+
+            if (res.getResult().getPersonalData().getCity() != null) {
+                userPref.city().put(res.getResult().getPersonalData().getCity());
+            }
+
+            if (res.getResult().getPersonalData().getCountry() != null) {
+                userPref.country().put(res.getResult().getPersonalData().getCountry());
+            }
+
+            if (res.getResult().getPersonalData().getEmail() != null) {
+                userPref.email().put(res.getResult().getPersonalData().getEmail());
+            }
+
+            if (res.getResult().getPersonalData().getFullName() != null) {
+                userPref.fullName().put(res.getResult().getPersonalData().getFullName());
+            }
+
+            if (res.getResult().getPersonalData().getPhone() != null) {
+                userPref.phone().put(res.getResult().getPersonalData().getPhone());
+            }
+
+            if (res.getResult().getPersonalData().getZip() != null) {
+                userPref.zip().put(res.getResult().getPersonalData().getZip());
+            }
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())){
                 case Ok:
                     if (res.getResult().getPinIsEntered()) {

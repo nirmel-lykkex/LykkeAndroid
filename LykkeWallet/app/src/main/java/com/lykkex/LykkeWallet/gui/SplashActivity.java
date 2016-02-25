@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
@@ -34,6 +35,7 @@ public class SplashActivity extends Activity{
                     startActivity(intent);
                     finish();
                 } else {
+                    Log.e("Liza ", "Restore started!!!");
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), RestoreActivity_.class);
                     finish();

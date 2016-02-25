@@ -99,7 +99,29 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 call.enqueue(callback);
             }
         }
-        setUpViewsMakingPhoto();
+        switch (controller.getCurrentState()){
+            case Selfie:
+                if (!model.getPathSelfie().isEmpty()){
+                    setUpViewsReadyPhoto();
+                } else {
+                    setUpViewsMakingPhoto();
+                }
+                break;
+            case IdCard:
+                if (!model.getPathIdCard().isEmpty()){
+                    setUpViewsReadyPhoto();
+                } else {
+                    setUpViewsMakingPhoto();
+                }
+                break;
+            case ProofOfAddress:
+                if (!model.getPathProofAddress().isEmpty()){
+                    setUpViewsReadyPhoto();
+                } else {
+                    setUpViewsMakingPhoto();
+                }
+                break;
+        }
     }
 
     @Override
@@ -124,12 +146,12 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
 
     public void showTakenPicture(Bitmap bitmap) {
         cameraView.setVisibility(View.GONE);
-        if (this instanceof CameraSelfieFragment_) {
+        /*if (this instanceof CameraSelfieFragment_) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, false);
             bitmap.setDensity(DisplayMetrics.DENSITY_DEFAULT);
-        }
+        }*/
         ivTakenPhoto.setImageBitmap(bitmap);
         ivTakenPhoto.setVisibility(View.VISIBLE);
         buttake_photo.setVisibility(View.GONE);
@@ -144,6 +166,8 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             case Selfie:
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 cameraView.setVisibility(View.VISIBLE);
+                cameraView.onPause();
+                cameraView.onResume();
                 ivTakenPhoto.setVisibility(View.GONE);
                 buttake_photo.setVisibility(View.VISIBLE);
                 retake.setVisibility(View.GONE);
@@ -165,7 +189,6 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 break;
             case ProofOfAddress:
                 actionBar.setDisplayHomeAsUpEnabled(true);
-                cameraView.onResume();
                 cameraView.setVisibility(View.VISIBLE);
                 ivTakenPhoto.setVisibility(View.GONE);
                 buttake_photo.setVisibility(View.VISIBLE);
@@ -173,6 +196,47 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 submit.setVisibility(View.GONE);
                 buttonFile.setVisibility(View.VISIBLE);
                 buttonOpenSelfie.setVisibility(View.VISIBLE);
+                tvTitle.setText(R.string.proof_adress);
+                break;
+        }
+    }
+
+    private void setUpViewsReadyPhoto(){
+        switch (controller.getCurrentState()){
+            case Selfie:
+                actionBar.setDisplayHomeAsUpEnabled(false);
+                cameraView.setVisibility(View.GONE);
+                ivTakenPhoto.setVisibility(View.VISIBLE);
+                ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathSelfie()));
+                buttake_photo.setVisibility(View.GONE);
+                retake.setVisibility(View.VISIBLE);
+                submit.setVisibility(View.VISIBLE);
+                buttonFile.setVisibility(View.GONE);
+                buttonOpenSelfie.setVisibility(View.GONE);
+                tvTitle.setText(R.string.make_selfie);
+                break;
+            case IdCard:
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                cameraView.setVisibility(View.GONE);
+                ivTakenPhoto.setVisibility(View.VISIBLE);
+                ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathIdCard()));
+                buttake_photo.setVisibility(View.GONE);
+                retake.setVisibility(View.VISIBLE);
+                submit.setVisibility(View.VISIBLE);
+                buttonFile.setVisibility(View.GONE);
+                buttonOpenSelfie.setVisibility(View.GONE);
+                tvTitle.setText(R.string.id_card);
+                break;
+            case ProofOfAddress:
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                cameraView.setVisibility(View.GONE);
+                ivTakenPhoto.setVisibility(View.VISIBLE);
+                ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathIdCard()));
+                buttake_photo.setVisibility(View.GONE);
+                retake.setVisibility(View.VISIBLE);
+                submit.setVisibility(View.VISIBLE);
+                buttonFile.setVisibility(View.GONE);
+                buttonOpenSelfie.setVisibility(View.GONE);
                 tvTitle.setText(R.string.proof_adress);
                 break;
         }
@@ -228,6 +292,8 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                                         sendImage(model.getPathSelfie(), CameraType.Selfie);
                                     }else {
                                         controller.fire(CameraTrigger.IdCard);
+                                        ((CameraActivity)getActivity()).initFragment(new CameraBackFragment_(),
+                                                null, controller, model);
                                     }
                                     break;
                                 case IdCard:
@@ -235,6 +301,8 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                                         sendImage(model.getPathIdCard(), CameraType.IdCard);
                                     } else {
                                         controller.fire(CameraTrigger.ProofOfAddress);
+                                        ((CameraActivity)getActivity()).initFragment(new CameraBackFragment_(),
+                                                null, controller, model);
                                     }
                                     break;
                                 case ProofOfAddress:

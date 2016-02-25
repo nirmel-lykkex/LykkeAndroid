@@ -13,9 +13,9 @@ public class CameraModelGUI extends CameraResult implements Serializable {
     private boolean isFront;
     private boolean isFile;
     private boolean isDone;
-    private String pathSelfie;
-    private String pathIdCard;
-    private String pathProofAddress;
+    private String pathSelfie = "";
+    private String pathIdCard = "";
+    private String pathProofAddress = "";
     private boolean isSelfieSend = false;
     private boolean isCardIdeSend = false;
     private boolean isProofAddressSend = false;

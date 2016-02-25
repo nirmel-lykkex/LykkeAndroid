@@ -22,4 +22,9 @@ public class CameraHostSelfie extends CameraHostBack {
         return true;
     }
 
+    @Override
+    public boolean mirrorFFC() {
+        return true;
+    }
+
 }
