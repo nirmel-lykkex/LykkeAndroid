@@ -33,7 +33,6 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
 
     public void onStart(){
         super.onStart();
-        Log.e("Liza", "Restore activity!");
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().
                 getRegistrationData(Constants.PART_AUTHORIZATION + userPref.authToken().get());

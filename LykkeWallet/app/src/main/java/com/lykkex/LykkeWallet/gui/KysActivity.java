@@ -53,8 +53,10 @@ public class KysActivity extends Activity implements CallBackListener {
 
     @AfterViews
     public void afterViews(){
+        sendDocumentRel.setVisibility(View.GONE);
         if (getIntent() == null || getIntent().getExtras() ==null ||
                 getIntent().getExtras().getString(Constants.EXTRA_KYS_STATUS) == null) {
+            progressBarsendDocument.setVisibility(View.VISIBLE);
             sendDocumentForCheck();
         } else {
             fireKysStatus(getIntent().getExtras().getString(Constants.EXTRA_KYS_STATUS));
@@ -87,7 +89,6 @@ public class KysActivity extends Activity implements CallBackListener {
     public void sendDocumentForCheck(){
         textViewsendDocument.setText(String.format(getString(R.string.dear_it_checked),
                 new UserPref_(this).fullName().get()));
-        progressBarsendDocument.setVisibility(View.VISIBLE);
         sendDocumentRel.setVisibility(View.VISIBLE);
         CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this, this);
         Call<DocumentAnswerData> call  = LykkeApplication_.getInstance().getRestApi().
@@ -123,6 +124,7 @@ public class KysActivity extends Activity implements CallBackListener {
         switch (KysStatusEnum.valueOf(kysStatusEnum)){
             case Pending:
                 sendDocumentForCheck();
+               // progressBarsendDocument.setVisibility(View.VISIBLE);
                 break;
             case NeedToFillData:
                 oopsRel.setVisibility(View.GONE);
@@ -150,6 +152,7 @@ public class KysActivity extends Activity implements CallBackListener {
                 break;
             case Rejected:
                 sendDocumentForCheck();
+               // progressBarsendDocument.setVisibility(View.VISIBLE);
                 break;
         }
 
@@ -163,7 +166,7 @@ public class KysActivity extends Activity implements CallBackListener {
         }
         if (result != null && result instanceof DocumentAnswerResult
                 && ((DocumentAnswerResult)result).getKysStatus() != null) {
-            progressBarsendDocument.setVisibility(View.GONE);
+            //progressBarsendDocument.setVisibility(View.GONE);
             for (Call<DocumentAnswerData> call : listCallDoc) {
                 call.cancel();
             }

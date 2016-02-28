@@ -154,12 +154,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             bitmap.setDensity(DisplayMetrics.DENSITY_DEFAULT);
         }
         ivTakenPhoto.setImageBitmap(bitmap);
-        ivTakenPhoto.setVisibility(View.VISIBLE);
-        buttake_photo.setVisibility(View.GONE);
-        retake.setVisibility(View.VISIBLE);
-        submit.setVisibility(View.VISIBLE);
-        buttonFile.setVisibility(View.GONE);
-        buttonOpenSelfie.setVisibility(View.GONE);
+        setUpCameraReady();
     }
 
     public void showTakenFromFile(String path) {
@@ -207,7 +202,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 tvTitle.setText(R.string.id_card);
                 break;
             case ProofOfAddress:
-                if (model.isIdCard()) {
+                if (model.isIdCard() || model.isSelfie()) {
                     actionBar.setDisplayHomeAsUpEnabled(true);
                 } else {
                     actionBar.setDisplayHomeAsUpEnabled(false);
@@ -226,42 +221,43 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         }
     }
 
+    private void setUpCameraReady(){
+        cameraView.setVisibility(View.GONE);
+        ivTakenPhoto.setVisibility(View.VISIBLE);
+        buttake_photo.setVisibility(View.GONE);
+        retake.setVisibility(View.VISIBLE);
+        submit.setVisibility(View.VISIBLE);
+        buttonFile.setVisibility(View.GONE);
+        buttonOpenSelfie.setVisibility(View.GONE);
+    }
+
     private void setUpViewsReadyPhoto(){
         switch (controller.getCurrentState()){
             case Selfie:
                 actionBar.setDisplayHomeAsUpEnabled(false);
-                cameraView.setVisibility(View.GONE);
-                ivTakenPhoto.setVisibility(View.VISIBLE);
-                ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathSelfie()));
-                buttake_photo.setVisibility(View.GONE);
-                retake.setVisibility(View.VISIBLE);
-                submit.setVisibility(View.VISIBLE);
-                buttonFile.setVisibility(View.GONE);
-                buttonOpenSelfie.setVisibility(View.GONE);
+                setUpCameraReady();
+                ivTakenPhoto.setImageBitmap(
+                        BitmapFactory.decodeFile(model.getPathSelfie()));
                 tvTitle.setText(R.string.make_selfie);
                 break;
             case IdCard:
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                cameraView.setVisibility(View.GONE);
-                ivTakenPhoto.setVisibility(View.VISIBLE);
+                if (model.isSelfie()) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                } else {
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                }
+                setUpCameraReady();
                 ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathIdCard()));
-                buttake_photo.setVisibility(View.GONE);
-                retake.setVisibility(View.VISIBLE);
-                submit.setVisibility(View.VISIBLE);
-                buttonFile.setVisibility(View.GONE);
-                buttonOpenSelfie.setVisibility(View.GONE);
                 tvTitle.setText(R.string.id_card);
                 break;
             case ProofOfAddress:
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                cameraView.setVisibility(View.GONE);
-                ivTakenPhoto.setVisibility(View.VISIBLE);
+                if (model.isSelfie() || model.isProofAddressFront()) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                } else {
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                }
+                setUpCameraReady();
                 ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathProofAddress()));
-                buttake_photo.setVisibility(View.GONE);
-                retake.setVisibility(View.VISIBLE);
-                submit.setVisibility(View.VISIBLE);
-                buttonFile.setVisibility(View.GONE);
-                buttonOpenSelfie.setVisibility(View.GONE);
                 tvTitle.setText(R.string.proof_adress);
                 break;
         }

@@ -3,6 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="enter_pin">Enter PIN</string>
 
     <string name="email_hint">Email</string>
     <string name="fullname_hint">Full name</string>

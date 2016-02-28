@@ -77,18 +77,7 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
             }
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())){
                 case Ok:
-                    if (res.getResult().getPinIsEntered()) {
-                        Intent intent = new Intent();
-                        intent.setClass(this, EnterPinActivity_.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Intent intent = new Intent();
-                        intent.setClass(this, SetUpPinActivity_.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    break;
+
                 case RestrictedArea:
 
                 case Rejected:

@@ -37,7 +37,8 @@ public class SubmitFragment extends BaseFragment{
     @AfterViews
     public void afterViews(){
         model = (CameraModelGUI) getArguments().getSerializable(Constants.EXTRA_CAMERA_MODEL_GUI);
-        if (model.isProofOfAddress()) {
+        if (model.isProofOfAddress() || model.isIdCard() ||
+                model.isSelfie()) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         } else {
             actionBar.setDisplayHomeAsUpEnabled(false);

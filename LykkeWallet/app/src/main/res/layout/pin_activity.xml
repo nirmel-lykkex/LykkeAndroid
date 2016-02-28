@@ -200,7 +200,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
+        android:text="@string/enter_pin"
         android:id="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/relativeLayout" />
