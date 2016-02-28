@@ -76,8 +76,6 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
                 userPref.zip().put(res.getResult().getPersonalData().getZip());
             }
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())){
-                case Ok:
-
                 case RestrictedArea:
 
                 case Rejected:

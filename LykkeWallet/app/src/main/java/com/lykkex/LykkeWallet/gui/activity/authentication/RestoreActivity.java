@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.KysActivity_;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
@@ -46,6 +47,14 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
         if (result != null && result instanceof AuthModelData) {
             AuthModelData res = (AuthModelData) result;
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())) {
+                case Ok:
+                    Intent intentKysPending = new Intent();
+                    intentKysPending.putExtra(Constants.EXTRA_KYS_STATUS,
+                            KysStatusEnum.valueOf(res.getResult().getKycStatus()));
+                    intentKysPending.setClass(this, KysActivity_.class);
+                    startActivity(intentKysPending);
+                    finish();
+                    break;
                 case NeedToFillData:
                     Intent intentSelfie = new Intent();
                     intentSelfie.setClass(this,  CameraActivity_.class);

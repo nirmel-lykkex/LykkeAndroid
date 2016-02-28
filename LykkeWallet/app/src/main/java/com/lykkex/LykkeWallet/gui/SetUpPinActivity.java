@@ -23,6 +23,7 @@ public class SetUpPinActivity extends BasePinActivity{
     public void afterViews(){
         userPref.pin().put("");
         super.afterViews();
+        textView4.setText(R.string.enter_pin);
     }
 
     protected void setUpVisibility(){

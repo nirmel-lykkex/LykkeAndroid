@@ -5,7 +5,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.EnterPinActivity;
+import com.lykkex.LykkeWallet.gui.EnterPinActivity_;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.SetUpPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
@@ -34,6 +37,10 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
     @AfterViews
     public void afterViews(){
         super.afterViews();
+    }
+
+    public void onStart(){
+        super.onStart();
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         AuthModelGUI authRequest = (AuthModelGUI) getIntent().getExtras().getSerializable(Constants.EXTRA_AUTH_REQUEST);
         Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().getAuth(authRequest);
@@ -46,6 +53,19 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
         if (result != null && result instanceof AuthModelData) {
             AuthModelData res = (AuthModelData) result;
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())){
+                case Ok:
+                    if (res.getResult().getPinIsEntered()) {
+                        Intent intent = new Intent();
+                        intent.setClass(this, EnterPinActivity_.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setClass(this, SetUpPinActivity_.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    break;
                 case NeedToFillData:
                     progressBar.setVisibility(View.VISIBLE);
                     textView.setText(R.string.check_documents);
