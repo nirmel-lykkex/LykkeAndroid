@@ -17,6 +17,7 @@ import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.camera.callback.CheckDocumentCallBack;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
+import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
 import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 
@@ -75,9 +76,9 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
                     call.enqueue(callback);
                     break;
             }
-        } else if (result != null && result instanceof CameraData) {
+        } else if (result != null && result instanceof CameraResult) {
             Intent intent = new Intent();
-            intent.putExtra(Constants.EXTRA_CAMERA_DATA, ((CameraData) result).getResult());
+            intent.putExtra(Constants.EXTRA_CAMERA_DATA, ((CameraResult) result));
             intent.setClass(this,  CameraActivity_.class);
             startActivity(intent);
             finish();
