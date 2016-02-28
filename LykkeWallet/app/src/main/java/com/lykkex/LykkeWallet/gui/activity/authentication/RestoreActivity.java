@@ -52,6 +52,8 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
                     intentKysPending.putExtra(Constants.EXTRA_KYS_STATUS,
                             KysStatusEnum.valueOf(res.getResult().getKycStatus()));
                     intentKysPending.setClass(this, KysActivity_.class);
+                    intentKysPending.putExtra(Constants.EXTRA_PIN_STATUS,
+                            res.getResult().getPinIsEntered());
                     startActivity(intentKysPending);
                     finish();
                     break;

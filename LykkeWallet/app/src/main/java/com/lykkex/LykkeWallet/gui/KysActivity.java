@@ -56,7 +56,11 @@ public class KysActivity extends Activity implements CallBackListener {
     public void afterViews(){
         sendDocumentRel.setVisibility(View.GONE);
         if (getIntent() == null || getIntent().getExtras() ==null ||
-                getIntent().getExtras().getSerializable(Constants.EXTRA_KYS_STATUS) == null) {
+                getIntent().getExtras().getSerializable(Constants.EXTRA_KYS_STATUS) == null
+                || (KysStatusEnum)getIntent().getExtras().getSerializable(Constants.EXTRA_KYS_STATUS)==
+                KysStatusEnum.Pending ||
+                (KysStatusEnum)getIntent().getExtras().getSerializable(Constants.EXTRA_KYS_STATUS)==
+                        KysStatusEnum.Rejected ) {
             progressBarsendDocument.setVisibility(View.VISIBLE);
             textViewsendDocument.setText(String.format(getString(R.string.dear_it_checked),
                     new UserPref_(this).fullName().get()));
@@ -77,7 +81,12 @@ public class KysActivity extends Activity implements CallBackListener {
     public void clickGetStarted(){
         finish();
         Intent intent = new Intent();
-        intent.setClass(this, SetUpPinActivity_.class);
+        if (getIntent() == null && getIntent().getExtras() == null &&
+                !getIntent().getExtras().getBoolean(Constants.EXTRA_PIN_STATUS)) {
+            intent.setClass(this, SetUpPinActivity_.class);
+        } else {
+            intent.setClass(this, EnterPinActivity_.class);
+        }
         startActivity(intent);
     }
 

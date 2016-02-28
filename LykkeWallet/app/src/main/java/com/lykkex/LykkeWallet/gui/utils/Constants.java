@@ -15,6 +15,7 @@ public interface Constants {
     long DELAY_500 = 500L;
 
     String EXTRA_KYS_STATUS  = "extra_kys_status";
+    String EXTRA_PIN_STATUS  = "extra_pin_status";
     String EXTRA_EMAIL = "extra_email";
     String EXTRA_AUTH_REQUEST = "extra_auth";
     String EXTRA_CAMERA_DATA = "extra_camera_data";
