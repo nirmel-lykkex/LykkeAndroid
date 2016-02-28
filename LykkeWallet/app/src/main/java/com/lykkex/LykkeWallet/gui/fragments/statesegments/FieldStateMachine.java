@@ -47,137 +47,39 @@ public class FieldStateMachine  {
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
                 .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
-                .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
                 .ignore(FieldTrigger.Idle);
 
         config.configure(FieldState.EmailScreen)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initEmailState();
-                    }
-                })
                 .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
                 .permit(FieldTrigger.Idle, FieldState.Idle)
                 .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen);
 
         config.configure(FieldState.FullNameScreen)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initFullNameState();
-                    }
-                })
+                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen)
                 .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.FullNameScreenBack, FieldState.FullNameScreenBack);
+                .permit(FieldTrigger.Idle, FieldState.Idle);
 
         config.configure(FieldState.MobileScreen)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initMobileState();
-                    }
-                })
+                .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.MobileScreenBack, FieldState.MobileScreenBack);;
+                .permit(FieldTrigger.Idle, FieldState.Idle);
 
 
         config.configure(FieldState.FirstPasswordScreen)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initFirstPasswordState();
-                    }
-                })
+                .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.FirstPasswordScreenBack,FieldState.FirstPasswordScreenBack );
+                .permit(FieldTrigger.Idle, FieldState.Idle);
 
 
         config.configure(FieldState.SecondPasswordScreen)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initSecondPasswordState();
-                    }
-                })
+                .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
                 .permit(FieldTrigger.SendRegistrationRequst, FieldState.SendRegistrationRequst)
-                .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.SecondPasswordScreenBack, FieldState.SecondPasswordScreenBack);
+                .permit(FieldTrigger.Idle, FieldState.Idle);
 
-        config.configure(FieldState.SendRegistrationRequst)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).sendRegistrationRequest();
-                    }
-                });
 
         config.configure(FieldState.EmailSignInScreen)
-                .permit(FieldTrigger.PasswordSignInScreen, FieldState.PasswordSignInScreen)
                 .permit(FieldTrigger.Idle, FieldState.Idle)
                 .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen);
-
-        config.configure(FieldState.PasswordSignInScreen)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        fragment.onConsume(FieldState.PasswordSignInScreen);
-                    }
-                })
-                .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen);
-
-        config.configure(FieldState.EmailScreenBack)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initBackPressed();
-                    }
-                });
-
-        config.configure(FieldState.FullNameScreenBack)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initBackPressedFullName();
-                    }
-                })
-                .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
-                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
-                .permit(FieldTrigger.EmailScreenBack, FieldState.EmailScreenBack);
-
-        config.configure(FieldState.MobileScreenBack)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initBackPressedMobile();
-                    }
-                })
-                .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
-                .permit(FieldTrigger.FullNameScreenBack, FieldState.FullNameScreenBack);
-
-        config.configure(FieldState.FirstPasswordScreenBack)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initBackPressedFirstPasswordScreen();
-                    }
-                })
-                .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
-                .permit(FieldTrigger.MobileScreenBack, FieldState.MobileScreenBack);
-
-        config.configure(FieldState.SecondPasswordScreenBack)
-                .onEntry(new Action() {
-                    @Override
-                    public void doIt() {
-                        ((FieldFragment)fragment).initBackPressedSecondPasswordScreen();
-                    }
-                })
-                .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
-                .permit(FieldTrigger.FirstPasswordScreenBack, FieldState.FirstPasswordScreenBack);
 
         return config;
     }

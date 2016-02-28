@@ -76,8 +76,10 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
     }
 
 
-    public void initOnBackPressed(){
-        ((FieldActivity)getActivity()).initFragment(new FieldFragment_(), null);
+    public void initOnBackPressed() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.EXTRA_EMAIL, editTextLogin.getText().toString());
+        ((FieldActivity) getActivity()).initFragment(new FieldFragment_(), bundle);
     }
 
     @Override

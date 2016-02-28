@@ -9,6 +9,11 @@ import android.view.MenuItem;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
+import com.lykkex.LykkeWallet.gui.fragments.controllers.CameraController;
+import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
+import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
+import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
+import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.startscreen.FieldFragment_;
 
 import org.androidannotations.annotations.AfterViews;
@@ -16,6 +21,9 @@ import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.activity_main)
 public class FieldActivity extends BaseActivity {
+
+    private FieldController controller;
+    private RegistrationModelGUI model;
 
     @AfterViews
     public void afterViews() {
@@ -37,5 +45,19 @@ public class FieldActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void initFragment(Fragment fragment, Bundle bundle, FieldController fieldController,
+                             RegistrationModelGUI model){
+        super.initFragment(fragment, bundle);
+        this.controller = fieldController;
+        this.model = model;
+    }
+
+    public FieldController getController() {
+        return controller;
+    }
+
+    public RegistrationModelGUI getModel(){
+        return model;
+    }
 
 }

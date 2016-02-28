@@ -8,16 +8,8 @@ public enum  FieldState {
     EmailScreen,
     FullNameScreen,
     EmailSignInScreen,
-    PasswordSignInScreen,
     MobileScreen,
     FirstPasswordScreen,
     SecondPasswordScreen,
-    SendRegistrationRequst,
-    SendAuthRequest,
-    EmailScreenBack,
-    PasswordSignInScreenBack,
-    FullNameScreenBack,
-    MobileScreenBack,
-    FirstPasswordScreenBack,
-    SecondPasswordScreenBack
+    SendRegistrationRequst
 }

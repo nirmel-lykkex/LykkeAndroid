@@ -64,6 +64,6 @@ public interface RestApi {
 
     @GET ("/api/PinSecurity")
     Call<Error> signInPinSecurite(@Header("Authorization")String authorization,
-                                @Body PinRequest pin);
+                                @Query("Pin") String pin);
 
 }
