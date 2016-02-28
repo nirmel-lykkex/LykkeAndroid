@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -141,5 +143,6 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
 }
