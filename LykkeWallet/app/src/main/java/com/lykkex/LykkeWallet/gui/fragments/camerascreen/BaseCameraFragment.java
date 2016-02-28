@@ -146,7 +146,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
     }
 
     public void showTakenPicture(Bitmap bitmap) {
-      /*cameraView.setVisibility(View.GONE);
+      cameraView.setVisibility(View.GONE);
         if (this instanceof CameraSelfieFragment_) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);
@@ -154,7 +154,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             bitmap.setDensity(DisplayMetrics.DENSITY_DEFAULT);
         }
         ivTakenPhoto.setImageBitmap(bitmap);
-        setUpCameraReady();*/
+        setUpCameraReady();
     }
 
     public void showTakenFromFile(String path) {
@@ -263,7 +263,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 model.setPathIdCard(path.getAbsolutePath());
                 break;
         }
-        showTakenFromFile(path.getAbsolutePath());
+        //showTakenFromFile(path.getAbsolutePath());
     }
 
     @Click(R.id.buttake_photo)
