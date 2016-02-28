@@ -10,8 +10,10 @@ import android.os.Handler;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -137,13 +139,14 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
 
     @Override
     public void onPause(){
-        super.onPause();
+        super.onResume();
         try {
             if (cameraView != null) {
                 cameraView.onPause();
             }
         } catch (IllegalStateException ex){}
     }
+
 
     public void showTakenPicture(Bitmap bitmap) {
       cameraView.setVisibility(View.GONE);
@@ -299,6 +302,16 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
 
     @Click(R.id.buttonOpenSelfie)
     public void changeViewCamera(){
+        switch (controller.getCurrentState()){
+            case IdCard:
+                model.setIsCardIdeSend(false);
+                model.setPathIdCard("");
+                break;
+            case ProofOfAddress:
+                model.setPathProofAddress("");
+                model.setIsProofAddressSend(false);
+                break;
+        }
         if (this instanceof CameraBackFragment) {
             ((CameraActivity)getActivity()).initFragment(new CameraSelfieFragment_(),
                     null, controller, model);
