@@ -9,6 +9,7 @@
     <EditText
         android:paddingLeft="7dp"
         android:enabled="false"
+        android:paddingBottom="6dp"
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginRight="8dp"
@@ -25,6 +26,7 @@
     <EditText
         android:paddingLeft="7dp"
         android:layout_width="300dp"
+        android:paddingBottom="6dp"
         android:layout_height="45dp"
         android:inputType="textPassword"
         android:layout_marginLeft="8dp"

@@ -21,6 +21,7 @@
             android:paddingLeft="7dp"
             android:layout_width="300dp"
             android:layout_height="45dp"
+            android:paddingBottom="6dp"
             android:id="@+id/editTextField"
             android:layout_centerVertical="true"
             android:background="@drawable/filed_background"

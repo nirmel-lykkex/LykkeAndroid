@@ -39,6 +39,9 @@ public abstract class BaseCallBack<BaseModel> implements Callback<BaseModel> {
     public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
         if ((response.code() == Constants.ERROR_500 ||
                 response.code() == Constants.ERROR_401) && activity != null) {
+            Error error = new Error();
+            error.setCode(Constants.ERROR_401);
+            listener.onFail(error);
             userPref.clear();
             Intent intent = new Intent();
             intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);

@@ -161,7 +161,7 @@ public class FieldFragment extends BaseFragment<FieldState> {
     public void initFullNameState() {
         clearReadyModel();
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        editTextField.addTextChangedListener(new SimpleTextWatcher(1, this, validationEditText));
+        editTextField.addTextChangedListener(new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL, this, validationEditText));
         editTextField.setText(model.getFullName());
         editTextField.setHint(R.string.fullname_hint);
         setUpClearEnter();
@@ -170,7 +170,7 @@ public class FieldFragment extends BaseFragment<FieldState> {
     public void initMobileState() {
         clearReadyModel();
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
-        editTextField.addTextChangedListener(new SimpleTextWatcher(1, this, validationEditText));
+        editTextField.addTextChangedListener(new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL, this, validationEditText));
         editTextField.setText(model.getMobile());
         editTextField.setHint(R.string.mobile_hint);
         setUpClearEnter();
@@ -179,7 +179,8 @@ public class FieldFragment extends BaseFragment<FieldState> {
     public void initFirstPasswordState() {
         clearReadyModel();
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        editTextField.addTextChangedListener(new SimpleTextWatcher(6, this, validationEditText));
+        editTextField.addTextChangedListener(new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD
+                , this, validationEditText));
         editTextField.setText(model.getPasswordFirst());
         editTextField.setHint(R.string.first_password_hint);
         setUpClearEnter();
