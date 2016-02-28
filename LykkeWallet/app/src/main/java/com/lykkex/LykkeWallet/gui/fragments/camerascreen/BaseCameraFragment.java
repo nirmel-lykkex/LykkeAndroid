@@ -222,7 +222,6 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             case Selfie:
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 setUpCameraReady();
-                ivTakenPhoto.setPadding(100, 0, 100, 0);
                 ivTakenPhoto.setImageBitmap(
                         BitmapFactory.decodeFile(model.getPathSelfie()));
                 tvTitle.setText(R.string.make_selfie);
@@ -234,7 +233,6 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
                 setUpCameraReady();
-                ivTakenPhoto.setPadding(100, 0, 100, 0);
                 ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathIdCard()));
                 tvTitle.setText(R.string.id_card);
                 break;
@@ -245,7 +243,6 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
                 setUpCameraReady();
-                ivTakenPhoto.setPadding(100, 0, 100, 0);
                 ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathProofAddress()));
                 tvTitle.setText(R.string.proof_adress);
                 break;
