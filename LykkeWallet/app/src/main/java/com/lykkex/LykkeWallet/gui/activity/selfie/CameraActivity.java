@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +81,7 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
     @AfterViews
     public void afterViews() {
         model = new CameraModelGUI();
-        initFragment(new CameraSelfieFragment_(), null);
+        initFragmentWithoutAnim(new CameraSelfieFragment_(), null);
     }
 
     @Override
@@ -107,9 +108,9 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
         return null;
     }
 
-    public void initFragment(Fragment fragment, Bundle bundle, CameraController cameraController,
+    public void initFragment(android.app.Fragment fragment, Bundle bundle, CameraController cameraController,
                              CameraModelGUI model){
-        super.initFragment(fragment, bundle);
+        initFragmentWithoutAnim(fragment, bundle);
         this.controller = cameraController;
         this.model = model;
     }

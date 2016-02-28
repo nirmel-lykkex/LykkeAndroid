@@ -17,19 +17,34 @@ import org.androidannotations.annotations.EActivity;
 @EActivity(R.layout.activity_main)
 public class BaseActivity  extends ActionBarActivity {
 
-    protected Fragment currentFragment;
+    protected android.app.Fragment currentFragment;
 
-    public void initFragment(Fragment fragment, Bundle arg) {
+    public void initFragment(android.app.Fragment fragment, Bundle arg) {
         if (currentFragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(currentFragment);
+            getFragmentManager().beginTransaction().remove(currentFragment);
         }
         currentFragment = fragment;
         currentFragment.setArguments(arg);
         ActionBar actionBar = getSupportActionBar();
         ((BaseFragment) currentFragment).setUpActionBar(actionBar);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        //transaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
         transaction
-                .replace(R.id.fragmentContainer, currentFragment).commit();
+                .replace(R.id.fragmentContainer, currentFragment);
+        transaction.commit();
+    }
+
+    public void initFragmentWithoutAnim(android.app.Fragment fragment, Bundle arg) {
+        if (currentFragment != null) {
+            getFragmentManager().beginTransaction().remove(currentFragment);
+        }
+        currentFragment = fragment;
+        currentFragment.setArguments(arg);
+        ActionBar actionBar = getSupportActionBar();
+        ((BaseFragment) currentFragment).setUpActionBar(actionBar);
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction
+                .replace(R.id.fragmentContainer, currentFragment);
+        transaction.commit();
     }
 }

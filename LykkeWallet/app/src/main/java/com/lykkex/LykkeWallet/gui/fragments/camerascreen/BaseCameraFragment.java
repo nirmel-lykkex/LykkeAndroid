@@ -84,7 +84,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         actionBar.setTitle(R.string.registration);
         controller = ((CameraActivity)getActivity()).getController();
         model = ((CameraActivity)getActivity()).getModel();
-        dialog = new ProgressDialog(getContext());
+        dialog = new ProgressDialog(getActivity());
         dialog.setMessage(getString(R.string.waiting));
 
         if (controller == null) {

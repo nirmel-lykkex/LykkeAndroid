@@ -45,7 +45,7 @@ public class FieldActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void initFragment(Fragment fragment, Bundle bundle, FieldController fieldController,
+    public void initFragment(android.app.Fragment fragment, Bundle bundle, FieldController fieldController,
                              RegistrationModelGUI model){
         super.initFragment(fragment, bundle);
         this.controller = fieldController;

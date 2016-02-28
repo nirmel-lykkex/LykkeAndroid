@@ -28,7 +28,7 @@ import org.androidannotations.annotations.ViewById;
  * Created by e.kazimirova on 09.02.2016.
  */
 @EFragment(R.layout.auth_fragment)
-public abstract  class BaseFragment<State> extends Fragment implements CallBackListener, Consume<State> {
+public abstract  class BaseFragment<State> extends android.app.Fragment implements CallBackListener, Consume<State> {
 
     protected ActionBar actionBar;
 
