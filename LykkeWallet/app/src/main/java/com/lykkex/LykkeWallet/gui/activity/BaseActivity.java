@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.gui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
@@ -26,7 +27,9 @@ public class BaseActivity  extends ActionBarActivity {
         currentFragment.setArguments(arg);
         ActionBar actionBar = getSupportActionBar();
         ((BaseFragment) currentFragment).setUpActionBar(actionBar);
-        getSupportFragmentManager().beginTransaction()
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+       // transaction.set
+        transaction
                 .replace(R.id.fragmentContainer, currentFragment).commit();
     }
 }

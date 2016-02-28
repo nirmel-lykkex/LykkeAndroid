@@ -58,7 +58,10 @@ public class KysActivity extends Activity implements CallBackListener {
         if (getIntent() == null || getIntent().getExtras() ==null ||
                 getIntent().getExtras().getString(Constants.EXTRA_KYS_STATUS) == null) {
             progressBarsendDocument.setVisibility(View.VISIBLE);
-            sendDocumentForCheck();
+            textViewsendDocument.setText(String.format(getString(R.string.dear_it_checked),
+                    new UserPref_(this).fullName().get()));
+            sendDocumentRel.setVisibility(View.VISIBLE);
+            initHandler();
         } else {
             fireKysStatus(getIntent().getExtras().getString(Constants.EXTRA_KYS_STATUS));
         }

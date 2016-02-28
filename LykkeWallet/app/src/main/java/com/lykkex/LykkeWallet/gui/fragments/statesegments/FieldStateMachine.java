@@ -95,7 +95,8 @@ public class FieldStateMachine  {
 
         config.configure(FieldState.EmailSignInScreen)
                 .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen);
+                .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen)
+                .ignore(FieldTrigger.EmailSignInScreen);
 
         return config;
     }
