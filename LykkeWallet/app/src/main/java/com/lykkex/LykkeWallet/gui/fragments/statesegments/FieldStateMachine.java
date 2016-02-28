@@ -52,29 +52,45 @@ public class FieldStateMachine  {
         config.configure(FieldState.EmailScreen)
                 .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
                 .permit(FieldTrigger.Idle, FieldState.Idle)
-                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen);
+                .permit(FieldTrigger.EmailSignInScreen, FieldState.EmailSignInScreen)
+                .ignore(FieldTrigger.MobileScreen)
+                .ignore(FieldTrigger.FirstPasswordScreen)
+                .ignore(FieldTrigger.SecondPasswordScreen);
 
         config.configure(FieldState.FullNameScreen)
                 .permit(FieldTrigger.EmailScreen, FieldState.EmailScreen)
                 .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .ignore(FieldTrigger.FirstPasswordScreen)
+                .ignore(FieldTrigger.SecondPasswordScreen)
+                .ignore(FieldTrigger.EmailSignInScreen);
 
         config.configure(FieldState.MobileScreen)
                 .permit(FieldTrigger.FullNameScreen, FieldState.FullNameScreen)
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .ignore(FieldTrigger.EmailScreen)
+                .ignore(FieldTrigger.EmailSignInScreen)
+                .ignore(FieldTrigger.SecondPasswordScreen);
 
 
         config.configure(FieldState.FirstPasswordScreen)
                 .permit(FieldTrigger.MobileScreen, FieldState.MobileScreen)
                 .permit(FieldTrigger.SecondPasswordScreen, FieldState.SecondPasswordScreen)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .ignore(FieldTrigger.EmailScreen)
+                .ignore(FieldTrigger.EmailSignInScreen)
+                .ignore(FieldTrigger.FullNameScreen);
 
 
         config.configure(FieldState.SecondPasswordScreen)
                 .permit(FieldTrigger.FirstPasswordScreen, FieldState.FirstPasswordScreen)
                 .permit(FieldTrigger.SendRegistrationRequst, FieldState.SendRegistrationRequst)
-                .permit(FieldTrigger.Idle, FieldState.Idle);
+                .permit(FieldTrigger.Idle, FieldState.Idle)
+                .ignore(FieldTrigger.EmailScreen)
+                .ignore(FieldTrigger.EmailSignInScreen)
+                .ignore(FieldTrigger.MobileScreen)
+                .ignore(FieldTrigger.FullNameScreen);
 
 
         config.configure(FieldState.EmailSignInScreen)

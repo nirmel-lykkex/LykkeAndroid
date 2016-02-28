@@ -1,6 +1,8 @@
 package com.lykkex.LykkeWallet.gui.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.widget.Button;
@@ -36,4 +38,12 @@ public abstract  class BaseFragment<State> extends Fragment implements CallBackL
 
     public abstract void initOnBackPressed();
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            Activity a = getActivity();
+            if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
 }
