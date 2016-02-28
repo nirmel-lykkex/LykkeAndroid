@@ -28,7 +28,7 @@ public class BaseActivity  extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         ((BaseFragment) currentFragment).setUpActionBar(actionBar);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-       // transaction.set
+        transaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
         transaction
                 .replace(R.id.fragmentContainer, currentFragment).commit();
     }

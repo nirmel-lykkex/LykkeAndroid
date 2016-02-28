@@ -109,6 +109,10 @@ public class KysActivity extends Activity implements CallBackListener {
     private boolean isShouldContinue = true;
 
     public void stopHandler(){
+        for (Call<DocumentAnswerData> call : listCallDoc) {
+            call.cancel();
+        }
+
         isShouldContinue = false;
         mHandler.removeCallbacks(run);
     }
@@ -121,14 +125,14 @@ public class KysActivity extends Activity implements CallBackListener {
     };
 
     private void initHandler(){
-        mHandler.postDelayed(run, Constants.DELAY_15000);
+        mHandler.postDelayed(run, Constants.DELAY_5000);
     }
 
     private void fireKysStatus(String kysStatusEnum){
         Log.e("STATUS COME", kysStatusEnum);
         switch (KysStatusEnum.valueOf(kysStatusEnum)){
             case Pending:
-                sendDocumentForCheck();
+             //   sendDocumentForCheck();
                // progressBarsendDocument.setVisibility(View.VISIBLE);
                 break;
             case NeedToFillData:
@@ -138,6 +142,7 @@ public class KysActivity extends Activity implements CallBackListener {
                 relUpdate.setVisibility(View.VISIBLE);
                 tvUpdate.setText(String.format(getString(R.string.reupdate_doc),
                         userPref.fullName().get()));
+                stopHandler();
                 break;
             case Ok:
                 oopsRel.setVisibility(View.GONE);
@@ -146,6 +151,7 @@ public class KysActivity extends Activity implements CallBackListener {
                 sendDocumentRel.setVisibility(View.GONE);
                 textView3.setText(String.format(getString(R.string.succes_setup_document),
                         userPref.fullName().get()));
+                stopHandler();
                 break;
             case RestrictedArea:
                 oopsRel.setVisibility(View.VISIBLE);
@@ -154,6 +160,7 @@ public class KysActivity extends Activity implements CallBackListener {
                 sendDocumentRel.setVisibility(View.GONE);
                 tvInfoOops.setText(String.format(getString(R.string.info_oops),
                         userPref.fullName().get()));
+                stopHandler();
                 break;
             case Rejected:
                 sendDocumentForCheck();
@@ -172,10 +179,7 @@ public class KysActivity extends Activity implements CallBackListener {
         if (result != null && result instanceof DocumentAnswerResult
                 && ((DocumentAnswerResult)result).getKysStatus() != null) {
             //progressBarsendDocument.setVisibility(View.GONE);
-            for (Call<DocumentAnswerData> call : listCallDoc) {
-                call.cancel();
-            }
-            stopHandler();
+
             fireKysStatus(((DocumentAnswerResult)result).getKysStatus().toString());
 
         }
