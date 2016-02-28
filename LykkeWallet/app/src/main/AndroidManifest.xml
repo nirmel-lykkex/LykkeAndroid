@@ -9,6 +9,7 @@
 
 
     <application
+        android:largeHeap="true"
         android:screenOrientation="portrait"
         android:allowBackup="true"
         android:icon="@drawable/logo"

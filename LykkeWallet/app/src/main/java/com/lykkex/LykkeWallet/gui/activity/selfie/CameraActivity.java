@@ -104,10 +104,7 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
 
     @Override
     public CameraHost getCameraHost() {
-        if (currentFragment instanceof BaseCameraFragment) {
-            return ((BaseCameraFragment) currentFragment).getCameraHost();
-        }
-        return null;
+        return ((BaseCameraFragment) currentFragment).getCameraHost();
     }
 
     public void initFragment(android.app.Fragment fragment, Bundle bundle, CameraController cameraController,

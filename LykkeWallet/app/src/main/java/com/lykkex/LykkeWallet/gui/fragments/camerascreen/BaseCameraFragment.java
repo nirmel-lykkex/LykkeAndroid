@@ -94,7 +94,12 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             controller.init(this, CameraState.Idle);
             if (getActivity().getIntent() != null && getActivity().getIntent().getExtras() != null
                     && getActivity().getIntent().getExtras().getSerializable(Constants.EXTRA_CAMERA_DATA) != null) {
-                onSuccess(getActivity().getIntent().getExtras().getSerializable(Constants.EXTRA_CAMERA_DATA));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onSuccess(getActivity().getIntent().getExtras().getSerializable(Constants.EXTRA_CAMERA_DATA));
+                    }
+                }, 500);
             } else {
                 CheckDocumentCallBack callback = new CheckDocumentCallBack(this, getActivity());
                 Call<CameraData> call = LykkeApplication_.getInstance().getRestApi().
@@ -298,6 +303,11 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
     @Click(R.id.retake)
     public void clickRetakePhoto(){
         setUpViewsMakingPhoto();
+        if (controller.getCurrentState() != CameraState.Selfie){
+            if (this instanceof CameraSelfieFragment_) {
+                changeViewCamera();
+            }
+        }
     }
 
     @Click(R.id.buttonOpenSelfie)
