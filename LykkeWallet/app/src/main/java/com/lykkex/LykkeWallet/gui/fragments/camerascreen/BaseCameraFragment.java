@@ -333,18 +333,36 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                                     if (!model.isSelfieSend()) {
                                         sendImage(model.getPathSelfie(), CameraType.Selfie);
                                     }else {
-                                        controller.fire(CameraTrigger.IdCard);
-                                        ((CameraActivity)getActivity()).initFragment(new CameraBackFragment_(),
-                                                null, controller, model);
+                                        if (model.isIdCard()) {
+                                            controller.fire(CameraTrigger.IdCard);
+                                            ((CameraActivity) getActivity()).initFragment(new CameraBackFragment_(),
+                                                    null, controller, model);
+                                        } else if (model.isProofOfAddress()){
+                                            controller.fire(CameraTrigger.ProofOfAddress);
+                                            ((CameraActivity) getActivity()).initFragment(new CameraBackFragment_(),
+                                                    null, controller, model);
+                                        } else {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putSerializable(Constants.EXTRA_CAMERA_MODEL_GUI, model);
+                                            ((CameraActivity)getActivity()).initFragment(new SubmitFragment_(),
+                                                    bundle, controller, model);
+                                        }
                                     }
                                     break;
                                 case IdCard:
                                     if (!model.isCardIdeSend()) {
                                         sendImage(model.getPathIdCard(), CameraType.IdCard);
                                     } else {
-                                        controller.fire(CameraTrigger.ProofOfAddress);
-                                        ((CameraActivity)getActivity()).initFragment(new CameraBackFragment_(),
-                                                null, controller, model);
+                                        if (model.isProofOfAddress()) {
+                                            controller.fire(CameraTrigger.ProofOfAddress);
+                                            ((CameraActivity) getActivity()).initFragment(new CameraBackFragment_(),
+                                                    null, controller, model);
+                                        } else {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putSerializable(Constants.EXTRA_CAMERA_MODEL_GUI, model);
+                                            ((CameraActivity) getActivity()).initFragment(new SubmitFragment_(),
+                                                    bundle, controller, model);
+                                        }
                                     }
                                     break;
                                 case ProofOfAddress:
