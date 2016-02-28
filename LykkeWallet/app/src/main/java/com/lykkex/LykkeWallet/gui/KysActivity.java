@@ -3,6 +3,7 @@ package com.lykkex.LykkeWallet.gui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -121,6 +122,7 @@ public class KysActivity extends Activity implements CallBackListener {
     }
 
     private void fireKysStatus(String kysStatusEnum){
+        Log.e("STATUS COME", kysStatusEnum);
         switch (KysStatusEnum.valueOf(kysStatusEnum)){
             case Pending:
                 sendDocumentForCheck();
