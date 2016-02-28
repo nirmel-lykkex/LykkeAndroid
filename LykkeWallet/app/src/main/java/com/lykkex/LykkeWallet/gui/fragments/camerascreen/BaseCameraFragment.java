@@ -161,25 +161,14 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         cameraView.setVisibility(View.GONE);
         ivTakenPhoto.setImageBitmap(bitmap);
-        ivTakenPhoto.setVisibility(View.VISIBLE);
-        buttake_photo.setVisibility(View.GONE);
-        retake.setVisibility(View.VISIBLE);
-        submit.setVisibility(View.VISIBLE);
-        buttonFile.setVisibility(View.GONE);
-        buttonOpenSelfie.setVisibility(View.GONE);
+        setUpCameraReady();
     }
 
     private void setUpViewsMakingPhoto(){
         switch (controller.getCurrentState()){
             case Selfie:
                 actionBar.setDisplayHomeAsUpEnabled(false);
-                cameraView.setVisibility(View.VISIBLE);
-                cameraView.onPause();
-                cameraView.onResume();
-                ivTakenPhoto.setVisibility(View.GONE);
-                buttake_photo.setVisibility(View.VISIBLE);
-                retake.setVisibility(View.GONE);
-                submit.setVisibility(View.GONE);
+                prepareToMakePhoto();
                 buttonFile.setVisibility(View.GONE);
                 buttonOpenSelfie.setVisibility(View.GONE);
                 tvTitle.setText(R.string.make_selfie);
@@ -190,15 +179,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 } else {
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
-                cameraView.setVisibility(View.VISIBLE);
-                cameraView.onPause();
-                cameraView.onResume();
-                ivTakenPhoto.setVisibility(View.GONE);
-                buttake_photo.setVisibility(View.VISIBLE);
-                retake.setVisibility(View.GONE);
-                submit.setVisibility(View.GONE);
-                buttonFile.setVisibility(View.VISIBLE);
-                buttonOpenSelfie.setVisibility(View.VISIBLE);
+                prepareToMakePhoto();
                 tvTitle.setText(R.string.id_card);
                 break;
             case ProofOfAddress:
@@ -207,21 +188,26 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 } else {
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
-                cameraView.setVisibility(View.VISIBLE);
-                ivTakenPhoto.setVisibility(View.GONE);
-                cameraView.onPause();
-                cameraView.onResume();
-                buttake_photo.setVisibility(View.VISIBLE);
-                retake.setVisibility(View.GONE);
-                submit.setVisibility(View.GONE);
-                buttonFile.setVisibility(View.VISIBLE);
-                buttonOpenSelfie.setVisibility(View.VISIBLE);
+                prepareToMakePhoto();
                 tvTitle.setText(R.string.proof_adress);
                 break;
         }
     }
 
+    private void prepareToMakePhoto(){
+        cameraView.setVisibility(View.VISIBLE);
+        ivTakenPhoto.setVisibility(View.GONE);
+        cameraView.onPause();
+        cameraView.onResume();
+        buttake_photo.setVisibility(View.VISIBLE);
+        retake.setVisibility(View.GONE);
+        submit.setVisibility(View.GONE);
+        buttonFile.setVisibility(View.VISIBLE);
+        buttonOpenSelfie.setVisibility(View.VISIBLE);
+    }
+
     private void setUpCameraReady(){
+        ivTakenPhoto.setPadding(20, 0, 20, 0);
         cameraView.setVisibility(View.GONE);
         ivTakenPhoto.setVisibility(View.VISIBLE);
         buttake_photo.setVisibility(View.GONE);
@@ -236,6 +222,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             case Selfie:
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 setUpCameraReady();
+                ivTakenPhoto.setPadding(100, 0, 100, 0);
                 ivTakenPhoto.setImageBitmap(
                         BitmapFactory.decodeFile(model.getPathSelfie()));
                 tvTitle.setText(R.string.make_selfie);
@@ -247,6 +234,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
                 setUpCameraReady();
+                ivTakenPhoto.setPadding(100, 0, 100, 0);
                 ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathIdCard()));
                 tvTitle.setText(R.string.id_card);
                 break;
@@ -257,6 +245,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
                 setUpCameraReady();
+                ivTakenPhoto.setPadding(100, 0, 100, 0);
                 ivTakenPhoto.setImageBitmap(BitmapFactory.decodeFile(model.getPathProofAddress()));
                 tvTitle.setText(R.string.proof_adress);
                 break;
