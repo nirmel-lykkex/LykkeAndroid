@@ -1,9 +1,15 @@
 <resources>
+    <string name="wallet_item">Wallets</string>
+    <string name="trading_item">Trading</string>
+    <string name="history_item">History</string>
+    <string name="setting_item">Settings</string>
     <string name="app_name">Lykke Wallet</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="enter_pin">Enter PIN</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 
     <string name="email_hint">Email</string>
     <string name="fullname_hint">Full name</string>
