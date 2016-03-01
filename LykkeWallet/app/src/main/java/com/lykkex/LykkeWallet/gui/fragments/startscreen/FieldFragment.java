@@ -3,6 +3,8 @@ package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.display.DisplayManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -205,6 +207,9 @@ public class FieldFragment extends BaseFragment<FieldState> {
             dialog.show();
             buttonAction.setEnabled(false);
             RegistrationDataCallback callback = new RegistrationDataCallback(progressBar, this, getActivity());
+            model.setClientInfo("<android>; Model:<" + Build.MODEL +">; Os:<android>; Screen:<"+
+                    getActivity().getWindowManager().getDefaultDisplay().getWidth()+"x" +
+                    getActivity().getWindowManager().getDefaultDisplay().getHeight()+">;");
             Call<RegistrationData> call = LykkeApplication_.getInstance().getRestApi().registration(model);
             call.enqueue(callback);
         }

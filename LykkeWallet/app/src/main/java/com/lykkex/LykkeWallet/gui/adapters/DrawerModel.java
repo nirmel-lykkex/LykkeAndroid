@@ -7,6 +7,21 @@ public class DrawerModel {
 
     private String name;
     private int res;
+    private int resActive;
+
+    public DrawerModel(String name, int res, int resActive){
+        this.name = name;
+        this.res = res;
+        this.resActive = resActive;
+    }
+
+    public int getResActive() {
+        return resActive;
+    }
+
+    public void setResActive(int resActive) {
+        this.resActive = resActive;
+    }
 
     public int getRes() {
         return res;

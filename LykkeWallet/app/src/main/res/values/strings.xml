@@ -4,6 +4,9 @@
     <string name="history_item">History</string>
     <string name="setting_item">Settings</string>
     <string name="app_name">Lykke Wallet</string>
+    <string name="credit_card">VISA/MASTERCARD</string>
+    <string name="lykke_title">LYKKE</string>
+    <string name="no_info">no_info_todo</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

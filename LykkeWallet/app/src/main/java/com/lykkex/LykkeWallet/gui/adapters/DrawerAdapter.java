@@ -20,6 +20,16 @@ public class DrawerAdapter extends BaseAdapter {
 
     private Context mContext;
 
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    private int active = 0;
+
     public ArrayList<DrawerModel> getListModel() {
         return listModel;
     }
@@ -28,28 +38,28 @@ public class DrawerAdapter extends BaseAdapter {
 
     public DrawerAdapter(Context context){
         this.mContext = context;
-        DrawerModel drawerModel = new DrawerModel();
-        drawerModel.setName(LykkeApplication_.getInstance().
-                getResources().getString(R.string.wallet_item));
-        drawerModel.setRes(R.drawable.ic_drawer);
+        DrawerModel drawerModel = new DrawerModel(LykkeApplication_.getInstance().
+                getResources().getString(R.string.wallet_item),
+                R.drawable.ic_drawer, R.drawable.change_photo);
+
         listModel.add(drawerModel);
 
-        drawerModel = new DrawerModel();
-        drawerModel.setName(LykkeApplication_.getInstance().
-                getResources().getString(R.string.trading_item));
-        drawerModel.setRes(R.drawable.ic_drawer);
+        drawerModel = new DrawerModel(LykkeApplication_.getInstance().
+                getResources().getString(R.string.trading_item),
+                R.drawable.ic_drawer, R.drawable.change_photo);
+
         listModel.add(drawerModel);
 
-        drawerModel = new DrawerModel();
-        drawerModel.setName(LykkeApplication_.getInstance().
-                getResources().getString(R.string.history_item));
-        drawerModel.setRes(R.drawable.ic_drawer);
+        drawerModel = new DrawerModel(LykkeApplication_.getInstance().
+                getResources().getString(R.string.history_item),
+                R.drawable.ic_drawer, R.drawable.change_photo);
+
         listModel.add(drawerModel);
 
-        drawerModel = new DrawerModel();
-        drawerModel.setName(LykkeApplication_.getInstance().
-                getResources().getString(R.string.setting_item));
-        drawerModel.setRes(R.drawable.ic_drawer);
+        drawerModel = new DrawerModel(LykkeApplication_.getInstance().
+                getResources().getString(R.string.setting_item),
+                R.drawable.ic_drawer, R.drawable.change_photo);
+
         listModel.add(drawerModel);
     }
 
@@ -79,7 +89,11 @@ public class DrawerAdapter extends BaseAdapter {
         }
         ImageView imgIcon = (ImageView) view.findViewById(R.id.imgIcon);
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        imgIcon.setBackgroundResource(listModel.get(position).getRes());
+        if (active == position) {
+            imgIcon.setBackgroundResource(listModel.get(position).getResActive());
+        } else {
+            imgIcon.setBackgroundResource(listModel.get(position).getRes());
+        }
         tvTitle.setText(listModel.get(position).getName());
         return view;
     }

@@ -14,10 +14,10 @@ import com.lykkex.LykkeWallet.rest.pin.request.model.PinRequest;
 import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
+import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -66,4 +66,6 @@ public interface RestApi {
     Call<Error> signInPinSecurite(@Header("Authorization")String authorization,
                                 @Query("Pin") String pin);
 
+    @GET("/api/LykkeWallet")
+    Call<LykkeWallerData> getLykkeWallet(@Header("Authorization")String authorization);
 }

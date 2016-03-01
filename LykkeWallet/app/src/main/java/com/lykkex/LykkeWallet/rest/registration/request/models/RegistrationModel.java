@@ -20,7 +20,7 @@ public class RegistrationModel {
     private String password = "";
 
     @SerializedName("ClientInfo")
-    private String clientInfo = ""; //TODO "<Тип устройства>; Model:<Модель>; Os:<OS>; Screen:<Screen>"
+    private String clientInfo = "";
 
     public String getEmail() {
         return email;

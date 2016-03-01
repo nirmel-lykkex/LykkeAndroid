@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.activity.authentication;
 
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,6 +45,9 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
         super.onStart();
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         AuthModelGUI authRequest = (AuthModelGUI) getIntent().getExtras().getSerializable(Constants.EXTRA_AUTH_REQUEST);
+        authRequest.setClientInfo("<android>; Model:<" + Build.MODEL +">; Os:<android>; Screen:<"+
+                getWindowManager().getDefaultDisplay().getWidth()+"x" +
+                getWindowManager().getDefaultDisplay().getHeight()+">;");
         Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().getAuth(authRequest);
         call.enqueue(callback);
     }

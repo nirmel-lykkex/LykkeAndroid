@@ -24,7 +24,7 @@ public class LykkeApplication extends Application {
 
     @AfterInject
     public void init() {
-        Fabric.with(this, new Crashlytics());
+        //Fabric.with(this, new Crashlytics());
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://api-dev.lykkex.com")
