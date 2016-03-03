@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,21 +24,38 @@ import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment_;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
+import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
+import com.lykkex.LykkeWallet.rest.base.models.Error;
+import com.lykkex.LykkeWallet.rest.internal.callback.BaseAssetCallback;
+import com.lykkex.LykkeWallet.rest.internal.callback.SettingCallBack;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetResult;
+import com.lykkex.LykkeWallet.rest.internal.response.model.SettingData;
+import com.lykkex.LykkeWallet.rest.internal.response.model.SettingResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import retrofit2.Call;
 
 /**
  * Created by e.kazimirova on 12.02.2016.
  */
 @EActivity(R.layout.main_activity)
-public class MainActivity  extends ActionBarActivity {
+public class MainActivity  extends ActionBarActivity implements CallBackListener{
     private DrawerAdapter adapter;
     @ViewById DrawerLayout drawerLayout;
     @ViewById ListView drawerListView;
+    @Pref
+    UserPref_ pref;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mTitle;
+    private SettingSinglenton singlenton;
 
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -47,7 +65,11 @@ public class MainActivity  extends ActionBarActivity {
     }
     @AfterViews
     public void afterViews() {
+        getSetting();
+        getBaseAsset();
         adapter = new DrawerAdapter(this);
+        singlenton = SettingSinglenton.getInstance();
+
         drawerListView.setAdapter(adapter);
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -76,6 +98,20 @@ public class MainActivity  extends ActionBarActivity {
         selectItem(0);
     }
 
+    private void getSetting(){
+        SettingCallBack settingCallback = new SettingCallBack(this, this);
+        Call<SettingData> call = LykkeApplication_.getInstance().
+                getRestApi().getAppSettings(Constants.PART_AUTHORIZATION + pref.authToken().get());
+        call.enqueue(settingCallback);
+    }
+
+    private void getBaseAsset(){
+        BaseAssetCallback baseAssetCallback = new BaseAssetCallback(this, this);
+        Call<BaseAssetData> call = LykkeApplication_.getInstance().
+                getRestApi().getBaseAsset(Constants.PART_AUTHORIZATION + pref.authToken().get());
+        call.enqueue(baseAssetCallback);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -89,6 +125,29 @@ public class MainActivity  extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onSuccess(Object result) {
+        if (result instanceof BaseAssetResult) {
+            Log.e("Liza ", "get asset");
+             singlenton.setBaseAssets(
+                     ((BaseAssetResult) result).getAsset());
+        } else if (result instanceof SettingResult) {
+            singlenton.setShouldSignOrder(
+                    ((SettingResult) result).getSignOrder());
+            singlenton.setDepositUrl(
+                    ((SettingResult) result).getDepositUrl());
+            singlenton.setRefreshTimer(
+                    ((SettingResult) result).getRateRefreshPeriod());
+            singlenton.setBaseAssetId(
+                    ((SettingResult) result).getBaseAsset().getId());
+        }
+    }
+
+    @Override
+    public void onFail(Error error) {
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

@@ -1,17 +1,12 @@
 package com.lykkex.LykkeWallet.rest.wallet.response.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 
 /**
  * Created by LIZA on 01.03.2016.
  */
-public class AssetsWallet {
-
-    @SerializedName("Id")
-    private String id;
-
-    @SerializedName("Name")
-    private String name;
+public class AssetsWallet extends BaseAsset {
 
     @SerializedName("Balance")
     private String balance;

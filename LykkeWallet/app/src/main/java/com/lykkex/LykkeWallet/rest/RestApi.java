@@ -7,6 +7,8 @@ import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
+import com.lykkex.LykkeWallet.rest.internal.response.model.SettingData;
 import com.lykkex.LykkeWallet.rest.login.request.model.AuthRequest;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
@@ -68,4 +70,14 @@ public interface RestApi {
 
     @GET("/api/LykkeWallet")
     Call<LykkeWallerData> getLykkeWallet(@Header("Authorization")String authorization);
+
+    @GET("/api/AppSettings")
+    Call<SettingData> getAppSettings(@Header("Authorization")String authorization);
+
+    @GET("/api/BaseAsset")
+    Call<BaseAssetData> getBaseAsset(@Header("Authorization")String authorization);
+
+    @POST("/api/BaseAsset")
+    Call<BaseAssetData> postBaseAsset(@Header("Authorization")String authorization,
+                                      @Query("Id") String id);
 }
