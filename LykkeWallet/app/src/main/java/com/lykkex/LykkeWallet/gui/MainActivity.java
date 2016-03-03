@@ -103,18 +103,22 @@ public class MainActivity  extends ActionBarActivity {
         switch (position) {
             case 0:
                 fragment = new WalletFragment_();
+                adapter.setActive(0);
                 mTitle = adapter.getListModel().get(0).getName();
                 break;
             case 1:
                 fragment = new TradingFragment_();
+                adapter.setActive(1);
                 mTitle = adapter.getListModel().get(1).getName();
                 break;
             case 2:
                 fragment = new HistoryFragment_();
+                adapter.setActive(2);
                 mTitle = adapter.getListModel().get(2).getName();
                 break;
             case 3:
                 fragment = new SettingFragment_();
+                adapter.setActive(2);
                 mTitle = adapter.getListModel().get(3).getName();
                 break;
             default:
@@ -130,6 +134,7 @@ public class MainActivity  extends ActionBarActivity {
             setTitle(mTitle);
             drawerLayout.closeDrawer(drawerListView);
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

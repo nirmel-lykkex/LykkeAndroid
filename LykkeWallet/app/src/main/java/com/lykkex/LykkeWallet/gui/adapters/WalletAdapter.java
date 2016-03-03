@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,9 +25,14 @@ public class WalletAdapter extends BaseAdapter {
 
     private LykkeWalletResult lykkeWallet;
     private Context mContext;
+    private boolean isClickedLykke = false;
+    private boolean isClickedBank = false;
+    private boolean isItGet = false;
 
-    public WalletAdapter(LykkeWalletResult lykkeWallet, Context context){
+
+    public WalletAdapter(LykkeWalletResult lykkeWallet, Context context,boolean isItGet){
         this.lykkeWallet = lykkeWallet;
+        this.isItGet = isItGet;
         this.mContext = context;
     }
 
@@ -64,13 +70,17 @@ public class WalletAdapter extends BaseAdapter {
             RelativeLayout relMain = (RelativeLayout) view.findViewById(R.id.relMain);
             TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             ImageView imgPlus = (ImageView) view.findViewById(R.id.imgPlus);
+            ImageView imgIcon = (ImageView) view.findViewById(R.id.imgIcon);
+            View dividerView = (View) view.findViewById(R.id.dividerView);
 
             LinearLayout relInfo = (LinearLayout) view.findViewById(R.id.relInfo);
 
+            holder.dividerView = dividerView;
             holder.relInfo = relInfo;
             holder.relMain = relMain;
             holder.imgPlus = imgPlus;
             holder.tvTitle = tvTitle;
+            holder.imgIcon = imgIcon;
 
         } else {
             holder = (Holder) view.getTag();
@@ -78,8 +88,10 @@ public class WalletAdapter extends BaseAdapter {
 
         if (position == 0) {
             holder.tvTitle.setText(R.string.credit_card);
+            holder.imgIcon.setImageResource(R.drawable.visa);
         } else {
             holder.tvTitle.setText(R.string.lykke_title);
+            holder.imgIcon.setImageResource(R.drawable.lykke_wallet);
         }
 
         holder.relInfo.setVisibility(View.GONE);
@@ -108,23 +120,44 @@ public class WalletAdapter extends BaseAdapter {
     }
 
     private void setUpInfo(Holder holder, int position){
-        if (position == 1) {
-            setUpLykkeInfo(holder);
+        holder.relInfo.removeAllViews();
+        if (isItGet) {
+            if (position == 1) {
+                if (isClickedLykke) {
+                    isClickedLykke = false;
+                } else {
+                    setUpLykkeInfo(holder);
+                }
+            } else {
+                if (isClickedBank) {
+                    isClickedBank = false;
+                } else {
+                    setUpBankCardInfo(holder);
+                }
+            }
         } else {
-            setUpBankCardInfo(holder);
+            holder.relInfo.addView(new ProgressBar(mContext));
         }
     }
 
     private void setUpBankCardInfo(Holder holder){
+        isClickedBank = true;
+        holder.dividerView.setVisibility(View.VISIBLE);
         holder.relInfo.setVisibility(View.VISIBLE);
-        for (BankCards cards : lykkeWallet.getBankCardses()) {
-            InfoHolder holderInfo = getViewInfo(holder);
-            holderInfo.tvTitleProp.setText(cards.getName());
-            holderInfo.tvValue.setText("..."+cards.getLastDigits());
+        if (lykkeWallet.getBankCardses().length >0) {
+            for (BankCards cards : lykkeWallet.getBankCardses()) {
+                InfoHolder holderInfo = getViewInfo(holder);
+                holderInfo.tvTitleProp.setText(cards.getName());
+                holderInfo.tvValue.setText("..." + cards.getLastDigits());
+            }
+        }else {
+            getEmptyViewCards(getEmptyView(), holder);
         }
     }
 
     private void setUpLykkeInfo(Holder holder){
+        holder.dividerView.setVisibility(View.GONE);
+        isClickedLykke = true;
         holder.relInfo.setVisibility(View.VISIBLE);
         if (lykkeWallet.getLykke().getAssets().length >0) {
             for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
@@ -133,14 +166,23 @@ public class WalletAdapter extends BaseAdapter {
                 holderInfo.tvValue.setText(assetsWallet.getBalance());
             }
         } else {
-            getEmptyView(holder);
+            getEmptyViewCoins(getEmptyView(), holder);
         }
     }
 
-    private void getEmptyView(Holder holder){
+    private View getEmptyView() {
         LayoutInflater lInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = lInflater.inflate(R.layout.empty_view, null, false);
+        return lInflater.inflate(R.layout.empty_view, null, false);
+    }
+
+    private void getEmptyViewCards(View view, Holder holder){
+        ((TextView) view.findViewById(R.id.tvEmpty)).setText(R.string.no_info_cards);
+        holder.relInfo.addView(view);
+    }
+
+    private void getEmptyViewCoins(View view, Holder holder){
+        ((TextView) view.findViewById(R.id.tvEmpty)).setText(R.string.no_info_coins);
         holder.relInfo.addView(view);
     }
 
@@ -162,7 +204,8 @@ public class WalletAdapter extends BaseAdapter {
         public TextView tvTitle;
         public ImageView imgPlus;
         public LinearLayout relInfo;
-
+        public ImageView imgIcon;
+        public View dividerView;
     }
 
     private class InfoHolder {

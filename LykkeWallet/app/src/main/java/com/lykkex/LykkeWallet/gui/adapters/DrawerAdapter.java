@@ -40,25 +40,25 @@ public class DrawerAdapter extends BaseAdapter {
         this.mContext = context;
         DrawerModel drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.wallet_item),
-                R.drawable.ic_drawer, R.drawable.change_photo);
+                R.drawable.wallet_inactive, R.drawable.wallet_active);
 
         listModel.add(drawerModel);
 
         drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.trading_item),
-                R.drawable.ic_drawer, R.drawable.change_photo);
+                R.drawable.trading_inactive, R.drawable.trading_active);
 
         listModel.add(drawerModel);
 
         drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.history_item),
-                R.drawable.ic_drawer, R.drawable.change_photo);
+                R.drawable.history_inactive, R.drawable.history_active);
 
         listModel.add(drawerModel);
 
         drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.setting_item),
-                R.drawable.ic_drawer, R.drawable.change_photo);
+                R.drawable.setting_inactive, R.drawable.setting_active);
 
         listModel.add(drawerModel);
     }

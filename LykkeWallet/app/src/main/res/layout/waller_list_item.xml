@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,21 +13,35 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="8dp">
 
-        <TextView
+        <ImageView
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/visa"
             android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:id="@+id/imgIcon" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:layout_marginLeft="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Small Text"
-            android:id="@+id/tvTitle" />
+            android:id="@+id/tvTitle"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgIcon"
+            android:layout_toEndOf="@+id/imgIcon" />
 
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginRight="16dp"
             android:clickable="true"
             android:id="@+id/imgPlus"
-            android:background="@drawable/ic_drawer"
+            android:background="@drawable/icon_plus"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -41,6 +55,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/light_blue"
+        android:layout_below="@+id/relMain"
+        android:id="@+id/dividerView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>
 

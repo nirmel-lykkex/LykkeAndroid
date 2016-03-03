@@ -1,10 +1,12 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
+import android.app.ProgressDialog;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -35,10 +37,13 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @ViewById ListView listView;
     private WalletAdapter adapter;
     @Pref  UserPref_ userPref;
+    private boolean shouldShowError = false;
 
     @AfterViews
     public void afterViews(){
         refreshContent();
+        LykkeWalletResult res = new LykkeWalletResult();
+        setUpAdapter(res, false);
         swipeRefresh.setOnRefreshListener(this);
     }
 
@@ -51,8 +56,8 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
 
-    private void setUpAdapter(LykkeWalletResult result){
-        adapter = new WalletAdapter(result, getActivity());
+    private void setUpAdapter(LykkeWalletResult result, boolean isItGet){
+        adapter = new WalletAdapter(result, getActivity(), isItGet);
         listView.setAdapter(adapter);
         swipeRefresh.setRefreshing(false);
     }
@@ -64,11 +69,15 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onSuccess(Object result) {
-        setUpAdapter(((LykkeWallerData) result).getResult());
+        shouldShowError = true;
+        setUpAdapter(((LykkeWallerData) result).getResult(), true);
     }
 
     @Override
     public void onFail(Error error) {
-
+        if (shouldShowError){
+            Toast.makeText(getContext(), getString(R.string.server_error),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -4,6 +4,7 @@
     <item name="grey_text" type="color">#dedede</item>
     <item name="grey_dark_text" type="color">#3f4d60</item>
     <item name="black" type="color">#000000</item>
+    <item name="light_blue" type="color">#f4f6f7</item>
 
 
 </resources>
