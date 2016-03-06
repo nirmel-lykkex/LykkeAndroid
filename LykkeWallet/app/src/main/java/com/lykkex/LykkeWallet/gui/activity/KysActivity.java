@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui;
+package com.lykkex.LykkeWallet.gui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
+import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;

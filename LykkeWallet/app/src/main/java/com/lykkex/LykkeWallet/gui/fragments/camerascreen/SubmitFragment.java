@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.KysActivity_;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;

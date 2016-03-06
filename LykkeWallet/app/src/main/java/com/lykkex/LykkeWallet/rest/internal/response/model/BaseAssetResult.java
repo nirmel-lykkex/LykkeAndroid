@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
  */
 public class BaseAssetResult {
 
-    @SerializedName("Asset")
-    private BaseAsset asset;
+    @SerializedName("Assets")
+    private BaseAsset[] asset;
 
-    public BaseAsset getAsset() {
+    public BaseAsset[] getAsset() {
         return asset;
     }
 
-    public void setAsset(BaseAsset asset) {
+    public void setAsset(BaseAsset[] asset) {
         this.asset = asset;
     }
 

@@ -1,12 +1,13 @@
-package com.lykkex.LykkeWallet.gui;
+package com.lykkex.LykkeWallet.gui.activity.pin;
 
 import android.content.Intent;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.MainActivity_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSetUp;
-import com.lykkex.LykkeWallet.rest.pin.request.model.PinRequest;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

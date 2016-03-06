@@ -77,6 +77,9 @@ public interface RestApi {
     @GET("/api/BaseAsset")
     Call<BaseAssetData> getBaseAsset(@Header("Authorization")String authorization);
 
+    @GET("/api/BaseAssets")
+    Call<BaseAssetData> getBaseAssets(@Header("Authorization")String authorization);
+
     @POST("/api/BaseAsset")
     Call<BaseAssetData> postBaseAsset(@Header("Authorization")String authorization,
                                       @Query("Id") String id);

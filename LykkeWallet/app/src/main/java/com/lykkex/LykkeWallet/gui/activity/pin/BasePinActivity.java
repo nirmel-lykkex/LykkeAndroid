@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui;
+package com.lykkex.LykkeWallet.gui.activity.pin;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

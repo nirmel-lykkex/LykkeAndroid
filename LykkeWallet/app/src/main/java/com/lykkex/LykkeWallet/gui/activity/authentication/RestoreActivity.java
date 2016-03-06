@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.KysActivity_;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.utils.Constants;

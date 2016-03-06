@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.activity.PaymentActivity;
+import com.lykkex.LykkeWallet.gui.activity.PaymentActivity_;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCards;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWalletResult;
@@ -164,6 +168,29 @@ public class WalletAdapter extends BaseAdapter {
                 InfoHolder holderInfo = getViewInfo(holder);
                 holderInfo.tvTitleProp.setText(assetsWallet.getName());
                 holderInfo.tvValue.setText(assetsWallet.getBalance());
+                holderInfo.relMain.setTag(assetsWallet.getId());
+                holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startPaymentActivity((String) view.getTag());
+                    }
+                });
+
+                holderInfo.tvTitleProp.setTag(assetsWallet.getId());
+                holderInfo.tvTitleProp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startPaymentActivity((String) view.getTag());
+                    }
+                });
+
+                holderInfo.tvValue.setTag(assetsWallet.getId());
+                holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startPaymentActivity((String) view.getTag());
+                    }
+                });
             }
         } else {
             getEmptyViewCoins(getEmptyView(), holder);
@@ -193,10 +220,19 @@ public class WalletAdapter extends BaseAdapter {
         holder.relInfo.addView(view);
         TextView tvValue = (TextView) view.findViewById(R.id.tvValue);
         TextView tvTitleProp = (TextView) view.findViewById(R.id.tvTitleProp);
+        RelativeLayout relMain = (RelativeLayout) view.findViewById(R.id.relMain);
         InfoHolder infoHolder = new InfoHolder();
+        infoHolder.relMain = relMain;
         infoHolder.tvTitleProp = tvTitleProp;
         infoHolder.tvValue = tvValue;
         return infoHolder;
+    }
+
+    private void startPaymentActivity(String id){
+        Intent intent = new Intent();
+        intent.setClass(mContext, PaymentActivity_.class);
+        intent.putExtra(Constants.EXTRA_ASSET_ID, id);
+        mContext.startActivity(intent);
     }
 
     private class Holder {
@@ -211,5 +247,6 @@ public class WalletAdapter extends BaseAdapter {
     private class InfoHolder {
         public TextView tvValue;
         public TextView tvTitleProp;
+        public RelativeLayout relMain;
     }
 }

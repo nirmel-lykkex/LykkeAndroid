@@ -13,7 +13,7 @@ public class SettingSinglenton {
     private int refreshTimer  = 15;
     private String  baseAssetId;
     private String baseAssetSymbol;
-    private BaseAsset baseAssets;
+    private BaseAsset[] baseAssets;
     private String depositUrl;
     private boolean shouldSignOrder;
 
@@ -48,11 +48,11 @@ public class SettingSinglenton {
         this.baseAssetSymbol = baseAssetSymbol;
     }
 
-    public BaseAsset getBaseAssets() {
+    public BaseAsset[] getBaseAssets() {
         return baseAssets;
     }
 
-    public void setBaseAssets(BaseAsset baseAssets) {
+    public void setBaseAssets(BaseAsset[] baseAssets) {
         this.baseAssets = baseAssets;
     }
 

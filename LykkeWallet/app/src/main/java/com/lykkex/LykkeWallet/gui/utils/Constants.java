@@ -20,7 +20,11 @@ public interface Constants {
     String EXTRA_AUTH_REQUEST = "extra_auth";
     String EXTRA_CAMERA_DATA = "extra_camera_data";
     String EXTRA_CAMERA_MODEL_GUI = "extra_camera_model_gui";
+    String EXTRA_ASSET_NAME = "extra_asset_name";
+    String EXTRA_ASSET_ID = "extra_asset_id";
     String PART_AUTHORIZATION = "Bearer ";
     String JPG = "jpg";
+
+    String SETUP_URL_PAYMENT="?Email=%1$s&AssetId=%2$s";
 
 }

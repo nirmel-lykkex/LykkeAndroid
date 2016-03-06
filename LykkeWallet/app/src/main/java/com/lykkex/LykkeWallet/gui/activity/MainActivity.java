@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui;
+package com.lykkex.LykkeWallet.gui.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.adapters.DrawerAdapter;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.HistoryFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.HistoryFragment_;
@@ -66,7 +67,7 @@ public class MainActivity  extends ActionBarActivity implements CallBackListener
     @AfterViews
     public void afterViews() {
         getSetting();
-        getBaseAsset();
+        getBaseAssets();
         adapter = new DrawerAdapter(this);
         singlenton = SettingSinglenton.getInstance();
 
@@ -105,10 +106,10 @@ public class MainActivity  extends ActionBarActivity implements CallBackListener
         call.enqueue(settingCallback);
     }
 
-    private void getBaseAsset(){
+    private void getBaseAssets(){
         BaseAssetCallback baseAssetCallback = new BaseAssetCallback(this, this);
         Call<BaseAssetData> call = LykkeApplication_.getInstance().
-                getRestApi().getBaseAsset(Constants.PART_AUTHORIZATION + pref.authToken().get());
+                getRestApi().getBaseAssets(Constants.PART_AUTHORIZATION + pref.authToken().get());
         call.enqueue(baseAssetCallback);
     }
 

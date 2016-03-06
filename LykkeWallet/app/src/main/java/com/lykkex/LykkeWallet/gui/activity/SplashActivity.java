@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui;
+package com.lykkex.LykkeWallet.gui.activity;
 
 import android.app.Activity;
 import android.content.Intent;

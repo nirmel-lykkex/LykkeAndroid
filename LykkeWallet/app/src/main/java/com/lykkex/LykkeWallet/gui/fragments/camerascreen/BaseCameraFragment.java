@@ -21,7 +21,6 @@ import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraHostProvider;
 import com.commonsware.cwac.camera.CameraView;
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.KysActivity_;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraHostSelfie;
