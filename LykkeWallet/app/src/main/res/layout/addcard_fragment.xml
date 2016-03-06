@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/add_card"
+            android:id="@+id/tvTitle"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:weightSum="4"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout">
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="43dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/etNumberCard"
+                    android:paddingLeft="7dp"
+                    android:layout_height="45dp"
+                    android:paddingBottom="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:hint="@string/number_card"
+                    android:background="@drawable/filed_background"
+                    />
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@android:drawable/ic_delete"
+                    android:id="@+id/btnClearCardNumber"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="14dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:id="@+id/imgWellCardNumber"
+                    android:background="@drawable/ready"
+                    android:adjustViewBounds="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="43dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:paddingLeft="7dp"
+                    android:layout_height="45dp"
+                    android:paddingBottom="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:hint="@string/month_year"
+                    android:id="@+id/etFinishCard"
+                    android:background="@drawable/filed_background"
+                    />
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@android:drawable/ic_delete"
+                    android:id="@+id/btnClearFinish"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="14dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:id="@+id/imgWellFinish"
+                    android:background="@drawable/ready"
+                    android:adjustViewBounds="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:weightSum="4"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout2">
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="43dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/etNameCard"
+                    android:paddingLeft="7dp"
+                    android:layout_height="45dp"
+                    android:paddingBottom="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:hint="@string/card_name"
+                    android:background="@drawable/filed_background"
+                    />
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@android:drawable/ic_delete"
+                    android:id="@+id/btnClearCardName"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="14dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:id="@+id/imgWellCardName"
+                    android:background="@drawable/ready"
+                    android:adjustViewBounds="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="43dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:paddingLeft="7dp"
+                    android:layout_height="45dp"
+                    android:paddingBottom="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingRight="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:hint="@string/cvv"
+                    android:id="@+id/etCVV"
+                    android:background="@drawable/filed_background"
+                    />
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@android:drawable/ic_delete"
+                    android:id="@+id/btnClearCVV"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="14dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:id="@+id/imgWellCVV"
+                    android:background="@drawable/ready"
+                    android:adjustViewBounds="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/only_demo"
+            android:id="@+id/tvAttention"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:enabled="false"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:textColor="@color/grey_text"
+            android:background="@drawable/submitbutton"
+            android:id="@+id/btnSubmit"
+            android:text="@string/submit"
+            android:layout_below="@+id/tvAttention"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/money_will_taken"
+            android:id="@+id/tvMoney"
+            android:layout_below="@+id/btnSubmit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp" />
+
+
+    </RelativeLayout>
+</LinearLayout>

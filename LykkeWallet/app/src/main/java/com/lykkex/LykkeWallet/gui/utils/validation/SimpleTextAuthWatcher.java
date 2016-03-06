@@ -1,21 +1,22 @@
 package com.lykkex.LykkeWallet.gui.utils.validation;
 
 import android.text.Editable;
-import android.text.TextWatcher;
-
-import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.gui.widgets.ValidationEditText;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 /**
  * Created by e.kazimirova on 10.02.2016.
  */
-public class CountTextWatcher implements TextWatcher {
+public class SimpleTextAuthWatcher extends SimpleTextWatcher {
 
-    protected int minCount = 0;
     protected CallBackListener listener;
 
-    public CountTextWatcher(int count, CallBackListener listener){
-        this.minCount = count;
+    public SimpleTextAuthWatcher(ImageView imgWell,
+                                 Button imgClear, final EditText editText,
+                                 CallBackListener listener,
+                                 int minCount){
+        super(imgWell, imgClear, editText, minCount);
         this.listener = listener;
     }
 
@@ -26,10 +27,11 @@ public class CountTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        super.onTextChanged(charSequence, i, i1, i2);
         if (charSequence.toString().length() >= minCount) {
             listener.onSuccess(null);
         } else {
-            listener.onFail(null);//TODO
+            listener.onFail(null);
         }
     }
 

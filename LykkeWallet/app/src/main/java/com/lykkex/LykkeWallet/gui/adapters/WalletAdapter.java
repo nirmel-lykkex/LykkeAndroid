@@ -13,14 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.activity.PaymentActivity;
-import com.lykkex.LykkeWallet.gui.activity.PaymentActivity_;
+import com.lykkex.LykkeWallet.gui.activity.paymentflow.AddCardActivity_;
+import com.lykkex.LykkeWallet.gui.activity.paymentflow.PaymentActivity_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCards;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWalletResult;
-
-import java.util.List;
 
 /**
  * Created by LIZA on 01.03.2016.
@@ -134,6 +132,7 @@ public class WalletAdapter extends BaseAdapter {
                 }
             } else {
                 if (isClickedBank) {
+                    startAddCardActivity();
                     isClickedBank = false;
                 } else {
                     setUpBankCardInfo(holder);
@@ -232,6 +231,12 @@ public class WalletAdapter extends BaseAdapter {
         Intent intent = new Intent();
         intent.setClass(mContext, PaymentActivity_.class);
         intent.putExtra(Constants.EXTRA_ASSET_ID, id);
+        mContext.startActivity(intent);
+    }
+
+    private void startAddCardActivity(){
+        Intent intent = new Intent();
+        intent.setClass(mContext, AddCardActivity_.class);
         mContext.startActivity(intent);
     }
 

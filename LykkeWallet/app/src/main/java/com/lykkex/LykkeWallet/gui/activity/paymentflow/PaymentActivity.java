@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui.activity;
+package com.lykkex.LykkeWallet.gui.activity.paymentflow;
 
 import android.app.Activity;
 import android.graphics.Bitmap;

@@ -50,7 +50,10 @@
             android:name=".gui.activity.selfie.CameraActivity_"/>
         <activity
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:name=".gui.activity.PaymentActivity_"/>
+            android:name=".gui.activity.paymentflow.PaymentActivity_"/>
+        <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name=".gui.activity.paymentflow.AddCardActivity_"/>
     </application>
 
 </manifest>

@@ -3,10 +3,8 @@ package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.view.View;
@@ -25,7 +23,6 @@ import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController_;
-import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
@@ -33,15 +30,13 @@ import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.PasswordTextWatcher;
-import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextWatcher;
-import com.lykkex.LykkeWallet.gui.widgets.ValidationEditText;
+import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextAuthWatcher;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.registration.callback.RegistrationDataCallback;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -60,8 +55,8 @@ public class FieldFragment extends BaseFragment<FieldState> {
     @ViewById Button buttonAction;
     @ViewById RelativeLayout validationField;
     @ViewById EditText editTextField;
-    @ViewById ImageView imageWell;
     @ViewById Button buttonClear;
+    @ViewById ImageView imageWell;
     @ViewById ProgressBar progressBar;
     @ViewById RelativeLayout relProgress;
     @ViewById ImageView imageViewLogo;
@@ -76,16 +71,12 @@ public class FieldFragment extends BaseFragment<FieldState> {
     private ActionBar actionBar;
     private RegistrationModelGUI model;
 
-    private ValidationEditText validationEditText;
-
     public void setUpActionBar(ActionBar actionBar){
         this.actionBar = actionBar;
     }
 
     @AfterViews
     public void afterViews() {
-        validationEditText = new ValidationEditText(editTextField, imageWell, buttonClear, buttonAction);
-
         controller = ((FieldActivity)getActivity()).getController();
         model = ((FieldActivity)getActivity()).getModel();
 
@@ -116,7 +107,8 @@ public class FieldFragment extends BaseFragment<FieldState> {
 
     private void clearReadyModel(){
         model.setIsReady(false);
-        validationEditText.setReady(false);
+        buttonClear.setVisibility(View.GONE);
+        imageWell.setVisibility(View.GONE);
         buttonAction.setEnabled(false);
     }
 
@@ -145,7 +137,8 @@ public class FieldFragment extends BaseFragment<FieldState> {
         textView.setVisibility(View.VISIBLE);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         editTextField.addTextChangedListener
-                (new EmailTextWatcher(this, validationEditText,progressBar, buttonAction));
+                (new EmailTextWatcher(this, imageWell, buttonClear,
+                        editTextField,progressBar, buttonAction));
         editTextField.setSelection(editTextField.getText().toString().length());
         relProgress.setVisibility(View.GONE);
         tvInfo.setVisibility(View.GONE);
@@ -163,7 +156,8 @@ public class FieldFragment extends BaseFragment<FieldState> {
     public void initFullNameState() {
         clearReadyModel();
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        editTextField.addTextChangedListener(new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL, this, validationEditText));
+        editTextField.addTextChangedListener(new SimpleTextAuthWatcher(imageWell,
+                buttonClear, editTextField,  this, Constants.MIN_COUNT_SYMBOL));
         editTextField.setText(model.getFullName());
         editTextField.setHint(R.string.fullname_hint);
         setUpClearEnter();
@@ -172,7 +166,9 @@ public class FieldFragment extends BaseFragment<FieldState> {
     public void initMobileState() {
         clearReadyModel();
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_PHONE);
-        editTextField.addTextChangedListener(new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL, this, validationEditText));
+        editTextField.addTextChangedListener
+                (new SimpleTextAuthWatcher(imageWell,
+                        buttonClear, editTextField,  this, Constants.MIN_COUNT_SYMBOL));
         editTextField.setText(model.getMobile());
         editTextField.setHint(R.string.mobile_hint);
         setUpClearEnter();
@@ -181,8 +177,8 @@ public class FieldFragment extends BaseFragment<FieldState> {
     public void initFirstPasswordState() {
         clearReadyModel();
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        editTextField.addTextChangedListener(new SimpleTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD
-                , this, validationEditText));
+        editTextField.addTextChangedListener(new SimpleTextAuthWatcher(imageWell,
+                buttonClear, editTextField,  this, Constants.MIN_COUNT_SYMBOL_PASSWORD));
         editTextField.setText(model.getPasswordFirst());
         editTextField.setHint(R.string.first_password_hint);
         setUpClearEnter();
@@ -191,8 +187,9 @@ public class FieldFragment extends BaseFragment<FieldState> {
     public void initSecondPasswordState() {
         clearReadyModel();
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        editTextField.addTextChangedListener( new PasswordTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this,
-                model.getPasswordFirst(), validationEditText));
+        editTextField.addTextChangedListener(new PasswordTextWatcher(imageWell,
+                buttonClear, editTextField,  this, Constants.MIN_COUNT_SYMBOL,
+                model.getPasswordFirst()));
         editTextField.setText(model.getSecondPassword());
         editTextField.setHint(R.string.seond_password_hint);
         setUpClearEnter();
@@ -310,7 +307,8 @@ public class FieldFragment extends BaseFragment<FieldState> {
 
     private void setUpReady(){
         buttonAction.setEnabled(true);
-        validationEditText.setReady(true);
+        buttonClear.setVisibility(View.VISIBLE);
+        imageWell.setVisibility(View.VISIBLE);
         model.setIsReady(true);
     }
 

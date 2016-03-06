@@ -16,9 +16,9 @@ import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.gui.utils.Consume;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-import com.lykkex.LykkeWallet.gui.utils.validation.CountTextWatcher;
+import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextAuthWatcher;
+import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextWatcher;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 
 import org.androidannotations.annotations.AfterViews;
@@ -40,7 +40,7 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
     @ViewById EditText editTextPassword;
     @ViewById Button buttonLogin;
     @ViewById ProgressBar progressBar;
-    CountTextWatcher passwordTextWatcher;
+    SimpleTextWatcher passwordTextWatcher;
 
     public void setUpActionBar(ActionBar actionBar){
         this.actionBar = actionBar;
@@ -56,7 +56,8 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
         authRequest = new AuthModelGUI();
         authRequest.setEmail(getArguments().getString(Constants.EXTRA_EMAIL));
         editTextLogin.setText(authRequest.getEmail());
-        passwordTextWatcher = new CountTextWatcher(Constants.MIN_COUNT_SYMBOL_PASSWORD, this);
+        passwordTextWatcher = new SimpleTextAuthWatcher(null, null,
+                null, this, Constants.MIN_COUNT_SYMBOL_PASSWORD);
         editTextPassword.addTextChangedListener(passwordTextWatcher);
         editTextPassword.requestFocus();
         buttonLogin.setEnabled(false);

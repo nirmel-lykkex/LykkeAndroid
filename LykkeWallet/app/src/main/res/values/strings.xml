@@ -58,4 +58,11 @@
     <string name="connect_to_server">Connection to server.\nPlease wait...</string>
     <string name="check_documents">Documents validation.\nPlease wait...</string>
     <string name="deposit_wallet">Deposti %s wallet</string>
+    <string name="add_card">Add a new card</string>
+    <string name="only_demo">DEMO Only. Do not enter real back cards</string>
+    <string name="money_will_taken">money_will_taken</string>
+    <string name="number_card">Card number todo</string>
+    <string name="month_year">mm/yy todo</string>
+    <string name="card_name">card name todo</string>
+    <string name="cvv">CVV</string>
 </resources>
