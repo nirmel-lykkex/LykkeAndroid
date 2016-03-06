@@ -62,7 +62,7 @@
     <string name="only_demo">DEMO Only. Do not enter real back cards</string>
     <string name="money_will_taken">money_will_taken</string>
     <string name="number_card">Card number todo</string>
-    <string name="month_year">mm/yy todo</string>
+    <string name="month_year">mm/yy</string>
     <string name="card_name">card name todo</string>
     <string name="cvv">CVV</string>
 </resources>

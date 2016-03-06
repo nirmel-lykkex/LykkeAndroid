@@ -198,6 +198,8 @@
                     android:paddingTop="5dp"
                     android:hint="@string/cvv"
                     android:id="@+id/etCVV"
+                    android:maxEms="3"
+                    android:inputType="number"
                     android:background="@drawable/filed_background"
                     />
                 <Button

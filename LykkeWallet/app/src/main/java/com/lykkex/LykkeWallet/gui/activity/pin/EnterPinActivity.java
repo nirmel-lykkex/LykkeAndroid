@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.activity.pin;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
@@ -53,6 +54,11 @@ public class EnterPinActivity extends BasePinActivity{
 
     @Override
     public void onFail(Error error) {
-
+        dialog.dismiss();
+        imgFirst.setImageResource(R.drawable.pin_un_setup);
+        imgSecond.setImageResource(R.drawable.pin_un_setup);
+        imgThird.setImageResource(R.drawable.pin_un_setup);
+        imgFour.setImageResource(R.drawable.pin_un_setup);
+        Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_LONG).show();
     }
 }

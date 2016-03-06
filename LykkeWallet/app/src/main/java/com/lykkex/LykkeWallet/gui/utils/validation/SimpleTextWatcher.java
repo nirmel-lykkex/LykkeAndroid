@@ -44,7 +44,7 @@ public class SimpleTextWatcher  implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         if (imgClear != null) {
-            if (charSequence.toString().length() >= Constants.MIN_COUNT_SYMBOL) {
+            if (editText.getText().toString().length() >= Constants.MIN_COUNT_SYMBOL) {
                 imgClear.setVisibility(View.VISIBLE);
             } else {
                 imgClear.setVisibility(View.INVISIBLE);
@@ -52,7 +52,7 @@ public class SimpleTextWatcher  implements TextWatcher {
         }
 
         if (imgWell != null) {
-            if (charSequence.toString().length() >= minCount) {
+            if (editText.getText().toString().length() >= minCount) {
                 imgWell.setVisibility(View.VISIBLE);
             } else {
                 imgWell.setVisibility(View.GONE);
