@@ -10,6 +10,7 @@ public interface Constants {
     int MIN_COUNT_SYMBOL = 1;
     int CVV_COUNT = 3;
     int COUNT_MONTH = 5;
+    int COUNT_CARD_NUMBER = 19;
     int MIN_COUNT_SYMBOL_PASSWORD = 6;
     int FILE_SELECT_CODE = 0;
     long DELAY_15000 = 15000L;

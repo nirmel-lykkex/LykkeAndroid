@@ -16,6 +16,8 @@ import com.lykkex.LykkeWallet.rest.pin.request.model.PinRequest;
 import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
+import com.lykkex.LykkeWallet.rest.wallet.request.models.CardModel;
+import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
 
 import retrofit2.Call;
@@ -83,4 +85,8 @@ public interface RestApi {
     @POST("/api/BaseAsset")
     Call<BaseAssetData> postBaseAsset(@Header("Authorization")String authorization,
                                       @Query("Id") String id);
+
+    @POST("/api/BankCards")
+    Call<BankCardsData> postBankCards(@Header("Authorization")String authorization,
+                                      @Body CardModel model);
 }

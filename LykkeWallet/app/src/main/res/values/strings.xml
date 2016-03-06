@@ -65,4 +65,5 @@
     <string name="month_year">mm/yy</string>
     <string name="card_name">card name todo</string>
     <string name="cvv">CVV</string>
+    <string name="create_card">ADD CARD</string>
 </resources>
