@@ -60,7 +60,7 @@
     <string name="not_authorized">401 Not authorized</string>
     <string name="connect_to_server">Connection to server.\nPlease wait...</string>
     <string name="check_documents">Documents validation.\nPlease wait...</string>
-    <string name="deposit_wallet">Deposti %s wallet</string>
+    <string name="deposit_wallet">Deposit %s wallet</string>
     <string name="add_card">Add a new card</string>
     <string name="only_demo">DEMO Only. Do not enter real back cards</string>
     <string name="money_will_taken">The funds from this card will be charged only for the transaction</string>

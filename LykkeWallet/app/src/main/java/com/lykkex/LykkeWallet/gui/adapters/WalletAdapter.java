@@ -150,8 +150,30 @@ public class WalletAdapter extends BaseAdapter {
         if (lykkeWallet.getBankCardses().length >0) {
             for (BankCards cards : lykkeWallet.getBankCardses()) {
                 InfoHolder holderInfo = getViewInfo(holder);
+                holderInfo.relMain.setTag(cards.getId());
+                holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startPaymentActivity((String) view.getTag());
+                    }
+                });
+
+                holderInfo.tvTitleProp.setTag(cards.getId());
+                holderInfo.tvTitleProp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startPaymentActivity((String) view.getTag());
+                    }
+                });
                 holderInfo.tvTitleProp.setText(cards.getName());
                 holderInfo.tvValue.setText("..." + cards.getLastDigits());
+                holderInfo.tvValue.setTag(cards.getId());
+                holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startPaymentActivity((String) view.getTag());
+                    }
+                });
             }
         }else {
             getEmptyViewCards(getEmptyView(), holder);
