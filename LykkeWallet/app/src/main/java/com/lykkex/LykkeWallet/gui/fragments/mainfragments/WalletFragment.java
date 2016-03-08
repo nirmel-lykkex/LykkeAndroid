@@ -74,7 +74,7 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
         if (shouldShowError){
             Toast.makeText(getContext(), getString(R.string.server_error),
                     Toast.LENGTH_LONG).show();

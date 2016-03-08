@@ -6,14 +6,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.lykkex.LykkeWallet.gui.fragments.addcard.FieldType;
+
 /**
  * Created by LIZA on 06.03.2016.
  */
 public class MonthYearTextWatcher extends SimpleTextWatcher {
 
     private int prevCount = 0;
-    public MonthYearTextWatcher(ImageView imgWell, Button imgClear, EditText editText, int minCount) {
-        super(imgWell, imgClear, editText, minCount);
+    public MonthYearTextWatcher(ImageView imgWell, Button imgClear, EditText editText, int minCount,
+                                CallBackListener listener, FieldType type) {
+        super(imgWell, imgClear, editText, minCount, listener, type);
     }
 
     @Override

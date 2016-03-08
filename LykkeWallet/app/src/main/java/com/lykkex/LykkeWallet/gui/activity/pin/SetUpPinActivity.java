@@ -77,7 +77,7 @@ public class SetUpPinActivity extends BasePinActivity{
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
 
     }
 }

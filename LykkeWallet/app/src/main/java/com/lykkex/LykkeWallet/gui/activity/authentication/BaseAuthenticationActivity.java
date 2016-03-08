@@ -91,7 +91,7 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
         progressBar.setVisibility(View.GONE);
     }
 }

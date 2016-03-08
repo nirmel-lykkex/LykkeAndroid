@@ -16,7 +16,7 @@ public class SimpleTextAuthWatcher extends SimpleTextWatcher {
                                  Button imgClear, final EditText editText,
                                  CallBackListener listener,
                                  int minCount){
-        super(imgWell, imgClear, editText, minCount);
+        super(imgWell, imgClear, editText, minCount, listener, null);
         this.listener = listener;
     }
 

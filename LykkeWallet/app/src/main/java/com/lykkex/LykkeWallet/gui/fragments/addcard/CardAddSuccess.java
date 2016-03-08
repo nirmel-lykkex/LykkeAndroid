@@ -1,0 +1,46 @@
+package com.lykkex.LykkeWallet.gui.fragments.addcard;
+
+import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
+import com.lykkex.LykkeWallet.rest.base.models.Error;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+
+/**
+ * Created by LIZA on 06.03.2016.
+ */
+@EFragment(R.layout.card_add_success)
+public class CardAddSuccess extends BaseFragment{
+
+    @AfterViews
+    public void afterViews(){
+        actionBar.hide();
+    }
+
+    @Click(R.id.btnStart)
+    public void clickStart(){
+        getActivity().finish();
+    }
+
+    @Override
+    public void initOnBackPressed() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void onSuccess(Object result) {
+
+    }
+
+    @Override
+    public void onFail(Object error) {
+
+    }
+
+    @Override
+    public void onConsume(Object o) {
+
+    }
+}

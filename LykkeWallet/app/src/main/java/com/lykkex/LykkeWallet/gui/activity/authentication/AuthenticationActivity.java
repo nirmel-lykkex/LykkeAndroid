@@ -89,7 +89,7 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
         super.onFail(error);
     }
 }

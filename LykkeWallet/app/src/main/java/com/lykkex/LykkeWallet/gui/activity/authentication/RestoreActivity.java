@@ -68,7 +68,7 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
         progressBar.setVisibility(View.GONE);
     }
 }

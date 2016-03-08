@@ -1,10 +1,11 @@
 buildscript {
     repositories {
-        mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
         maven {
             url 'https://s3.amazonaws.com/repo.commonsware.com'
         }
+        maven { url 'http://dl.bintray.com/populov/maven' }
+        mavenCentral()
     }
     dependencies {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
@@ -52,6 +53,8 @@ repositories {
     maven {
         url 'https://s3.amazonaws.com/repo.commonsware.com'
     }
+    maven { url 'http://dl.bintray.com/populov/maven' }
+    mavenCentral()
 }
 
 dependencies {
@@ -61,7 +64,8 @@ dependencies {
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    
+    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
+
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }

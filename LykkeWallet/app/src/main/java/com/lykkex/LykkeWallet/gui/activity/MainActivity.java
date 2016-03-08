@@ -147,7 +147,7 @@ public class MainActivity  extends ActionBarActivity implements CallBackListener
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
 
     }
 

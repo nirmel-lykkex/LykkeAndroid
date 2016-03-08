@@ -143,7 +143,7 @@ public class BasePinActivity extends Activity implements CallBackListener{
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
 
     }
 }

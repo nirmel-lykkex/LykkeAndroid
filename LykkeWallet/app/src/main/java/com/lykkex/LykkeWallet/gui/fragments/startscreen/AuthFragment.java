@@ -89,7 +89,7 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
 
     }
 

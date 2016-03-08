@@ -366,7 +366,7 @@ public class FieldFragment extends BaseFragment<FieldState> {
 
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
 
     }
 

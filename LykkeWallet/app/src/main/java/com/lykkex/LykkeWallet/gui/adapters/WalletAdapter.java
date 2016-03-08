@@ -236,6 +236,7 @@ public class WalletAdapter extends BaseAdapter {
 
     private void startAddCardActivity(){
         Intent intent = new Intent();
+        intent.putExtra(Constants.EXTRA_BANK_CARDS, lykkeWallet.getBankCardses());
         intent.setClass(mContext, AddCardActivity_.class);
         mContext.startActivity(intent);
     }

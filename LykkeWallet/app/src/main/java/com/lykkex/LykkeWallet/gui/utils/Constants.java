@@ -17,7 +17,9 @@ public interface Constants {
     long DELAY_5000 = 5000L;
     long DELAY_500 = 500L;
 
+    String EXTRA_BANK = "extra_bank";
     String EXTRA_KYS_STATUS  = "extra_kys_status";
+    String EXTRA_BANK_CARDS = "extra_bank_cards";
     String EXTRA_PIN_STATUS  = "extra_pin_status";
     String EXTRA_EMAIL = "extra_email";
     String EXTRA_AUTH_REQUEST = "extra_auth";

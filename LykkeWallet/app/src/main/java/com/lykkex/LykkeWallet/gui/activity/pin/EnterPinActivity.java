@@ -53,7 +53,7 @@ public class EnterPinActivity extends BasePinActivity{
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
         dialog.dismiss();
         imgFirst.setImageResource(R.drawable.pin_un_setup);
         imgSecond.setImageResource(R.drawable.pin_un_setup);

@@ -547,7 +547,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
 
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
         dialog.dismiss();
         progressDialog.dismiss();
     }

@@ -23,7 +23,7 @@ public class AddCardActivity extends BaseActivity {
 
     @AfterViews
     public void afterViews() {
-        initFragment(new AddCard_(), null);
+        initFragment(new AddCard_(), getIntent().getExtras());
     }
 
     @Override

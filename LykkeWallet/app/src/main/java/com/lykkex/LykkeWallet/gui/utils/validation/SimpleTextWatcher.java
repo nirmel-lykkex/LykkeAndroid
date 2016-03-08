@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.lykkex.LykkeWallet.gui.fragments.addcard.FieldType;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 /**
@@ -19,14 +20,19 @@ public class SimpleTextWatcher  implements TextWatcher {
     protected Button imgClear;
     protected EditText editText;
     protected int minCount;
+    protected CallBackListener listener;
+    protected FieldType type;
 
     public SimpleTextWatcher(ImageView imgWell,
                              Button imgClear, final EditText editText,
-                             int minCount){
+                             int minCount, CallBackListener listener,
+                             FieldType type){
         this.editText = editText;
         this.imgClear = imgClear;
         this.imgWell = imgWell;
         this.minCount = minCount;
+        this.listener = listener;
+        this.type = type;
         if (imgClear != null) {
             this.imgClear.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -54,8 +60,10 @@ public class SimpleTextWatcher  implements TextWatcher {
         if (imgWell != null) {
             if (editText.getText().toString().length() >= minCount) {
                 imgWell.setVisibility(View.VISIBLE);
+                listener.onSuccess(type);
             } else {
                 imgWell.setVisibility(View.GONE);
+                listener.onFail(type);
             }
         }
     }

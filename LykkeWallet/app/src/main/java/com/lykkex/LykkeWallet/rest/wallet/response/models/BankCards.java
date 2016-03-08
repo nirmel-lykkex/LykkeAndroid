@@ -1,11 +1,14 @@
 package com.lykkex.LykkeWallet.rest.wallet.response.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by LIZA on 01.03.2016.
  */
-public class BankCards {
+public class BankCards implements Parcelable{
 
     @SerializedName("Id")
     private String id;
@@ -24,6 +27,15 @@ public class BankCards {
 
     @SerializedName("YearTo")
     private int yearTo;
+
+    public BankCards(Parcel source) {
+        id = source.readString();
+        type= source.readString();
+        lastDigits= source.readString();
+        name= source.readString();
+        monthTo = source.readInt();
+        yearTo = source.readInt();
+    }
 
     public int getYearTo() {
         return yearTo;
@@ -72,5 +84,32 @@ public class BankCards {
     public void setMonthTo(int monthTo) {
         this.monthTo = monthTo;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(type);
+        dest.writeString(lastDigits);
+        dest.writeString(name);
+        dest.writeInt(monthTo);
+        dest.writeInt(yearTo);
+    }
+
+    public static final Creator<BankCards> CREATOR = new Creator<BankCards>() {
+        @Override
+        public BankCards createFromParcel(Parcel source) {
+            return new BankCards(source);
+        }
+
+        @Override
+        public BankCards[] newArray(int size) {
+            return new BankCards[size];
+        }
+    };
 
 }

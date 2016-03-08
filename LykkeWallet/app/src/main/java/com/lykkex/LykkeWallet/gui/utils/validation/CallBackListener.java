@@ -7,5 +7,5 @@ package com.lykkex.LykkeWallet.gui.utils.validation;
 public interface CallBackListener<T> {
 
     public void onSuccess(T result);
-    public void onFail(com.lykkex.LykkeWallet.rest.base.models.Error error);
+    public void onFail(Object error);
 }

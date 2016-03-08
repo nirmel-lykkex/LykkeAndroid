@@ -71,7 +71,7 @@ public class SubmitFragment extends BaseFragment{
     }
 
     @Override
-    public void onFail(Error error) {
+    public void onFail(Object error) {
 
     }
 
