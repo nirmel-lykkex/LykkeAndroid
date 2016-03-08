@@ -83,7 +83,7 @@ public class KysActivity extends Activity implements CallBackListener {
     public void clickGetStarted(){
         finish();
         Intent intent = new Intent();
-        if (getIntent() == null && getIntent().getExtras() == null &&
+        if (getIntent() == null || getIntent().getExtras() == null ||
                 !getIntent().getExtras().getBoolean(Constants.EXTRA_PIN_STATUS)) {
             intent.setClass(this, SetUpPinActivity_.class);
         } else {
