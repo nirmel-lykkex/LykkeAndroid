@@ -1,11 +1,13 @@
 package com.lykkex.LykkeWallet.gui.fragments.addcard;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -125,6 +127,7 @@ public class AddCard extends BaseFragment implements CallBackListener {
     @Click(R.id.btnSubmit)
     public void createCard(){
         CardModel model = new CardModel();
+        ((BaseActivity)getActivity()).hideKeyboard();
         model.setBankNumber(etNumberCard.getText().toString());
         model.setCvc(etCVV.getText().toString());
         String finishTo = etFinishCard.getText().toString();

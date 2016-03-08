@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
@@ -260,9 +261,7 @@ public class FieldFragment extends BaseFragment<FieldState> {
         if (controller.getCurrentState() == FieldState.EmailScreen
                 || controller.getCurrentState() == FieldState.EmailSignInScreen) {
             if (editTextField != null) {
-                InputMethodManager imm = (InputMethodManager)getActivity().
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(editTextField.getWindowToken(), 0);
+                ((BaseActivity)getActivity()).hideKeyboard();
             }
             editTextField.clearFocus();
         }

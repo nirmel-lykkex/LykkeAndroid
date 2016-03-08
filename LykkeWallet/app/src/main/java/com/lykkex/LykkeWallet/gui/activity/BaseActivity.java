@@ -1,10 +1,12 @@
 package com.lykkex.LykkeWallet.gui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.inputmethod.InputMethodManager;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
@@ -32,6 +34,14 @@ public class BaseActivity  extends ActionBarActivity {
         transaction
                 .replace(R.id.fragmentContainer, currentFragment);
         transaction.commit();
+    }
+
+    public void hideKeyboard(){
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public void initFragmentWithoutAnim(android.app.Fragment fragment, Bundle arg) {

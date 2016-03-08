@@ -301,6 +301,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/money_will_taken"
                     android:id="@+id/tvMoney"
+                    android:layout_marginBottom="8dp"
                     android:gravity="center"
                     android:layout_below="@+id/btnSubmit"
                     android:layout_centerHorizontal="true"
