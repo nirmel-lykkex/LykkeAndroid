@@ -19,9 +19,9 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:background="@color/light_blue"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
                 android:orientation="vertical"
                 android:id="@+id/relViewPager"
                 android:layout_height="0dp">
@@ -29,9 +29,6 @@
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
                     android:background="@drawable/corner_rectangle"
                     android:layout_gravity="center"
                     android:layout_height="match_parent"/>
