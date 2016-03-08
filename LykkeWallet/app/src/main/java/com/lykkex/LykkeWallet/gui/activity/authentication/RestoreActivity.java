@@ -8,6 +8,8 @@ import android.view.View;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
+import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
+import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -48,14 +50,17 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
             AuthModelData res = (AuthModelData) result;
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())) {
                 case Ok:
-                    Intent intentKysPending = new Intent();
-                    intentKysPending.putExtra(Constants.EXTRA_KYS_STATUS,
-                            KysStatusEnum.valueOf(res.getResult().getKycStatus()));
-                    intentKysPending.setClass(this, KysActivity_.class);
-                    intentKysPending.putExtra(Constants.EXTRA_PIN_STATUS,
-                            res.getResult().getPinIsEntered());
-                    startActivity(intentKysPending);
-                    finish();
+                    if (res.getResult().getPinIsEntered()) {
+                        Intent intent = new Intent();
+                        intent.setClass(this, EnterPinActivity_.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setClass(this, SetUpPinActivity_.class);
+                        startActivity(intent);
+                        finish();
+                    }
                     break;
                 case NeedToFillData:
                     Intent intentSelfie = new Intent();
