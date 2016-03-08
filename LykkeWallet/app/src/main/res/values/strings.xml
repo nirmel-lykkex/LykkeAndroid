@@ -47,9 +47,9 @@
     <string name="id_card">Make a photo of your passport or other ID</string>
     <string name="proof_adress">Make a photo of your Proof of Address</string>
     <string name="waiting">Waiting...</string>
-    <string name="it_was_created">it_was_created todo</string>
+    <string name="it_was_created">You can change your credit card information at any time</string>
     <string name="continue_string">CONTINUE</string>
-    <string name="success_created">success_created todo</string>
+    <string name="success_created">CARD SUCCESSFULLY LINKED</string>
     <string name="get_started">GET STARTED</string>
     <string name="okay_understand"> OKAY, I UNDERSTAND</string>
     <string name="oops">OOPS!</string>
@@ -63,10 +63,10 @@
     <string name="deposit_wallet">Deposti %s wallet</string>
     <string name="add_card">Add a new card</string>
     <string name="only_demo">DEMO Only. Do not enter real back cards</string>
-    <string name="money_will_taken">money_will_taken</string>
-    <string name="number_card">Card number todo</string>
-    <string name="month_year">mm/yy</string>
-    <string name="card_name">card name todo</string>
+    <string name="money_will_taken">The funds from this card will be charged only for the transaction</string>
+    <string name="number_card">Card number</string>
+    <string name="month_year">MM/YY</string>
+    <string name="card_name">Name on card</string>
     <string name="cvv">CVV</string>
-    <string name="create_card">ADD CARD</string>
+    <string name="create_card">ADDED CARDS</string>
 </resources>

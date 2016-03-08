@@ -41,10 +41,14 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @AfterViews
     public void afterViews(){
-        refreshContent();
         LykkeWalletResult res = new LykkeWalletResult();
         setUpAdapter(res, false);
         swipeRefresh.setOnRefreshListener(this);
+    }
+
+    public void onStart(){
+        super.onStart();
+        refreshContent();
     }
 
     private void refreshContent(){

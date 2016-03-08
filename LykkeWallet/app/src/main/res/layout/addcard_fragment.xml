@@ -18,10 +18,10 @@
                 android:minHeight="250dp"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
                 android:background="@color/light_blue"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
                 android:orientation="vertical"
                 android:id="@+id/relViewPager"
                 android:layout_height="0dp">
@@ -29,6 +29,9 @@
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
                     android:background="@drawable/corner_rectangle"
                     android:layout_gravity="center"
                     android:layout_height="match_parent"/>
@@ -283,7 +286,7 @@
                 <Button
                     android:layout_marginTop="10dp"
                     android:enabled="false"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="45dp"
                     android:textColor="@color/grey_text"
                     android:background="@drawable/submitbutton"
@@ -293,11 +296,12 @@
                     android:layout_centerHorizontal="true" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/money_will_taken"
                     android:id="@+id/tvMoney"
+                    android:gravity="center"
                     android:layout_below="@+id/btnSubmit"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"

@@ -17,6 +17,7 @@ public class CardAddSuccess extends BaseFragment{
     @AfterViews
     public void afterViews(){
         actionBar.hide();
+        actionBar.hide();
     }
 
     @Click(R.id.btnStart)

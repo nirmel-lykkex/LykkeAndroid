@@ -15,6 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="21dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp" />
 
     <View
@@ -41,6 +42,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginRight="8dp" />
 
     <TextView
@@ -48,6 +50,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:textColor="@color/black"
         android:id="@+id/tvMonth"
         android:layout_marginTop="8dp"
         android:layout_below="@+id/tvCardNumber"
@@ -60,6 +63,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:textColor="@color/black"
         android:id="@+id/tvName"
         android:layout_marginTop="8dp"
         android:layout_below="@+id/tvCardNumber"
