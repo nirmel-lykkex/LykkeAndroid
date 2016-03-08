@@ -160,6 +160,9 @@ public class AddCard extends BaseFragment implements CallBackListener {
             if (map.containsKey(result)) {
                 map.remove(result);
             }
+            if (map.size() != 4) {
+                btnSubmit.setEnabled(false);
+            }
         }
     }
 

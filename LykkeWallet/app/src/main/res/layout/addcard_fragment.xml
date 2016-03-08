@@ -1,289 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:id="@+id/relViewPager"
-        android:layout_height="0dp">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="match_parent"/>
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/circlePageViewer"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:padding="10dp"
-            android:layout_marginBottom="20dp" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/add_card"
-            android:id="@+id/tvTitle"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTitle"
-            android:weightSum="7"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/linearLayout">
-
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="5"
-                android:layout_marginLeft="8dp"
+            android:background="@color/light_blue"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:minHeight="250dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_height="43dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:id="@+id/etNumberCard"
-                    android:paddingLeft="7dp"
-                    android:maxLength="19"
-                    android:layout_height="45dp"
-                    android:paddingBottom="6dp"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="5dp"
-                    android:hint="@string/number_card"
-                    android:background="@drawable/filed_background"
-                    />
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="@android:drawable/ic_delete"
-                    android:id="@+id/btnClearCardNumber"
-                    android:layout_marginRight="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="14dp"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/imgWellCardNumber"
-                    android:background="@drawable/ready"
-                    android:adjustViewBounds="false"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:visibility="gone" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_height="43dp">
-                <EditText
+                android:background="@color/light_blue"
+                android:orientation="vertical"
+                android:id="@+id/relViewPager"
+                android:layout_height="0dp">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:paddingLeft="7dp"
-                    android:layout_height="45dp"
-                    android:paddingBottom="6dp"
-                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_rectangle"
+                    android:layout_gravity="center"
+                    android:layout_height="match_parent"/>
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/circlePageViewer"
+                    android:layout_width="fill_parent"
+                    app:fillColor="@color/blue_color"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="5dp"
-                    android:hint="@string/month_year"
-                    android:maxEms="5"
-                    android:maxLength="5"
-                    android:id="@+id/etFinishCard"
-                    android:background="@drawable/filed_background"
-                    />
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="@android:drawable/ic_delete"
-                    android:id="@+id/btnClearFinish"
-                    android:layout_marginRight="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="14dp"
-                    android:visibility="gone" />
+                    android:padding="10dp"
+                    android:layout_marginBottom="20dp" />
+            </LinearLayout>
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/imgWellFinish"
-                    android:background="@drawable/ready"
-                    android:adjustViewBounds="false"
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/add_card"
+                    android:id="@+id/tvTitle"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:visibility="gone" />
+                    android:layout_centerHorizontal="true" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTitle"
+                    android:weightSum="7"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/linearLayout">
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_height="43dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:id="@+id/etNumberCard"
+                            android:paddingLeft="7dp"
+                            android:maxLength="19"
+                            android:layout_height="45dp"
+                            android:paddingBottom="6dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:paddingRight="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="5dp"
+                            android:hint="@string/number_card"
+                            android:background="@drawable/filed_background"
+                            />
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:background="@android:drawable/ic_delete"
+                            android:id="@+id/btnClearCardNumber"
+                            android:layout_marginRight="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="14dp"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:id="@+id/imgWellCardNumber"
+                            android:background="@drawable/ready"
+                            android:adjustViewBounds="false"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_height="43dp">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:paddingLeft="7dp"
+                            android:layout_height="45dp"
+                            android:paddingBottom="6dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:paddingRight="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="5dp"
+                            android:hint="@string/month_year"
+                            android:maxEms="5"
+                            android:maxLength="5"
+                            android:id="@+id/etFinishCard"
+                            android:background="@drawable/filed_background"
+                            />
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:background="@android:drawable/ic_delete"
+                            android:id="@+id/btnClearFinish"
+                            android:layout_marginRight="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="14dp"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:id="@+id/imgWellFinish"
+                            android:background="@drawable/ready"
+                            android:adjustViewBounds="false"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout"
+                    android:weightSum="7"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/linearLayout2">
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_height="43dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:id="@+id/etNameCard"
+                            android:paddingLeft="7dp"
+                            android:layout_height="45dp"
+                            android:paddingBottom="6dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:paddingRight="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="5dp"
+                            android:hint="@string/card_name"
+                            android:background="@drawable/filed_background"
+                            />
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:background="@android:drawable/ic_delete"
+                            android:id="@+id/btnClearCardName"
+                            android:layout_marginRight="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="14dp"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:id="@+id/imgWellCardName"
+                            android:background="@drawable/ready"
+                            android:adjustViewBounds="false"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_height="43dp">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:paddingLeft="7dp"
+                            android:layout_height="45dp"
+                            android:paddingBottom="6dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:paddingRight="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="5dp"
+                            android:hint="@string/cvv"
+                            android:id="@+id/etCVV"
+                            android:maxEms="3"
+                            android:maxLength="3"
+                            android:inputType="number"
+                            android:background="@drawable/filed_background"
+                            />
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:background="@android:drawable/ic_delete"
+                            android:id="@+id/btnClearCVV"
+                            android:layout_marginRight="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="14dp"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:id="@+id/imgWellCVV"
+                            android:background="@drawable/ready"
+                            android:adjustViewBounds="false"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/only_demo"
+                    android:id="@+id/tvAttention"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:layout_below="@+id/linearLayout2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" />
+
+                <Button
+                    android:layout_marginTop="10dp"
+                    android:enabled="false"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:textColor="@color/grey_text"
+                    android:background="@drawable/submitbutton"
+                    android:id="@+id/btnSubmit"
+                    android:text="@string/submit"
+                    android:layout_below="@+id/tvAttention"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/money_will_taken"
+                    android:id="@+id/tvMoney"
+                    android:layout_below="@+id/btnSubmit"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp" />
+
+
             </RelativeLayout>
-
-
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout"
-            android:weightSum="7"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/linearLayout2">
-
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="5"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_height="43dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:id="@+id/etNameCard"
-                    android:paddingLeft="7dp"
-                    android:layout_height="45dp"
-                    android:paddingBottom="6dp"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="5dp"
-                    android:hint="@string/card_name"
-                    android:background="@drawable/filed_background"
-                    />
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="@android:drawable/ic_delete"
-                    android:id="@+id/btnClearCardName"
-                    android:layout_marginRight="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="14dp"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/imgWellCardName"
-                    android:background="@drawable/ready"
-                    android:adjustViewBounds="false"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:visibility="gone" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_height="43dp">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:paddingLeft="7dp"
-                    android:layout_height="45dp"
-                    android:paddingBottom="6dp"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="5dp"
-                    android:hint="@string/cvv"
-                    android:id="@+id/etCVV"
-                    android:maxEms="3"
-                    android:maxLength="3"
-                    android:inputType="number"
-                    android:background="@drawable/filed_background"
-                    />
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="@android:drawable/ic_delete"
-                    android:id="@+id/btnClearCVV"
-                    android:layout_marginRight="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="14dp"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/imgWellCVV"
-                    android:background="@drawable/ready"
-                    android:adjustViewBounds="false"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/only_demo"
-            android:id="@+id/tvAttention"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
-
-        <Button
-            android:layout_marginTop="10dp"
-            android:enabled="false"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:textColor="@color/grey_text"
-            android:background="@drawable/submitbutton"
-            android:id="@+id/btnSubmit"
-            android:text="@string/submit"
-            android:layout_below="@+id/tvAttention"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/money_will_taken"
-            android:id="@+id/tvMoney"
-            android:layout_below="@+id/btnSubmit"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp" />
-
-
-    </RelativeLayout>
+    </ScrollView>
 </LinearLayout>
