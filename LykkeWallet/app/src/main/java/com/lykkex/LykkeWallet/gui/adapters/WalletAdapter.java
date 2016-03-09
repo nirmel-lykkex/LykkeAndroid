@@ -101,27 +101,29 @@ public class WalletAdapter extends BaseAdapter {
         holder.relMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setUpInfo(holder, position, false);
+                setUpInfo(holder, position);
             }
         });
 
         holder.imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setUpInfo(holder, position,true);
+                if (position == 0) {
+                    startAddCardActivity();
+                }
             }
         });
 
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setUpInfo(holder, position, false);
+                setUpInfo(holder, position);
             }
         });
         return view;
     }
 
-    private void setUpInfo(Holder holder, int position, boolean secondTime){
+    private void setUpInfo(Holder holder, int position){
         holder.relInfo.removeAllViews();
         if (position == 1) {
             if (isClickedLykke) {
@@ -131,9 +133,6 @@ public class WalletAdapter extends BaseAdapter {
             }
         } else {
             if (isClickedBank) {
-                if (secondTime) {
-                    startAddCardActivity();
-                }
                 isClickedBank = false;
             } else {
                 setUpBankCardInfo(holder);
