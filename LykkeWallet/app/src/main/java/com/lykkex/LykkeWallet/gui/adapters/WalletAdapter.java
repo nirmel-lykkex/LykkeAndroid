@@ -20,6 +20,9 @@ import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCards;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWalletResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by LIZA on 01.03.2016.
  */
@@ -187,9 +190,15 @@ public class WalletAdapter extends BaseAdapter {
         isClickedLykke = true;
         holder.relInfo.setVisibility(View.VISIBLE);
         if (isItGet) {
-            if (lykkeWallet.getLykke().getAssets() != null &&
-                    lykkeWallet.getLykke().getAssets().length > 0) {
-                for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
+            List<AssetsWallet> list= new ArrayList<>();
+            for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
+                if (Double.valueOf(assetsWallet.getBalance()) > 0 ){
+                    list.add(assetsWallet);
+                }
+            }
+            if (list != null &&
+                    list.size() > 0) {
+                for (AssetsWallet assetsWallet : list) {
                     InfoHolder holderInfo = getViewInfo(holder);
                     holderInfo.tvTitleProp.setText(assetsWallet.getName());
                     holderInfo.tvValue.setText(assetsWallet.getBalance());
