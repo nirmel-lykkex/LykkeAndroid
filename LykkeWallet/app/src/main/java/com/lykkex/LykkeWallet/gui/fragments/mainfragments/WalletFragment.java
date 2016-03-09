@@ -88,5 +88,7 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
             Toast.makeText(getActivity(), getString(R.string.server_error),
                     Toast.LENGTH_LONG).show();
         }
+        swipeRefresh.setRefreshing(false);
+        shouldShowError = true;
     }
 }
