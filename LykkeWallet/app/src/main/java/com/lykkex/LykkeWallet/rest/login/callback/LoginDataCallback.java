@@ -6,6 +6,7 @@ import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.BaseCallBack;
+import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 
 import retrofit2.Call;
@@ -28,19 +29,18 @@ public class LoginDataCallback extends BaseCallBack<AuthModelData> {
     @Override
     public void onResponse(Call<AuthModelData> call, Response<AuthModelData> response) {
         super.onResponse(call, response);
-        progressBar.setVisibility(View.GONE);
         if (!isCancel) {
             if (response != null && response.body() != null && response.body().getError() == null) {
+                progressBar.setVisibility(View.GONE);
                 listener.onSuccess(response.body());
             } else if (response != null && response.body() != null) {
-                listener.onFail(null);
+                listener.onFail(new Error());
             }
         }
     }
 
     @Override
     public void onFailure(Call<AuthModelData> call, Throwable t) {
-        progressBar.setVisibility(View.GONE);
         if (!isCancel) {
             listener.onFail(null);
         }

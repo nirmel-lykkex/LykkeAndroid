@@ -35,13 +35,13 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
 
     @ViewById  TextView textView;
 
-    @AfterViews
-    public void afterViews(){
-        super.afterViews();
-    }
 
     public void onStart(){
         super.onStart();
+        startRequest();
+    }
+
+    protected void startRequest(){
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         AuthModelGUI authRequest = (AuthModelGUI) getIntent().getExtras().getSerializable(Constants.EXTRA_AUTH_REQUEST);
         authRequest.setClientInfo("<android>; Model:<" + Build.MODEL +">; Os:<android>; Screen:<"+
@@ -88,9 +88,6 @@ public class AuthenticationActivity extends BaseAuthenticationActivity implement
         }
     }
 
-    @Override
-    public void onFail(Object error) {
-        super.onFail(error);
-    }
+
 }
 

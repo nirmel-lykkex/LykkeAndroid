@@ -29,13 +29,13 @@ import retrofit2.Call;
 @EActivity(R.layout.restore_activity)
 public class RestoreActivity extends BaseAuthenticationActivity implements CallBackListener{
 
-    @AfterViews
-    public void afterViews() {
-        super.afterViews();
-    }
 
     public void onStart(){
         super.onStart();
+         startRequest();
+    }
+
+    public void startRequest(){
         LoginDataCallback callback = new LoginDataCallback(progressBar, this, this);
         Call<AuthModelData> call = LykkeApplication_.getInstance().getRestApi().
                 getRegistrationData(Constants.PART_AUTHORIZATION + userPref.authToken().get());
@@ -45,7 +45,6 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
     @Override
     public void onSuccess(Object result) {
         super.onSuccess(result);
-        progressBar.setVisibility(View.GONE);
         if (result != null && result instanceof AuthModelData) {
             AuthModelData res = (AuthModelData) result;
             switch (KysStatusEnum.valueOf(res.getResult().getKycStatus())) {
@@ -72,8 +71,5 @@ public class RestoreActivity extends BaseAuthenticationActivity implements CallB
         }
     }
 
-    @Override
-    public void onFail(Object error) {
-        progressBar.setVisibility(View.GONE);
-    }
+
 }

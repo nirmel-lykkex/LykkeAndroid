@@ -2,10 +2,13 @@ package com.lykkex.LykkeWallet.gui.activity.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
@@ -31,16 +34,26 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
 
     protected  @ViewById ProgressBar progressBar;
     protected  @Pref  UserPref_ userPref;
+    protected Handler mHandler = new Handler();
+    protected int count = 0;
+    private Runnable run = new Runnable() {
+        @Override
+        public void run() {
+            startRequest();
+        }
+    };
 
-    @AfterViews
-    public void afterViews(){
+    public void onStart(){
+        super.onStart();
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSuccess(Object result) {
-        progressBar.setVisibility(View.GONE);
-        if (result != null && result instanceof AuthModelData) {
+       // progressBar.setVisibility(View.GONE);
+        if (result instanceof Error) {
+            onFail(result);
+        } else if  (result != null && result instanceof AuthModelData) {
             AuthModelData res = (AuthModelData) result;
             if (res.getResult().getPersonalData().getAddress() != null) {
                 userPref.address().put(res.getResult().getPersonalData().getAddress());
@@ -90,9 +103,24 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
         }
     }
 
+    protected abstract void startRequest();
+
     @Override
     public void onFail(Object error) {
-        progressBar.setVisibility(View.GONE);
+        count +=1;
+
+        mHandler.removeCallbacks(run);
+        if (count <= 3) {
+            mHandler.postDelayed(run, Constants.DELAY_5000);
+        } else {
+            userPref.clear();
+            Intent intent = new Intent();
+            intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
+            startActivity(intent);
+            finish();
+            Toast.makeText(this, getString(R.string.not_authorized), Toast.LENGTH_LONG).show();
+        }
+
     }
 }
 
