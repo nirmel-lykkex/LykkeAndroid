@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.addcard;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -75,10 +76,14 @@ public class AddCard extends BaseFragment implements CallBackListener {
 
     @Pref UserPref_ userPref;
 
+    private ProgressDialog dialog;
+
     private HashMap<FieldType, Boolean> map = new HashMap<>();
 
     @AfterViews
     public void afterViews(){
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage(getString(R.string.waiting));
         actionBar.setTitle(R.string.create_card);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -126,6 +131,7 @@ public class AddCard extends BaseFragment implements CallBackListener {
 
     @Click(R.id.btnSubmit)
     public void createCard(){
+        dialog.show();
         CardModel model = new CardModel();
         ((BaseActivity)getActivity()).hideKeyboard();
         model.setBankNumber(etNumberCard.getText().toString());
@@ -153,6 +159,7 @@ public class AddCard extends BaseFragment implements CallBackListener {
                 btnSubmit.setEnabled(true);
             }
         } else {
+            dialog.dismiss();
             ((BaseActivity) getActivity()).initFragment(new CardAddSuccess_(), null);
         }
     }
@@ -166,6 +173,8 @@ public class AddCard extends BaseFragment implements CallBackListener {
             if (map.size() != 4) {
                 btnSubmit.setEnabled(false);
             }
+        } else {
+            dialog.dismiss();
         }
     }
 

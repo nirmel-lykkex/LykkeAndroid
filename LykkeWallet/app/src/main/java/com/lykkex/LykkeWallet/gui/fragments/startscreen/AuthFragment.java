@@ -57,7 +57,7 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
         authRequest.setEmail(getArguments().getString(Constants.EXTRA_EMAIL));
         editTextLogin.setText(authRequest.getEmail());
         passwordTextWatcher = new SimpleTextAuthWatcher(null, null,
-                null, this, Constants.MIN_COUNT_SYMBOL_PASSWORD);
+                editTextPassword, this, Constants.MIN_COUNT_SYMBOL_PASSWORD);
         editTextPassword.addTextChangedListener(passwordTextWatcher);
         editTextPassword.requestFocus();
         buttonLogin.setEnabled(false);

@@ -27,7 +27,7 @@ public class LykkeApplication extends Application {
         //Fabric.with(this, new Crashlytics());
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://lykke-api-demo.azurewebsites.net")
+                .baseUrl("https://lykke-api-dev.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

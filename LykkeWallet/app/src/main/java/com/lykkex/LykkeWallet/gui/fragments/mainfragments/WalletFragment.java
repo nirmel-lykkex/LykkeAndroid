@@ -73,6 +73,10 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onSuccess(Object result) {
+        if (result instanceof Error && shouldShowError) {
+            Toast.makeText(getContext(), getString(R.string.server_error),
+                    Toast.LENGTH_LONG).show();
+        }
         shouldShowError = true;
         setUpAdapter(((LykkeWallerData) result).getResult(), true);
     }

@@ -11,6 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
 
         <ImageView
@@ -30,6 +31,7 @@
             android:layout_marginLeft="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Small Text"
+            android:gravity="center_vertical"
             android:id="@+id/tvTitle"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imgIcon"

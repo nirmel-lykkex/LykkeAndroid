@@ -8,10 +8,10 @@ import com.google.gson.annotations.SerializedName;
 public class LykkeWalletResult {
 
     @SerializedName("Lykke")
-    private LykkeWallet lykke;
+    private LykkeWallet lykke = new LykkeWallet();
 
     @SerializedName("BankCards")
-    private BankCards[] bankCardses;
+    private BankCards[] bankCardses = new BankCards[0];
 
     public BankCards[] getBankCardses() {
         return bankCardses;

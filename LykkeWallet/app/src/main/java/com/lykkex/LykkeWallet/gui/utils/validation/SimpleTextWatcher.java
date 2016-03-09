@@ -14,7 +14,7 @@ import com.lykkex.LykkeWallet.gui.utils.Constants;
 /**
  * Created by LIZA on 06.03.2016.
  */
-public class SimpleTextWatcher  implements TextWatcher {
+public class SimpleTextWatcher  implements TextWatcher, View.OnFocusChangeListener {
 
     protected ImageView imgWell;
     protected Button imgClear;
@@ -22,6 +22,7 @@ public class SimpleTextWatcher  implements TextWatcher {
     protected int minCount;
     protected CallBackListener listener;
     protected FieldType type;
+    private boolean isOnFocus;
 
     public SimpleTextWatcher(ImageView imgWell,
                              Button imgClear, final EditText editText,
@@ -33,7 +34,10 @@ public class SimpleTextWatcher  implements TextWatcher {
         this.minCount = minCount;
         this.listener = listener;
         this.type = type;
-        if (imgClear != null) {
+        if (editText != null) {
+            this.editText.setOnFocusChangeListener(this);
+        }
+        if (this.imgClear != null) {
             this.imgClear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -50,11 +54,7 @@ public class SimpleTextWatcher  implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         if (imgClear != null) {
-            if (editText.getText().toString().length() >= Constants.MIN_COUNT_SYMBOL) {
-                imgClear.setVisibility(View.VISIBLE);
-            } else {
-                imgClear.setVisibility(View.INVISIBLE);
-            }
+            setUpClearButton();
         }
 
         if (imgWell != null) {
@@ -71,5 +71,21 @@ public class SimpleTextWatcher  implements TextWatcher {
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        isOnFocus = b;
+        setUpClearButton();
+    }
+
+    private void setUpClearButton(){
+        if (imgClear != null) {
+            if (isOnFocus && editText.getText().toString().length() >= Constants.MIN_COUNT_SYMBOL) {
+                imgClear.setVisibility(View.VISIBLE);
+            } else {
+                imgClear.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 }

@@ -101,27 +101,27 @@ public class WalletAdapter extends BaseAdapter {
         holder.relMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setUpInfo(holder, position);
+                setUpInfo(holder, position, false);
             }
         });
 
         holder.imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setUpInfo(holder, position);
+                setUpInfo(holder, position,true);
             }
         });
 
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setUpInfo(holder, position);
+                setUpInfo(holder, position, false);
             }
         });
         return view;
     }
 
-    private void setUpInfo(Holder holder, int position){
+    private void setUpInfo(Holder holder, int position, boolean secondTime){
         holder.relInfo.removeAllViews();
         if (isItGet) {
             if (position == 1) {
@@ -132,7 +132,9 @@ public class WalletAdapter extends BaseAdapter {
                 }
             } else {
                 if (isClickedBank) {
-                    startAddCardActivity();
+                    if (secondTime) {
+                        startAddCardActivity();
+                    }
                     isClickedBank = false;
                 } else {
                     setUpBankCardInfo(holder);
@@ -166,7 +168,7 @@ public class WalletAdapter extends BaseAdapter {
                     }
                 });
                 holderInfo.tvTitleProp.setText(cards.getName());
-                holderInfo.tvValue.setText("..." + cards.getLastDigits());
+                holderInfo.tvValue.setText(".... " + cards.getLastDigits());
                 holderInfo.tvValue.setTag(cards.getId());
                 holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
                     @Override
