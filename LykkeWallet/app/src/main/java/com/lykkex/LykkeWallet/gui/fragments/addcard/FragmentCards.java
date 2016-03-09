@@ -24,7 +24,7 @@ public class FragmentCards extends Fragment {
     @AfterViews
     public void afterViews(){
         BankCards card = getArguments().getParcelable(Constants.EXTRA_BANK);
-        tvCardNumber.setText("..."+card.getLastDigits());
+        tvCardNumber.setText(".... "+card.getLastDigits());
         tvMonth.setText(card.getMonthTo()+"/"+card.getYearTo());
         tvName.setText(card.getName());
     }
