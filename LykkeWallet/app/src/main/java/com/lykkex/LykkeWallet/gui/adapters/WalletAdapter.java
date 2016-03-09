@@ -123,25 +123,21 @@ public class WalletAdapter extends BaseAdapter {
 
     private void setUpInfo(Holder holder, int position, boolean secondTime){
         holder.relInfo.removeAllViews();
-        if (isItGet) {
-            if (position == 1) {
-                if (isClickedLykke) {
-                    isClickedLykke = false;
-                } else {
-                    setUpLykkeInfo(holder);
-                }
+        if (position == 1) {
+            if (isClickedLykke) {
+                isClickedLykke = false;
             } else {
-                if (isClickedBank) {
-                    if (secondTime) {
-                        startAddCardActivity();
-                    }
-                    isClickedBank = false;
-                } else {
-                    setUpBankCardInfo(holder);
-                }
+                setUpLykkeInfo(holder);
             }
         } else {
-            holder.relInfo.addView(new ProgressBar(mContext));
+            if (isClickedBank) {
+                if (secondTime) {
+                    startAddCardActivity();
+                }
+                isClickedBank = false;
+            } else {
+                setUpBankCardInfo(holder);
+            }
         }
     }
 
@@ -149,36 +145,41 @@ public class WalletAdapter extends BaseAdapter {
         isClickedBank = true;
         holder.dividerView.setVisibility(View.VISIBLE);
         holder.relInfo.setVisibility(View.VISIBLE);
-        if (lykkeWallet.getBankCardses().length >0) {
-            for (BankCards cards : lykkeWallet.getBankCardses()) {
-                InfoHolder holderInfo = getViewInfo(holder);
-                holderInfo.relMain.setTag(cards.getId());
-                holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startPaymentActivity((String) view.getTag());
-                    }
-                });
+        if (isItGet) {
+            if (lykkeWallet.getBankCardses() != null &&
+                    lykkeWallet.getBankCardses().length >0) {
+                for (BankCards cards : lykkeWallet.getBankCardses()) {
+                    InfoHolder holderInfo = getViewInfo(holder);
+                    holderInfo.relMain.setTag(cards.getId());
+                    holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startPaymentActivity((String) view.getTag());
+                        }
+                    });
 
-                holderInfo.tvTitleProp.setTag(cards.getId());
-                holderInfo.tvTitleProp.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startPaymentActivity((String) view.getTag());
-                    }
-                });
-                holderInfo.tvTitleProp.setText(cards.getName());
-                holderInfo.tvValue.setText(".... " + cards.getLastDigits());
-                holderInfo.tvValue.setTag(cards.getId());
-                holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startPaymentActivity((String) view.getTag());
-                    }
-                });
+                    holderInfo.tvTitleProp.setTag(cards.getId());
+                    holderInfo.tvTitleProp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startPaymentActivity((String) view.getTag());
+                        }
+                    });
+                    holderInfo.tvTitleProp.setText(cards.getName());
+                    holderInfo.tvValue.setText(".... " + cards.getLastDigits());
+                    holderInfo.tvValue.setTag(cards.getId());
+                    holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startPaymentActivity((String) view.getTag());
+                        }
+                    });
+                }
+            }else {
+                getEmptyViewCards(getEmptyView(), holder);
             }
-        }else {
-            getEmptyViewCards(getEmptyView(), holder);
+        } else {
+            holder.relInfo.addView(new ProgressBar(mContext));
         }
     }
 
@@ -186,37 +187,42 @@ public class WalletAdapter extends BaseAdapter {
         holder.dividerView.setVisibility(View.GONE);
         isClickedLykke = true;
         holder.relInfo.setVisibility(View.VISIBLE);
-        if (lykkeWallet.getLykke().getAssets().length >0) {
-            for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
-                InfoHolder holderInfo = getViewInfo(holder);
-                holderInfo.tvTitleProp.setText(assetsWallet.getName());
-                holderInfo.tvValue.setText(assetsWallet.getBalance());
-                holderInfo.relMain.setTag(assetsWallet.getId());
-                holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startPaymentActivity((String) view.getTag());
-                    }
-                });
+        if (isItGet) {
+            if (lykkeWallet.getLykke().getAssets() != null &&
+                    lykkeWallet.getLykke().getAssets().length > 0) {
+                for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
+                    InfoHolder holderInfo = getViewInfo(holder);
+                    holderInfo.tvTitleProp.setText(assetsWallet.getName());
+                    holderInfo.tvValue.setText(assetsWallet.getBalance());
+                    holderInfo.relMain.setTag(assetsWallet.getId());
+                    holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startPaymentActivity((String) view.getTag());
+                        }
+                    });
 
-                holderInfo.tvTitleProp.setTag(assetsWallet.getId());
-                holderInfo.tvTitleProp.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startPaymentActivity((String) view.getTag());
-                    }
-                });
+                    holderInfo.tvTitleProp.setTag(assetsWallet.getId());
+                    holderInfo.tvTitleProp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startPaymentActivity((String) view.getTag());
+                        }
+                    });
 
-                holderInfo.tvValue.setTag(assetsWallet.getId());
-                holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startPaymentActivity((String) view.getTag());
-                    }
-                });
+                    holderInfo.tvValue.setTag(assetsWallet.getId());
+                    holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startPaymentActivity((String) view.getTag());
+                        }
+                    });
+                }
+            } else {
+                getEmptyViewCoins(getEmptyView(), holder);
             }
         } else {
-            getEmptyViewCoins(getEmptyView(), holder);
+            holder.relInfo.addView(new ProgressBar(mContext));
         }
     }
 

@@ -41,6 +41,7 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @AfterViews
     public void afterViews(){
+        shouldShowError = false;
         LykkeWalletResult res = new LykkeWalletResult();
         setUpAdapter(res, false);
         swipeRefresh.setOnRefreshListener(this);
@@ -83,8 +84,8 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onFail(Object error) {
-        if (shouldShowError){
-            Toast.makeText(getContext(), getString(R.string.server_error),
+        if (shouldShowError && getActivity() != null){
+            Toast.makeText(getActivity(), getString(R.string.server_error),
                     Toast.LENGTH_LONG).show();
         }
     }
