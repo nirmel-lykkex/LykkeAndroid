@@ -69,4 +69,18 @@
     <string name="card_name">Name on card</string>
     <string name="cvv">CVV</string>
     <string name="create_card">ADDED CARDS</string>
+    <string name="personal_data">View Personal Data</string>
+    <string name="personal_data_title">PERSONAL DATA</string>
+    <string name="exit">Log out from </string>
+    <string name="push">Push notifications</string>
+    <string name="base_asset">Base asset</string>
+    <string name="check_orders">Sign orders with PIN/Touch ID</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Contact Phone</string>
+    <string name="country">Country</string>
+    <string name="zip">Zip</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
 </resources>
+

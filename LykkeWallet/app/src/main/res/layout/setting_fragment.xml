@@ -2,11 +2,150 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Setting Fragment"
-        android:id="@+id/textView2" />
+        android:layout_margin="8dp"
+        android:id="@+id/relPersonalData"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPersonal"
+            android:text="@string/personal_data"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/imgPersonalData"
+            android:layout_toStartOf="@+id/imgPersonalData"
+            android:layout_marginRight="8dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgPersonalData"
+            android:src="@drawable/arrow_down"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grey_dark_text"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:id="@+id/relCheking"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvCheck"
+            android:text="@string/check_orders"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/switchCheck"
+            android:layout_toStartOf="@+id/switchCheck"
+            android:layout_marginRight="8dp" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchCheck"
+            android:src="@drawable/arrow_down"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grey_dark_text"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:id="@+id/relPush"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPush"
+            android:text="@string/push"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/imgPush"
+            android:layout_toStartOf="@+id/imgPush"
+            android:layout_marginRight="8dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgPush"
+            android:src="@drawable/arrow_down"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grey_dark_text"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:id="@+id/relBaseCurrency"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBaseCurrency"
+            android:text="@string/base_asset"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/imgBaseCurrency"
+            android:layout_toStartOf="@+id/imgBaseCurrency"
+            android:layout_marginRight="8dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBaseCurrency"
+            android:src="@drawable/arrow_down"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grey_dark_text"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:id="@+id/relExit"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvExit"
+            android:text="@string/exit"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grey_dark_text"/>
 </LinearLayout>

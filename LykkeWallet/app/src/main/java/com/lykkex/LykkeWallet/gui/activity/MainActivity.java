@@ -48,7 +48,7 @@ import retrofit2.Call;
  * Created by e.kazimirova on 12.02.2016.
  */
 @EActivity(R.layout.main_activity)
-public class MainActivity  extends ActionBarActivity implements CallBackListener{
+public class MainActivity  extends BaseActivity implements CallBackListener{
     private DrawerAdapter adapter;
     @ViewById DrawerLayout drawerLayout;
     @ViewById ListView drawerListView;
@@ -188,7 +188,7 @@ public class MainActivity  extends ActionBarActivity implements CallBackListener
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment).commit();
+                    .replace(R.id.fragmentContainer, fragment).commit();
 
             drawerListView.setItemChecked(position, true);
             setTitle(mTitle);
