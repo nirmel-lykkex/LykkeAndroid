@@ -6,6 +6,8 @@ import android.widget.Toast;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.MainActivity_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingEnum;
+import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSetUp;
@@ -46,10 +48,22 @@ public class EnterPinActivity extends BasePinActivity{
     @Override
     public void onSuccess(Object result) {
         dialog.dismiss();
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity_.class);
-        startActivity(intent);
-        finish();
+        SettingEnum settingEnum = null;
+        if (getIntent().getExtras() != null &&
+                getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT_SETTING) != null)
+        {
+            settingEnum =
+                    (SettingEnum) getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT_SETTING);
+        }
+        if (settingEnum == null) {
+            Intent intent = new Intent();
+            intent.setClass(this, MainActivity_.class);
+            startActivity(intent);
+            finish();
+        } else {
+            SettingSinglenton.getInstance().setShouldSignOrder
+                    (!SettingSinglenton.getInstance().isShouldSignOrder());
+        }
     }
 
     @Override

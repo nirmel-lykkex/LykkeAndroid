@@ -5,17 +5,20 @@ import android.support.v4.app.Fragment;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
+import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.PersonalDataFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.PersonalDataFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingActivity;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
+import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 import org.androidannotations.annotations.AfterViews;
@@ -32,13 +35,18 @@ public class SettingFragment extends Fragment {
 
     @ViewById Switch switchCheck;
     @Pref  UserPref_ userPref;
+    @ViewById TextView tvExit;
 
     @AfterViews
     public void afterViews(){
+        tvExit.setText(getString(R.string.exit) + " " + userPref.fullName().get());
         switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), EnterPinActivity_.class);
+                startActivity(intent);
             }
         });
     }
