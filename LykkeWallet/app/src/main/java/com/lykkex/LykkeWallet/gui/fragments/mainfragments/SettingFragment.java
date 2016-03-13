@@ -7,18 +7,22 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.PersonalDataFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.PersonalDataFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingActivity;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingEnum;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 /**
  * Created by LIZA on 29.02.2016.
@@ -27,6 +31,7 @@ import org.androidannotations.annotations.ViewById;
 public class SettingFragment extends Fragment {
 
     @ViewById Switch switchCheck;
+    @Pref  UserPref_ userPref;
 
     @AfterViews
     public void afterViews(){
@@ -94,7 +99,11 @@ public class SettingFragment extends Fragment {
     }
 
     public void clickExit(){
-
+        userPref.clear();
+        Intent intent = new Intent();
+        intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
+        getActivity().startActivity(intent);
+        getActivity().finish();
     }
 
     public void clickBaseCurrency(){

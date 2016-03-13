@@ -4,233 +4,274 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/relProgress"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linearInfo"
+        android:orientation="vertical"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/relName"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/relName"
+            android:background="@color/light_blue"
+            >
+            <TextView
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/lableName"
+                android:text="@string/full_name"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/imgPersonalData"
+                android:layout_toStartOf="@+id/imgPersonalData"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvName"
+                android:textSize="18sp"
+                android:layout_margin="8dp"
+                android:text="name"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:id="@+id/viewName"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/grey_dark_text"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/relEmail"
+            android:background="@color/light_blue"
+            >
+            <TextView
+                android:layout_margin="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelEmail"
+                android:textSize="18sp"
+                android:text="@string/email"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvEmail"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:id="@+id/viewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/grey_dark_text"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/relContactPhone"
+            android:background="@color/light_blue"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelPhone"
+                android:text="@string/phone"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPhone"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:id="@+id/viewContactPhone"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/grey_dark_text"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/relCountry"
+            android:background="@color/light_blue"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelCountry"
+                android:text="@string/country"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvCountry"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:id="@+id/viewCountry"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/grey_dark_text"/>
 
-        >
-        <TextView
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lableName"
-            android:text="@string/full_name"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/imgPersonalData"
-            android:layout_toStartOf="@+id/imgPersonalData"
-            android:layout_marginRight="8dp" />
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:id="@+id/relZip"
+            android:background="@color/light_blue"
+            >
+            <TextView
+                android:layout_margin="8dp"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelZip"
+                android:text="@string/zip"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:layout_width="0dp"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvZip"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:id="@+id/viewZip"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/grey_dark_text"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvName"
-            android:layout_margin="8dp"
-            android:text="name"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:orientation="horizontal"
+            android:id="@+id/relCity"
+            android:background="@color/light_blue"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelCity"
+                android:text="@string/city"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_margin="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvCity"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:id="@+id/viewCity"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/grey_dark_text"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/relAddress"
+            android:background="@color/light_blue"
+            >
+            <TextView
+                android:layout_margin="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelAddress"
+                android:text="@string/address"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAddress"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+        <View
+            android:id="@+id/viewAddress"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/grey_dark_text"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/grey_dark_text"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/relEmail"
-
-        >
-        <TextView
-            android:layout_margin="8dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelEmail"
-            android:text="@string/email"
-            android:layout_weight="1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="8dp" />
-        <TextView
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvEmail"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/grey_dark_text"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/relContactPhone"
-
-        >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_margin="8dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelPhone"
-            android:text="@string/phone"
-            android:layout_weight="1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="8dp" />
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_margin="8dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvPhone"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/grey_dark_text"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/relCountry"
-
-        >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_margin="8dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelCountry"
-            android:text="@string/country"
-            android:layout_weight="1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="8dp" />
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvCountry"
-            android:layout_centerVertical="true"
-            android:layout_margin="8dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/grey_dark_text"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/relZip"
-
-        >
-        <TextView
-            android:layout_margin="8dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelZip"
-            android:text="@string/zip"
-            android:layout_weight="1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="8dp" />
-        <TextView
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvZip"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/grey_dark_text"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/relCity"
-
-        >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_margin="8dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelCity"
-            android:text="@string/city"
-            android:layout_weight="1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="8dp" />
-        <TextView
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvCity"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/grey_dark_text"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/relAddress"
-
-        >
-        <TextView
-            android:layout_margin="8dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelAddress"
-            android:text="@string/address"
-            android:layout_weight="1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="8dp" />
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAddress"
-            android:layout_margin="8dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/grey_dark_text"/>
-
 </LinearLayout>

@@ -29,7 +29,7 @@ public class SendDocumentsDataCallback extends BaseCallBack<PersonData> {
         if (!isCancel) {
             Log.e("qa ", "inside success");
             if (response != null && response.body() != null && response.body().getError() == null) {
-                listener.onSuccess(null);
+                listener.onSuccess(response.body());
             } else if (response != null) {
                 listener.onFail(null);
             }

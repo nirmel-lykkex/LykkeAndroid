@@ -89,4 +89,7 @@ public interface RestApi {
     @POST("/api/BankCards")
     Call<BankCardsData> postBankCards(@Header("Authorization")String authorization,
                                       @Body CardModel model);
+
+    @GET("api/PersonalData")
+    Call<PersonData> getPersonalData(@Header("Authorization")String authorization);
 }
