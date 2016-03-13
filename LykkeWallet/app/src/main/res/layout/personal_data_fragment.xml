@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -8,12 +9,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/relName"
-        android:background="@color/white"
+
         >
         <TextView
             android:layout_weight="1"
             android:layout_margin="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/lableName"
             android:text="@string/full_name"
@@ -25,7 +26,7 @@
             android:layout_marginRight="8dp" />
         <TextView
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvName"
             android:layout_margin="8dp"
@@ -43,11 +44,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/relEmail"
-        android:background="@color/white"
+
         >
         <TextView
             android:layout_margin="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/labelEmail"
             android:text="@string/email"
@@ -59,7 +60,7 @@
         <TextView
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvEmail"
             android:layout_centerVertical="true"
@@ -75,10 +76,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/relContactPhone"
-        android:background="@color/white"
+
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_margin="8dp"
             android:layout_height="wrap_content"
             android:id="@+id/labelPhone"
@@ -90,7 +91,7 @@
             android:layout_marginRight="8dp" />
         <TextView
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_margin="8dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvPhone"
@@ -107,10 +108,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/relCountry"
-        android:background="@color/white"
+
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_margin="8dp"
             android:layout_height="wrap_content"
             android:id="@+id/labelCountry"
@@ -122,7 +123,7 @@
             android:layout_marginRight="8dp" />
         <TextView
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvCountry"
             android:layout_centerVertical="true"
@@ -140,11 +141,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/relZip"
-        android:background="@color/white"
+
         >
         <TextView
             android:layout_margin="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/labelZip"
             android:text="@string/zip"
@@ -156,7 +157,7 @@
         <TextView
             android:layout_weight="1"
             android:layout_margin="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvZip"
             android:layout_centerVertical="true"
@@ -172,10 +173,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/relCity"
-        android:background="@color/white"
+
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_margin="8dp"
             android:layout_height="wrap_content"
             android:id="@+id/labelCity"
@@ -188,7 +189,7 @@
         <TextView
             android:layout_weight="1"
             android:layout_margin="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvCity"
             android:layout_centerVertical="true"
@@ -204,11 +205,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/relAddress"
-        android:background="@color/white"
+
         >
         <TextView
             android:layout_margin="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/labelAddress"
             android:text="@string/address"
@@ -219,7 +220,7 @@
             android:layout_marginRight="8dp" />
         <TextView
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvAddress"
             android:layout_margin="8dp"
