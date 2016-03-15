@@ -35,6 +35,7 @@ public class BaseAssetAdapter extends BaseAdapter implements CallBackListener{
     private Activity mContext;
     private UserPref_ pref;
     private ProgressDialog dialog;
+    private String id;
 
     public BaseAssetAdapter(BaseAsset[] list, Activity context,
                             UserPref_ pref){
@@ -81,24 +82,24 @@ public class BaseAssetAdapter extends BaseAdapter implements CallBackListener{
         tvAsset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = (String) view.getTag();
-                sendRequest(id);
+                id = (String) view.getTag();
+                sendRequest();
             }
         });
 
         imgAsset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = (String) view.getTag();
-                sendRequest(id);
+                id = (String) view.getTag();
+                sendRequest();
             }
         });
 
         relData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = (String) view.getTag();
-                sendRequest(id);
+                id = (String) view.getTag();
+                sendRequest();
             }
         });
 
@@ -111,7 +112,7 @@ public class BaseAssetAdapter extends BaseAdapter implements CallBackListener{
         return view;
     }
 
-    private void sendRequest(String id){
+    private void sendRequest(){
         dialog.show();
         IdBaseAsset asset = new IdBaseAsset(id);
         Call<BaseAssetData> call = LykkeApplication_.getInstance().getRestApi().
@@ -124,7 +125,7 @@ public class BaseAssetAdapter extends BaseAdapter implements CallBackListener{
     public void onSuccess(Object result) {
         if (result instanceof BaseAssetResult){
             dialog.hide();
-            SettingSinglenton.getInstance().setBaseAssets(((BaseAssetResult) result).getAsset());
+            SettingSinglenton.getInstance().setBaseAssetId(id);
             mContext.finish();
         }
     }
