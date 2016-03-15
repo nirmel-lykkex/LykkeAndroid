@@ -6,5 +6,6 @@ package com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting;
 public enum SettingEnum {
     personalData,
     pushnotifications,
-    signorder
+    signorder,
+    baseasset
 }

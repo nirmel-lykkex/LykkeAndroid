@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relData"
+        android:clickable="true"
+        android:background="@color/light_blue"
+        >
+        <TextView
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAsset"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/imgPersonalData"
+            android:layout_toStartOf="@+id/imgPersonalData"
+            android:layout_margin="8dp" />
+        <ImageView
+            android:clickable="true"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgAsset"
+            android:visibility="gone"
+            android:src="@drawable/arrow_well"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</LinearLayout>

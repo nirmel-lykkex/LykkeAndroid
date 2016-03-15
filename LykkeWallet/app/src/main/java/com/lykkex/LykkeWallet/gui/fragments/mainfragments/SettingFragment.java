@@ -36,10 +36,12 @@ public class SettingFragment extends Fragment {
     @ViewById Switch switchCheck;
     @Pref  UserPref_ userPref;
     @ViewById TextView tvExit;
+    @ViewById TextView tvBaseInfo;
 
     @AfterViews
     public void afterViews(){
         tvExit.setText(getString(R.string.exit) + " " + userPref.fullName().get());
+        tvBaseInfo.setText(SettingSinglenton.getInstance().getBaseAssetSymbol());
         switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
         switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -116,7 +118,10 @@ public class SettingFragment extends Fragment {
     }
 
     public void clickBaseCurrency(){
-
+        Intent intent = new Intent();
+        intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.baseasset);
+        intent.setClass(getActivity(), SettingActivity_.class);
+        startActivity(intent);
     }
 
     public void clickPush(){

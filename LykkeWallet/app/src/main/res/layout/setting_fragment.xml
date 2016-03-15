@@ -120,6 +120,18 @@
             android:layout_toLeftOf="@+id/imgBaseCurrency"
             android:layout_toStartOf="@+id/imgBaseCurrency"
             android:layout_margin="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBaseInfo"
+            android:textSize="18sp"
+            android:text="@string/base_asset"
+            android:layout_alignRight="@+id/tvBaseCurrency"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgBaseCurrency"
+            android:layout_toStartOf="@+id/imgBaseCurrency"
+            android:layout_margin="8dp" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

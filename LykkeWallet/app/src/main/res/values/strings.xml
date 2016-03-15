@@ -86,6 +86,6 @@
     <string name="push_title">PUSH NOTIFICATIONS</string>
     <string name="new_asset">New asset alert</string>
     <string name="sign_orders_was_changed">Sign orders was changed</string>
-
+    <string name="base_asset_title">BASE ASSET</string>
 </resources>
 

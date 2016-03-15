@@ -27,6 +27,9 @@ public class SettingActivity extends BaseActivity {
             case pushnotifications:
                 initFragment(new PushFragment_(), null);
                 break;
+            case baseasset:
+                initFragment(new BaseAssetFragment_(), null);
+                break;
         }
     }
 
