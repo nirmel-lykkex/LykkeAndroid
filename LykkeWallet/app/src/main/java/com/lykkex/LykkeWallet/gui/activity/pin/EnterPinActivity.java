@@ -15,6 +15,9 @@ import com.lykkex.LykkeWallet.rest.internal.callback.SignSettingOrderCallBack;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrder;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrderData;
 import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSetUp;
+import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSignIn;
+import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
+import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -27,6 +30,7 @@ import retrofit2.Call;
 @EActivity(R.layout.pin_activity)
 public class EnterPinActivity extends BasePinActivity{
 
+    private int countFail = 0;
     @AfterViews
     public void afterViews(){
         super.afterViews();
@@ -38,8 +42,8 @@ public class EnterPinActivity extends BasePinActivity{
         switch (pin.length()) {
             case 4:
                 dialog.show();
-                CallBackPinSetUp callback = new CallBackPinSetUp(this, this);
-                Call<Error> call  = LykkeApplication_.getInstance().getRestApi().
+                CallBackPinSignIn callback = new CallBackPinSignIn(this, this);
+                Call<SecurityData> call  = LykkeApplication_.getInstance().getRestApi().
                         signInPinSecurite(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
                                 pin);
                 call.enqueue(callback);
@@ -53,19 +57,29 @@ public class EnterPinActivity extends BasePinActivity{
     public void onSuccess(Object result) {
         SettingEnum settingEnum = null;
         if (getIntent().getExtras() != null &&
-                getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT_SETTING) != null)
-        {
+                getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT_SETTING) != null) {
             settingEnum =
                     (SettingEnum) getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT_SETTING);
         }
-        if (settingEnum == null) {
-            dialog.dismiss();
 
-            Intent intent = new Intent();
-            intent.setClass(this, MainActivity_.class);
-            startActivity(intent);
-            finish();
-        } else {
+        if (result instanceof SecurityData) {
+            if (((SecurityData)result).getResult().isPassed() && settingEnum == null) {
+                    dialog.dismiss();
+
+                    Intent intent = new Intent();
+                    intent.setClass(this, MainActivity_.class);
+                    startActivity(intent);
+                    finish();
+            } else if (countFail < 2) {
+                dialog.dismiss();
+                onFail(null);
+                countFail +=1;
+            } else {
+                dialog.dismiss();
+                finish();
+            }
+        }
+        if (settingEnum != null){
             if (result instanceof SettingSignOrder) {
                 dialog.dismiss();
 
@@ -88,6 +102,7 @@ public class EnterPinActivity extends BasePinActivity{
     @Override
     public void onFail(Object error) {
         dialog.dismiss();
+        pin = "";
         imgFirst.setImageResource(R.drawable.pin_un_setup);
         imgSecond.setImageResource(R.drawable.pin_un_setup);
         imgThird.setImageResource(R.drawable.pin_un_setup);

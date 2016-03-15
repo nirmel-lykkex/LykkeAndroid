@@ -7,6 +7,22 @@ import com.google.gson.annotations.SerializedName;
  */
 public class SecurityResult {
 
+    public boolean isPassed() {
+        return passed;
+    }
+
+    public void setPassed(boolean passed) {
+        this.passed = passed;
+    }
+
+    public SecuritySetting getSetting() {
+        return setting;
+    }
+
+    public void setSetting(SecuritySetting setting) {
+        this.setting = setting;
+    }
+
     @SerializedName("Passed")
     private boolean passed;
 

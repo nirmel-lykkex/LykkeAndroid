@@ -25,7 +25,7 @@ public class CallBackPinSignIn extends BaseCallBack<SecurityData> {
         super.onResponse(call, response);
         if (!isCancel) {
             if (response != null && response.errorBody() == null) {
-                listener.onSuccess(response);
+                listener.onSuccess(response.body());
             } else {
                 listener.onFail(null);
             }

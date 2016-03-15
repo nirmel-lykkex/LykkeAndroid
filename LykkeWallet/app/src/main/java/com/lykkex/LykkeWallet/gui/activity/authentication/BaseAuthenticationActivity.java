@@ -108,9 +108,9 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
     @Override
     public void onFail(Object error) {
         count +=1;
-
         mHandler.removeCallbacks(run);
-        if (count <= 3) {
+
+        if (count <= 3 && ((Error)error).getCode() != Constants.ERROR_401) {
             mHandler.postDelayed(run, Constants.DELAY_5000);
         } else {
             userPref.clear();

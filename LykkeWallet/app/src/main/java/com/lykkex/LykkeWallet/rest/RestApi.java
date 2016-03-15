@@ -16,6 +16,7 @@ import com.lykkex.LykkeWallet.rest.login.request.model.AuthRequest;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
 import com.lykkex.LykkeWallet.rest.pin.request.model.PinRequest;
+import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
 import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
@@ -70,8 +71,8 @@ public interface RestApi {
                                 @Body PinRequest pin);
 
     @GET ("/api/PinSecurity")
-    Call<Error> signInPinSecurite(@Header("Authorization")String authorization,
-                                @Query("Pin") String pin);
+    Call<SecurityData> signInPinSecurite(@Header("Authorization")String authorization,
+                                         @Query("Pin") String pin);
 
     @GET("/api/LykkeWallet")
     Call<LykkeWallerData> getLykkeWallet(@Header("Authorization")String authorization);

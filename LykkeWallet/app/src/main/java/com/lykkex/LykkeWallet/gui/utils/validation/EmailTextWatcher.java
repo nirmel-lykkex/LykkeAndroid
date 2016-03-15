@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.gui.utils.validation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,10 +64,12 @@ public class EmailTextWatcher implements TextWatcher, View.OnFocusChangeListener
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         buttonAction.setEnabled(false);
-       setUpClearButton(charSequence.toString());
+        setUpClearButton(charSequence.toString());
             if (charSequence.toString().matches(REGEX_VALIDATION)){
                 progressBar.setVisibility(View.VISIBLE);
-                Call<AccountExistData> call  = LykkeApplication_.getInstance().getRestApi().accountExis(charSequence.toString());
+                Call<AccountExistData> call  =
+                        LykkeApplication_.getInstance().getRestApi().accountExis(editText.
+                                getText().toString());
                 call.enqueue(callback);
              } else {
                 imgWell.setVisibility(View.GONE);

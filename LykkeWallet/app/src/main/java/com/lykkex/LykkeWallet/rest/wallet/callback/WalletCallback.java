@@ -21,6 +21,7 @@ public class WalletCallback extends BaseCallBack<LykkeWallerData> {
 
     @Override
     public void onResponse(Call<LykkeWallerData> call, Response<LykkeWallerData> response) {
+        super.onResponse(call, response);
         if (response != null && response.errorBody() == null){
             listener.onSuccess(response.body());
         } else {
