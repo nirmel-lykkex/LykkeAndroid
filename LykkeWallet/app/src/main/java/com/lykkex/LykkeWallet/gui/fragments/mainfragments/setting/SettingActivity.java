@@ -24,6 +24,9 @@ public class SettingActivity extends BaseActivity {
             case personalData:
                 initFragment(new PersonalDataFragment_(), null);
                 break;
+            case pushnotifications:
+                initFragment(new PushFragment_(), null);
+                break;
         }
     }
 

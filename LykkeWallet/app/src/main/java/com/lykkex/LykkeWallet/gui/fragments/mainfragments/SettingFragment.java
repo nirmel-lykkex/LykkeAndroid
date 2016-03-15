@@ -40,12 +40,13 @@ public class SettingFragment extends Fragment {
     @AfterViews
     public void afterViews(){
         tvExit.setText(getString(R.string.exit) + " " + userPref.fullName().get());
+        switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
         switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), EnterPinActivity_.class);
+                intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.signorder);
                 startActivity(intent);
             }
         });
@@ -119,7 +120,10 @@ public class SettingFragment extends Fragment {
     }
 
     public void clickPush(){
-
+        Intent intent = new Intent();
+        intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.pushnotifications);
+        intent.setClass(getActivity(), SettingActivity_.class);
+        startActivity(intent);
     }
 
     public void clickPersonal(){

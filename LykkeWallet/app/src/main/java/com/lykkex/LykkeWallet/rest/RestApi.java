@@ -9,6 +9,8 @@ import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingData;
+import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrder;
+import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrderData;
 import com.lykkex.LykkeWallet.rest.login.request.model.AuthRequest;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
@@ -92,4 +94,8 @@ public interface RestApi {
 
     @GET("api/PersonalData")
     Call<PersonData> getPersonalData(@Header("Authorization")String authorization);
+
+    @POST("api/SettingSignOrder")
+    Call<SettingSignOrderData> postSettingSignOrder(@Header("Authorization")String authorization,
+                                                    @Body SettingSignOrder order);
 }
