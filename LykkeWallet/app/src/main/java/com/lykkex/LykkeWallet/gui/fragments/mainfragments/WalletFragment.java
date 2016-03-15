@@ -64,8 +64,11 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private void setUpAdapter(LykkeWalletResult result, boolean isItGet){
         if ((result == null || result.getBankCardses() == null
-                || result.getLykke() == null) ||
-                (result.getBankCardses().length == 0 && result.getLykke().getAssets().length == 0)
+                || result.getLykke() == null || result.getLykke().getAssets() == null ) ||
+                (result != null
+                        && result.getBankCardses() != null &&
+                        result.getLykke() != null && result.getLykke().getAssets() != null &&
+                        result.getBankCardses().length == 0 && result.getLykke().getAssets().length == 0)
                         && isItGet){
             result = WalletSinglenton.getInstance().getResult();
         }
