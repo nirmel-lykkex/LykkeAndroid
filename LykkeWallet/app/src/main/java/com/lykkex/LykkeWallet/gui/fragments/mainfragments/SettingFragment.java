@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -38,20 +39,27 @@ public class SettingFragment extends Fragment {
     @ViewById TextView tvExit;
     @ViewById TextView tvBaseInfo;
 
-    @AfterViews
-    public void afterViews(){
-        tvExit.setText(getString(R.string.exit) + " " + userPref.fullName().get());
-        tvBaseInfo.setText(SettingSinglenton.getInstance().getBaseAssetSymbol());
-        switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
-        switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    public void onStart(){
+        super.onStart();
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), EnterPinActivity_.class);
-                intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.signorder);
-                startActivity(intent);
+            public void run() {
+
+                tvExit.setText(getString(R.string.exit) + " " + userPref.fullName().get());
+                tvBaseInfo.setText(SettingSinglenton.getInstance().getBaseAssetId());
+                switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
+                switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        Intent intent = new Intent();
+                        intent.setClass(getActivity(), EnterPinActivity_.class);
+                        intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.signorder);
+                        startActivity(intent);
+                    }
+                });
+
             }
-        });
+        }, Constants.DELAY_500);
     }
 
     @Click(R.id.relPersonalData)

@@ -19,6 +19,7 @@ import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.internal.callback.BaseAssetCallback;
+import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetResult;
@@ -112,8 +113,9 @@ public class BaseAssetAdapter extends BaseAdapter implements CallBackListener{
 
     private void sendRequest(String id){
         dialog.show();
+        IdBaseAsset asset = new IdBaseAsset(id);
         Call<BaseAssetData> call = LykkeApplication_.getInstance().getRestApi().
-                postBaseAsset(Constants.PART_AUTHORIZATION + pref.authToken().get(), id);
+                postBaseAsset(Constants.PART_AUTHORIZATION + pref.authToken().get(), asset);
         BaseAssetCallback baseAssetCallback = new BaseAssetCallback(this, mContext);
         call.enqueue(baseAssetCallback);
     }

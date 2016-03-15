@@ -7,6 +7,7 @@ import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
+import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrder;
@@ -86,7 +87,7 @@ public interface RestApi {
 
     @POST("/api/BaseAsset")
     Call<BaseAssetData> postBaseAsset(@Header("Authorization")String authorization,
-                                      @Query("Id") String id);
+                                      @Body IdBaseAsset id);
 
     @POST("/api/BankCards")
     Call<BankCardsData> postBankCards(@Header("Authorization")String authorization,
