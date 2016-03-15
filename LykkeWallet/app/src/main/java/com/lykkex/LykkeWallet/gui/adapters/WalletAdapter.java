@@ -191,9 +191,13 @@ public class WalletAdapter extends BaseAdapter {
         holder.relInfo.setVisibility(View.VISIBLE);
         if (isItGet) {
             List<AssetsWallet> list= new ArrayList<>();
-            for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
-                if (Double.valueOf(assetsWallet.getBalance()) > 0 ){
-                    list.add(assetsWallet);
+            if (lykkeWallet != null &&
+                    lykkeWallet.getLykke() != null &&
+                    lykkeWallet.getLykke().getAssets() != null) {
+                for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
+                    if (Double.valueOf(assetsWallet.getBalance()) > 0) {
+                        list.add(assetsWallet);
+                    }
                 }
             }
             if (list != null &&

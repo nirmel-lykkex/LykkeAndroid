@@ -12,6 +12,7 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.adapters.WalletAdapter;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
+import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
@@ -62,9 +63,17 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
 
     private void setUpAdapter(LykkeWalletResult result, boolean isItGet){
+        if ((result == null || result.getBankCardses() == null
+                || result.getLykke() == null) ||
+                (result.getBankCardses().length == 0 && result.getLykke().getAssets().length == 0)
+                        && isItGet){
+            result = WalletSinglenton.getInstance().getResult();
+        }
+        WalletSinglenton.getInstance().setResult(result);
         adapter = new WalletAdapter(result, getActivity(), isItGet);
         listView.setAdapter(adapter);
         swipeRefresh.setRefreshing(false);
+
     }
 
     @Override

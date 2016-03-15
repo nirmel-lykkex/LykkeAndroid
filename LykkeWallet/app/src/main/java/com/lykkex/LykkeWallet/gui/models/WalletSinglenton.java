@@ -1,0 +1,27 @@
+package com.lykkex.LykkeWallet.gui.models;
+
+import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWalletResult;
+
+/**
+ * Created by LIZA on 15.03.2016.
+ */
+public class WalletSinglenton {
+
+    public LykkeWalletResult getResult() {
+        return result;
+    }
+
+    public void setResult(LykkeWalletResult result) {
+        this.result = result;
+    }
+
+    private LykkeWalletResult result;
+    private static WalletSinglenton instance;
+
+    public static WalletSinglenton getInstance(){
+        if (instance == null) {
+            instance = new WalletSinglenton();
+        }
+        return instance;
+    }
+}

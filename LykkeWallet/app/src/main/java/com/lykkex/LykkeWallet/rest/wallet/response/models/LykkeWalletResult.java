@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class LykkeWalletResult {
 
+
     @SerializedName("Lykke")
     private LykkeWallet lykke = new LykkeWallet();
 
