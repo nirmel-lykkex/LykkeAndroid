@@ -39,11 +39,12 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private WalletAdapter adapter;
     @Pref  UserPref_ userPref;
     private boolean shouldShowError = false;
+    private boolean isItGet = false;
 
     @AfterViews
     public void afterViews(){
         LykkeWalletResult res = new LykkeWalletResult();
-        setUpAdapter(res, false);
+        setUpAdapter(res, isItGet);
         swipeRefresh.setOnRefreshListener(this);
     }
 
@@ -92,19 +93,20 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     Toast.LENGTH_LONG).show();
         }
         shouldShowError = true;
-        setUpAdapter(((LykkeWallerData) result).getResult(), true);
+        isItGet = true;
+        setUpAdapter(((LykkeWallerData) result).getResult(), isItGet);
     }
 
     @Override
     public void onFail(Object error) {
-        if (shouldShowError && getActivity() != null
-                && ((Error)error).getCode() !=
-                Constants.ERROR_401){
+        if ((error == null || ((Error)error).getCode() !=
+                Constants.ERROR_401) && shouldShowError && getActivity() != null
+                ){
             Toast.makeText(getActivity(), getString(R.string.server_error),
                     Toast.LENGTH_LONG).show();
         }
         LykkeWalletResult res = new LykkeWalletResult();
-        setUpAdapter(res, false);
+        setUpAdapter(res, isItGet);
         shouldShowError = true;
     }
 }
