@@ -6,13 +6,24 @@ package com.lykkex.LykkeWallet.gui.adapters;
 public class DrawerModel {
 
     private String name;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    private String title;
     private int res;
     private int resActive;
 
-    public DrawerModel(String name, int res, int resActive){
+    public DrawerModel(String name, int res, int resActive, String title){
         this.name = name;
         this.res = res;
         this.resActive = resActive;
+        this.title= title;
     }
 
     public int getResActive() {

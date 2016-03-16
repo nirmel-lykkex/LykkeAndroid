@@ -40,25 +40,33 @@ public class DrawerAdapter extends BaseAdapter {
         this.mContext = context;
         DrawerModel drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.wallet_item),
-                R.drawable.wallet_inactive, R.drawable.wallet_active);
+                R.drawable.wallet_inactive, R.drawable.wallet_active,
+                LykkeApplication_.getInstance().
+                        getResources().getString(R.string.wallet_title));
 
         listModel.add(drawerModel);
 
         drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.trading_item),
-                R.drawable.trading_inactive, R.drawable.trading_active);
+                R.drawable.trading_inactive, R.drawable.trading_active,
+                LykkeApplication_.getInstance().
+                        getResources().getString(R.string.trading_title));
 
         listModel.add(drawerModel);
 
         drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.history_item),
-                R.drawable.history_inactive, R.drawable.history_active);
+                R.drawable.history_inactive, R.drawable.history_active,
+                LykkeApplication_.getInstance().
+                        getResources().getString(R.string.history_title));
 
         listModel.add(drawerModel);
 
         drawerModel = new DrawerModel(LykkeApplication_.getInstance().
                 getResources().getString(R.string.setting_item),
-                R.drawable.setting_inactive, R.drawable.setting_active);
+                R.drawable.setting_inactive, R.drawable.setting_active,
+                LykkeApplication_.getInstance().
+                        getResources().getString(R.string.setting_title));
 
         listModel.add(drawerModel);
     }

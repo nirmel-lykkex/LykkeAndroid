@@ -4,6 +4,10 @@
     <string name="history_item">History</string>
     <string name="setting_item">Settings</string>
     <string name="app_name">Lykke Wallet</string>
+    <string name="wallet_title">WALLETS</string>
+    <string name="trading_title">EXCHANGE</string>
+    <string name="history_title">HISTORY</string>
+    <string name="setting_title">SETTINGS</string>
     <string name="credit_card">VISA/MASTERCARD</string>
     <string name="lykke_title">LYKKE</string>
     <string name="no_info_cards">Cards not added</string>
@@ -87,5 +91,9 @@
     <string name="new_asset">New asset alert</string>
     <string name="sign_orders_was_changed">Sign orders was changed</string>
     <string name="base_asset_title">BASE ASSET</string>
+    <string name="select_an_asset">Select an asset</string>
+    <string name="issuer">Issuer/Asset</string>
+    <string name="price">Price</string>
+    <string name="change">Change</string>
 </resources>
 

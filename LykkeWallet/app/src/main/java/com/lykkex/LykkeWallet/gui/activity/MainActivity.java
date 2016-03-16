@@ -164,22 +164,22 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
             case 0:
                 fragment = new WalletFragment_();
                 adapter.setActive(0);
-                mTitle = adapter.getListModel().get(0).getName();
+                mTitle = adapter.getListModel().get(0).getTitle();
                 break;
             case 1:
                 fragment = new TradingFragment_();
                 adapter.setActive(1);
-                mTitle = adapter.getListModel().get(1).getName();
+                mTitle = adapter.getListModel().get(1).getTitle();
                 break;
             case 2:
                 fragment = new HistoryFragment_();
                 adapter.setActive(2);
-                mTitle = adapter.getListModel().get(2).getName();
+                mTitle = adapter.getListModel().get(2).getTitle();
                 break;
             case 3:
                 fragment = new SettingFragment_();
                 adapter.setActive(2);
-                mTitle = adapter.getListModel().get(3).getName();
+                mTitle = adapter.getListModel().get(3).getTitle();
                 break;
             default:
                 break;
