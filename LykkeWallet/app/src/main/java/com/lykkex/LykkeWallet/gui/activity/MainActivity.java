@@ -178,7 +178,7 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
                 break;
             case 3:
                 fragment = new SettingFragment_();
-                adapter.setActive(2);
+                adapter.setActive(3);
                 mTitle = adapter.getListModel().get(3).getTitle();
                 break;
             default:

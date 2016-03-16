@@ -88,13 +88,22 @@ public class EnterPinActivity extends BasePinActivity{
                 Toast.makeText(this, R.string.sign_orders_was_changed, Toast.LENGTH_LONG).show();
                 finish();
             } else {
-                SettingSignOrder order = new SettingSignOrder();
-                order.setSignOrderBeforeGo(!SettingSinglenton.getInstance().isShouldSignOrder());
-                SignSettingOrderCallBack callBack = new SignSettingOrderCallBack(this, this);
-                Call<SettingSignOrderData> call = LykkeApplication_.getInstance().getRestApi().
-                        postSettingSignOrder(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                                order);
-                call.enqueue(callBack);
+                if (((SecurityData)result).getResult().isPassed()) {
+                    SettingSignOrder order = new SettingSignOrder();
+                    order.setSignOrderBeforeGo(!SettingSinglenton.getInstance().isShouldSignOrder());
+                    SignSettingOrderCallBack callBack = new SignSettingOrderCallBack(this, this);
+                    Call<SettingSignOrderData> call = LykkeApplication_.getInstance().getRestApi().
+                            postSettingSignOrder(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
+                                    order);
+                    call.enqueue(callBack);
+                } else if (countFail < 2) {
+                    dialog.dismiss();
+                    onFail(null);
+                    countFail +=1;
+                } else {
+                    dialog.dismiss();
+                    finish();
+                }
             }
         }
     }

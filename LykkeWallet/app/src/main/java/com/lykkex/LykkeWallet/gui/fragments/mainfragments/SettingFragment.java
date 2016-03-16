@@ -45,16 +45,19 @@ public class SettingFragment extends Fragment {
             @Override
             public void run() {
 
-                tvExit.setText(getString(R.string.exit) + " " + userPref.fullName().get());
+                tvExit.setText(getString(R.string.exit) + " " + userPref.email().get());
                 tvBaseInfo.setText(SettingSinglenton.getInstance().getBaseAssetId());
                 switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
                 switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        Intent intent = new Intent();
-                        intent.setClass(getActivity(), EnterPinActivity_.class);
-                        intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.signorder);
-                        startActivity(intent);
+                        if (b != SettingSinglenton.getInstance().isShouldSignOrder()) {
+                            switchCheck.setChecked(!b);
+                            Intent intent = new Intent();
+                            intent.setClass(getActivity(), EnterPinActivity_.class);
+                            intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.signorder);
+                            startActivity(intent);
+                        }
                     }
                 });
 

@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         
         android:id="@+id/relPersonalData"
         android:background="@color/light_blue"
@@ -37,7 +37,7 @@
         android:background="@color/grey_dark_text"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         
         android:id="@+id/relCheking"
         android:background="@color/light_blue"
@@ -70,7 +70,7 @@
         android:background="@color/grey_dark_text"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         
         android:id="@+id/relPush"
         android:background="@color/light_blue"
@@ -103,7 +103,7 @@
         android:background="@color/grey_dark_text"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         
         android:id="@+id/relBaseCurrency"
         android:background="@color/light_blue"
@@ -148,7 +148,7 @@
         android:background="@color/grey_dark_text"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         
         android:id="@+id/relExit"
         android:background="@color/light_blue"

@@ -78,7 +78,7 @@
     <string name="exit">Log out from </string>
     <string name="push">Push notifications</string>
     <string name="base_asset">Base asset</string>
-    <string name="check_orders">Sign orders with PIN/Touch ID</string>
+    <string name="check_orders">Sign orders with PIN</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
     <string name="phone">Contact Phone</string>
