@@ -8,6 +8,7 @@ import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
+import com.lykkex.LykkeWallet.rest.internal.response.model.AssetPairData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrder;
@@ -25,6 +26,7 @@ import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -100,4 +102,7 @@ public interface RestApi {
     @POST("api/SettingSignOrder")
     Call<SettingSignOrderData> postSettingSignOrder(@Header("Authorization")String authorization,
                                                     @Body SettingSignOrder order);
+
+    @GET("/api/AssetPairs")
+    Call<AssetPairData> getAssetPairs(@Header("Authorization")String authorization);
 }
