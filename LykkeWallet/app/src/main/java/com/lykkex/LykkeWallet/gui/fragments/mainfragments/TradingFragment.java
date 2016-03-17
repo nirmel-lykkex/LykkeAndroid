@@ -1,6 +1,8 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -12,6 +14,7 @@ import com.lykkex.LykkeWallet.gui.models.AssetPairSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairCallBack;
+import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPair;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairsResult;
 
@@ -74,9 +77,14 @@ public class TradingFragment extends Fragment implements CallBackListener {
     private void setUpView(AssetPairsResult result){
         progressBar.setVisibility(View.GONE);
         if (AssetPairSinglenton.getInstance().isCollapsed()) {
-
+            for (AssetPair pair : result.getAssetPairs()) {
+                LayoutInflater lInflater = (LayoutInflater) getActivity()
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = lInflater.inflate(R.layout.trading_item, null, false);
+                linearEntity.addView(view);
+            }
         } else {
-
+            linearEntity.removeAllViews();
         }
     }
 

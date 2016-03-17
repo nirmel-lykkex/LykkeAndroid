@@ -103,9 +103,9 @@ public interface RestApi {
     Call<SettingSignOrderData> postSettingSignOrder(@Header("Authorization")String authorization,
                                                     @Body SettingSignOrder order);
 
-    @GET("/api/AssetPairs")
+    @GET("api/AssetPairs")
     Call<AssetPairData> getAssetPairs(@Header("Authorization")String authorization);
 
-    @GET("/api/AssetPairRates")
+    @GET("api/AssetPairRates")
     Call<RateData> getAssetPairsRates(@Header("Authorization")String authorization);
 }
