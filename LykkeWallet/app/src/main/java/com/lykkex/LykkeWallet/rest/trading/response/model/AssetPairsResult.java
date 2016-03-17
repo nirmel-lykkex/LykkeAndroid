@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.rest.internal.response.model;
+package com.lykkex.LykkeWallet.rest.trading.response.model;
 
 import com.google.gson.annotations.SerializedName;
 

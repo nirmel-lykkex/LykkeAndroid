@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.rest.internal.response.model;
+package com.lykkex.LykkeWallet.rest.trading.response.model;
 
 import com.lykkex.LykkeWallet.rest.base.models.BaseModel;
 

@@ -1,10 +1,10 @@
-package com.lykkex.LykkeWallet.rest.internal.callback;
+package com.lykkex.LykkeWallet.rest.trading.callback;
 
 import android.app.Activity;
 
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.BaseCallBack;
-import com.lykkex.LykkeWallet.rest.internal.response.model.AssetPairData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
 
 import retrofit2.Call;
 import retrofit2.Response;
