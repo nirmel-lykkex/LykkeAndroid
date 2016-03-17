@@ -9,6 +9,8 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EApplication;
 
 import io.fabric.sdk.android.Fabric;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -26,7 +28,12 @@ public class LykkeApplication extends Application {
     public void init() {
         //Fabric.with(this, new Crashlytics());
 
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         retrofit = new Retrofit.Builder()
+                .client(client)
                 .baseUrl("https://lykke-api-dev.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

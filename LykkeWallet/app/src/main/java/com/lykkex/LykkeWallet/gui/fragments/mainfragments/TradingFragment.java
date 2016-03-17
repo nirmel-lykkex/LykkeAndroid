@@ -71,7 +71,7 @@ public class TradingFragment extends Fragment implements CallBackListener {
         AssetPairCallBack callBack = new AssetPairCallBack(this, getActivity());
         Call<AssetPairData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairs
                 (Constants.PART_AUTHORIZATION + pref.authToken().get());
-        call.equals(callBack);
+        call.enqueue(callBack);
     }
 
     private void setUpView(AssetPairsResult result){
