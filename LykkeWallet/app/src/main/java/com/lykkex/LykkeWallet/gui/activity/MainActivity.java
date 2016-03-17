@@ -131,7 +131,6 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
     @Override
     public void onSuccess(Object result) {
         if (result instanceof BaseAssetResult) {
-            Log.e("Liza ", "get asset");
              singlenton.setBaseAssets(
                      ((BaseAssetResult) result).getAsset());
         } else if (result instanceof SettingResult) {

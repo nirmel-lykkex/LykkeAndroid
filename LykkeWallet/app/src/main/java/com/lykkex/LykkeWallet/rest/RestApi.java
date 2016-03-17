@@ -21,6 +21,7 @@ import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
 import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.wallet.request.models.CardModel;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
@@ -106,5 +107,5 @@ public interface RestApi {
     Call<AssetPairData> getAssetPairs(@Header("Authorization")String authorization);
 
     @GET("/api/AssetPairRates")
-    Call<AssetPairData> getAssetPairsRates(@Header("Authorization")String authorization);
+    Call<RateData> getAssetPairsRates(@Header("Authorization")String authorization);
 }
