@@ -24,7 +24,9 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionResult;
 import com.lykkex.LykkeWallet.rest.trading.response.model.Rate;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.RatesResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -132,10 +134,10 @@ public class TradingDescription  extends BaseFragment {
                 linearPop.addView(imageView);
             }
             startHandler();
-        } else if (result instanceof Rate) {
-            if (((Rate) result).getBid() != null) {
+        } else if (result instanceof RateResult) {
+            if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null) {
                 btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
-                        (Double.parseDouble(((Rate) result).getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                        (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
             }
         }
     }
