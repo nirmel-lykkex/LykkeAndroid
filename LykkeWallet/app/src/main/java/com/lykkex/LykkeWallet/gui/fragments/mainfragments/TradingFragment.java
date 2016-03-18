@@ -153,11 +153,11 @@ public class TradingFragment extends Fragment implements CallBackListener {
     }
 
     private void setUpClickItem(AssetPair pair, View tvPrice) {
-        tvPrice.setTag(pair.getId());
+        tvPrice.setTag(pair);
         tvPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickItem((String) view.getTag());
+                clickItem((AssetPair) view.getTag());
             }
         });
     }
@@ -166,11 +166,12 @@ public class TradingFragment extends Fragment implements CallBackListener {
         handler.removeCallbacks(run);
     }
 
-    private void clickItem(String id){
+    private void clickItem(AssetPair pair){
         Intent intent = new Intent();
         intent.setClass(getActivity(), TradingActivity_.class);
         intent.putExtra(Constants.EXTRA_FRAGMENT, TradingEnum.description);
-        intent.putExtra(Constants.EXTRA_ASSETPAIR_ID, id);
+        intent.putExtra(Constants.EXTRA_ASSETPAIR_NAME, pair.getName());
+        intent.putExtra(Constants.EXTRA_ASSETPAIR_ID, pair.getId());
         startActivity(intent);
     }
 

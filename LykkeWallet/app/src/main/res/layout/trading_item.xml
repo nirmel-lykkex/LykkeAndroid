@@ -1,77 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:clickable = "true"
     android:id="@+id/rootLinear"
     android:background="@color/light_blue"
     android:layout_height="wrap_content">
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:layout_height="20dp"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:clickable = "true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="eur/usd"
-        android:id="@+id/tvAssetName"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp" />
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:id="@+id/relInfo"
-        android:clickable = "true"
+        android:id="@+id/rootLinear"
+        android:background="@color/light_blue"
         android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="20dp"
-        android:src="@drawable/info"
-        android:layout_height="20dp"
-        android:clickable = "true"
-        android:foregroundGravity="center"
-        android:id="@+id/imgInfo"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp" />
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:id="@+id/relPrice"
-        android:clickable = "true"
-        android:layout_height="wrap_content">
         <TextView
-            android:layout_width="25dp"
-            android:background="@drawable/price_not_come"
-            android:layout_height="24dp"
-            android:foregroundGravity="center"
-            android:id="@+id/tvPrice"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="20dp"
             android:clickable = "true"
-            android:textColor="@color/blue_color"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="16dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="eur/usd"
+            android:id="@+id/tvAssetName"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp" />
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/relInfo"
+            android:clickable = "true"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:src="@drawable/info"
+                android:layout_height="20dp"
+                android:clickable = "true"
+                android:foregroundGravity="center"
+                android:id="@+id/imgInfo"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="18dp" />
+        </RelativeLayout>
 
-    <com.lykkex.LykkeWallet.gui.widgets.DrawLine
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:clickable = "true"
-        android:layout_height="24dp"
-        android:id="@+id/graphic"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp" />
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/relPrice"
+            android:clickable = "true"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="25dp"
+                android:background="@drawable/price_not_come"
+                android:layout_height="24dp"
+                android:foregroundGravity="center"
+                android:id="@+id/tvPrice"
+                android:gravity="center"
+                android:clickable = "true"
+                android:textColor="@color/blue_color"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp" />
+
+        </RelativeLayout>
+
+        <com.lykkex.LykkeWallet.gui.widgets.DrawLine
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:clickable = "true"
+            android:layout_height="24dp"
+            android:id="@+id/graphic"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp" />
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grey_text"/></LinearLayout>

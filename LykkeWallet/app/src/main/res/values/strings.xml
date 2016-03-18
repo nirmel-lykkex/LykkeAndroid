@@ -95,5 +95,11 @@
     <string name="issuer">Issuer/Asset</string>
     <string name="price">Price</string>
     <string name="change">Change</string>
+    <string name="labelAssetClass">Asset class</string>
+    <string name="labelPopular">Popularity index</string>
+    <string name="labelDescription">Description</string>
+    <string name="labelIssuerName">Issuer name</string>
+    <string name="labelNumberOfCoins">Number of coins</string>
+    <string name="buy_rate">BUY AT PRICE </string>
 </resources>
 
