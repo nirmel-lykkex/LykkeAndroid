@@ -56,7 +56,10 @@
             android:name=".gui.activity.paymentflow.AddCardActivity_"/>
         <activity
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:name=".gui.fragments.mainfragments.setting.SettingActivity_"/>
+            android:name=".gui.activity.paymentflow.SettingActivity_"/>
+        <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name=".gui.activity.paymentflow.TradingActivity_"/>
     </application>
 
 </manifest>

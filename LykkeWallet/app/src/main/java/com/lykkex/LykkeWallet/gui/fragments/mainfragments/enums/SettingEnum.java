@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting;
+package com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums;
 
 /**
  * Created by LIZA on 13.03.2016.

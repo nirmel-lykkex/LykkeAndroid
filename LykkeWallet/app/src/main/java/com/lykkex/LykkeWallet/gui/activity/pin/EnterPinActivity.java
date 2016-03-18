@@ -4,20 +4,16 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.MainActivity_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingEnum;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.internal.callback.SignSettingOrderCallBack;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrder;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrderData;
-import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSetUp;
 import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSignIn;
 import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
-import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -57,9 +53,9 @@ public class EnterPinActivity extends BasePinActivity{
     public void onSuccess(Object result) {
         SettingEnum settingEnum = null;
         if (getIntent().getExtras() != null &&
-                getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT_SETTING) != null) {
+                getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT) != null) {
             settingEnum =
-                    (SettingEnum) getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT_SETTING);
+                    (SettingEnum) getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT);
         }
 
         if (result instanceof SecurityData) {

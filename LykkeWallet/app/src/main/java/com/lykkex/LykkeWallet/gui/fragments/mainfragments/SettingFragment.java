@@ -4,25 +4,19 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
+import com.lykkex.LykkeWallet.gui.activity.paymentflow.SettingActivity_;
 import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.PersonalDataFragment;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.PersonalDataFragment_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingActivity;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingActivity_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting.SettingEnum;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -55,7 +49,7 @@ public class SettingFragment extends Fragment {
                             switchCheck.setChecked(!b);
                             Intent intent = new Intent();
                             intent.setClass(getActivity(), EnterPinActivity_.class);
-                            intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.signorder);
+                            intent.putExtra(Constants.EXTRA_FRAGMENT, SettingEnum.signorder);
                             startActivity(intent);
                         }
                     }
@@ -130,21 +124,21 @@ public class SettingFragment extends Fragment {
 
     public void clickBaseCurrency(){
         Intent intent = new Intent();
-        intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.baseasset);
+        intent.putExtra(Constants.EXTRA_FRAGMENT, SettingEnum.baseasset);
         intent.setClass(getActivity(), SettingActivity_.class);
         startActivity(intent);
     }
 
     public void clickPush(){
         Intent intent = new Intent();
-        intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.pushnotifications);
+        intent.putExtra(Constants.EXTRA_FRAGMENT, SettingEnum.pushnotifications);
         intent.setClass(getActivity(), SettingActivity_.class);
         startActivity(intent);
     }
 
     public void clickPersonal(){
         Intent intent = new Intent();
-        intent.putExtra(Constants.EXTRA_FRAGMENT_SETTING, SettingEnum.personalData);
+        intent.putExtra(Constants.EXTRA_FRAGMENT, SettingEnum.personalData);
         intent.setClass(getActivity(), SettingActivity_.class);
         startActivity(intent);
     }

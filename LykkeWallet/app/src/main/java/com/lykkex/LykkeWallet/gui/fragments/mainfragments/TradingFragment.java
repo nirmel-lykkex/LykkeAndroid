@@ -1,16 +1,20 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.paymentflow.TradingActivity_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.TradingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.AssetPairSinglenton;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
@@ -60,7 +64,6 @@ public class TradingFragment extends Fragment implements CallBackListener {
 
     @AfterViews
     public void afterViews(){
-        handler.post(run);
         tryToSetUpView();
         if (AssetPairSinglenton.getInstance().getResult() == null ||
                 AssetPairSinglenton.getInstance().getResult().getAssetPairs() != null ||
@@ -78,6 +81,16 @@ public class TradingFragment extends Fragment implements CallBackListener {
             AssetPairSinglenton.getInstance().setIsCollapsed(true);
             tryToSetUpView();
         }
+    }
+
+    public void onStop(){
+        super.onStop();
+        stopHandler();
+    }
+
+    public void onStart(){
+        super.onStart();
+        handler.post(run);
     }
 
     private void tryToSetUpView(){
@@ -105,6 +118,10 @@ public class TradingFragment extends Fragment implements CallBackListener {
                 LayoutInflater lInflater = (LayoutInflater) getActivity()
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View view = lInflater.inflate(R.layout.trading_item, null, false);
+
+                LinearLayout rootLinear = (LinearLayout) view.findViewById(R.id.rootLinear);
+                RelativeLayout relInfo = (RelativeLayout) view.findViewById(R.id.relInfo);
+                RelativeLayout relPrice = (RelativeLayout) view.findViewById(R.id.relPrice);
                 TextView tvAssetName = (TextView)view.findViewById(R.id.tvAssetName);
                 DrawLine graphic = (DrawLine) view.findViewById(R.id.graphic);
                 TextView tvPrice = (TextView)view.findViewById(R.id.tvPrice);
@@ -122,9 +139,39 @@ public class TradingFragment extends Fragment implements CallBackListener {
                     tvPrice.setBackgroundResource(R.drawable.price_not_come);
                 }
                 tvAssetName.setText(pair.getName());
+
+                setUpClickItem(pair, view);
+                setUpClickItem(pair, rootLinear);
+                setUpClickItem(pair, relInfo);
+                setUpClickItem(pair, relPrice);
+                setUpClickItem(pair, tvAssetName);
+                setUpClickItem(pair, graphic);
+                setUpClickItem(pair, tvPrice);
                 linearEntity.addView(view);
             }
         }
+    }
+
+    private void setUpClickItem(AssetPair pair, View tvPrice) {
+        tvPrice.setTag(pair.getId());
+        tvPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickItem((String) view.getTag());
+            }
+        });
+    }
+
+    private void stopHandler(){
+        handler.removeCallbacks(run);
+    }
+
+    private void clickItem(String id){
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), TradingActivity_.class);
+        intent.putExtra(Constants.EXTRA_FRAGMENT, TradingEnum.description);
+        intent.putExtra(Constants.EXTRA_ASSETPAIR_ID, id);
+        startActivity(intent);
     }
 
     private Rates foundViaName(String name){
