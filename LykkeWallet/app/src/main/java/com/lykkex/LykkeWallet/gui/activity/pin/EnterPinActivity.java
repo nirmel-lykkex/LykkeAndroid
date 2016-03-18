@@ -70,7 +70,7 @@ public class EnterPinActivity extends BasePinActivity{
                     intent.setClass(this, MainActivity_.class);
                     startActivity(intent);
                     finish();
-            } else if (countFail < 2) {
+            } else if (countFail < 3) {
                 dialog.dismiss();
                 onFail(null);
                 countFail +=1;
@@ -96,7 +96,7 @@ public class EnterPinActivity extends BasePinActivity{
                             postSettingSignOrder(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
                                     order);
                     call.enqueue(callBack);
-                } else if (countFail < 2) {
+                } else if (countFail < 3) {
                     dialog.dismiss();
                     onFail(null);
                     countFail +=1;
