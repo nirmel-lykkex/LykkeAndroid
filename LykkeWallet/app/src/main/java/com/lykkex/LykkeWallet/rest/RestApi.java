@@ -23,6 +23,7 @@ import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 import com.lykkex.LykkeWallet.rest.wallet.request.models.CardModel;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
@@ -109,7 +110,11 @@ public interface RestApi {
     Call<AssetPairData> getAssetPairs(@Header("Authorization")String authorization);
 
     @GET("api/AssetPairRates")
-    Call<RateData> getAssetPairsRates(@Header("Authorization")String authorization);
+    Call<RatesData> getAssetPairsRates(@Header("Authorization")String authorization);
+
+    @GET("api/AssetPairRates/{id}")
+    Call<RateData> getAssetPairsRate(@Header("Authorization")String authorization,
+                                      @Path("id") String id);
 
     @GET("api/AssetDescription/{id}")
     Call<DescriptionData> getDescription(@Header("Authorization")String authorization,

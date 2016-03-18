@@ -4,19 +4,17 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.rest.trading.response.model.Rates;
+import com.lykkex.LykkeWallet.rest.trading.response.model.Rate;
 
 /**
  * Created by e.kazimirova on 18.03.2016.
  */
 public class DrawLine extends View {
     Paint paint = new Paint();
-    private Rates rates;
+    private Rate rate;
     private int color;
 
     public DrawLine(Context context) {
@@ -36,20 +34,20 @@ public class DrawLine extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (rates != null) {
+        if (rate != null) {
             canvas.drawColor(color);
             float startX = 0;
             float startY = 0;
-            float widthStepX = getMeasuredWidth() / rates.getPchng().length;
+            float widthStepX = getMeasuredWidth() / rate.getPchng().length;
             float nextX = widthStepX;
             float heighMeasured = getMeasuredHeight();
-            if (rates.getPchng().length > 0) {
-                if (rates.getPchng()[0] > rates.getPchng()[rates.getPchng().length - 1]) {
+            if (rate.getPchng().length > 0) {
+                if (rate.getPchng()[0] > rate.getPchng()[rate.getPchng().length - 1]) {
                     paint.setColor(Color.RED);
                 } else {
                     paint.setColor(Color.GREEN);
                 }
-                for (float y : rates.getPchng()) {
+                for (float y : rate.getPchng()) {
                     canvas.drawLine(startX, startY, nextX, y *heighMeasured, paint);
                     startX = nextX;
                     startY = y *heighMeasured;
@@ -60,9 +58,9 @@ public class DrawLine extends View {
         }
     }
 
-    public void setUpRates(Rates rates, int color) {
+    public void setUpRates(Rate rate, int color) {
         this.color = color;
-        this.rates = rates;
+        this.rate = rate;
         invalidate();
     }
 

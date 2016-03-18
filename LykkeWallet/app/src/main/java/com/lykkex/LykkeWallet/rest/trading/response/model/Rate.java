@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by e.kazimirova on 17.03.2016.
  */
-public class Rates {
+public class Rate {
 
     @SerializedName("Id")
     private String id;
 
     @SerializedName("Bid")
-    private float bid;
+    private String bid;
 
     @SerializedName("PChng")
-    private float ask;
+    private String ask;
 
     @SerializedName("ChngGrph")
     private float[] pchng;
@@ -27,19 +27,19 @@ public class Rates {
         this.id = id;
     }
 
-    public double getBid() {
+    public String getBid() {
         return bid;
     }
 
-    public void setBid(int bid) {
+    public void setBid(String bid) {
         this.bid = bid;
     }
 
-    public double getAsk() {
+    public String getAsk() {
         return ask;
     }
 
-    public void setAsk(int ask) {
+    public void setAsk(String ask) {
         this.ask = ask;
     }
 

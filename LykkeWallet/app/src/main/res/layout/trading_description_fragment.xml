@@ -90,14 +90,19 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
             android:id="@+id/linearPop"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
 
         </LinearLayout>
+    </RelativeLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

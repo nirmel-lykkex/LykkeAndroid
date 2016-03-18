@@ -8,13 +8,13 @@ import com.google.gson.annotations.SerializedName;
 public class RatesResult {
 
     @SerializedName("Rates")
-    private Rates[] rates;
+    private Rate[] rates;
 
-    public Rates[] getRates() {
+    public Rate[] getRates() {
         return rates;
     }
 
-    public void setRates(Rates[] rates) {
+    public void setRates(Rate[] rates) {
         this.rates = rates;
     }
 

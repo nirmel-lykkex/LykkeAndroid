@@ -26,8 +26,8 @@ import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRatesCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPair;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairsResult;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
-import com.lykkex.LykkeWallet.rest.trading.response.model.Rates;
+import com.lykkex.LykkeWallet.rest.trading.response.model.Rate;
+import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesResult;
 
 import org.androidannotations.annotations.AfterViews;
@@ -35,7 +35,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -126,14 +125,14 @@ public class TradingFragment extends Fragment implements CallBackListener {
                 DrawLine graphic = (DrawLine) view.findViewById(R.id.graphic);
                 TextView tvPrice = (TextView)view.findViewById(R.id.tvPrice);
 
-                Rates rate = foundViaName(pair.getId());
+                Rate rate = foundViaName(pair.getId());
                 if (AssetPairSinglenton.getInstance().getRates() != null &&
                         AssetPairSinglenton.getInstance().getRates().getRates() != null &&
                         AssetPairSinglenton.getInstance().getRates().getRates().length != 0
                         && rate != null) {
                     tvPrice.setBackgroundResource(R.drawable.active_price);
                     tvPrice.setText(String.valueOf(BigDecimal.valueOf
-                            (rate.getBid()).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
+                            (Double.parseDouble(rate.getBid())).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
                     graphic.setUpRates(rate, getResources().getColor(R.color.light_blue));
                 } else {
                     tvPrice.setBackgroundResource(R.drawable.price_not_come);
@@ -172,13 +171,14 @@ public class TradingFragment extends Fragment implements CallBackListener {
         intent.putExtra(Constants.EXTRA_FRAGMENT, TradingEnum.description);
         intent.putExtra(Constants.EXTRA_ASSETPAIR_NAME, pair.getName());
         intent.putExtra(Constants.EXTRA_ASSETPAIR_ID, pair.getId());
+        intent.putExtra(Constants.EXTRA_ASSETPAIR_ACCURANCY, pair.getAccurancy());
         startActivity(intent);
     }
 
-    private Rates foundViaName(String name){
+    private Rate foundViaName(String name){
         if (AssetPairSinglenton.getInstance().getRates() != null &&
                 AssetPairSinglenton.getInstance().getRates().getRates() != null) {
-            for (Rates rate : AssetPairSinglenton.getInstance().getRates().getRates()) {
+            for (Rate rate : AssetPairSinglenton.getInstance().getRates().getRates()) {
                 if (rate.getId().equals(name)) {
                     return rate;
                 }
@@ -189,7 +189,7 @@ public class TradingFragment extends Fragment implements CallBackListener {
 
     private void getRates(){
         AssetPairRatesCallBack callBack = new AssetPairRatesCallBack(this, getActivity());
-        Call<RateData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRates
+        Call<RatesData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRates
                 (Constants.PART_AUTHORIZATION + pref.authToken().get());
         call.enqueue(callBack);
     }

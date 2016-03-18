@@ -21,6 +21,7 @@ public interface Constants {
     String EXTRA_FRAGMENT = "extra_fragment";
     String EXTRA_ASSETPAIR_ID = "extra_assetpair_id";
     String EXTRA_ASSETPAIR_NAME = "extra_assetpair_name";
+    String EXTRA_ASSETPAIR_ACCURANCY = "extra_assetpair_accurency";
     String EXTRA_KYS_STATUS  = "extra_kys_status";
     String EXTRA_BANK_CARDS = "extra_bank_cards";
     String EXTRA_PIN_STATUS  = "extra_pin_status";
