@@ -56,7 +56,7 @@ public class DrawLine extends View {
                     nextX += widthStepX;
                 }
             }
-            canvas.drawCircle(startX, startX, 25, paint);
+            canvas.drawCircle(startX+1, startY+1, 3, paint);
         }
     }
 
