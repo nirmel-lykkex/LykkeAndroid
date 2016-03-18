@@ -11,13 +11,13 @@ public class Rates {
     private String id;
 
     @SerializedName("Bid")
-    private int bid;
+    private float bid;
 
     @SerializedName("PChng")
-    private int ask;
+    private float ask;
 
     @SerializedName("ChngGrph")
-    private int pchng;
+    private float[] pchng;
 
     public String getId() {
         return id;
@@ -27,7 +27,7 @@ public class Rates {
         this.id = id;
     }
 
-    public int getBid() {
+    public double getBid() {
         return bid;
     }
 
@@ -35,7 +35,7 @@ public class Rates {
         this.bid = bid;
     }
 
-    public int getAsk() {
+    public double getAsk() {
         return ask;
     }
 
@@ -43,11 +43,11 @@ public class Rates {
         this.ask = ask;
     }
 
-    public int getPchng() {
+    public float[] getPchng() {
         return pchng;
     }
 
-    public void setPchng(int pchng) {
+    public void setPchng(float[] pchng) {
         this.pchng = pchng;
     }
 
