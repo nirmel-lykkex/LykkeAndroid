@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
@@ -29,6 +30,7 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesResult;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -140,6 +142,11 @@ public class TradingDescription  extends BaseFragment {
                         (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
             }
         }
+    }
+
+    @Click(R.id.btnBuy)
+    public void clickBtnBuy(){
+        ((BaseActivity)getActivity()).initFragment(new BuyAsset_(), getArguments());
     }
 
     private void setUpVisibility(int gone, int goneLinear) {
