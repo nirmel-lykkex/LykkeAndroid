@@ -137,7 +137,8 @@ public class TradingDescription  extends BaseFragment {
             }
             handler.post(run);
         } else if (result instanceof RateResult) {
-            if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null) {
+            if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null
+                    && getActivity() != null) {
                 btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
                         (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
             }

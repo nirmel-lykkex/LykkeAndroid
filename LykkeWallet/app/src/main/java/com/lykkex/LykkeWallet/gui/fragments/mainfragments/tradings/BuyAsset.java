@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Calculate;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.widgets.ConfirmDialog;
 import com.lykkex.LykkeWallet.gui.widgets.NoIdeEditText;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
@@ -30,6 +32,7 @@ import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Random;
 
 import retrofit2.Call;
 
@@ -87,6 +90,12 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         call.enqueue(callBack);
     }
 
+
+    public void onStop(){
+        super.onStop();
+        stopHandler();
+    }
+
     private void stopHandler(){
         handler.removeCallbacks(run);
     }
@@ -119,6 +128,21 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @Override
     public void onConsume(Object o) {
 
+    }
+
+    @Click(R.id.button)
+    public void clickTryToConfirm(){
+        ConfirmDialog dialog = new ConfirmDialog();
+        Bundle args = new Bundle();
+        args.putString(Constants.EXTRA_RATE, labelPrice.getText().toString());
+        args.putString(Constants.EXTRA_VOLUME, etVolume.getText().toString());
+        args.putString(Constants.EXTRA_TOTAL_COST, labelTotalCost.getText().toString());
+        args.putInt(Constants.EXTRA_ASSETPAIR_ACCURANCY, accurancy);
+        args.putString(Constants.EXTRA_ASSETPAIR_ID, id);
+
+        dialog.setArguments(args);
+        dialog.show(getActivity().getFragmentManager(),
+                "dlg1" +new Random((int)Constants.DELAY_5000));
     }
 
     @Click(R.id.rel100)

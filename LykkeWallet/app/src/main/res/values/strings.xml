@@ -105,5 +105,7 @@
     <string name="total_cost">Total cost</string>
     <string name="checkout">CHECKOUT</string>
     <string name="buy">BUY</string>
+    <string name="cancel">CANCEL</string>
+    <string name="order_summary">ORDER SUMMARY</string>
 </resources>
 

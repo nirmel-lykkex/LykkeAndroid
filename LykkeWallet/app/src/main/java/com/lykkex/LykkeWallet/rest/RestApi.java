@@ -8,6 +8,7 @@ import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
+import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingData;
@@ -22,6 +23,7 @@ import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 import com.lykkex.LykkeWallet.rest.wallet.request.models.CardModel;
@@ -29,6 +31,7 @@ import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -119,4 +122,9 @@ public interface RestApi {
     @GET("api/AssetDescription/{id}")
     Call<DescriptionData> getDescription(@Header("Authorization")String authorization,
                                       @Path("id") String id);
+
+    @POST("api/PurchaseAsset")
+    Call<OrderData> postPurchaseAsset(@Header("Authorization")String authorization,
+                                         @Body MakeTradeModel model);
+
 }
