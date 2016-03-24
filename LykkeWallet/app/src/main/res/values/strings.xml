@@ -20,6 +20,17 @@
     <string name="pin_entered">PIN validation...</string>
     <string name="sending_order">Sending order...</string>
     <string name="drawer_close">Close</string>
+    <string name="deal_result">PURCHASED!</string>
+    <string name="asset">Asset name</string>
+    <string name="units">Units purchased</string>
+    <string name="purchace_price">Execution price</string>
+    <string name="purchace_comission">Commission paid</string>
+    <string name="purchace_total_cost">Total cost</string>
+    <string name="purchace_blockchain">Blockchain settlement</string>
+    <string name="purchace_blockchain_progress">In progress</string>
+    <string name="purchace_position">Position</string>
+    <string name="purchace_close">CLOSE</string>
+    <string name="purchace_share">SHARE</string>
 
     <string name="email_hint">Email</string>
     <string name="fullname_hint">Full name</string>

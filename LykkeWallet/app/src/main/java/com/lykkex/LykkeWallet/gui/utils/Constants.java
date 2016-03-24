@@ -17,6 +17,7 @@ public interface Constants {
     long DELAY_5000 = 5000L;
     long DELAY_500 = 500L;
 
+    String EXTRA_ORDER = "extra_order";
     String EXTRA_TOTAL_COST = "extra_total_cost";
     String EXTRA_VOLUME = "extra_volume";
     String EXTRA_RATE = "extra_rate";

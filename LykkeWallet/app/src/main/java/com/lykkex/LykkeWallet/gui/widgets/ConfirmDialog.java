@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.DealResultFragment;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.DealResultFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -391,6 +394,9 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
 
         if (result instanceof OrderResult) {
             dismiss();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.EXTRA_ORDER, ((OrderResult) result).getOrder());
+            ((BaseActivity)getActivity()).initFragment(new DealResultFragment_(), bundle);
         }
     }
 
