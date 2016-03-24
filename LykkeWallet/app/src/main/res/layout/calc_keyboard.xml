@@ -17,7 +17,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_height="25dp"
+                android:layout_height="35dp"
                 android:src="@drawable/num100"
                 android:id="@+id/img100"
                 android:gravity="center_vertical"

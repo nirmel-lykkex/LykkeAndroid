@@ -1,11 +1,14 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,7 +46,7 @@ import retrofit2.Call;
 @EFragment(R.layout.buy_asset)
 public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListener, TextWatcher{
 
-    @ViewById NoIdeEditText etVolume;
+    @ViewById EditText etVolume;
     @ViewById TextView labelTotalCost;
     @ViewById View calc_keyboard;
     @ViewById TextView labelPrice;
@@ -72,6 +75,19 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         labelTotalCost.setText("0.0");
         calc_keyboard.setVisibility(View.GONE);
         etVolume.setOnFocusChangeListener(this);
+        etVolume.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.onTouchEvent(event);
+                InputMethodManager imm = (InputMethodManager)
+                        v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return true;
+            }
+        });
 
         etVolume.requestFocus();
         button.setEnabled(false);

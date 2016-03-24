@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:background="@color/white"
@@ -33,11 +36,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent">
-                <com.lykkex.LykkeWallet.gui.widgets.NoIdeEditText
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:textCursorDrawable="@drawable/color_cursor"
                     android:background="@color/light_blue"
                     android:id="@+id/etVolume"/>
             </RelativeLayout>
@@ -145,6 +147,7 @@
 
 
     </LinearLayout>
+    </ScrollView>
     <include
         android:id="@+id/calc_keyboard"
         layout="@layout/calc_keyboard"
