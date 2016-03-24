@@ -46,6 +46,10 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @ViewById TextView labelPrice;
     @ViewById Button button;
 
+    private Double rate = 0.0;
+    private int volume = 0;
+
+
     private Handler handler = new Handler();
     private Runnable run = new Runnable() {
         @Override
@@ -61,6 +65,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @AfterViews
     public void afterViews(){
+        labelPrice.setText("0.0");
+        labelTotalCost.setText("0.0");
         calc_keyboard.setVisibility(View.GONE);
         etVolume.setOnFocusChangeListener(this);
 
@@ -98,17 +104,9 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     public void onSuccess(Object result) {
         if (result instanceof RateResult) {
             if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null) {
-                Double rate = Double.parseDouble(((RateResult) result).getRate().getBid());
+                rate = Double.parseDouble(((RateResult) result).getRate().getBid());
                 labelPrice.setText(String.valueOf(BigDecimal.valueOf
                         (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
-
-                int volume = 0;
-                try {
-                    volume = Integer.parseInt(etVolume.getText().toString());
-                } catch (NumberFormatException ex){}
-                if (!etVolume.getText().toString().isEmpty()) {
-                    labelTotalCost.setText(String.valueOf(volume*rate));
-                }
             }
         }
     }
@@ -228,7 +226,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @Click(R.id.relEqual)
     public void clickEqual(){
         setUpText(String.valueOf(BigDecimal.valueOf(Calculate.eval(etVolume.getText().toString())).
-                setScale(0, RoundingMode.HALF_EVEN)));
+                setScale(0, RoundingMode.HALF_EVEN).intValue()));
     }
 
     @Override
@@ -247,12 +245,16 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        int volume = 0;
-        try {
-            volume = Integer.parseInt(etVolume.getText().toString());
-        } catch (NumberFormatException ex){}
-        if (!labelTotalCost.getText().toString().isEmpty() && !labelPrice.getText().toString().isEmpty()
-                && volume != 0) {
+        setUpTotalCost();
+        if (!etVolume.getText().toString().contains("/") &&
+                !etVolume.getText().toString().contains("*") &&
+                !etVolume.getText().toString().contains("-") &&
+                !etVolume.getText().toString().contains("+") &&
+                !labelTotalCost.getText().toString().isEmpty() &&
+                !labelPrice.getText().toString().isEmpty()
+                && volume != 0 &&
+                new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
+                new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0) {
             button.setEnabled(true);
         } else {
             button.setEnabled(false);
@@ -261,5 +263,16 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Override
     public void afterTextChanged(Editable editable) {
+    }
+
+    private void setUpTotalCost(){
+        try {
+            volume = Integer.parseInt(etVolume.getText().toString());
+        } catch (NumberFormatException ex){}
+
+        if (!etVolume.getText().toString().isEmpty() && volume != 0) {
+            labelTotalCost.setText(String.valueOf(BigDecimal.valueOf(volume*rate).setScale(accurancy,
+                    RoundingMode.HALF_EVEN)));
+        }
     }
 }
