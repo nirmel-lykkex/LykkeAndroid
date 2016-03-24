@@ -58,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/switchCheck"
+            android:background="@android:drawable/button_onoff_indicator_off"
             android:layout_margin="8dp"
             android:src="@drawable/arrow_more"
             android:layout_centerVertical="true"
