@@ -17,6 +17,8 @@
     <string name="action_settings">Settings</string>
     <string name="enter_pin">Enter PIN</string>
     <string name="drawer_open">Open</string>
+    <string name="pin_entered">PIN validation...</string>
+    <string name="sending_order">Sending order...</string>
     <string name="drawer_close">Close</string>
 
     <string name="email_hint">Email</string>

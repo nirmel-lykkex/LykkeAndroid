@@ -549,5 +549,33 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:paddingBottom="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linearLayout5"
+            android:layout_toRightOf="@+id/relPin"
+            android:layout_toEndOf="@+id/relPin"
+            android:visibility="gone"
+            android:id="@+id/relProgress">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgProgress"
+                android:src="@drawable/progress_order"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/pin_entered"
+                android:id="@+id/tvProgress"
+                android:layout_below="@+id/imgProgress"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -62,6 +62,8 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
     private ImageView imgDot4;
     private  TextView tvCancel;
     private  TextView tvCancelBottom;
+    private RelativeLayout relProgress;
+    private TextView tvProgress;
     private RelativeLayout relPin;
     private int count = 0;
     private String id;
@@ -111,6 +113,8 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
         imgDot3 = (ImageView) v.findViewById(R.id.imgDot3);
         imgDot4 = (ImageView) v.findViewById(R.id.imgDot4);
         relPin = (RelativeLayout) v.findViewById(R.id.relPin);
+        relProgress = (RelativeLayout) v.findViewById(R.id.relProgress);
+        tvProgress = (TextView) v.findViewById(R.id.tvProgress);
 
 
         totalCost = getArguments().getString(Constants.EXTRA_TOTAL_COST);
@@ -305,8 +309,9 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
                 imgDot4.setImageResource(R.drawable.pin_un_setup);
                 break;
             case 4:
-                setUpVisibility(View.GONE);
+                setUpVisibility(View.GONE, View.VISIBLE);
                 count +=1;
+                tvProgress.setText(R.string.pin_entered);
                 imgDot1.setImageResource(R.drawable.pin_setup);
                 imgDot2.setImageResource(R.drawable.pin_setup);
                 imgDot3.setImageResource(R.drawable.pin_setup);
@@ -321,10 +326,11 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
         }
     }
 
-    private void setUpVisibility(int gone) {
-        relPin.setVisibility(gone);
-        tvCancel.setVisibility(gone);
-        tvCancelBottom.setVisibility(gone);
+    private void setUpVisibility(int visibility, int visibilityRel) {
+        relPin.setVisibility(visibility);
+        tvCancel.setVisibility(visibility);
+        tvCancelBottom.setVisibility(visibility);
+        relProgress.setVisibility(visibilityRel);
     }
 
     private void clearSetupCircule(){
@@ -344,7 +350,8 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
     }
 
     private void generatePurhaseAsset(){
-        setUpVisibility(View.GONE);
+        setUpVisibility(View.GONE, View.VISIBLE);
+        tvProgress.setText(R.string.sending_order);
         MakeTradeModel model = new MakeTradeModel(SettingSinglenton.getInstance().getBaseAssetId(),
                 id, volume, rate);
         PurchaseAssetCallBack callback = new PurchaseAssetCallBack(this, getActivity());
@@ -358,8 +365,9 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
     @Override
     public void onSuccess(Object result) {
         if (result instanceof SecurityData) {
-            setUpVisibility(View.VISIBLE);
+            setUpVisibility(View.VISIBLE, View.GONE);
             if (((SecurityData) result).getResult().isPassed()) {
+                stopHandler();
                 generatePurhaseAsset();
             } else if (!((SecurityData) result).getResult().isPassed()){
                 Toast.makeText(getActivity(), getString(R.string.wrong_pin), Toast.LENGTH_LONG).show();
