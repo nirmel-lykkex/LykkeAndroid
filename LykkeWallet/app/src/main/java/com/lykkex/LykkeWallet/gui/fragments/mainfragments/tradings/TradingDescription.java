@@ -135,7 +135,7 @@ public class TradingDescription  extends BaseFragment {
 
                 linearPop.addView(imageView);
             }
-            startHandler();
+            handler.post(run);
         } else if (result instanceof RateResult) {
             if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null) {
                 btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
