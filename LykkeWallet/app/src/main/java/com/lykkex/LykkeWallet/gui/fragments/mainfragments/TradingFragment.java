@@ -110,41 +110,43 @@ public class TradingFragment extends Fragment implements CallBackListener {
     }
 
     private void setUpView(AssetPairsResult result){
-        linearEntity.removeAllViews();
-        progressBar.setVisibility(View.GONE);
-        if (AssetPairSinglenton.getInstance().isCollapsed()) {
-            for (AssetPair pair : result.getAssetPairs()) {
-                LayoutInflater lInflater = (LayoutInflater) getActivity()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View view = lInflater.inflate(R.layout.trading_item, null, false);
+        if (getActivity() != null) {
+            linearEntity.removeAllViews();
+            progressBar.setVisibility(View.GONE);
+            if (AssetPairSinglenton.getInstance().isCollapsed()) {
+                for (AssetPair pair : result.getAssetPairs()) {
+                    LayoutInflater lInflater = (LayoutInflater) getActivity()
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View view = lInflater.inflate(R.layout.trading_item, null, false);
 
-                RelativeLayout rootLinear = (RelativeLayout) view.findViewById(R.id.rootLinear);
-                RelativeLayout relPrice = (RelativeLayout) view.findViewById(R.id.relPrice);
-                TextView tvAssetName = (TextView)view.findViewById(R.id.tvAssetName);
-                DrawLine graphic = (DrawLine) view.findViewById(R.id.graphic);
-                TextView tvPrice = (TextView)view.findViewById(R.id.tvPrice);
+                    RelativeLayout rootLinear = (RelativeLayout) view.findViewById(R.id.rootLinear);
+                    RelativeLayout relPrice = (RelativeLayout) view.findViewById(R.id.relPrice);
+                    TextView tvAssetName = (TextView) view.findViewById(R.id.tvAssetName);
+                    DrawLine graphic = (DrawLine) view.findViewById(R.id.graphic);
+                    TextView tvPrice = (TextView) view.findViewById(R.id.tvPrice);
 
-                Rate rate = foundViaName(pair.getId());
-                if (AssetPairSinglenton.getInstance().getRates() != null &&
-                        AssetPairSinglenton.getInstance().getRates().getRates() != null &&
-                        AssetPairSinglenton.getInstance().getRates().getRates().length != 0
-                        && rate != null) {
-                    tvPrice.setBackgroundResource(R.drawable.active_price);
-                    tvPrice.setText("$" + String.valueOf(BigDecimal.valueOf
-                            (Double.parseDouble(rate.getBid())).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
-                    graphic.setUpRates(rate, getResources().getColor(R.color.light_blue));
-                } else {
-                    tvPrice.setBackgroundResource(R.drawable.price_not_come);
+                    Rate rate = foundViaName(pair.getId());
+                    if (AssetPairSinglenton.getInstance().getRates() != null &&
+                            AssetPairSinglenton.getInstance().getRates().getRates() != null &&
+                            AssetPairSinglenton.getInstance().getRates().getRates().length != 0
+                            && rate != null) {
+                        tvPrice.setBackgroundResource(R.drawable.active_price);
+                        tvPrice.setText("$" + String.valueOf(BigDecimal.valueOf
+                                (Double.parseDouble(rate.getBid())).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
+                        graphic.setUpRates(rate, getResources().getColor(R.color.light_blue));
+                    } else {
+                        tvPrice.setBackgroundResource(R.drawable.price_not_come);
+                    }
+                    tvAssetName.setText(pair.getName());
+
+                    setUpClickItem(pair, view);
+                    setUpClickItem(pair, rootLinear);
+                    setUpClickItem(pair, relPrice);
+                    setUpClickItem(pair, tvAssetName);
+                    setUpClickItem(pair, graphic);
+                    setUpClickItem(pair, tvPrice);
+                    linearEntity.addView(view);
                 }
-                tvAssetName.setText(pair.getName());
-
-                setUpClickItem(pair, view);
-                setUpClickItem(pair, rootLinear);
-                setUpClickItem(pair, relPrice);
-                setUpClickItem(pair, tvAssetName);
-                setUpClickItem(pair, graphic);
-                setUpClickItem(pair, tvPrice);
-                linearEntity.addView(view);
             }
         }
     }

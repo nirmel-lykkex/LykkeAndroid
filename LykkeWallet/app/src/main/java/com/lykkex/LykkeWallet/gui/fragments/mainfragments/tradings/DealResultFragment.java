@@ -97,7 +97,7 @@ public class DealResultFragment extends BaseFragment implements
         if (order.getBlockchainSetteled()== null || order.getBlockchainSetteled().isEmpty()){
             linearBlockChain.setVisibility(View.GONE);
         } else {
-            labelBlockChain.setText(order.getBlockchainSetteled());
+            labelBlockChain.setText(order.getBlockchainId());
         }
 
         if (order.getPosition()== null || order.getPosition().isEmpty()){
@@ -118,6 +118,26 @@ public class DealResultFragment extends BaseFragment implements
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.EXTRA_ORDER, order);
         ((BaseActivity) getActivity()).initFragment(new BlockchainFragment_(), bundle);
+    }
+
+    @Click(R.id.tvBlockChain)
+    public void clickBlockChain(){
+        clickLinearBlockChain();
+    }
+
+    @Click(R.id.labelBlockChain)
+    public void clickBlockTvChain(){
+        clickLinearBlockChain();
+    }
+
+    @Click(R.id.rel2BlockChain)
+    public void clickrel2BlockChain(){
+        clickLinearBlockChain();
+    }
+
+    @Click(R.id.rel1BlockChain)
+    public void clickrel1BlockChain(){
+        clickLinearBlockChain();
     }
 
     @Override
