@@ -114,6 +114,12 @@ public class BasePinActivity extends Activity implements CallBackListener{
 
     protected void setUpVisibility(){
         switch (pin.length()) {
+            case 0:
+                imgFirst.setImageResource(R.drawable.pin_un_setup);
+                imgSecond.setImageResource(R.drawable.pin_un_setup);
+                imgThird.setImageResource(R.drawable.pin_un_setup);
+                imgFour.setImageResource(R.drawable.pin_un_setup);
+                break;
             case 1:
                 imgFirst.setImageResource(R.drawable.pin_setup);
                 imgSecond.setImageResource(R.drawable.pin_un_setup);

@@ -46,6 +46,7 @@ public class EnterPinActivity extends BasePinActivity{
                                 pin);
                 call.enqueue(callback);
                 break;
+
         }
     }
 
