@@ -16,7 +16,7 @@
             android:background="@color/light_blue"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:layout_height="wrap_content"  android:minHeight="54dp">
+            android:layout_height="wrap_content"  android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -59,7 +59,7 @@
             android:paddingRight="8dp"
             android:id="@+id/linearUnits"
             android:layout_height="wrap_content"
-            android:minHeight="54dp">
+            android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -103,7 +103,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:layout_height="wrap_content"
-            android:minHeight="54dp">
+            android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -146,7 +146,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:layout_height="wrap_content"
-            android:minHeight="54dp">
+            android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -189,7 +189,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:layout_height="wrap_content"
-            android:minHeight="54dp">
+            android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -233,7 +233,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:layout_height="wrap_content"
-            android:minHeight="54dp">
+            android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -280,7 +280,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:layout_height="wrap_content"
-            android:minHeight="54dp">
+            android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -322,7 +322,7 @@
             android:background="@color/light_blue"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:minHeight="54dp"
+            android:minHeight="50dp"
             android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="0dp"
@@ -365,7 +365,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:layout_height="wrap_content"
-            android:minHeight="54dp">
+            android:minHeight="50dp">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
