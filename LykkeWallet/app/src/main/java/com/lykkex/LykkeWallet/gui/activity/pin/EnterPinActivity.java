@@ -66,11 +66,11 @@ public class EnterPinActivity extends BasePinActivity{
                     intent.setClass(this, MainActivity_.class);
                     startActivity(intent);
                     finish();
-            } else if (countFail < 3) {
+            } else if (countFail < 3 && settingEnum == null) {
                 dialog.dismiss();
                 onFail(null);
                 countFail +=1;
-            } else {
+            } else if (settingEnum == null){
                 dialog.dismiss();
                 finish();
             }
