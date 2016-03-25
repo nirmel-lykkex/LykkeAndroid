@@ -127,7 +127,7 @@ public interface RestApi {
     Call<OrderData> postPurchaseAsset(@Header("Authorization")String authorization,
                                          @Body MakeTradeModel model);
 
-    @GET("api/MarketOrder")
+    @GET("api/MarketOrder?orderId=")
     Call<OrderData> getMarketOrder(@Header("Authorization")String authorization,
                                       @Query("orderId") String orderId);
 

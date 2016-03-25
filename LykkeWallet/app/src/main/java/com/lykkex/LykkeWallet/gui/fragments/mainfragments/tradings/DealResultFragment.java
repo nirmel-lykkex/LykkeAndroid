@@ -69,7 +69,7 @@ public class DealResultFragment extends BaseFragment implements
         if (order.getVolume()== null || order.getVolume().isEmpty()){
             linearUnits.setVisibility(View.GONE);
         } else {
-            labelAsset.setText(order.getVolume());
+            labelUnits.setText(order.getVolume());
         }
 
         if (order.getPrice()== null || order.getPrice().isEmpty()){
@@ -133,9 +133,6 @@ public class DealResultFragment extends BaseFragment implements
     }
 
     private void refreshContent(){
-        MakeTradeModel model = new MakeTradeModel(SettingSinglenton.getInstance().getBaseAssetId(),
-                labelAsset.getText().toString(), labelUnits.getText().toString(),
-                labelPrice.getText().toString());
         PurchaseAssetCallBack callback = new PurchaseAssetCallBack(this, getActivity());
         Call<OrderData> call  = LykkeApplication_.getInstance().getRestApi().
                 getMarketOrder(Constants.PART_AUTHORIZATION + userPref.authToken().get(),

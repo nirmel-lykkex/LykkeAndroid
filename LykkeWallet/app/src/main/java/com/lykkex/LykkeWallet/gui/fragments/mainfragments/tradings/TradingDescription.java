@@ -112,35 +112,37 @@ public class TradingDescription  extends BaseFragment {
 
     @Override
     public void onSuccess(Object result) {
-        if (result instanceof DescriptionResult) {
-            setUpVisibility(View.GONE, View.VISIBLE);
-            tvAssetClass.setText(((DescriptionResult) result).getAssetClass());
-            tvDescription.setText(((DescriptionResult) result).getDescription());
-            tvIssuerName.setText(((DescriptionResult) result).getIssuerName());
-            tvNumberOfCoins.setText(((DescriptionResult) result).getNumberOfCoins());
-            btnBuy.setText(getString(R.string.buy_rate) + " " + ((DescriptionResult) result).getMarketCapitalization());
+        if (getActivity() != null) {
+            if (result instanceof DescriptionResult) {
+                setUpVisibility(View.GONE, View.VISIBLE);
+                tvAssetClass.setText(((DescriptionResult) result).getAssetClass());
+                tvDescription.setText(((DescriptionResult) result).getDescription());
+                tvIssuerName.setText(((DescriptionResult) result).getIssuerName());
+                tvNumberOfCoins.setText(((DescriptionResult) result).getNumberOfCoins());
+                btnBuy.setText(getString(R.string.buy_rate) + " " + ((DescriptionResult) result).getMarketCapitalization());
 
-            Resources r = getResources();
-            float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
-            float pxMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, r.getDisplayMetrics());
+                Resources r = getResources();
+                float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
+                float pxMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, r.getDisplayMetrics());
 
-            for (int i =0; i<Integer.parseInt(((DescriptionResult) result).getPopIndex()); i++){
-                ImageView imageView = new ImageView(getActivity());
-                imageView.setImageResource(R.drawable.star);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                        Math.round(px),
-                        Math.round(px));
-                lp.setMargins( Math.round(pxMargin), 0,  Math.round(pxMargin), 0);
-                imageView.setLayoutParams(lp);
+                for (int i = 0; i < Integer.parseInt(((DescriptionResult) result).getPopIndex()); i++) {
+                    ImageView imageView = new ImageView(getActivity());
+                    imageView.setImageResource(R.drawable.star);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                            Math.round(px),
+                            Math.round(px));
+                    lp.setMargins(Math.round(pxMargin), 0, Math.round(pxMargin), 0);
+                    imageView.setLayoutParams(lp);
 
-                linearPop.addView(imageView);
-            }
-            handler.post(run);
-        } else if (result instanceof RateResult) {
-            if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null
-                    && getActivity() != null) {
-                btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
-                        (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                    linearPop.addView(imageView);
+                }
+                handler.post(run);
+            } else if (result instanceof RateResult) {
+                if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null
+                        && getActivity() != null) {
+                    btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
+                            (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                }
             }
         }
     }
