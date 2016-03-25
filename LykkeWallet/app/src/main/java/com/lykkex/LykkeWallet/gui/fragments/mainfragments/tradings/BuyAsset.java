@@ -3,14 +3,20 @@ package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.ContentFrameLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
@@ -51,6 +57,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @ViewById View calc_keyboard;
     @ViewById TextView labelPrice;
     @ViewById Button button;
+    @ViewById
+    LinearLayout linearRoot;
 
     private Double rate = 0.0;
     private int volume = 0;
@@ -97,6 +105,13 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         accurancy = getArguments().getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY);
         id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
         handler.post(run);
+        if(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 575, getResources().getDisplayMetrics()) >
+                ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getHeight()){
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) linearRoot.getLayoutParams();
+            lp.height= 170;
+            linearRoot.setLayoutParams(lp);
+        }
+
     }
 
     private void getRates(){
@@ -128,10 +143,14 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @Override
     public void onSuccess(Object result) {
         if (result instanceof RateResult) {
-            if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null) {
+            if (((RateResult) result).getRate() != null &&
+                    ((RateResult) result).getRate().getBid() != null) {
                 rate = Double.parseDouble(((RateResult) result).getRate().getBid());
-                labelPrice.setText(String.valueOf(BigDecimal.valueOf
-                        (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                if ( BigDecimal.valueOf
+                        (rate).compareTo(BigDecimal.ZERO) != 0) {
+                    labelPrice.setText(String.valueOf(BigDecimal.valueOf
+                            (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                }
             }
         }
     }
@@ -292,6 +311,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
                 !etVolume.getText().toString().contains("+") &&
                 !labelTotalCost.getText().toString().isEmpty() &&
                 !labelPrice.getText().toString().isEmpty()
+                && !etVolume.getText().toString().isEmpty()
                 && volume != 0 &&
                 new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
                 new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0) {

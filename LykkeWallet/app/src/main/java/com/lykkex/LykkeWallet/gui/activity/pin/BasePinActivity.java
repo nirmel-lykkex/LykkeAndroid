@@ -105,7 +105,10 @@ public class BasePinActivity extends Activity implements CallBackListener{
 
     @Click(R.id.btnRemove)
     public void clickBtnRemove(){
-        pin = pin.substring(0, pin.length()-1);
+        if (pin.length() > 0 ) {
+            pin = pin.substring(0, pin.length() - 1);
+
+        }
         setUpVisibility();
     }
 

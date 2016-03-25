@@ -100,12 +100,6 @@ public class DealResultFragment extends BaseFragment implements
             labelBlockChain.setText(order.getBlockchainSetteled());
         }
 
-        if (order.getBlockchainId()== null || order.getBlockchainId().isEmpty()){
-            linearBlockChainProgress.setVisibility(View.GONE);
-        } else {
-            labelBlockChainInProgress.setText(order.getBlockchainId());
-        }
-
         if (order.getPosition()== null || order.getPosition().isEmpty()){
             linearPosition.setVisibility(View.GONE);
         } else {
