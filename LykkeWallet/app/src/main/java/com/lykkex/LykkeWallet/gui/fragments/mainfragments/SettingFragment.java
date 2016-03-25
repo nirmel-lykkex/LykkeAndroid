@@ -1,6 +1,8 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.widget.CompoundButton;
@@ -17,6 +19,7 @@ import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -33,6 +36,17 @@ public class SettingFragment extends Fragment {
     @ViewById TextView tvExit;
     @ViewById TextView tvBaseInfo;
 
+    @AfterViews
+    public void afterViews(){
+        int colorOn = getActivity().getResources().getColor(R.color.blue_color);
+        int colorOff =getActivity().getResources().getColor(R.color.grey_text);
+        int colorDisabled = getActivity().getResources().getColor(R.color.grey_text);
+        StateListDrawable thumbStates = new StateListDrawable();
+        thumbStates.addState(new int[]{android.R.attr.state_checked}, new ColorDrawable(colorOn));
+        thumbStates.addState(new int[]{-android.R.attr.state_enabled}, new ColorDrawable(colorDisabled));
+        thumbStates.addState(new int[]{}, new ColorDrawable(colorOff));
+        switchCheck.setThumbDrawable(thumbStates);
+    }
     public void onStart(){
         super.onStart();
         new Handler().postDelayed(new Runnable() {
