@@ -31,6 +31,16 @@
     <string name="purchace_position">Position</string>
     <string name="purchace_close">CLOSE</string>
     <string name="purchace_share">SHARE</string>
+    <string name="blockchain_title">BLOCKCHAIN EXPLORER</string>
+    <string name="hash">Hash</string>
+    <string name="date">Date</string>
+    <string name="confirm">Confirm.</string>
+    <string name="block">Block</string>
+    <string name="height">height</string>
+    <string name="sender">Sender ID</string>
+    <string name="asset_id">Asset ID</string>
+    <string name="quantity">Quantity</string>
+    <string name="url">URL</string>
 
     <string name="email_hint">Email</string>
     <string name="fullname_hint">Full name</string>

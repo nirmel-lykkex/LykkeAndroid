@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
@@ -18,6 +20,7 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.OrderResult;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -56,6 +59,7 @@ public class DealResultFragment extends BaseFragment implements
     private Order order;
     @AfterViews
     public void afterViews(){
+        actionBar.setDisplayHomeAsUpEnabled(false);
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setRefreshing(false);
         actionBar.setTitle(R.string.deal_result);
@@ -112,7 +116,14 @@ public class DealResultFragment extends BaseFragment implements
 
     @Override
     public void initOnBackPressed() {
+        getActivity().finish();
+    }
 
+    @Click(R.id.linearBlockChain)
+    public void clickLinearBlockChain(){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.EXTRA_ORDER, order);
+        ((BaseActivity) getActivity()).initFragment(new BlockchainFragment_(), bundle);
     }
 
     @Override

@@ -227,6 +227,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/linearBlockChain"
+            android:clickable="true"
             android:orientation="horizontal"
             android:background="@color/light_blue"
             android:paddingLeft="8dp"
@@ -241,6 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvBlockChain"
+                    android:clickable="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/purchace_blockchain"
                     android:gravity="center_vertical"
@@ -258,6 +260,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/labelBlockChain"
                     android:gravity="center_vertical"
+                    android:clickable="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />

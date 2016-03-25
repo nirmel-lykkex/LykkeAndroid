@@ -26,6 +26,7 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.TransactionData;
 import com.lykkex.LykkeWallet.rest.wallet.request.models.CardModel;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
@@ -131,4 +132,7 @@ public interface RestApi {
     Call<OrderData> getMarketOrder(@Header("Authorization")String authorization,
                                       @Query("orderId") String orderId);
 
+    @GET("api/BlockchainTransaction{orderId}")
+    Call<TransactionData> getBlockChainTransaction(@Header("Authorization")String authorization,
+                                            @Path("orderId") String orderId);
 }
