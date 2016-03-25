@@ -118,8 +118,7 @@ public class TradingFragment extends Fragment implements CallBackListener {
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View view = lInflater.inflate(R.layout.trading_item, null, false);
 
-                LinearLayout rootLinear = (LinearLayout) view.findViewById(R.id.rootLinear);
-                RelativeLayout relInfo = (RelativeLayout) view.findViewById(R.id.relInfo);
+                RelativeLayout rootLinear = (RelativeLayout) view.findViewById(R.id.rootLinear);
                 RelativeLayout relPrice = (RelativeLayout) view.findViewById(R.id.relPrice);
                 TextView tvAssetName = (TextView)view.findViewById(R.id.tvAssetName);
                 DrawLine graphic = (DrawLine) view.findViewById(R.id.graphic);
@@ -131,7 +130,7 @@ public class TradingFragment extends Fragment implements CallBackListener {
                         AssetPairSinglenton.getInstance().getRates().getRates().length != 0
                         && rate != null) {
                     tvPrice.setBackgroundResource(R.drawable.active_price);
-                    tvPrice.setText(String.valueOf(BigDecimal.valueOf
+                    tvPrice.setText("$" + String.valueOf(BigDecimal.valueOf
                             (Double.parseDouble(rate.getBid())).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
                     graphic.setUpRates(rate, getResources().getColor(R.color.light_blue));
                 } else {
@@ -141,7 +140,6 @@ public class TradingFragment extends Fragment implements CallBackListener {
 
                 setUpClickItem(pair, view);
                 setUpClickItem(pair, rootLinear);
-                setUpClickItem(pair, relInfo);
                 setUpClickItem(pair, relPrice);
                 setUpClickItem(pair, tvAssetName);
                 setUpClickItem(pair, graphic);

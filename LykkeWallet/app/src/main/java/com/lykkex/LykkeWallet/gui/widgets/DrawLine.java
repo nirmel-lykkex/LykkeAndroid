@@ -38,7 +38,7 @@ public class DrawLine extends View {
             canvas.drawColor(color);
             float startX = 0;
             float startY = 0;
-            float widthStepX = getMeasuredWidth() / rate.getPchng().length;
+            float widthStepX = (getMeasuredWidth()-4) / rate.getPchng().length;
             float nextX = widthStepX;
             float heighMeasured = getMeasuredHeight();
             if (rate.getPchng().length > 0) {
@@ -54,7 +54,7 @@ public class DrawLine extends View {
                     nextX += widthStepX;
                 }
             }
-            canvas.drawCircle(startX+1, startY+1, 3, paint);
+            canvas.drawCircle(startX+1, startY+1, 2, paint);
         }
     }
 
