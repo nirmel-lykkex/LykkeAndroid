@@ -74,19 +74,22 @@ public class BlockchainFragment extends BaseFragment {
             public void onScrollChanged() {
                 int scrollY = scrollViewParent.getScrollY();
                 int defaultHeight = (int) TypedValue.
-                        applyDimension(TypedValue.COMPLEX_UNIT_DIP, 240, getResources().getDisplayMetrics());
+                        applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
 
                 if (scrollY > defaultHeight) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
                     lp.topMargin = (int) TypedValue.
                             applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
                     scrollViewParent.setLayoutParams(lp);
+                    relImage.setVisibility(View.INVISIBLE);
+
                     tvTitle2.setVisibility(View.VISIBLE);
                 } else if (prevScroll-scrollY < 100) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
                     lp.topMargin = (int) TypedValue.
                             applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
                     scrollViewParent.setLayoutParams(lp);
+                    relImage.setVisibility(View.VISIBLE);
                     tvTitle2.setVisibility(View.GONE);
                 }
                 prevScroll = scrollY;
