@@ -602,7 +602,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/linearLayout5"
+            android:layout_below="@+id/relativeLayout"
             android:layout_toRightOf="@+id/relPin"
             android:layout_toEndOf="@+id/relPin"
             android:visibility="gone"
