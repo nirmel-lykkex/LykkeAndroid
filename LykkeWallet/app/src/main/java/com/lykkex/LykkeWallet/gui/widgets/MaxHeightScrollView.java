@@ -40,7 +40,7 @@ public class MaxHeightScrollView extends ScrollView {
     public MaxHeightScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         wholeHeight = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getHeight();
-        defaultHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 440, getResources().getDisplayMetrics());
+        defaultHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 420, getResources().getDisplayMetrics());
         defaultHeight = wholeHeight - defaultHeight;
         if (!isInEditMode()) {
             init(context, attrs);
