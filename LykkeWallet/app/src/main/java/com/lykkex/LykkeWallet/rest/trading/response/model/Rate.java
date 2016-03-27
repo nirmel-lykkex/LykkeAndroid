@@ -13,7 +13,7 @@ public class Rate {
     @SerializedName("Bid")
     private String bid;
 
-    @SerializedName("PChng")
+    @SerializedName("Ask")
     private String ask;
 
     @SerializedName("ChngGrph")
