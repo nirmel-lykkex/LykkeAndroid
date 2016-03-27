@@ -7,6 +7,7 @@ public interface Constants {
 
     int ERROR_401 = 401;
     int ERROR_500 = 500;
+    int DEFAULT_PRECISION = 2;
     int MIN_COUNT_SYMBOL = 1;
     int CVV_COUNT = 3;
     int COUNT_MONTH = 5;

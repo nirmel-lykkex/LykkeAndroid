@@ -27,39 +27,39 @@
             android:orientation="vertical"
             android:id="@+id/relativeLayout"
             android:background="@android:color/white"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/cancel"
-            android:id="@+id/tvCancel"
-            android:clickable="true"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:textColor="@color/blue_color"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/cancel"
+                android:id="@+id/tvCancel"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/blue_color"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/order_summary"
-            android:textColor="@color/black"
-            android:paddingTop="10dp"
-            android:textStyle="bold"
-            android:id="@+id/tvSummary"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/order_summary"
+                android:textColor="@color/black"
+                android:paddingTop="10dp"
+                android:textStyle="bold"
+                android:id="@+id/tvSummary"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/tvCancel"
+            android:layout_below="@+id/relativeLayout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
@@ -69,31 +69,31 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/volume"
-                android:id="@+id/tvVolume"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/volume"
+                    android:id="@+id/tvVolume"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="8dp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/valueVolume"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/valueVolume"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -111,33 +111,33 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/price"
-                android:id="@+id/tvPrice"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/price"
+                    android:id="@+id/tvPrice"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="8dp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/valuePrice"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/valuePrice"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -154,40 +154,39 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/total_cost"
-                android:id="@+id/tvTotalCost"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/total_cost"
+                    android:id="@+id/tvTotalCost"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="8dp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:textStyle="bold"
-                android:id="@+id/valueTotalCost"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:textStyle="bold"
+                    android:id="@+id/valueTotalCost"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
         </LinearLayout>
-        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/relativeLayout"
+            android:layout_below="@+id/linearLayout5"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
@@ -603,9 +602,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/relativeLayout"
-            android:layout_toRightOf="@+id/relPin"
-            android:layout_toEndOf="@+id/relPin"
             android:visibility="gone"
+            android:layout_marginTop="10dp"
             android:id="@+id/relProgress">
 
             <ImageView
@@ -626,5 +624,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp" />
         </RelativeLayout>
+
     </RelativeLayout>
 </RelativeLayout>

@@ -38,6 +38,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 
@@ -50,6 +51,8 @@ public class TradingFragment extends Fragment implements CallBackListener {
     @Pref  UserPref_ pref;
     @ViewById ProgressBar progressBar;
     @ViewById LinearLayout linearEntity;
+    private ArrayList<Call<RatesData>> listRates = new ArrayList<>();
+    private boolean isShouldContinue = true;
 
 
     private Handler handler = new Handler();
@@ -162,6 +165,11 @@ public class TradingFragment extends Fragment implements CallBackListener {
     }
 
     private void stopHandler(){
+        for (Call<RatesData> call : listRates) {
+            call.cancel();
+        }
+
+        isShouldContinue = false;
         handler.removeCallbacks(run);
     }
 
@@ -188,10 +196,13 @@ public class TradingFragment extends Fragment implements CallBackListener {
     }
 
     private void getRates(){
-        AssetPairRatesCallBack callBack = new AssetPairRatesCallBack(this, getActivity());
-        Call<RatesData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRates
-                (Constants.PART_AUTHORIZATION + pref.authToken().get());
-        call.enqueue(callBack);
+        if (isShouldContinue) {
+            AssetPairRatesCallBack callBack = new AssetPairRatesCallBack(this, getActivity());
+            Call<RatesData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRates
+                    (Constants.PART_AUTHORIZATION + pref.authToken().get());
+            listRates.add(call);
+            call.enqueue(callBack);
+        }
     }
 
     private void startHandler(){

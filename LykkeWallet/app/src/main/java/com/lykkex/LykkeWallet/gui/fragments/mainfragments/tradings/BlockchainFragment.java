@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
@@ -38,6 +39,16 @@ public class BlockchainFragment extends BaseFragment {
     @ViewById TextView labelQuantity;
     @ViewById TextView labelUrl;
 
+    @ViewById LinearLayout linearHash;
+    @ViewById LinearLayout linearDate;
+    @ViewById LinearLayout linearConfirm;
+    @ViewById LinearLayout linearBlock;
+    @ViewById LinearLayout linearHeight;
+    @ViewById LinearLayout linearSender;
+    @ViewById LinearLayout linearAsset;
+    @ViewById LinearLayout linearQuantity;
+    @ViewById LinearLayout linearUrl;
+
     @AfterViews
     public void afterViews(){
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -69,28 +80,28 @@ public class BlockchainFragment extends BaseFragment {
             if (((TransactionResult) result).getTransaction() != null) {
                 if (((TransactionResult) result).getTransaction().getHash() == null ||
                         ((TransactionResult) result).getTransaction().getHash().isEmpty()) {
-                    labelHash.setVisibility(View.GONE);
+                    linearHash.setVisibility(View.GONE);
                 } else {
                     labelHash.setText(((TransactionResult) result).getTransaction().getHash());
                 }
 
                 if (((TransactionResult) result).getTransaction().getDate() == null ||
                         ((TransactionResult) result).getTransaction().getDate().isEmpty()) {
-                    labelDate.setVisibility(View.GONE);
+                    linearDate.setVisibility(View.GONE);
                 } else {
                     labelDate.setText(((TransactionResult) result).getTransaction().getDate());
                 }
 
                 if (((TransactionResult) result).getTransaction().getConfirmations() == null ||
                         ((TransactionResult) result).getTransaction().getConfirmations().isEmpty()) {
-                    labelConfirm.setVisibility(View.GONE);
+                    linearConfirm.setVisibility(View.GONE);
                 } else {
                     labelConfirm.setText(((TransactionResult) result).getTransaction().getConfirmations());
                 }
 
                 if (((TransactionResult) result).getTransaction().getAssetId() == null ||
                         ((TransactionResult) result).getTransaction().getAssetId().isEmpty()) {
-                    labelAsset.setVisibility(View.GONE);
+                    linearAsset.setVisibility(View.GONE);
                 } else {
                     labelAsset.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
                     labelAsset.setText(((TransactionResult) result).getTransaction().getAssetId());
@@ -98,7 +109,7 @@ public class BlockchainFragment extends BaseFragment {
 
                 if (((TransactionResult) result).getTransaction().getSenderId() == null ||
                         ((TransactionResult) result).getTransaction().getSenderId().isEmpty()) {
-                    labelSender.setVisibility(View.GONE);
+                    linearSender.setVisibility(View.GONE);
                 } else {
                     labelSender.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
                     labelSender.setText(((TransactionResult) result).getTransaction().getSenderId());
@@ -106,33 +117,43 @@ public class BlockchainFragment extends BaseFragment {
 
                 if (((TransactionResult) result).getTransaction().getBlock() == null ||
                         ((TransactionResult) result).getTransaction().getBlock().isEmpty()) {
-                    labelBlock.setVisibility(View.GONE);
+                    linearBlock.setVisibility(View.GONE);
                 } else {
                     labelBlock.setText(((TransactionResult) result).getTransaction().getBlock());
                 }
 
                 if (((TransactionResult) result).getTransaction().getHeight() == null ||
                         ((TransactionResult) result).getTransaction().getHeight().isEmpty()) {
-                    labelHeight.setVisibility(View.GONE);
+                    linearHeight.setVisibility(View.GONE);
                 } else {
                     labelHeight.setText(((TransactionResult) result).getTransaction().getHeight());
                 }
 
                 if (((TransactionResult) result).getTransaction().getQuality() == null ||
                         ((TransactionResult) result).getTransaction().getQuality().isEmpty()) {
-                    labelQuantity.setVisibility(View.GONE);
+                    linearQuantity.setVisibility(View.GONE);
                 } else {
                     labelQuantity.setText(((TransactionResult) result).getTransaction().getQuality());
                 }
 
                 if (((TransactionResult) result).getTransaction().getUrl() == null ||
                         ((TransactionResult) result).getTransaction().getUrl().isEmpty()) {
-                    labelUrl.setVisibility(View.GONE);
+                    linearUrl.setVisibility(View.GONE);
                 } else {
                     labelUrl.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
                     labelUrl.setText(((TransactionResult) result).getTransaction().getUrl());
                 }
             }
+        } else {
+            linearHash.setVisibility(View.GONE);
+            linearDate.setVisibility(View.GONE);
+            linearConfirm.setVisibility(View.GONE);
+            linearBlock.setVisibility(View.GONE);
+            linearHeight.setVisibility(View.GONE);
+            linearSender.setVisibility(View.GONE);
+            linearAsset.setVisibility(View.GONE);
+            linearQuantity.setVisibility(View.GONE);
+            linearUrl.setVisibility(View.GONE);
         }
     }
 

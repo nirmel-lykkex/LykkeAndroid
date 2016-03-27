@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/light_blue"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_marginBottom="65dp"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:background="@color/color_deal"
+                android:layout_height="240dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgLogo"
-                    android:src="@drawable/created_lyyke"
+                    android:src="@drawable/deal_success"
                     android:layout_gravity="center_horizontal"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="123dp" />
+                    android:layout_marginTop="30dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -425,23 +429,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:background="@color/grey_text"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/button"
-                android:orientation="horizontal"
-                android:background="@color/light_blue"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_height="wrap_content"
-                android:minHeight="50dp">
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/btnClose"
-                    android:background="@drawable/sign_inactive"
-                    android:text="@string/purchace_close"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/footer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/btnClose"
+            android:background="@drawable/sign_inactive"
+            android:text="@string/purchace_close"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</RelativeLayout>

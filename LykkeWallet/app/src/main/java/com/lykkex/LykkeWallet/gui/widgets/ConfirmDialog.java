@@ -36,11 +36,13 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.OrderResult;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
+import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -73,6 +75,8 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
 
     UserPref_ userPref = new UserPref_(LykkeApplication_.getInstance());
 
+    private ArrayList<Call<RatesData>> listRates = new ArrayList<>();
+    private boolean isShouldContinue = true;
     private Handler handler = new Handler();
     private Runnable run = new Runnable() {
         @Override
@@ -191,12 +195,16 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
         return v;
     }
 
+
     private void getRates(){
-        AssetPairRateCallBack callBack = new AssetPairRateCallBack(this, getActivity());
-        Call<RateData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRate
-                (Constants.PART_AUTHORIZATION + userPref.authToken().get(), id);
-        call.enqueue(callBack);
+        if (isShouldContinue) {
+            AssetPairRateCallBack callBack = new AssetPairRateCallBack(this, getActivity());
+            Call<RateData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRate
+                    (Constants.PART_AUTHORIZATION + userPref.authToken().get(), id);
+            call.enqueue(callBack);
+        }
     }
+
 
 
     public void onStop(){
@@ -205,6 +213,11 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
     }
 
     private void stopHandler(){
+        for (Call<RatesData> call : listRates) {
+            call.cancel();
+        }
+
+        isShouldContinue = false;
         handler.removeCallbacks(run);
     }
 
@@ -396,6 +409,11 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
             dismiss();
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.EXTRA_ORDER, ((OrderResult) result).getOrder());
+            bundle.putSerializable(Constants.EXTRA_ASSETPAIR_NAME, getArguments().
+                    getString(Constants.EXTRA_ASSETPAIR_NAME));
+            bundle.putSerializable(Constants.EXTRA_ASSETPAIR_NAME, getArguments().
+                    getString(Constants.EXTRA_ASSETPAIR_NAME));
+            bundle.putInt(Constants.EXTRA_ASSETPAIR_ACCURANCY, accurancy);
             ((BaseActivity)getActivity()).initFragment(new DealResultFragment_(), bundle);
         }
     }

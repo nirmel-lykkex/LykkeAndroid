@@ -25,6 +25,8 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import java.math.BigDecimal;
+
 import retrofit2.Call;
 
 /**
@@ -53,17 +55,20 @@ public class DealResultFragment extends BaseFragment implements
     @ViewById LinearLayout linearBlockChainProgress;
     @ViewById LinearLayout linearPosition;
 
+    private int accurancy;
+
     @ViewById
     SwipeRefreshLayout swipeRefresh;
 
     private Order order;
     @AfterViews
     public void afterViews(){
+        order = (Order) getArguments().getSerializable(Constants.EXTRA_ORDER);
         actionBar.setDisplayHomeAsUpEnabled(false);
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setRefreshing(false);
-        actionBar.setTitle(R.string.deal_result);
-        order = (Order) getArguments().getSerializable(Constants.EXTRA_ORDER);
+        actionBar.setTitle(getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME)
+                + " " + R.string.deal_result);
         if (order.getAssetPair()== null || order.getAssetPair().isEmpty()){
             linearAssetName.setVisibility(View.GONE);
         } else {
@@ -73,31 +78,41 @@ public class DealResultFragment extends BaseFragment implements
         if (order.getVolume()== null || order.getVolume().isEmpty()){
             linearUnits.setVisibility(View.GONE);
         } else {
-            labelUnits.setText(order.getVolume());
+            labelUnits.setText(String.valueOf(new BigDecimal(order.getVolume()).intValue()));
         }
 
         if (order.getPrice()== null || order.getPrice().isEmpty()){
             linearPrice.setVisibility(View.GONE);
         } else {
-            labelPrice.setText(order.getPrice());
+            labelPrice.setText(new BigDecimal(order.getPrice()).setScale(getArguments().
+                    getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY)).toString());
         }
 
         if (order.getComission()== null || order.getComission().isEmpty()){
             linearComission.setVisibility(View.GONE);
         } else {
-            labelComission.setText(order.getComission());
+            labelComission.setText(new BigDecimal(order.getComission()).setScale(Constants.DEFAULT_PRECISION)
+                    .toString());
         }
 
-        if (order.getTotalCost()== null || order.getTotalCost().isEmpty()){
+
+        if (order.getTotalCost() == null || order.getTotalCost().isEmpty()) {
             linearCost.setVisibility(View.GONE);
         } else {
-            labelCost.setText(order.getTotalCost());
+            labelCost.setText(new BigDecimal(order.getTotalCost()).
+                    setScale(Constants.DEFAULT_PRECISION)
+                    .toString());
         }
 
-        if (order.getBlockchainSetteled()== null || order.getBlockchainSetteled().isEmpty()){
-            linearBlockChain.setVisibility(View.GONE);
+        if (Boolean.parseBoolean(order.getBlockchainSetteled())) {
+            if (order.getBlockchainId() == null || order.getBlockchainId().isEmpty()) {
+                linearBlockChain.setVisibility(View.GONE);
+            } else {
+                labelBlockChain.setText(order.getBlockchainId());
+            }
         } else {
-            labelBlockChain.setText(order.getBlockchainId());
+            labelBlockChain.setTextColor(getResources().getColor(R.color.grey_dark_text));
+            labelBlockChain.setText(R.string.purchace_blockchain_progress);
         }
 
         if (order.getPosition()== null || order.getPosition().isEmpty()){
@@ -115,9 +130,11 @@ public class DealResultFragment extends BaseFragment implements
 
     @Click(R.id.linearBlockChain)
     public void clickLinearBlockChain(){
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.EXTRA_ORDER, order);
-        ((BaseActivity) getActivity()).initFragment(new BlockchainFragment_(), bundle);
+       // if (Boolean.parseBoolean(order.getBlockchainSetteled())) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.EXTRA_ORDER, order);
+            ((BaseActivity) getActivity()).initFragment(new BlockchainFragment_(), bundle);
+       // }
     }
 
     @Click(R.id.tvBlockChain)

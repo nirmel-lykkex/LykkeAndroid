@@ -30,6 +30,7 @@ import com.lykkex.LykkeWallet.gui.widgets.ConfirmDialog;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
+import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -40,6 +41,7 @@ import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -62,6 +64,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     private Double rate = 0.0;
     private int volume = 0;
 
+    private ArrayList<Call<RatesData>> listRates = new ArrayList<>();
+    private boolean isShouldContinue = true;
 
     private Handler handler = new Handler();
     private Runnable run = new Runnable() {
@@ -114,10 +118,12 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     }
 
     private void getRates(){
-        AssetPairRateCallBack callBack = new AssetPairRateCallBack(this, getActivity());
-        Call<RateData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRate
-                (Constants.PART_AUTHORIZATION + userPref.authToken().get(), id);
-        call.enqueue(callBack);
+        if (isShouldContinue) {
+            AssetPairRateCallBack callBack = new AssetPairRateCallBack(this, getActivity());
+            Call<RateData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRate
+                    (Constants.PART_AUTHORIZATION + userPref.authToken().get(), id);
+            call.enqueue(callBack);
+        }
     }
 
 
@@ -127,6 +133,11 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     }
 
     private void stopHandler(){
+        for (Call<RatesData> call : listRates) {
+            call.cancel();
+        }
+
+        isShouldContinue = false;
         handler.removeCallbacks(run);
     }
 
@@ -167,6 +178,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         args.putString(Constants.EXTRA_RATE, labelPrice.getText().toString());
         args.putString(Constants.EXTRA_VOLUME, etVolume.getText().toString());
         args.putString(Constants.EXTRA_TOTAL_COST, labelTotalCost.getText().toString());
+        args.putString(Constants.EXTRA_ASSETPAIR_NAME, getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
         args.putInt(Constants.EXTRA_ASSETPAIR_ACCURANCY, accurancy);
         args.putString(Constants.EXTRA_ASSETPAIR_ID, id);
 

@@ -37,6 +37,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 
@@ -46,6 +47,8 @@ import retrofit2.Call;
 @EFragment(R.layout.trading_description_fragment)
 public class TradingDescription  extends BaseFragment {
 
+    private ArrayList<Call<RatesData>> listRates = new ArrayList<>();
+    private boolean isShouldContinue = true;
     private Handler handler = new Handler();
     private Runnable run = new Runnable() {
         @Override
@@ -91,13 +94,21 @@ public class TradingDescription  extends BaseFragment {
     }
 
     private void getRates(){
-        AssetPairRateCallBack callBack = new AssetPairRateCallBack(this, getActivity());
-        Call<RateData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRate
-                (Constants.PART_AUTHORIZATION + userPref.authToken().get(), id);
-        call.enqueue(callBack);
+        if (isShouldContinue) {
+            AssetPairRateCallBack callBack = new AssetPairRateCallBack(this, getActivity());
+            Call<RateData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRate
+                    (Constants.PART_AUTHORIZATION + userPref.authToken().get(), id);
+            call.enqueue(callBack);
+        }
     }
 
+
     private void stopHandler(){
+        for (Call<RatesData> call : listRates) {
+            call.cancel();
+        }
+
+        isShouldContinue = false;
         handler.removeCallbacks(run);
     }
 

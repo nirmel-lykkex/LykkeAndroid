@@ -27,6 +27,7 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_width="match_parent"
+                    android:textColor="@color/grey_dark_text"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvAsset"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -41,6 +42,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content"
@@ -69,6 +71,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvUnits"
@@ -84,6 +87,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content"
@@ -113,6 +117,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvPrice"
@@ -128,6 +133,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content"
@@ -156,6 +162,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvComission"
@@ -171,6 +178,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content"
@@ -199,6 +207,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvCost"
@@ -214,6 +223,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content"
@@ -244,6 +254,7 @@
                 android:id="@+id/rel2BlockChain"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvBlockChain"
@@ -292,6 +303,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvBlockChainInProgress"
@@ -307,6 +319,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content"
@@ -335,6 +348,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvPosition"
@@ -350,6 +364,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/grey_dark_text"
                     android:layout_width="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content"
@@ -384,8 +399,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnClose"
-                android:background="@drawable/sign_inactive"
-
+                android:background="@drawable/close"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/purchace_close"
                 android:gravity="center"
@@ -406,7 +420,7 @@
                 android:id="@+id/btnShare"
                 android:textColor="@color/white"
                 android:text="@string/purchace_share"
-                android:background="@drawable/sign_active"
+                android:background="@drawable/share"
                 android:gravity="center"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
