@@ -5,4 +5,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <declare-styleable name="MaxHeightScrollView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <style name="switchStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
 </resources>

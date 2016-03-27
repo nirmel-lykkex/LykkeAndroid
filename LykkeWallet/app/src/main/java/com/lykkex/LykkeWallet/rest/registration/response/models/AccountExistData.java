@@ -7,4 +7,5 @@ import com.lykkex.LykkeWallet.rest.base.models.BaseModel;
  */
 public class AccountExistData extends BaseModel<AcountExistResult> {
 
+
 }

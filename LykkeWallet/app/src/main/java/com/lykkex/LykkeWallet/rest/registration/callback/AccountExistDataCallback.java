@@ -9,6 +9,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.BaseCallBack;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
+import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +21,7 @@ import retrofit2.Response;
 public class AccountExistDataCallback extends BaseCallBack<AccountExistData> {
 
     private ProgressBar progressBar;
+    private String email;
 
     public AccountExistDataCallback(CallBackListener listener, ProgressBar progressBar, Activity activity) {
         super(listener, activity);
@@ -32,7 +34,9 @@ public class AccountExistDataCallback extends BaseCallBack<AccountExistData> {
         progressBar.setVisibility(View.GONE);
         if (!isCancel) {
             if (response != null && response.body() != null && response.body().getError() == null) {
-                listener.onSuccess(response.body().getResult());
+                AcountExistResult data = response.body().getResult();
+                data.setEmail(email);
+                listener.onSuccess(data);
             } else if (response != null && response.body() != null) {
                 listener.onFail(response.body().getError());
                 Toast.makeText(LykkeApplication_.getInstance(), "Something going wrong. Try again", Toast.LENGTH_LONG).show();
@@ -47,5 +51,13 @@ public class AccountExistDataCallback extends BaseCallBack<AccountExistData> {
             listener.onFail(null);
             Toast.makeText(LykkeApplication_.getInstance(), "Something going wrong. Try again", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

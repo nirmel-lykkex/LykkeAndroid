@@ -27,7 +27,6 @@ import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Calculate;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.widgets.ConfirmDialog;
-import com.lykkex.LykkeWallet.gui.widgets.NoIdeEditText;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
@@ -146,11 +145,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
             if (((RateResult) result).getRate() != null &&
                     ((RateResult) result).getRate().getBid() != null) {
                 rate = Double.parseDouble(((RateResult) result).getRate().getBid());
-                if ( BigDecimal.valueOf
-                        (rate).compareTo(BigDecimal.ZERO) != 0) {
-                    labelPrice.setText(String.valueOf(BigDecimal.valueOf
-                            (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
-                }
+                setUpTotalCost();
             }
         }
     }
@@ -182,17 +177,17 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Click(R.id.rel100)
     public void click100(){
-        setUpText(etVolume.getText().toString() + "100");
+        etVolume.setText("100");
     }
 
     @Click(R.id.rel1000)
     public void click1000(){
-        setUpText(etVolume.getText().toString() + "1000");
+        etVolume.setText("1000");
     }
 
     @Click(R.id.rel10000)
     public void click10000(){
-        setUpText(etVolume.getText().toString() + "10000");
+        etVolume.setText("10000");
     }
 
     @Click(R.id.rel1)
@@ -305,6 +300,9 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         setUpTotalCost();
+        if (etVolume.getText().toString().isEmpty()) {
+            labelTotalCost.setText("0");
+        }
         if (!etVolume.getText().toString().contains("/") &&
                 !etVolume.getText().toString().contains("*") &&
                 !etVolume.getText().toString().contains("-") &&
@@ -333,6 +331,12 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         if (!etVolume.getText().toString().isEmpty() && volume != 0) {
             labelTotalCost.setText(String.valueOf(BigDecimal.valueOf(volume*rate).setScale(accurancy,
                     RoundingMode.HALF_EVEN)));
+        }
+
+        if ( BigDecimal.valueOf
+                (rate).compareTo(BigDecimal.ZERO) != 0) {
+            labelPrice.setText(String.valueOf(BigDecimal.valueOf
+                    (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
         }
     }
 }

@@ -18,6 +18,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:switchTextAppearance="@style/switchStyle"
             android:layout_toLeftOf="@+id/imgPersonalData"
             android:layout_toStartOf="@+id/imgPersonalData"
             android:layout_margin="8dp" />
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/switchOrder"
-            android:background="@drawable/switch_background"
+            android:switchTextAppearance="@style/switchStyle"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />

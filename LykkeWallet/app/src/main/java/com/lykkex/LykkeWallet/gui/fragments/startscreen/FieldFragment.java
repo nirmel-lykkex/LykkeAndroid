@@ -329,7 +329,9 @@ public class FieldFragment extends BaseFragment<FieldState> {
                 }
                 break;
             case EmailScreen:
-                if (result != null) {
+                if (result != null &&
+                        editTextField.getText().toString().equals
+                                (((AcountExistResult) result).getEmail())) {
                     model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
                     if (!model.isReady()) {
                         buttonAction.setText(R.string.action_sing_in);

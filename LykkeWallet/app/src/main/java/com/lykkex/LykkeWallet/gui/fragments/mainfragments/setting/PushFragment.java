@@ -26,7 +26,13 @@ public class PushFragment extends BaseFragment {
     @AfterViews
     public void afterViews(){
         actionBar.setTitle(R.string.push_title);
-
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            switchNewAsset.setBackground(getResources().getDrawable(R.drawable.switch_background));
+            switchOrder.setBackground(getResources().getDrawable(R.drawable.switch_background));
+            switchNewAsset.setTextAppearance(getActivity(), R.style.switchStyle);
+            switchOrder.setTextAppearance(getActivity(),R.style.switchStyle);
+        }
         int colorOn = getActivity().getResources().getColor(R.color.blue_color);
         int colorOff =getActivity().getResources().getColor(R.color.grey_text);
         int colorDisabled = getActivity().getResources().getColor(R.color.grey_text);

@@ -58,9 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/switchCheck"
-            android:background="@drawable/switch_background"
             android:layout_margin="8dp"
             android:layout_centerVertical="true"
+            android:switchTextAppearance="@style/switchStyle"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>

@@ -42,6 +42,7 @@ public class EmailTextWatcher implements TextWatcher, View.OnFocusChangeListener
                             ImageView imgWell, Button clear, final EditText editText,
                             ProgressBar progressBar, Button buttnAction) {
         this.callback = new AccountExistDataCallback(listener, progressBar, null);
+        callback.setEmail(editText.getText().toString());
         this.editText = editText;
         this.progressBar = progressBar;
         this.buttonAction = buttnAction;
@@ -67,6 +68,7 @@ public class EmailTextWatcher implements TextWatcher, View.OnFocusChangeListener
         setUpClearButton(charSequence.toString());
             if (charSequence.toString().matches(REGEX_VALIDATION)){
                 progressBar.setVisibility(View.VISIBLE);
+                callback.setEmail(editText.getText().toString());
                 Call<AccountExistData> call  =
                         LykkeApplication_.getInstance().getRestApi().accountExis(editText.
                                 getText().toString());

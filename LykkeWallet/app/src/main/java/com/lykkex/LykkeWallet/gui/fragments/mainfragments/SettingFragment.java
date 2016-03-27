@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.lykkex.LykkeWallet.BuildConfig;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
@@ -38,6 +40,11 @@ public class SettingFragment extends Fragment {
 
     @AfterViews
     public void afterViews(){
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            switchCheck.setBackgroundResource(R.drawable.switch_background);
+            switchCheck.setTextAppearance(getActivity(),R.style.switchStyle);
+        }
         int colorOn = getActivity().getResources().getColor(R.color.blue_color);
         int colorOff =getActivity().getResources().getColor(R.color.grey_text);
         int colorDisabled = getActivity().getResources().getColor(R.color.grey_text);
