@@ -329,16 +329,19 @@ public class FieldFragment extends BaseFragment<FieldState> {
                 }
                 break;
             case EmailScreen:
-                if (result != null &&
-                        editTextField.getText().toString().equals
-                                (((AcountExistResult) result).getEmail())) {
-                    model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
-                    if (!model.isReady()) {
-                        buttonAction.setText(R.string.action_sing_in);
-                        controller.fire(FieldTrigger.EmailSignInScreen);
-                        model.setIsReady(true);
+                if (result != null) {
+                    if ( editTextField.getText().toString().equals
+                            (((AcountExistResult) result).getEmail())) {
+                        model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
+                        if (!model.isReady()) {
+                            buttonAction.setText(R.string.action_sing_in);
+                            controller.fire(FieldTrigger.EmailSignInScreen);
+                            model.setIsReady(true);
+                        }
+                        setUpReady();
+                    } else {
+                        buttonAction.setEnabled(false);
                     }
-                    setUpReady();
                 }
                 break;
             case FullNameScreen:

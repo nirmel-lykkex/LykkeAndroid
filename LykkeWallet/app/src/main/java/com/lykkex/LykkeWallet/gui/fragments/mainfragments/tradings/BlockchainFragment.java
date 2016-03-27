@@ -9,6 +9,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.widgets.LockableScrollView;
 import com.lykkex.LykkeWallet.rest.trading.callback.TransactionCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.Order;
 import com.lykkex.LykkeWallet.rest.trading.response.model.TransactionData;
@@ -38,6 +39,8 @@ public class BlockchainFragment extends BaseFragment {
     @ViewById TextView labelAsset;
     @ViewById TextView labelQuantity;
     @ViewById TextView labelUrl;
+    @ViewById LockableScrollView scrollViewParent;
+    @ViewById LockableScrollView scrollViewInfo;
 
     @ViewById LinearLayout linearHash;
     @ViewById LinearLayout linearDate;
