@@ -8,6 +8,8 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
@@ -36,6 +38,9 @@ import retrofit2.Call;
 public class BlockchainFragment extends BaseFragment {
 
     @Pref  UserPref_ userPref;
+    @ViewById RelativeLayout tvTitle2;
+    @ViewById RelativeLayout relImage;
+    @ViewById LinearLayout linearInfo;
     @ViewById TextView labelHash;
     @ViewById TextView labelDate;
     @ViewById TextView labelConfirm;
@@ -45,8 +50,6 @@ public class BlockchainFragment extends BaseFragment {
     @ViewById TextView labelAsset;
     @ViewById TextView labelQuantity;
     @ViewById TextView labelUrl;
-    @ViewById LockableScrollView scrollViewParent;
-    @ViewById LockableScrollView scrollViewInfo;
 
     @ViewById LinearLayout linearHash;
     @ViewById LinearLayout linearDate;
@@ -57,37 +60,36 @@ public class BlockchainFragment extends BaseFragment {
     @ViewById LinearLayout linearAsset;
     @ViewById LinearLayout linearQuantity;
     @ViewById LinearLayout linearUrl;
+    @ViewById ScrollView scrollViewParent;
+    private int prevScroll = 0;
 
     @AfterViews
     public void afterViews(){
         actionBar.setDisplayHomeAsUpEnabled(false);
         Order order = (Order) getArguments().getSerializable(Constants.EXTRA_ORDER);
         getTransaction(order.getId());
-        scrollViewInfo.setScrollingEnabled(true);
-        scrollViewParent.setScrollingEnabled(true);
+
         scrollViewParent.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
                 int scrollY = scrollViewParent.getScrollY();
-                Log.d("Liza ", "getScrollY: " + scrollY);
-                if (scrollY > TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 170, getResources().getDisplayMetrics())) {
-                    scrollViewInfo.setScrollingEnabled(true);
-                    scrollViewParent.setScrollingEnabled(false);
-                } else {
-                    if (scrollY != 0) {
-                        scrollViewInfo.setScrollY(scrollY);
-                    }
-                }
-            }
-        });
+                int defaultHeight = (int) TypedValue.
+                        applyDimension(TypedValue.COMPLEX_UNIT_DIP, 240, getResources().getDisplayMetrics());
 
-        scrollViewInfo.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                int scrollY = scrollViewInfo.getScrollY();
-                if (scrollViewParent.isScrollable()) {
-                    scrollViewParent.setScrollY(scrollY);
+                if (scrollY > defaultHeight) {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
+                    lp.topMargin = (int) TypedValue.
+                            applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
+                    scrollViewParent.setLayoutParams(lp);
+                    tvTitle2.setVisibility(View.VISIBLE);
+                } else if (prevScroll-scrollY < 100) {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
+                    lp.topMargin = (int) TypedValue.
+                            applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
+                    scrollViewParent.setLayoutParams(lp);
+                    tvTitle2.setVisibility(View.GONE);
                 }
+                prevScroll = scrollY;
                 Log.d("Liza ", "getScrollY: " + scrollY);
             }
         });

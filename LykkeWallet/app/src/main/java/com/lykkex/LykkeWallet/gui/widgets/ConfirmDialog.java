@@ -294,7 +294,9 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
                 break;
             case R.id.relRemove:
             case R.id.imgRemove:
-                pin = pin.substring(0, pin.length()-1);
+                if (pin.length() > 0) {
+                    pin = pin.substring(0, pin.length() - 1);
+                }
                 setUpCircles();
                 break;
         }
