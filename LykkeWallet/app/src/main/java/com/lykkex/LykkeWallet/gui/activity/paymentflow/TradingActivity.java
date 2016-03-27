@@ -4,6 +4,7 @@ import android.view.MenuItem;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.TradingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.TradingDescription;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.TradingDescription_;
@@ -39,6 +40,12 @@ public class TradingActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed(){
+        ((BaseFragment)currentFragment).initOnBackPressed();
+    }
+
 
 }
 
