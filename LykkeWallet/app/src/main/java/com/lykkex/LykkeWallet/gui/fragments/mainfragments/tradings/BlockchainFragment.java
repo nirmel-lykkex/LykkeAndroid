@@ -1,6 +1,12 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 
+import android.content.Context;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,6 +63,34 @@ public class BlockchainFragment extends BaseFragment {
         actionBar.setDisplayHomeAsUpEnabled(false);
         Order order = (Order) getArguments().getSerializable(Constants.EXTRA_ORDER);
         getTransaction(order.getId());
+        scrollViewInfo.setScrollingEnabled(true);
+        scrollViewParent.setScrollingEnabled(true);
+        scrollViewParent.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scrollViewParent.getScrollY();
+                Log.d("Liza ", "getScrollY: " + scrollY);
+                if (scrollY > TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 170, getResources().getDisplayMetrics())) {
+                    scrollViewInfo.setScrollingEnabled(true);
+                    scrollViewParent.setScrollingEnabled(false);
+                } else {
+                    if (scrollY != 0) {
+                        scrollViewInfo.setScrollY(scrollY);
+                    }
+                }
+            }
+        });
+
+        scrollViewInfo.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scrollViewInfo.getScrollY();
+                if (scrollViewParent.isScrollable()) {
+                    scrollViewParent.setScrollY(scrollY);
+                }
+                Log.d("Liza ", "getScrollY: " + scrollY);
+            }
+        });
     }
 
     private void getTransaction(String id){
