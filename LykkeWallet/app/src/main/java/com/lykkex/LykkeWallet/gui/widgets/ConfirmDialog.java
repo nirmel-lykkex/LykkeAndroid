@@ -192,6 +192,18 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
         imgRemove.setOnClickListener(this);
         relRemove.setOnClickListener(this);
         getRates();
+
+        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(android.content.DialogInterface dialog, int keyCode, android.view.KeyEvent event) {
+
+                if ((keyCode == android.view.KeyEvent.KEYCODE_BACK)) {
+
+                    return true;
+                } else
+                    return false;
+            }
+        });
         return v;
     }
 
@@ -396,8 +408,8 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
         }
 
         if (result instanceof RateResult) {
-            if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null) {
-                rate = (((RateResult) result).getRate().getBid());
+            if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getAsk() != null) {
+                rate = (((RateResult) result).getRate().getAsk());
                 valuePrice.setText(String.valueOf(new BigDecimal
                         (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
                 valueTotalCost.setText(String.valueOf((new BigDecimal

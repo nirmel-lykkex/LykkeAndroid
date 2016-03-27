@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
@@ -147,15 +148,15 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Override
     public void initOnBackPressed() {
-
+        ((BaseActivity)getActivity()).initFragment(new TradingDescription_(),getArguments());
     }
 
     @Override
     public void onSuccess(Object result) {
         if (result instanceof RateResult) {
             if (((RateResult) result).getRate() != null &&
-                    ((RateResult) result).getRate().getBid() != null) {
-                rate = Double.parseDouble(((RateResult) result).getRate().getBid());
+                    ((RateResult) result).getRate().getAsk() != null) {
+                rate = Double.parseDouble(((RateResult) result).getRate().getAsk());
                 setUpTotalCost();
             }
         }
@@ -190,16 +191,19 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @Click(R.id.rel100)
     public void click100(){
         etVolume.setText("100");
+        etVolume.setSelection(etVolume.getText().toString().length());
     }
 
     @Click(R.id.rel1000)
     public void click1000(){
         etVolume.setText("1000");
+        etVolume.setSelection(etVolume.getText().toString().length());
     }
 
     @Click(R.id.rel10000)
     public void click10000(){
         etVolume.setText("10000");
+        etVolume.setSelection(etVolume.getText().toString().length());
     }
 
     @Click(R.id.rel1)

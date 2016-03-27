@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
@@ -75,9 +76,14 @@ public class TradingDescription  extends BaseFragment {
     public void afterViews(){
         actionBar.setTitle(getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
         accurancy = getArguments().getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY);
-        id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
-        setUpVisibility(View.VISIBLE, View.GONE);
-        getDescription();
+        if (getArguments().getSerializable(Constants.EXTRA_DESCRIPTION) != null) {
+            onSuccess(getArguments().getSerializable(Constants.EXTRA_DESCRIPTION));
+        } else {
+            id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
+            setUpVisibility(View.VISIBLE, View.GONE);
+            btnBuy.setEnabled(false);
+            getDescription();
+        }
     }
 
     public void onStop(){
@@ -121,11 +127,14 @@ public class TradingDescription  extends BaseFragment {
         getActivity().finish();
     }
 
+    private DescriptionResult resultData = null;
     @Override
     public void onSuccess(Object result) {
         if (getActivity() != null) {
             if (result instanceof DescriptionResult) {
+                resultData = (DescriptionResult) result;
                 setUpVisibility(View.GONE, View.VISIBLE);
+                btnBuy.setEnabled(true);
                 tvAssetClass.setText(((DescriptionResult) result).getAssetClass());
                 tvDescription.setText(((DescriptionResult) result).getDescription());
                 tvIssuerName.setText(((DescriptionResult) result).getIssuerName());
@@ -149,10 +158,10 @@ public class TradingDescription  extends BaseFragment {
                 }
                 handler.post(run);
             } else if (result instanceof RateResult) {
-                if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null
+                if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getAsk() != null
                         && getActivity() != null) {
                     btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
-                            (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                            (Double.parseDouble(((RateResult) result).getRate().getAsk())).setScale(accurancy, RoundingMode.HALF_EVEN)));
                 }
             }
         }
@@ -160,7 +169,9 @@ public class TradingDescription  extends BaseFragment {
 
     @Click(R.id.btnBuy)
     public void clickBtnBuy(){
-        ((BaseActivity)getActivity()).initFragment(new BuyAsset_(), getArguments());
+        Bundle bundle = getArguments();
+        bundle.putSerializable(Constants.EXTRA_DESCRIPTION, resultData);
+        ((BaseActivity) getActivity()).initFragment(new BuyAsset_(), getArguments());
     }
 
     private void setUpVisibility(int gone, int goneLinear) {

@@ -2,10 +2,12 @@ package com.lykkex.LykkeWallet.rest.trading.response.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by e.kazimirova on 18.03.2016.
  */
-public class DescriptionResult {
+public class DescriptionResult implements Serializable {
 
     @SerializedName("Id")
     private String id;

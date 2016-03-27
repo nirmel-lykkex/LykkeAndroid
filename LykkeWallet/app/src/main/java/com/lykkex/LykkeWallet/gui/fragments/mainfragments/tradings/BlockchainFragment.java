@@ -65,6 +65,7 @@ public class BlockchainFragment extends BaseFragment {
 
     @AfterViews
     public void afterViews(){
+        actionBar.setTitle(getString(R.string.blockchain_title));
         actionBar.setDisplayHomeAsUpEnabled(false);
         Order order = (Order) getArguments().getSerializable(Constants.EXTRA_ORDER);
         getTransaction(order.getId());

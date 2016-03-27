@@ -132,10 +132,10 @@ public class TradingFragment extends Fragment implements CallBackListener {
                     if (AssetPairSinglenton.getInstance().getRates() != null &&
                             AssetPairSinglenton.getInstance().getRates().getRates() != null &&
                             AssetPairSinglenton.getInstance().getRates().getRates().length != 0
-                            && rate != null) {
+                            && rate != null && new BigDecimal(rate.getAsk()).compareTo(BigDecimal.ZERO) != 0) {
                         tvPrice.setBackgroundResource(R.drawable.active_price);
                         tvPrice.setText("$" + String.valueOf(BigDecimal.valueOf
-                                (Double.parseDouble(rate.getBid())).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
+                                (Double.parseDouble(rate.getAsk())).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
                         graphic.setUpRates(rate, getResources().getColor(R.color.light_blue));
                     } else {
                         tvPrice.setBackgroundResource(R.drawable.price_not_come);

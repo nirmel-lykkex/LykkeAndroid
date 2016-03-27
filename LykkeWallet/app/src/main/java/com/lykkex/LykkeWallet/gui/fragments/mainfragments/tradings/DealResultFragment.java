@@ -68,7 +68,7 @@ public class DealResultFragment extends BaseFragment implements
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setRefreshing(false);
         actionBar.setTitle(getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME)
-                + " " + R.string.deal_result);
+                + " " + getString(R.string.deal_result));
         if (order.getAssetPair()== null || order.getAssetPair().isEmpty()){
             linearAssetName.setVisibility(View.GONE);
         } else {
