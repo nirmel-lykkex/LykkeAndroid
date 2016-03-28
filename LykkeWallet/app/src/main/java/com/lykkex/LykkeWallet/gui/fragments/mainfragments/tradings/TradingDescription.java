@@ -82,6 +82,7 @@ public class TradingDescription  extends BaseFragment {
             id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
             setUpVisibility(View.VISIBLE, View.GONE);
             btnBuy.setEnabled(false);
+            btnBuy.setClickable(false);
             getDescription();
         }
     }
@@ -135,6 +136,7 @@ public class TradingDescription  extends BaseFragment {
                 resultData = (DescriptionResult) result;
                 setUpVisibility(View.GONE, View.VISIBLE);
                 btnBuy.setEnabled(true);
+                btnBuy.setClickable(true);
                 tvAssetClass.setText(((DescriptionResult) result).getAssetClass());
                 tvDescription.setText(((DescriptionResult) result).getDescription());
                 tvIssuerName.setText(((DescriptionResult) result).getIssuerName());

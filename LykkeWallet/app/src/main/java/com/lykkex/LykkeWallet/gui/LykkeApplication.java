@@ -34,7 +34,7 @@ public class LykkeApplication extends Application {
 
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://lykke-api-test.azurewebsites.net")
+                .baseUrl("https://lykke-api-dev.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
