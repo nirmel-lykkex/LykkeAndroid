@@ -7,6 +7,7 @@ import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
+import com.lykkex.LykkeWallet.rest.history.reposnse.model.HistoryData;
 import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
 import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
@@ -135,4 +136,7 @@ public interface RestApi {
     @GET("api/BlockchainTransaction{orderId}")
     Call<TransactionData> getBlockChainTransaction(@Header("Authorization")String authorization,
                                             @Path("orderId") String orderId);
+
+    @GET("api/Transactions")
+    Call<HistoryData> getHistory(@Header("Authorization")String authorization);
 }
