@@ -24,10 +24,6 @@ public class History {
 
     public List<ItemHistory> getList(){
         List<ItemHistory> list = new ArrayList<>();
-        if (marketOrders != null) {
-            Collections.addAll(list, marketOrders);
-        }
-
         if (cashInOuts != null) {
             Collections.addAll(list, cashInOuts);
         }

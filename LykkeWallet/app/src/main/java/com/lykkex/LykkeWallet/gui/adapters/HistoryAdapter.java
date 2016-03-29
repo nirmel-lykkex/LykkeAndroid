@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
@@ -58,19 +59,22 @@ public class HistoryAdapter extends BaseAdapter {
         TextView tvName = (TextView) view.findViewById(R.id.tvName);
         TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
         TextView tvAmount = (TextView) view.findViewById(R.id.tvAmount);
+        ImageView imgLykke = (ImageView) view.findViewById(R.id.imgLykke);
 
         ItemHistory item = list.get(position);
         tvDateTime.setText(item.getDateTime());
-        if (item instanceof MarketOrder) {
-            tvName.setText(((MarketOrder) item).getBaseAsset());
-            setUpColor(tvAmount, ((MarketOrder) item).getTotalCost());
+
+        tvName.setText(item.getAsset());
+        if (item instanceof CashInOut) {
+            setUpColor(tvAmount, ((CashInOut) item).getAmount());
         } else {
-            tvName.setText(item.getAsset());
-            if (item instanceof CashInOut) {
-                setUpColor(tvAmount, ((CashInOut) item).getAmount());
-            } else {
-                setUpColor(tvAmount, ((Trading) item).getVolume());
-            }
+            setUpColor(tvAmount, ((Trading) item).getVolume());
+        }
+
+        if (item.getIconId().equals("BTC")){
+            imgLykke.setBackgroundResource(R.drawable.bitcoin);
+        } else if (item.getIconId().equals("LKE")){
+            imgLykke.setBackgroundResource(R.drawable.logo);
         }
 
         return view;
