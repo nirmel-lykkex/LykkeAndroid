@@ -135,11 +135,11 @@ public class DealResultFragment extends BaseFragment implements
 
     @Click(R.id.linearBlockChain)
     public void clickLinearBlockChain(){
-       // if (Boolean.parseBoolean(order.getBlockchainSetteled())) {
+        if (Boolean.parseBoolean(order.getBlockchainSetteled())) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.EXTRA_ORDER, order);
             ((BaseActivity) getActivity()).initFragment(new BlockchainFragment_(), bundle);
-       // }
+       }
     }
 
     @Click(R.id.tvBlockChain)

@@ -34,4 +34,20 @@ public class ItemHistory {
     public String getIconId() {
         return iconId;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setAsset(String asset) {
+        this.asset = asset;
+    }
+
+    public void setIconId(String iconId) {
+        this.iconId = iconId;
+    }
 }
