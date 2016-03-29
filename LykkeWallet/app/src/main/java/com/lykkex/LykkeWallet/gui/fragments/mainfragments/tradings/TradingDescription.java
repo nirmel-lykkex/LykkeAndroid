@@ -71,17 +71,25 @@ public class TradingDescription  extends BaseFragment {
     @Pref UserPref_ userPref;
     private String id;
     private int accurancy;
+    private String price;
 
     @AfterViews
     public void afterViews(){
         actionBar.setTitle(getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
+    }
+
+    public void onStart(){
+        super.onStart();
+        price = getArguments().getString(Constants.EXTRA_RATE_PRICE);
         accurancy = getArguments().getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY);
         if (getArguments().getSerializable(Constants.EXTRA_DESCRIPTION) != null) {
+            btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
+                    (Double.parseDouble(price)).setScale(accurancy, RoundingMode.HALF_EVEN)));
             onSuccess(getArguments().getSerializable(Constants.EXTRA_DESCRIPTION));
         } else {
             id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
             setUpVisibility(View.VISIBLE, View.GONE);
-            btnBuy.setEnabled(false);
+            btnBuy.setVisibility(View.GONE);
             getDescription();
         }
     }
@@ -134,12 +142,12 @@ public class TradingDescription  extends BaseFragment {
             if (result instanceof DescriptionResult) {
                 resultData = (DescriptionResult) result;
                 setUpVisibility(View.GONE, View.VISIBLE);
-                btnBuy.setEnabled(true);
+                btnBuy.setVisibility(View.VISIBLE);
                 tvAssetClass.setText(((DescriptionResult) result).getAssetClass());
                 tvDescription.setText(((DescriptionResult) result).getDescription());
                 tvIssuerName.setText(((DescriptionResult) result).getIssuerName());
                 tvNumberOfCoins.setText(((DescriptionResult) result).getNumberOfCoins());
-                btnBuy.setText(getString(R.string.buy_rate) + " " + ((DescriptionResult) result).getMarketCapitalization());
+
 
                 Resources r = getResources();
                 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
@@ -160,6 +168,7 @@ public class TradingDescription  extends BaseFragment {
             } else if (result instanceof RateResult) {
                 if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getAsk() != null
                         && getActivity() != null) {
+                    price = ((RateResult) result).getRate().getAsk();
                     btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
                             (Double.parseDouble(((RateResult) result).getRate().getAsk())).setScale(accurancy, RoundingMode.HALF_EVEN)));
                 }
@@ -171,6 +180,7 @@ public class TradingDescription  extends BaseFragment {
     public void clickBtnBuy(){
         Bundle bundle = getArguments();
         bundle.putSerializable(Constants.EXTRA_DESCRIPTION, resultData);
+        bundle.putSerializable(Constants.EXTRA_RATE_PRICE, price);
         ((BaseActivity) getActivity()).initFragment(new BuyAsset_(), getArguments());
     }
 

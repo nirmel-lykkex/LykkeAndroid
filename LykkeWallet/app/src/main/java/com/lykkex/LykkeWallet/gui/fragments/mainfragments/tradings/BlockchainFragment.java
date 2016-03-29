@@ -65,6 +65,10 @@ public class BlockchainFragment extends BaseFragment {
 
     @AfterViews
     public void afterViews(){
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDefaultDisplayHomeAsUpEnabled(false);
+        actionBar.hide();
+        hideAllInfo();
         actionBar.setTitle(getString(R.string.blockchain_title));
         actionBar.setDisplayHomeAsUpEnabled(false);
         Order order = (Order) getArguments().getSerializable(Constants.EXTRA_ORDER);
@@ -77,15 +81,24 @@ public class BlockchainFragment extends BaseFragment {
                 int defaultHeight = (int) TypedValue.
                         applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
 
-                if (scrollY > defaultHeight) {
-                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
-                    lp.topMargin = (int) TypedValue.
-                            applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
-                    scrollViewParent.setLayoutParams(lp);
-                    relImage.setVisibility(View.INVISIBLE);
+                if (scrollY > prevScroll) {
+                    if (scrollY > defaultHeight) {
+                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
+                        lp.topMargin = (int) TypedValue.
+                                applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
+                        scrollViewParent.setLayoutParams(lp);
+                        relImage.setVisibility(View.INVISIBLE);
 
-                    tvTitle2.setVisibility(View.VISIBLE);
-                } else if (prevScroll-scrollY < 100) {
+                        tvTitle2.setVisibility(View.VISIBLE);
+                    } else if (prevScroll - scrollY < 100) {
+                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
+                        lp.topMargin = (int) TypedValue.
+                                applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
+                        scrollViewParent.setLayoutParams(lp);
+                        relImage.setVisibility(View.VISIBLE);
+                        tvTitle2.setVisibility(View.GONE);
+                    }
+                } else {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
                     lp.topMargin = (int) TypedValue.
                             applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
@@ -125,6 +138,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getHash().isEmpty()) {
                     linearHash.setVisibility(View.GONE);
                 } else {
+                    linearHash.setVisibility(View.VISIBLE);
                     labelHash.setText(((TransactionResult) result).getTransaction().getHash());
                 }
 
@@ -132,6 +146,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getDate().isEmpty()) {
                     linearDate.setVisibility(View.GONE);
                 } else {
+                    linearDate.setVisibility(View.VISIBLE);
                     labelDate.setText(((TransactionResult) result).getTransaction().getDate());
                 }
 
@@ -139,6 +154,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getConfirmations().isEmpty()) {
                     linearConfirm.setVisibility(View.GONE);
                 } else {
+                    linearConfirm.setVisibility(View.VISIBLE);
                     labelConfirm.setText(((TransactionResult) result).getTransaction().getConfirmations());
                 }
 
@@ -146,6 +162,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getAssetId().isEmpty()) {
                     linearAsset.setVisibility(View.GONE);
                 } else {
+                    linearAsset.setVisibility(View.VISIBLE);
                     labelAsset.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
                     labelAsset.setText(((TransactionResult) result).getTransaction().getAssetId());
                 }
@@ -154,6 +171,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getSenderId().isEmpty()) {
                     linearSender.setVisibility(View.GONE);
                 } else {
+                    linearSender.setVisibility(View.VISIBLE);
                     labelSender.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
                     labelSender.setText(((TransactionResult) result).getTransaction().getSenderId());
                 }
@@ -162,6 +180,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getBlock().isEmpty()) {
                     linearBlock.setVisibility(View.GONE);
                 } else {
+                    linearBlock.setVisibility(View.VISIBLE);
                     labelBlock.setText(((TransactionResult) result).getTransaction().getBlock());
                 }
 
@@ -169,6 +188,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getHeight().isEmpty()) {
                     linearHeight.setVisibility(View.GONE);
                 } else {
+                    linearHeight.setVisibility(View.VISIBLE);
                     labelHeight.setText(((TransactionResult) result).getTransaction().getHeight());
                 }
 
@@ -176,6 +196,7 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getQuality().isEmpty()) {
                     linearQuantity.setVisibility(View.GONE);
                 } else {
+                    linearQuantity.setVisibility(View.VISIBLE);
                     labelQuantity.setText(((TransactionResult) result).getTransaction().getQuality());
                 }
 
@@ -183,21 +204,26 @@ public class BlockchainFragment extends BaseFragment {
                         ((TransactionResult) result).getTransaction().getUrl().isEmpty()) {
                     linearUrl.setVisibility(View.GONE);
                 } else {
+                    linearUrl.setVisibility(View.VISIBLE);
                     labelUrl.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
                     labelUrl.setText(((TransactionResult) result).getTransaction().getUrl());
                 }
             }
         } else {
-            linearHash.setVisibility(View.GONE);
-            linearDate.setVisibility(View.GONE);
-            linearConfirm.setVisibility(View.GONE);
-            linearBlock.setVisibility(View.GONE);
-            linearHeight.setVisibility(View.GONE);
-            linearSender.setVisibility(View.GONE);
-            linearAsset.setVisibility(View.GONE);
-            linearQuantity.setVisibility(View.GONE);
-            linearUrl.setVisibility(View.GONE);
+           hideAllInfo();
         }
+    }
+
+    private void hideAllInfo(){
+        linearHash.setVisibility(View.GONE);
+        linearDate.setVisibility(View.GONE);
+        linearConfirm.setVisibility(View.GONE);
+        linearBlock.setVisibility(View.GONE);
+        linearHeight.setVisibility(View.GONE);
+        linearSender.setVisibility(View.GONE);
+        linearAsset.setVisibility(View.GONE);
+        linearQuantity.setVisibility(View.GONE);
+        linearUrl.setVisibility(View.GONE);
     }
 
     @Override

@@ -128,6 +128,11 @@ public class DealResultFragment extends BaseFragment implements
         getActivity().finish();
     }
 
+    @Click(R.id.btnClose)
+    public void btnClose(){
+        getActivity().finish();
+    }
+
     @Click(R.id.linearBlockChain)
     public void clickLinearBlockChain(){
        // if (Boolean.parseBoolean(order.getBlockchainSetteled())) {

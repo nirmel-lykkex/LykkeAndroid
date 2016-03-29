@@ -137,17 +137,17 @@ public class TradingFragment extends Fragment implements CallBackListener {
                         tvPrice.setText("$" + String.valueOf(BigDecimal.valueOf
                                 (Double.parseDouble(rate.getAsk())).setScale(pair.getAccurancy(), RoundingMode.HALF_EVEN)));
                         graphic.setUpRates(rate, getResources().getColor(R.color.light_blue));
+                        setUpClickItem(pair, view);
+                        setUpClickItem(pair, rootLinear);
+                        setUpClickItem(pair, relPrice);
+                        setUpClickItem(pair, tvAssetName);
+                        setUpClickItem(pair, graphic);
+                        setUpClickItem(pair, tvPrice);
                     } else {
                         tvPrice.setBackgroundResource(R.drawable.price_not_come);
                     }
                     tvAssetName.setText(pair.getName());
 
-                    setUpClickItem(pair, view);
-                    setUpClickItem(pair, rootLinear);
-                    setUpClickItem(pair, relPrice);
-                    setUpClickItem(pair, tvAssetName);
-                    setUpClickItem(pair, graphic);
-                    setUpClickItem(pair, tvPrice);
                     linearEntity.addView(view);
                 }
             }
