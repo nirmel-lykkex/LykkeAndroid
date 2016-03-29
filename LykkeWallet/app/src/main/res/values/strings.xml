@@ -4,6 +4,11 @@
     <string name="history_item">History</string>
     <string name="setting_item">Settings</string>
     <string name="app_name">Lykke Wallet</string>
+    <string name="change_server">Change server</string>
+    <string name="lykke_api_test">lykke-api-test</string>
+    <string name="lykke_api_dev">lykke-api-dev</string>
+    <string name="lykke_api_demo">lykke-api-demo</string>
+
     <string name="wallet_title">WALLETS</string>
     <string name="trading_title">EXCHANGE</string>
     <string name="history_title">HISTORY</string>

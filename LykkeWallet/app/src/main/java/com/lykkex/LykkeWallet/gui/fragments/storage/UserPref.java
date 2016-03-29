@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.fragments.storage;
 
+import org.androidannotations.annotations.sharedpreferences.DefaultInt;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
@@ -35,4 +36,7 @@ public interface UserPref {
 
     @DefaultString("")
     String pin();
+
+    @DefaultInt(0) //0 - default = dev; 1 = test; 2 = demo
+    int idServer();
 }

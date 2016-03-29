@@ -31,6 +31,19 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    productFlavors {
+        dev {
+            dimension "deploy"
+            buildConfigField "boolean", "CHANGE_SERVER", "true";
+        }
+        prod {
+            dimension "deploy"
+
+            buildConfigField "boolean", "CHANGE_SERVER", "false";
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

@@ -239,4 +239,15 @@
             android:layout_toEndOf="@+id/imageView4"
             android:layout_marginLeft="-5dp" />
     </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_server"
+        android:id="@+id/btnChangeServer"
+        android:layout_below="@+id/buttonAction"
+        android:layout_alignRight="@+id/buttonAction"
+        android:layout_alignEnd="@+id/buttonAction"
+        android:layout_alignLeft="@+id/buttonAction"
+        android:layout_alignStart="@+id/buttonAction" />
 </RelativeLayout>

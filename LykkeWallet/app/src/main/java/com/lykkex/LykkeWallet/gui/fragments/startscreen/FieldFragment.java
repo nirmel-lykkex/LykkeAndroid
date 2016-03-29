@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lykkex.LykkeWallet.BuildConfig;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
@@ -32,6 +33,7 @@ import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.PasswordTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextAuthWatcher;
+import com.lykkex.LykkeWallet.gui.widgets.DialogChangeServer;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.registration.callback.RegistrationDataCallback;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
@@ -41,6 +43,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Random;
 
 import retrofit2.Call;
 
@@ -54,6 +58,7 @@ public class FieldFragment extends BaseFragment<FieldState> {
     FieldController controller;
 
     @ViewById Button buttonAction;
+    @ViewById Button btnChangeServer;
     @ViewById RelativeLayout validationField;
     @ViewById EditText editTextField;
     @ViewById Button buttonClear;
@@ -104,6 +109,19 @@ public class FieldFragment extends BaseFragment<FieldState> {
                 initSecondPasswordState();
                 break;
         }
+
+        if (BuildConfig.CHANGE_SERVER){
+            btnChangeServer.setVisibility(View.VISIBLE);
+        } else {
+            btnChangeServer.setVisibility(View.GONE);
+        }
+    }
+
+    @Click(R.id.btnChangeServer)
+    public void clickBtnChangeServer(){
+        DialogChangeServer dialogChangeServer = new DialogChangeServer();
+        dialogChangeServer.show(getActivity().getFragmentManager(),
+                "dlg1" +new Random((int)Constants.DELAY_5000));
     }
 
     private void clearReadyModel(){
