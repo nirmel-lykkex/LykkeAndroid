@@ -137,6 +137,7 @@ public interface RestApi {
     Call<TransactionData> getBlockChainTransaction(@Header("Authorization")String authorization,
                                             @Path("orderId") String orderId);
 
-    @GET("api/Transactions")
-    Call<HistoryData> getHistory(@Header("Authorization")String authorization);
+    @GET("api/Transactions{assetId}")
+    Call<HistoryData> getHistory(@Header("Authorization")String authorization,
+                                 @Path("assetId") String assetId);
 }

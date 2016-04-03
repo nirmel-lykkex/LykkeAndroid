@@ -57,21 +57,27 @@ public class DialogChangeServer extends DialogFragment implements View.OnClickLi
         radioDemo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                idServer = 2;
+                if (b) {
+                    idServer = 2;
+                }
             }
         });
 
         radioDev.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                idServer = 0;
+                if (b) {
+                    idServer = 0;
+                }
             }
         });
 
         radioTest.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                idServer = 1;
+                if (b) {
+                    idServer = 1;
+                }
             }
         });
         return v;

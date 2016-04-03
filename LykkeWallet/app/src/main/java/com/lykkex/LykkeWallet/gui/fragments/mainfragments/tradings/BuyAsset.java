@@ -42,6 +42,9 @@ import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -63,7 +66,6 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     LinearLayout linearRoot;
 
     private Double rate = 0.0;
-    private int volume = 0;
 
     private ArrayList<Call<RatesData>> listRates = new ArrayList<>();
     private boolean isShouldContinue = true;
@@ -295,8 +297,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Click(R.id.relEqual)
     public void clickEqual(){
-        setUpText(String.valueOf(BigDecimal.valueOf(Calculate.eval(etVolume.getText().toString())).
-                setScale(0, RoundingMode.HALF_EVEN).intValue()));
+        setUpText(String.valueOf(BigDecimal.valueOf(Calculate.eval(etVolume.getText().toString()))));
     }
 
     @Override
@@ -313,24 +314,42 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     }
 
+    private  BigDecimal etVolumeRes = BigDecimal.ZERO;
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        setUpTotalCost();
-        if (etVolume.getText().toString().isEmpty()) {
-            labelTotalCost.setText("0");
+        try {
+            setUpTotalCost();
+            if (etVolume.getText().toString().isEmpty()) {
+                labelTotalCost.setText("0");
+            }
+            DecimalFormat format= (DecimalFormat) DecimalFormat.getInstance();
+            format.setParseBigDecimal(true);
+            DecimalFormatSymbols symbols=format.getDecimalFormatSymbols();
+            symbols.setDecimalSeparator('.');
+            format.setDecimalFormatSymbols(symbols);
+
+            etVolumeRes = (BigDecimal) format.parse(etVolume.getText().toString());
+            int charCount = etVolume.getText().toString().replaceAll("[^.]", "").length();
+            if (charCount <=1
+                    &&!etVolume.getText().toString().startsWith(".")
+                   &&!etVolume.getText().toString().contains("/") &&
+                    !etVolume.getText().toString().contains("*") &&
+                    !etVolume.getText().toString().contains("-") &&
+                    !etVolume.getText().toString().contains("+") &&
+                    !labelTotalCost.getText().toString().isEmpty() &&
+                    !labelPrice.getText().toString().isEmpty()
+                    && !etVolume.getText().toString().isEmpty()
+                    && etVolumeRes.compareTo(BigDecimal.ZERO) != 0 &&
+                    new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
+                    new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0) {
+                button.setEnabled(true);
+            } else {
+                button.setEnabled(false);
+            }
+        } catch (NumberFormatException ex){
+            button.setEnabled(false);
         }
-        if (!etVolume.getText().toString().contains("/") &&
-                !etVolume.getText().toString().contains("*") &&
-                !etVolume.getText().toString().contains("-") &&
-                !etVolume.getText().toString().contains("+") &&
-                !labelTotalCost.getText().toString().isEmpty() &&
-                !labelPrice.getText().toString().isEmpty()
-                && !etVolume.getText().toString().isEmpty()
-                && volume != 0 &&
-                new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
-                new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0) {
-            button.setEnabled(true);
-        } else {
+        catch (ParseException e) {
             button.setEnabled(false);
         }
     }
@@ -340,13 +359,9 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     }
 
     private void setUpTotalCost(){
-        try {
-            volume = Integer.parseInt(etVolume.getText().toString());
-        } catch (NumberFormatException ex){}
-
-        if (!etVolume.getText().toString().isEmpty() && volume != 0) {
-            labelTotalCost.setText(String.valueOf(BigDecimal.valueOf(volume*rate).setScale(accurancy,
-                    RoundingMode.HALF_EVEN)));
+        if (!etVolume.getText().toString().isEmpty() && etVolumeRes.compareTo(BigDecimal.ZERO) != 0) {
+            labelTotalCost.setText(String.valueOf(etVolumeRes.multiply(BigDecimal.valueOf(rate).setScale(accurancy,
+                    RoundingMode.HALF_EVEN))));
         }
 
         if ( BigDecimal.valueOf

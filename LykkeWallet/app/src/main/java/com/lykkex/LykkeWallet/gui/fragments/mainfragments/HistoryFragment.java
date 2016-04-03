@@ -51,7 +51,8 @@ public class HistoryFragment extends Fragment implements CallBackListener, Swipe
     private void getHistory(){
         HistoryCallBack callBack = new HistoryCallBack(this, getActivity());
         Call<HistoryData> call = LykkeApplication_.getInstance().getRestApi().getHistory
-                (Constants.PART_AUTHORIZATION + userPref.authToken().get());
+                (Constants.PART_AUTHORIZATION + userPref.authToken().get(),
+                        "?assetId=null");
         call.enqueue(callBack);
     }
 
