@@ -1,7 +1,9 @@
 package com.lykkex.LykkeWallet.gui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.activity.HistoryActivity;
+import com.lykkex.LykkeWallet.gui.activity.HistoryActivity_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.history.BlockChainHistoryFragment_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.BlockchainFragment_;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.CashInOut;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.ItemHistory;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketOrder;
@@ -48,7 +56,7 @@ public class HistoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, final View convertView, ViewGroup viewGroup) {
          View view = convertView;
         if (view == null) {
             LayoutInflater lInflater = (LayoutInflater) context
@@ -77,15 +85,26 @@ public class HistoryAdapter extends BaseAdapter {
             imgLykke.setBackgroundResource(R.drawable.logo);
         }
 
+        view.setClickable(true);
+        view.setTag(item);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, HistoryActivity_.class);
+                intent.putExtra(Constants.EXTRA_HISTORY_ITEM, (ItemHistory) view.getTag());
+                ((BaseActivity)context).startActivity(intent);
+            }
+        });
         return view;
 
     }
 
     private void setUpColor(TextView tvAmount, String amount){
         if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) == -1) {
-            tvAmount.setTextColor(context.getColor(R.color.red_minus));
+            tvAmount.setTextColor(context.getResources().getColor(R.color.red_minus));
         } else {
-            tvAmount.setTextColor(context.getColor(R.color.green_plus));
+            tvAmount.setTextColor(context.getResources().getColor(R.color.green_plus));
         }
         tvAmount.setText(amount);
     }

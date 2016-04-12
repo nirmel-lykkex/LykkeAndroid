@@ -2,10 +2,12 @@ package com.lykkex.LykkeWallet.rest.history.reposnse.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by e.kazimirova on 29.03.2016.
  */
-public class ItemHistory {
+public class ItemHistory implements Serializable{
 
     @SerializedName("Id")
     private String id;

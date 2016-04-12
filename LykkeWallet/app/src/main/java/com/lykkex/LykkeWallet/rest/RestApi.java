@@ -140,4 +140,13 @@ public interface RestApi {
     @GET("api/Transactions{assetId}")
     Call<HistoryData> getHistory(@Header("Authorization")String authorization,
                                  @Path("assetId") String assetId);
+
+    @GET("/api/BcnTransactionByCashOperation/{id}")
+    Call<TransactionData> getBcnTransactionByCashOperation(@Header("Authorization")String authorization,
+                                                           @Path("id") String orderId);
+
+    @GET("/api/BcnTransactionByExchange/{id}")
+    Call<TransactionData> getBcnTransactionByExchange(@Header("Authorization")String authorization,
+                                                           @Path("id") String orderId);
+
 }

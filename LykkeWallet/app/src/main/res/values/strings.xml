@@ -32,6 +32,8 @@
     <string name="purchace_comission">Commission paid</string>
     <string name="purchace_total_cost">Total cost</string>
     <string name="purchace_blockchain">Blockchain settlement</string>
+    <string name="amount">Amount</string>
+    <string name="asset_name">Asset</string>
     <string name="purchace_blockchain_progress">In progress</string>
     <string name="purchace_position">Position</string>
     <string name="purchace_close">CLOSE</string>
@@ -41,7 +43,7 @@
     <string name="date">Date</string>
     <string name="confirm">Confirm.</string>
     <string name="block">Block</string>
-    <string name="height">height</string>
+    <string name="height">Height</string>
     <string name="sender">Sender ID</string>
     <string name="asset_id">Asset ID</string>
     <string name="quantity">Quantity</string>
@@ -135,5 +137,10 @@
     <string name="buy">BUY</string>
     <string name="cancel">CANCEL</string>
     <string name="order_summary">ORDER SUMMARY</string>
+    <string name="exchange_in">EXCHANGE</string>
+    <string name="exchange_out">EXCHANGE</string>
+    <string name="cash_in">CASH IN</string>
+    <string name="cash_out">CASH OUT</string>
+
 </resources>
 
