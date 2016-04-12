@@ -297,7 +297,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Click(R.id.relEqual)
     public void clickEqual(){
-        setUpText(String.valueOf(BigDecimal.valueOf(Calculate.eval(etVolume.getText().toString()))));
+        setUpText(String.valueOf((Calculate.eval(
+                etVolume.getText().toString()))));
     }
 
     @Override
@@ -318,7 +319,6 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         try {
-            setUpTotalCost();
             if (etVolume.getText().toString().isEmpty()) {
                 labelTotalCost.setText("0");
             }
@@ -329,6 +329,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
             format.setDecimalFormatSymbols(symbols);
 
             etVolumeRes = (BigDecimal) format.parse(etVolume.getText().toString());
+            setUpTotalCost();
+
             int charCount = etVolume.getText().toString().replaceAll("[^.]", "").length();
             if (charCount <=1
                     &&!etVolume.getText().toString().startsWith(".")
@@ -339,7 +341,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
                     !labelTotalCost.getText().toString().isEmpty() &&
                     !labelPrice.getText().toString().isEmpty()
                     && !etVolume.getText().toString().isEmpty()
-                    && etVolumeRes.compareTo(BigDecimal.ZERO) != 0 &&
+                    && etVolumeRes.compareTo(BigDecimal.ZERO) > 0 &&
                     new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
                     new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0) {
                 button.setEnabled(true);
