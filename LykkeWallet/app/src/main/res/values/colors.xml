@@ -7,5 +7,7 @@
     <item name="light_blue" type="color">#f4f6f7</item>
     <item name="color_deal" type="color">#eaedef</item>
     <item name="blue_color" type="color">#ab00ff</item>
+    <item name="green_plus" type="color">#53AA00</item>
+    <item name="red_minus" type="color">#FF2E2E</item>
 
 </resources>

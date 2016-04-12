@@ -83,9 +83,9 @@ public class HistoryAdapter extends BaseAdapter {
 
     private void setUpColor(TextView tvAmount, String amount){
         if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) == -1) {
-            tvAmount.setTextColor(Color.RED);
+            tvAmount.setTextColor(context.getColor(R.color.red_minus));
         } else {
-            tvAmount.setTextColor(Color.GREEN);
+            tvAmount.setTextColor(context.getColor(R.color.green_plus));
         }
         tvAmount.setText(amount);
     }
