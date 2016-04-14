@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,6 +65,7 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
     private TextView valueVolume;
     private TextView valuePrice;
     private ImageView imgDot1;
+    private ImageView imgProgress;
     private ImageView imgDot2;
     private ImageView imgDot3;
     private ImageView imgDot4;
@@ -120,6 +124,7 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
         imgDot3 = (ImageView) v.findViewById(R.id.imgDot3);
         imgDot4 = (ImageView) v.findViewById(R.id.imgDot4);
         relPin = (RelativeLayout) v.findViewById(R.id.relPin);
+        imgProgress = (ImageView) v.findViewById(R.id.imgProgress);
         relProgress = (RelativeLayout) v.findViewById(R.id.relProgress);
         tvProgress = (TextView) v.findViewById(R.id.tvProgress);
 
@@ -360,6 +365,15 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
         relPin.setVisibility(visibility);
         tvCancel.setVisibility(visibility);
         tvCancelBottom.setVisibility(visibility);
+        if (visibilityRel == View.VISIBLE) {
+            RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+            anim.setInterpolator(new LinearInterpolator());
+            anim.setRepeatCount(Animation.INFINITE);
+            anim.setDuration(700);
+
+            imgProgress.startAnimation(anim);
+        }
         relProgress.setVisibility(visibilityRel);
     }
 
