@@ -1,5 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.history;
 
+import android.app.ProgressDialog;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,11 +32,25 @@ import retrofit2.Call;
  * Created by LIZA on 12.04.2016.
  */
 @EFragment(R.layout.blockchaing_history_fragment)
-public class BlockChainHistoryFragment extends BaseFragment {
+public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRefreshLayout.OnRefreshListener{
 
+    @ViewById
+    SwipeRefreshLayout swipeRefresh;
     @Pref UserPref_ userPref;
     private ItemHistory itemHistory;
 
+    @ViewById View viewAsset;
+    @ViewById View viewQuantity;
+    @ViewById View viewUrl;
+    @ViewById View viewAssetName;
+    @ViewById View viewAmount;
+    @ViewById View viewBlockChainInProgress;
+    @ViewById View viewHash;
+    @ViewById View viewDate;
+    @ViewById View viewConfirm;
+    @ViewById View viewBlock;
+    @ViewById View viewHeight;
+    @ViewById View viewSender;
     @ViewById LinearLayout linearBlockChainProgress;
     @ViewById TextView labelAmount;
     @ViewById LinearLayout linearAssetName;
@@ -61,9 +77,13 @@ public class BlockChainHistoryFragment extends BaseFragment {
     @ViewById LinearLayout linearQuantity;
     @ViewById LinearLayout linearUrl;
 
+    private ProgressDialog dialog;
 
     @AfterViews
     public void afterViews(){
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage(getString(R.string.waiting));
+        dialog.show();
         itemHistory = (ItemHistory) getArguments().getSerializable(Constants.EXTRA_HISTORY_ITEM);
         hideAllInfo();
 
@@ -98,7 +118,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
 
     @Override
     public void initOnBackPressed() {
-
+        getActivity().finish();
     }
 
     @Click(R.id.btnClose)
@@ -107,15 +127,23 @@ public class BlockChainHistoryFragment extends BaseFragment {
     }
 
     @Override
+    public void onRefresh() {
+        getTransaction();
+    }
+
+    @Override
     public void onSuccess(Object result) {
+        dialog.hide();
         if (result instanceof TransactionResult) {
             if (((TransactionResult) result).getTransaction() != null) {
+                swipeRefresh.setRefreshing(false);
                 linearAmount.setVisibility(View.GONE);
                 linearAssetName.setVisibility(View.GONE);
                 linearBlockChainProgress.setVisibility(View.GONE);
                 if (((TransactionResult) result).getTransaction().getHash() == null ||
                         ((TransactionResult) result).getTransaction().getHash().isEmpty()) {
                     linearHash.setVisibility(View.GONE);
+                    viewHash.setVisibility(View.GONE);
                 } else {
                     linearHash.setVisibility(View.VISIBLE);
                     labelHash.setText(((TransactionResult) result).getTransaction().getHash());
@@ -124,6 +152,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getDate() == null ||
                         ((TransactionResult) result).getTransaction().getDate().isEmpty()) {
                     linearDate.setVisibility(View.GONE);
+                    viewDate.setVisibility(View.GONE);
                 } else {
                     linearDate.setVisibility(View.VISIBLE);
                     labelDate.setText(((TransactionResult) result).getTransaction().getDate());
@@ -132,6 +161,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getConfirmations() == null ||
                         ((TransactionResult) result).getTransaction().getConfirmations().isEmpty()) {
                     linearConfirm.setVisibility(View.GONE);
+                    viewConfirm.setVisibility(View.GONE);
                 } else {
                     linearConfirm.setVisibility(View.VISIBLE);
                     labelConfirm.setText(((TransactionResult) result).getTransaction().getConfirmations());
@@ -140,6 +170,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getAssetId() == null ||
                         ((TransactionResult) result).getTransaction().getAssetId().isEmpty()) {
                     linearAsset.setVisibility(View.GONE);
+                    viewAsset.setVisibility(View.GONE);
                 } else {
                     linearAsset.setVisibility(View.VISIBLE);
                     labelAsset.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
@@ -149,6 +180,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getSenderId() == null ||
                         ((TransactionResult) result).getTransaction().getSenderId().isEmpty()) {
                     linearSender.setVisibility(View.GONE);
+                    viewSender.setVisibility(View.GONE);
                 } else {
                     linearSender.setVisibility(View.VISIBLE);
                     labelSender.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
@@ -158,6 +190,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getBlock() == null ||
                         ((TransactionResult) result).getTransaction().getBlock().isEmpty()) {
                     linearBlock.setVisibility(View.GONE);
+                    viewBlock.setVisibility(View.GONE);
                 } else {
                     linearBlock.setVisibility(View.VISIBLE);
                     labelBlock.setText(((TransactionResult) result).getTransaction().getBlock());
@@ -166,6 +199,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getHeight() == null ||
                         ((TransactionResult) result).getTransaction().getHeight().isEmpty()) {
                     linearHeight.setVisibility(View.GONE);
+                    viewHeight.setVisibility(View.GONE);
                 } else {
                     linearHeight.setVisibility(View.VISIBLE);
                     labelHeight.setText(((TransactionResult) result).getTransaction().getHeight());
@@ -174,6 +208,7 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getQuality() == null ||
                         ((TransactionResult) result).getTransaction().getQuality().isEmpty()) {
                     linearQuantity.setVisibility(View.GONE);
+                    viewQuantity.setVisibility(View.GONE);
                 } else {
                     linearQuantity.setVisibility(View.VISIBLE);
                     labelQuantity.setText(((TransactionResult) result).getTransaction().getQuality());
@@ -182,12 +217,24 @@ public class BlockChainHistoryFragment extends BaseFragment {
                 if (((TransactionResult) result).getTransaction().getUrl() == null ||
                         ((TransactionResult) result).getTransaction().getUrl().isEmpty()) {
                     linearUrl.setVisibility(View.GONE);
+                    viewUrl.setVisibility(View.GONE);
                 } else {
                     linearUrl.setVisibility(View.VISIBLE);
                     labelUrl.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
                     labelUrl.setText(((TransactionResult) result).getTransaction().getUrl());
                 }
+                linearAssetName.setVisibility(View.GONE);
+                viewAssetName.setVisibility(View.GONE);
+                linearAmount.setVisibility(View.GONE);
+                viewAmount.setVisibility(View.GONE);
+                linearBlockChainProgress.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
+                swipeRefresh.setEnabled(false);
+                viewBlockChainInProgress.setVisibility(View.GONE);
             } else {
+                swipeRefresh.setOnRefreshListener(this);
+                swipeRefresh.setEnabled(true);
+                swipeRefresh.setRefreshing(false);
                 hideAllInfo();
                 initViewData();
             }
@@ -195,6 +242,8 @@ public class BlockChainHistoryFragment extends BaseFragment {
     }
 
     private void initViewData(){
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         linearAmount.setVisibility(View.VISIBLE);
         linearBlockChainProgress.setVisibility(View.VISIBLE);
         linearAssetName.setVisibility(View.VISIBLE);
@@ -222,6 +271,18 @@ public class BlockChainHistoryFragment extends BaseFragment {
         linearAsset.setVisibility(View.GONE);
         linearQuantity.setVisibility(View.GONE);
         linearUrl.setVisibility(View.GONE);
+        viewAmount.setVisibility(View.GONE);
+        viewAssetName.setVisibility(View.GONE);
+        viewBlockChainInProgress.setVisibility(View.GONE);
+        viewHash.setVisibility(View.GONE);
+        viewDate.setVisibility(View.GONE);
+        viewConfirm.setVisibility(View.GONE);
+        viewBlock.setVisibility(View.GONE);
+        viewHeight.setVisibility(View.GONE);
+        viewSender.setVisibility(View.GONE);
+        viewAsset.setVisibility(View.GONE);
+        viewQuantity.setVisibility(View.GONE);
+        viewUrl.setVisibility(View.GONE);
     }
 
     @Override
