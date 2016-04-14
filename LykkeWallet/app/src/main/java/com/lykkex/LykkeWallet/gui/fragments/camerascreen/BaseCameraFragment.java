@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,10 @@ import retrofit2.Call;
 public abstract class BaseCameraFragment extends BaseFragment<CameraState> implements
         CameraHostProvider {
 
+    protected @ViewById ImageView imgFirst;
+    protected @ViewById ImageView imgSecond;
+    protected @ViewById ImageView imgThird;
+    protected @ViewById ImageView imgForth;
     protected @ViewById CameraView cameraView;
     protected @ViewById ImageButton ivTakenPhoto;
     protected @ViewById TextView tvTitle;
@@ -108,6 +113,10 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         }
         switch (controller.getCurrentState()){
             case Selfie:
+                imgFirst.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgSecond.setBackgroundDrawable(getResources().getDrawable(R.drawable.submit_form_circle));
+                imgThird.setBackgroundDrawable(getResources().getDrawable(R.drawable.unsubmit_form_circle));
+                imgForth.setBackgroundDrawable(getResources().getDrawable(R.drawable.unsubmit_form_circle));
                 if (!model.getPathSelfie().isEmpty()){
                     setUpViewsReadyPhoto();
                 } else {
@@ -115,6 +124,10 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 }
                 break;
             case IdCard:
+                imgFirst.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgSecond.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgThird.setBackgroundDrawable(getResources().getDrawable(R.drawable.submit_form_circle));
+                imgForth.setBackgroundDrawable(getResources().getDrawable(R.drawable.unsubmit_form_circle));
                 if (!model.getPathIdCard().isEmpty()){
                     setUpViewsReadyPhoto();
                 } else {
@@ -122,6 +135,11 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 }
                 break;
             case ProofOfAddress:
+                imgFirst.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgSecond.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgThird.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgForth.setBackgroundDrawable(getResources().getDrawable(R.drawable.submit_form_circle));
+
                 if (!model.getPathProofAddress().isEmpty()){
                     setUpViewsReadyPhoto();
                 } else {
@@ -178,6 +196,10 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 prepareToMakePhoto();
                 buttonFile.setVisibility(View.GONE);
                 buttonOpenSelfie.setVisibility(View.GONE);
+                imgFirst.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgSecond.setBackgroundDrawable(getResources().getDrawable(R.drawable.submit_form_circle));
+                imgThird.setBackgroundDrawable(getResources().getDrawable(R.drawable.unsubmit_form_circle));
+                imgForth.setBackgroundDrawable(getResources().getDrawable(R.drawable.unsubmit_form_circle));
                 tvTitle.setText(R.string.make_selfie);
                 break;
             case IdCard:
@@ -187,6 +209,11 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
                 prepareToMakePhoto();
+                imgFirst.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgSecond.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgThird.setBackgroundDrawable(getResources().getDrawable(R.drawable.submit_form_circle));
+                imgForth.setBackgroundDrawable(getResources().getDrawable(R.drawable.unsubmit_form_circle));
+
                 tvTitle.setText(R.string.id_card);
                 break;
             case ProofOfAddress:
@@ -196,6 +223,10 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                     actionBar.setDisplayHomeAsUpEnabled(false);
                 }
                 prepareToMakePhoto();
+                imgFirst.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgSecond.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgThird.setBackgroundDrawable(getResources().getDrawable(R.drawable.ready));
+                imgForth.setBackgroundDrawable(getResources().getDrawable(R.drawable.submit_form_circle));
                 tvTitle.setText(R.string.proof_adress);
                 break;
         }
