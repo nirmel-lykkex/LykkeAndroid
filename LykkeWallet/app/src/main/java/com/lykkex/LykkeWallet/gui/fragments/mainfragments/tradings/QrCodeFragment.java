@@ -1,9 +1,13 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -13,18 +17,26 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.rest.trading.callback.EmailCallBack;
+import com.lykkex.LykkeWallet.rest.trading.response.model.EmailData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.SendEmail;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.w3c.dom.Text;
 
 import java.util.Hashtable;
+
+import retrofit2.Call;
 
 /**
  * Created by LIZA on 15.04.2016.
@@ -34,6 +46,7 @@ public class QrCodeFragment extends BaseFragment{
 
     private AssetsWallet assetsWallet;
     private String hashCode;
+    @Pref UserPref_ userPref;
     @ViewById ImageView qrCodeImg;
     @ViewById TextView tvHashCode;
 
@@ -67,7 +80,7 @@ public class QrCodeFragment extends BaseFragment{
 
         BitMatrix bitMatrix = qrCodeWriter.encode(myCodeText, BarcodeFormat.QR_CODE, size, size, hintMap);
         int width = bitMatrix.getWidth();
-        Bitmap bmp = Bitmap.createBitmap(width*2, width*2, Bitmap.Config.RGB_565);
+        Bitmap bmp = Bitmap.createBitmap(width, width, Bitmap.Config.RGB_565);
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
                 bmp.setPixel(y, x, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
@@ -85,14 +98,21 @@ public class QrCodeFragment extends BaseFragment{
         return false;
     }
 
-    @Click
+    @Click(R.id.btnEmailMe)
     public void clickEmailMe(){
-
+        EmailCallBack callBack = new EmailCallBack(this, getActivity());
+        Call<EmailData> call = LykkeApplication_.getInstance().getRestApi().sendBlockchainEmail(
+                Constants.PART_AUTHORIZATION + userPref.authToken().get()
+        );
+        call.enqueue(callBack);
     }
 
-    @Click
+    @Click(R.id.btnCopy)
     public void clickCopy(){
-
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(
+                Activity.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(hashCode, hashCode);
+        clipboard.setPrimaryClip(clip);
     }
 
     @Override
@@ -102,7 +122,10 @@ public class QrCodeFragment extends BaseFragment{
 
     @Override
     public void onSuccess(Object result) {
-
+        if (result instanceof SendEmail) {
+            Toast.makeText(getActivity(), String.format(getString(R.string.check_email),
+                    ((SendEmail) result).getEmail()), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

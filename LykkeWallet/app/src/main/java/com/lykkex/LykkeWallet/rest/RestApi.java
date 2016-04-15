@@ -24,6 +24,7 @@ import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionData;
+import com.lykkex.LykkeWallet.rest.trading.response.model.EmailData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
@@ -148,5 +149,8 @@ public interface RestApi {
     @GET("/api/BcnTransactionByExchange/{id}")
     Call<TransactionData> getBcnTransactionByExchange(@Header("Authorization")String authorization,
                                                            @Path("id") String orderId);
+
+    @POST("/api/SendBlockchainEmail")
+    Call<EmailData> sendBlockchainEmail(@Header("Authorization")String authorization);
 
 }
