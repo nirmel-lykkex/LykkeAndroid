@@ -18,6 +18,9 @@ public interface Constants {
     long DELAY_5000 = 5000L;
     long DELAY_500 = 500L;
 
+    String BTC = "BTC";
+    String LKE = "LKE";
+
     String EXTRA_HISTORY_ITEM = "extra_history_item";
     String EXTRA_RATE_PRICE = "extra_rate_price";
     String EXTRA_ORDER = "extra_order";

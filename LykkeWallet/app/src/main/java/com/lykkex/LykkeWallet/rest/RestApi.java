@@ -84,7 +84,7 @@ public interface RestApi {
     Call<SecurityData> signInPinSecurite(@Header("Authorization")String authorization,
                                          @Query("Pin") String pin);
 
-    @GET("/api/LykkeWallet")
+    @GET("/api/Wallets")
     Call<LykkeWallerData> getLykkeWallet(@Header("Authorization")String authorization);
 
     @GET("/api/AppSettings")

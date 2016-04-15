@@ -17,6 +17,28 @@ public class AssetsWallet extends BaseAsset {
     @SerializedName("AssetPairId")
     private String assetPairId;
 
+    @SerializedName("IssuerId")
+    private String issuerId;
+
+    @SerializedName("HideIfZero")
+    private boolean hideIfZero;
+
+    public String getIssuerId() {
+        return issuerId;
+    }
+
+    public void setIssuerId(String issuerId) {
+        this.issuerId = issuerId;
+    }
+
+    public boolean isHideIfZero() {
+        return hideIfZero;
+    }
+
+    public void setHideIfZero(boolean hideIfZero) {
+        this.hideIfZero = hideIfZero;
+    }
+
     public String getAssetPairId() {
         return assetPairId;
     }

@@ -18,6 +18,7 @@ import com.lykkex.LykkeWallet.gui.activity.paymentflow.PaymentActivity_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCards;
+import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWalletResult;
 
 import java.util.ArrayList;
@@ -49,9 +50,22 @@ public class WalletAdapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         if (i == 1) {
-            return lykkeWallet.getLykke();
+            List<AssetsWallet> assetWaller = new ArrayList<>();
+            for(AssetsWallet wallet : lykkeWallet.getLykke().getAssets()){
+                if (wallet.getIssuerId().equals(Constants.BTC)){
+                    assetWaller.add(wallet);
+                }
+            }
+            return assetWaller;
         } else {
-            return lykkeWallet.getBankCardses();
+            List<AssetsWallet> assetWaller = new ArrayList<>();
+
+            for(AssetsWallet wallet : lykkeWallet.getLykke().getAssets()){
+                if (wallet.getIssuerId().equals(Constants.LKE)){
+                    assetWaller.add(wallet);
+                }
+            }
+            return assetWaller;
         }
     }
 
@@ -92,8 +106,8 @@ public class WalletAdapter extends BaseAdapter {
         }
 
         if (position == 0) {
-            holder.tvTitle.setText(R.string.credit_card);
-            holder.imgIcon.setImageResource(R.drawable.visa);
+            holder.tvTitle.setText(R.string.bitcoin);
+            holder.imgIcon.setImageResource(R.drawable.bitcoin);
         } else {
             holder.tvTitle.setText(R.string.lykke_title);
             holder.imgIcon.setImageResource(R.drawable.lykke_wallet);
@@ -111,9 +125,9 @@ public class WalletAdapter extends BaseAdapter {
         holder.imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (position == 0) {
+                /*if (position == 0) {
                     startAddCardActivity();
-                }
+                }*/
             }
         });
 
@@ -132,18 +146,18 @@ public class WalletAdapter extends BaseAdapter {
             if (isClickedLykke) {
                 isClickedLykke = false;
             } else {
-                setUpLykkeInfo(holder);
+                setUpLykkeInfo(holder, Constants.LKE);
             }
         } else {
             if (isClickedBank) {
                 isClickedBank = false;
             } else {
-                setUpBankCardInfo(holder);
+                setUpLykkeInfo(holder, Constants.BTC);
             }
         }
     }
 
-    private void setUpBankCardInfo(Holder holder){
+   /* private void setUpBankCardInfo(Holder holder){
         isClickedBank = true;
         holder.dividerView.setVisibility(View.VISIBLE);
         holder.relInfo.setVisibility(View.VISIBLE);
@@ -183,9 +197,9 @@ public class WalletAdapter extends BaseAdapter {
         } else {
             holder.relInfo.addView(new ProgressBar(mContext));
         }
-    }
+    }*/
 
-    private void setUpLykkeInfo(Holder holder){
+    private void setUpLykkeInfo(Holder holder, String parseName){
         holder.dividerView.setVisibility(View.GONE);
         isClickedLykke = true;
         holder.relInfo.setVisibility(View.VISIBLE);
@@ -195,8 +209,13 @@ public class WalletAdapter extends BaseAdapter {
                     lykkeWallet.getLykke() != null &&
                     lykkeWallet.getLykke().getAssets() != null) {
                 for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
-                    if (Double.valueOf(assetsWallet.getBalance()) > 0) {
-                        list.add(assetsWallet);
+                    if (assetsWallet.getIssuerId().equals(parseName)) {
+                        if (Double.valueOf(assetsWallet.getBalance()) < 0 &&
+                                !assetsWallet.isHideIfZero()) {
+                            list.add(assetsWallet);
+                        } else if (Double.valueOf(assetsWallet.getBalance()) > 0) {
+                            list.add(assetsWallet);
+                        }
                     }
                 }
             }
