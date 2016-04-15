@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_alignParentTop="true"
+    android:background="@color/light_blue"
+    android:layout_height="100dp"
+    android:id="@+id/relativeLayout2"
+    android:layout_above="@+id/relativeLayout3">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/qrCodeImg"
+        android:src="@drawable/ic_drawer"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/relativeLayout3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/wallet_address"
+            android:id="@+id/tvWalletAddress"
+            android:gravity="center"
+            android:layout_above="@+id/tvHashCode"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="fdfdf"
+            android:gravity="center"
+            android:textColor="@color/blue_color"
+            android:id="@+id/tvHashCode"
+            android:layout_above="@+id/linearLayout7"
+            android:layout_marginBottom="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout7">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="match_parent">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnCopy"
+                    android:background="@drawable/close"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/copy"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="match_parent">
+                <Button
+                    android:layout_width="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnEmailMe"
+                    android:textColor="@color/white"
+                    android:text="@string/email_me"
+                    android:background="@drawable/share"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -8,6 +8,12 @@ import com.google.gson.annotations.SerializedName;
 public class LykkeWalletResult {
 
 
+    @SerializedName("MultiSig")
+    private String multiSig;
+
+    @SerializedName("ColoredMultiSig")
+    private String coloredMultiSig;
+
     @SerializedName("Lykke")
     private LykkeWallet lykke = new LykkeWallet();
 
@@ -28,5 +34,13 @@ public class LykkeWalletResult {
 
     public void setLykke(LykkeWallet lykke) {
         this.lykke = lykke;
+    }
+
+    public String getMultiSig() {
+        return multiSig;
+    }
+
+    public String getColoredMultiSig() {
+        return coloredMultiSig;
     }
 }

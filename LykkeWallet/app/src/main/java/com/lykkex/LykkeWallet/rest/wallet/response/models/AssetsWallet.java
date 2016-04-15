@@ -3,10 +3,12 @@ package com.lykkex.LykkeWallet.rest.wallet.response.models;
 import com.google.gson.annotations.SerializedName;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 
+import java.io.Serializable;
+
 /**
  * Created by LIZA on 01.03.2016.
  */
-public class AssetsWallet extends BaseAsset {
+public class AssetsWallet extends BaseAsset implements Serializable {
 
     @SerializedName("Balance")
     private String balance;

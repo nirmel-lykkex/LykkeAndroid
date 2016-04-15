@@ -38,6 +38,8 @@
         <activity  android:screenOrientation="portrait"
             android:name=".gui.activity.MainActivity_"/>
         <activity  android:screenOrientation="portrait"
+            android:name=".gui.activity.paymentflow.QrCodeActivity_"/>
+        <activity  android:screenOrientation="portrait"
             android:name=".gui.activity.KysActivity_"/>
         <activity  android:screenOrientation="portrait"
             android:name=".gui.activity.pin.SetUpPinActivity_"/>

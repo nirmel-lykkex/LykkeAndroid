@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.AddCardActivity_;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.PaymentActivity_;
+import com.lykkex.LykkeWallet.gui.activity.paymentflow.QrCodeActivity_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCards;
@@ -216,27 +217,27 @@ public class WalletAdapter extends BaseAdapter {
                     InfoHolder holderInfo = getViewInfo(holder);
                     holderInfo.tvTitleProp.setText(assetsWallet.getName());
                     holderInfo.tvValue.setText(assetsWallet.getBalance());
-                    holderInfo.relMain.setTag(assetsWallet.getId());
+                    holderInfo.relMain.setTag(assetsWallet);
                     holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startPaymentActivity((String) view.getTag());
+                            startPaymentActivity((AssetsWallet) view.getTag());
                         }
                     });
 
-                    holderInfo.tvTitleProp.setTag(assetsWallet.getId());
+                    holderInfo.tvTitleProp.setTag(assetsWallet);
                     holderInfo.tvTitleProp.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startPaymentActivity((String) view.getTag());
+                            startPaymentActivity((AssetsWallet) view.getTag());
                         }
                     });
 
-                    holderInfo.tvValue.setTag(assetsWallet.getId());
+                    holderInfo.tvValue.setTag(assetsWallet);
                     holderInfo.tvValue.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startPaymentActivity((String) view.getTag());
+                            startPaymentActivity((AssetsWallet) view.getTag());
                         }
                     });
                 }
@@ -282,12 +283,18 @@ public class WalletAdapter extends BaseAdapter {
         return infoHolder;
     }
 
-    private void startPaymentActivity(String id){
-        Intent intent = new Intent();
-        intent.setClass(mContext, PaymentActivity_.class);
-        intent.putExtra(Constants.EXTRA_ASSET_ID, id);
-        mContext.startActivity(intent);
+    private void startPaymentActivity(AssetsWallet assetsWallet){
+        if ((lykkeWallet.getColoredMultiSig() != null &&
+                assetsWallet.getIssuerId().equals(Constants.LKE)) ||
+                (lykkeWallet.getMultiSig() != null &&
+                assetsWallet.getIssuerId().equals(Constants.BTC))) {
+            Intent intent = new Intent();
+            intent.setClass(mContext, QrCodeActivity_.class);
+            intent.putExtra(Constants.EXTRA_ASSET, assetsWallet);
+            mContext.startActivity(intent);
+        }
     }
+
 
     private void startAddCardActivity(){
         Intent intent = new Intent();

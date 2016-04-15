@@ -42,6 +42,7 @@ public interface Constants {
     String EXTRA_CAMERA_MODEL_GUI = "extra_camera_model_gui";
     String EXTRA_ASSET_NAME = "extra_asset_name";
     String EXTRA_ASSET_ID = "extra_asset_id";
+    String EXTRA_ASSET = "extra_asset";
     String PART_AUTHORIZATION = "Bearer ";
     String JPG = "jpg";
 
