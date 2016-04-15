@@ -37,16 +37,7 @@
             android:layout_toRightOf="@+id/imgIcon"
             android:layout_toEndOf="@+id/imgIcon" />
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="16dp"
-            android:clickable="true"
-            android:id="@+id/imgPlus"
-            android:background="@drawable/icon_plus"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

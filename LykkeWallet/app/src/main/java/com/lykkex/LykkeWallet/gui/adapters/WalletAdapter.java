@@ -88,7 +88,6 @@ public class WalletAdapter extends BaseAdapter {
 
             RelativeLayout relMain = (RelativeLayout) view.findViewById(R.id.relMain);
             TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-            ImageView imgPlus = (ImageView) view.findViewById(R.id.imgPlus);
             ImageView imgIcon = (ImageView) view.findViewById(R.id.imgIcon);
             View dividerView = (View) view.findViewById(R.id.dividerView);
 
@@ -97,7 +96,6 @@ public class WalletAdapter extends BaseAdapter {
             holder.dividerView = dividerView;
             holder.relInfo = relInfo;
             holder.relMain = relMain;
-            holder.imgPlus = imgPlus;
             holder.tvTitle = tvTitle;
             holder.imgIcon = imgIcon;
 
@@ -122,14 +120,7 @@ public class WalletAdapter extends BaseAdapter {
             }
         });
 
-        holder.imgPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*if (position == 0) {
-                    startAddCardActivity();
-                }*/
-            }
-        });
+
 
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,10 +272,13 @@ public class WalletAdapter extends BaseAdapter {
         TextView tvValue = (TextView) view.findViewById(R.id.tvValue);
         TextView tvTitleProp = (TextView) view.findViewById(R.id.tvTitleProp);
         RelativeLayout relMain = (RelativeLayout) view.findViewById(R.id.relMain);
+        ImageView imgPlus = (ImageView) view.findViewById(R.id.imgPlus);
+
         InfoHolder infoHolder = new InfoHolder();
         infoHolder.relMain = relMain;
         infoHolder.tvTitleProp = tvTitleProp;
         infoHolder.tvValue = tvValue;
+        infoHolder.imgPlus = imgPlus;
         return infoHolder;
     }
 
@@ -305,7 +299,6 @@ public class WalletAdapter extends BaseAdapter {
     private class Holder {
         public RelativeLayout relMain;
         public TextView tvTitle;
-        public ImageView imgPlus;
         public LinearLayout relInfo;
         public ImageView imgIcon;
         public View dividerView;
@@ -315,5 +308,6 @@ public class WalletAdapter extends BaseAdapter {
         public TextView tvValue;
         public TextView tvTitleProp;
         public RelativeLayout relMain;
+        public ImageView imgPlus;
     }
 }
