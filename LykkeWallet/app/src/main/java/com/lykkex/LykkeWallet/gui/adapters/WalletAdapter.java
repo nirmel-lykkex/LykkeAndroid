@@ -215,6 +215,14 @@ public class WalletAdapter extends BaseAdapter {
                     list.size() > 0) {
                 for (AssetsWallet assetsWallet : list) {
                     InfoHolder holderInfo = getViewInfo(holder);
+                    if ((lykkeWallet.getColoredMultiSig() != null &&
+                            assetsWallet.getIssuerId().equals(Constants.LKE)) ||
+                            (lykkeWallet.getMultiSig() != null &&
+                                    assetsWallet.getIssuerId().equals(Constants.BTC))) {
+                        holderInfo.imgPlus.setVisibility(View.VISIBLE);
+                    } else {
+                        holderInfo.imgPlus.setVisibility(View.GONE);
+                    }
                     holderInfo.tvTitleProp.setText(assetsWallet.getName());
                     holderInfo.tvValue.setText(assetsWallet.getBalance());
                     holderInfo.relMain.setTag(assetsWallet);
