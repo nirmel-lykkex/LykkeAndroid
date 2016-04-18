@@ -179,43 +179,45 @@
                         android:layout_height="0.2dp"
                         android:id="@+id/viewAssetName"
                         android:background="@color/grey_text"/>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:id="@+id/relImage"
-                        android:background="@color/color_deal"
-                        android:layout_height="240dp"
-                        android:visibility="gone">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:background="@color/color_deal"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imgLogo"
-                                android:src="@drawable/deal_success"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="30dp" />
 
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/blockchain_title"
-                            android:id="@+id/tvTitle"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"/>
-                    </RelativeLayout>
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/relImage"
+                    android:background="@color/color_deal"
+                    android:layout_height="240dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:background="@color/color_deal"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imgLogo"
+                            android:src="@drawable/deal_success"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="30dp" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/blockchain_title"
+                        android:id="@+id/tvTitle"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"/>
+                </RelativeLayout>
                 <LinearLayout
                     android:orientation="vertical"
                     android:id="@+id/linearInfo"
+                    android:layout_below="@+id/relImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
