@@ -49,18 +49,21 @@ public class QrCodeFragment extends BaseFragment{
     @Pref UserPref_ userPref;
     @ViewById ImageView qrCodeImg;
     @ViewById TextView tvHashCode;
+    @ViewById TextView tvWalletAddress;
 
     @AfterViews
     public void afterViews(){
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.deposit_bitcoin);
         assetsWallet = (AssetsWallet) getArguments().getSerializable(Constants.EXTRA_ASSET);
         if (isColoredMultising()){
             hashCode = WalletSinglenton.getInstance().getResult().getColoredMultiSig();
         } else {
             hashCode = WalletSinglenton.getInstance().getResult().getMultiSig();
         }
+        actionBar.setTitle(R.string.deposit_bitcoin + " " + assetsWallet.getId());
+
+        tvWalletAddress.setAlpha((float) 0.6);
         tvHashCode.setText(hashCode);
         try {
             Bitmap qrCode = generateQrCode(hashCode);

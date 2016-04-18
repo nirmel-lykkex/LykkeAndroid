@@ -214,8 +214,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
-                    android:layout_below="@+id/relImage"
                     android:orientation="vertical"
                     android:id="@+id/linearInfo"
                     android:layout_width="wrap_content"
@@ -1004,6 +1002,27 @@
             </RelativeLayout>
 
         </ScrollView>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/footerBtn"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:id="@+id/btnCloseBlockChain"
+                android:background="@drawable/sign_inactive"
+                android:text="@string/purchace_close"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -1037,6 +1056,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1.5"
+                android:id="@+id/relShare"
                 android:layout_height="match_parent">
                 <Button
                     android:layout_width="match_parent"

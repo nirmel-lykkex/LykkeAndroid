@@ -6,6 +6,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -91,6 +92,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
     @ViewById LinearLayout linearAssetName;
     @ViewById LinearLayout linearBlockChainProgress;
     @ViewById TextView labelAssetName;
+    @ViewById LinearLayout footerBtn;
     @ViewById LinearLayout linearButton;
     @ViewById LinearLayout linearAmount;
     @ViewById ScrollView scrollViewParent2;
@@ -220,6 +222,11 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
         getActivity().finish();
     }
 
+    @Click(R.id.btnCloseBlockChain)
+    public void btnCloseBclockChain(){
+        getActivity().finish();
+    }
+
     @Override
     public void onRefresh() {
         getTransaction();
@@ -331,6 +338,9 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
                     labelUrl.setText(((TransactionResult) result).getTransaction().getUrl());
                     viewUrl.setVisibility(View.VISIBLE);
                 }
+
+                footerBtn.setVisibility(View.VISIBLE);
+                linearButton.setVisibility(View.GONE);
                 linearAssetName.setVisibility(View.GONE);
                 viewAssetName.setVisibility(View.GONE);
                 linearAmount.setVisibility(View.GONE);
@@ -355,6 +365,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
             }
         } else if (result instanceof MarketResult) {
             if (((MarketResult) result).getMarketOrder() != null) {
+                linearButton.setVisibility(View.VISIBLE);
                 initMarketOrder((MarketResult) result);
             } else {
                 initNull();
@@ -403,6 +414,8 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
     }
 
     private void initNull(){
+        linearButton.setVisibility(View.GONE);
+        footerBtn.setVisibility(View.GONE);
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setEnabled(true);
         swipeRefresh.setRefreshing(false);

@@ -80,7 +80,7 @@
     <string name="make_selfie">Make a selfie</string>
     <string name="id_card">Make a photo of your passport or other ID</string>
     <string name="bitcoin">BITCOIN</string>
-    <string name="deposit_bitcoin">DEPOSIT BITCOIN</string>
+    <string name="deposit_bitcoin">DEPOSIT</string>
     <string name="wallet_address">Wallet Address</string>
     <string name="email_me">EMAIL ME</string>
     <string name="copy">COPY</string>
