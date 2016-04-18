@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
+package com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -18,6 +18,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
@@ -120,7 +121,7 @@ public class QrCodeFragment extends BaseFragment{
 
     @Override
     public void initOnBackPressed() {
-        getActivity().finish();
+        ((BaseActivity)getActivity()).initFragment(new TradingWalletFragment_(),getArguments());
     }
 
     @Override

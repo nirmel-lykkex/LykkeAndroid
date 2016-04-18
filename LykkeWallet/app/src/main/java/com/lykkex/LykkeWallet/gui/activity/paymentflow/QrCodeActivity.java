@@ -4,8 +4,7 @@ import android.view.MenuItem;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.QrCodeFragment;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.QrCodeFragment_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet.TradingWalletFragment_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -18,7 +17,7 @@ public class QrCodeActivity extends BaseActivity {
 
     @AfterViews
     public void afterViews() {
-        initFragment(new QrCodeFragment_(), getIntent().getExtras());
+        initFragment(new TradingWalletFragment_(), getIntent().getExtras());
     }
 
     @Override
