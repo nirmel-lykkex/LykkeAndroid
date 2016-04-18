@@ -27,6 +27,8 @@ public class MarketOrderCallBack extends BaseCallBack<MarketData> {
             listener.onSuccess(response.body().getResult());
         } else if (response != null && response.body() != null) {
             listener.onFail(response.body().getError());
+        } else {
+            listener.onFail(null);
         }
     }
 

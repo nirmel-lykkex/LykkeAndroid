@@ -187,6 +187,8 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
                 scrollViewParent.getViewTreeObserver().removeOnScrollChangedListener(listener);
                 relImage.setVisibility(View.GONE);
                 tvTitle2.setVisibility(View.GONE);
+                actionBar.setHomeButtonEnabled(true);
+                actionBar.setDisplayHomeAsUpEnabled(true);
                 if ((((Trading) itemHistory).getVolume()).compareTo(BigDecimal.ZERO) > 1) {
                     actionBar.setTitle(itemHistory.getAsset() + " " + getString(R.string.exchange_in));
                 } else {
@@ -457,6 +459,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
 
     @Override
     public void onFail(Object error) {
+        dialog.hide();
         initNull();
     }
 
