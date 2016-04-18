@@ -30,8 +30,8 @@ public class WalletSinglenton {
         if (result != null && result.getLykke() != null &&
                 result.getLykke().getAssets() != null)
         for (AssetsWallet wallet : result.getLykke().getAssets()) {
-            if (wallet != null && wallet.getAssetPairId() != null &&
-                    wallet.getAssetPairId().equals(assetPairId)){
+            if (wallet != null && wallet.getId() != null &&
+                    wallet.getId().equals(assetPairId)){
                 return wallet.getAccuracy();
             }
         }

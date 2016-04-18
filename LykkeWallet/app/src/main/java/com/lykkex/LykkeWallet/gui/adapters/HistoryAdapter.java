@@ -25,6 +25,7 @@ import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketOrder;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.Trading;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +81,8 @@ public class HistoryAdapter extends BaseAdapter {
                 tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.cash_out_name));
             }
             setUpColor(tvAmount, (((CashInOut) item).getAmount()).
-                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset())).toPlainString());
+                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset()),  RoundingMode.HALF_EVEN).
+                    stripTrailingZeros().toPlainString());
         } else {
             if (((Trading) item).getVolume().compareTo(BigDecimal.ZERO) > 0 ) {
                 tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.exchange_in_name));
@@ -88,7 +90,8 @@ public class HistoryAdapter extends BaseAdapter {
                 tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.exchange_out_name));
             }
             setUpColor(tvAmount, ((Trading) item).getVolume().
-                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset())).toPlainString());
+                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset()),
+                            RoundingMode.HALF_EVEN).stripTrailingZeros().toPlainString());
         }
 
         if (item.getIconId().equals("BTC")){
