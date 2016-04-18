@@ -147,6 +147,10 @@
     <string name="exchange_out">EXCHANGE</string>
     <string name="cash_in">CASH IN</string>
     <string name="cash_out">CASH OUT</string>
+    <string name="cash_in_name">Wallet cash in</string>
+    <string name="cash_out_name">Wallet cash </string>
+    <string name="exchange_in_name">Buy</string>
+    <string name="exchange_out_name">Sell</string>
 
 </resources>
 

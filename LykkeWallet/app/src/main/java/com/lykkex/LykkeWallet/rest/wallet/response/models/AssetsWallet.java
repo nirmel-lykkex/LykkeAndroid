@@ -25,6 +25,17 @@ public class AssetsWallet extends BaseAsset implements Serializable {
     @SerializedName("HideIfZero")
     private boolean hideIfZero;
 
+    @SerializedName("Accuracy")
+    private int accuracy;
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(int accuracy) {
+        this.accuracy = accuracy;
+    }
+
     public String getIssuerId() {
         return issuerId;
     }

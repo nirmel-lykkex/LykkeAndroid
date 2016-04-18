@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.models;
 
+import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWalletResult;
 
 /**
@@ -23,5 +24,17 @@ public class WalletSinglenton {
             instance = new WalletSinglenton();
         }
         return instance;
+    }
+
+    public int getAccurancy(String assetPairId){
+        if (result != null && result.getLykke() != null &&
+                result.getLykke().getAssets() != null)
+        for (AssetsWallet wallet : result.getLykke().getAssets()) {
+            if (wallet != null && wallet.getAssetPairId() != null &&
+                    wallet.getAssetPairId().equals(assetPairId)){
+                return wallet.getAccuracy();
+            }
+        }
+        return 0;
     }
 }

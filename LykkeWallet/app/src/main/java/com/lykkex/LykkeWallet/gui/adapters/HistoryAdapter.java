@@ -17,6 +17,7 @@ import com.lykkex.LykkeWallet.gui.activity.HistoryActivity;
 import com.lykkex.LykkeWallet.gui.activity.HistoryActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.history.BlockChainHistoryFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.BlockchainFragment_;
+import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.CashInOut;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.ItemHistory;
@@ -72,11 +73,22 @@ public class HistoryAdapter extends BaseAdapter {
         ItemHistory item = list.get(position);
         tvDateTime.setText(item.getDateTime());
 
-        tvName.setText(item.getAsset());
         if (item instanceof CashInOut) {
-            setUpColor(tvAmount, ((CashInOut) item).getAmount());
+            if (((CashInOut) item).getAmount().compareTo(BigDecimal.ZERO) > 0 ) {
+                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.cash_in_name));
+            } else {
+                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.cash_out_name));
+            }
+            setUpColor(tvAmount, (((CashInOut) item).getAmount()).
+                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset())).toPlainString());
         } else {
-            setUpColor(tvAmount, ((Trading) item).getVolume());
+            if (((Trading) item).getVolume().compareTo(BigDecimal.ZERO) > 0 ) {
+                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.exchange_in_name));
+            } else {
+                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.exchange_out_name));
+            }
+            setUpColor(tvAmount, ((Trading) item).getVolume().
+                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset())).toPlainString());
         }
 
         if (item.getIconId().equals("BTC")){
@@ -102,10 +114,12 @@ public class HistoryAdapter extends BaseAdapter {
 
     private void setUpColor(TextView tvAmount, String amount){
         if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) == -1) {
+            tvAmount.setText(amount);
             tvAmount.setTextColor(context.getResources().getColor(R.color.red_minus));
         } else {
+            tvAmount.setText("+" + amount);
             tvAmount.setTextColor(context.getResources().getColor(R.color.green_plus));
         }
-        tvAmount.setText(amount);
+
     }
 }
