@@ -85,6 +85,12 @@
     <string name="deposit">DEPOSIT</string>
     <string name="trading_wallet">TRADING WALLET</string>
     <string name="withdraw_funds">WITHDRAW FUNDS</string>
+    <string name="enter_address">Enter the bitcoin address</string>
+    <string name="bitcoin_wallet">Bitcoin Wallet</string>
+    <string name="paste">Paste</string>
+    <string name="scan">scan</string>
+    <string name="proceed">Proceed</string>
+    <string name="funds_wallet">The funds from this wallet will be charged only for transaction</string>
     <string name="wallet_address">Wallet Address</string>
     <string name="email_me">EMAIL ME</string>
     <string name="copy">COPY</string>

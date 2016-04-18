@@ -62,7 +62,7 @@ public class QrCodeFragment extends BaseFragment{
         } else {
             hashCode = WalletSinglenton.getInstance().getResult().getMultiSig();
         }
-        actionBar.setTitle(R.string.deposit_bitcoin + " " + assetsWallet.getId());
+        actionBar.setTitle(getString(R.string.deposit_bitcoin) + " " + assetsWallet.getAssetPairId() );
 
         tvWalletAddress.setAlpha((float) 0.6);
         tvHashCode.setText(hashCode);

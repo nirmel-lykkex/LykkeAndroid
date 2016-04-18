@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/enter_address"
+        android:id="@+id/tvTile"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp" />
+
+    <RelativeLayout
+        android:layout_below="@+id/tvTile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout4">
+        <EditText
+            android:paddingLeft="7dp"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:paddingBottom="6dp"
+            android:hint="@string/bitcoin_wallet"
+            android:id="@+id/etHashBitcoin"
+            android:background="@drawable/filed_background"
+            android:layout_centerHorizontal="true"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/paste"
+            android:clickable="true"
+            android:id="@+id/tvPaste"
+            android:layout_alignBaseline="@+id/etHashBitcoin"
+            android:layout_alignBottom="@+id/etHashBitcoin"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/icon_plus"
+        android:id="@+id/btnScan"
+        android:layout_below="@+id/relativeLayout4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/btnProceed"
+        android:background="@drawable/submitbutton"
+        android:text="@string/proceed"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnScan"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/funds_wallet"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:id="@+id/tvCenter"
+        android:layout_below="@+id/btnProceed"
+        android:layout_marginTop="50dp"
+        android:layout_alignRight="@+id/btnProceed"
+        android:layout_alignEnd="@+id/btnProceed"
+        android:layout_alignLeft="@+id/btnProceed"
+        android:layout_alignStart="@+id/btnProceed" />
+</RelativeLayout>
