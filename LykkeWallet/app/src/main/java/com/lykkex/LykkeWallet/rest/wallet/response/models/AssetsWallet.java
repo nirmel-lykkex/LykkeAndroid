@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Created by LIZA on 01.03.2016.
@@ -11,7 +12,7 @@ import java.io.Serializable;
 public class AssetsWallet extends BaseAsset implements Serializable {
 
     @SerializedName("Balance")
-    private String balance;
+    private BigDecimal balance;
 
     @SerializedName("Symbol")
     private String symbol;
@@ -76,11 +77,11 @@ public class AssetsWallet extends BaseAsset implements Serializable {
         this.name = name;
     }
 
-    public String getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

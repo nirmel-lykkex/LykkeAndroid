@@ -16,12 +16,14 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.AddCardActivity_;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.PaymentActivity_;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.QrCodeActivity_;
+import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCards;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallet;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWalletResult;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,12 +140,15 @@ public class WalletAdapter extends BaseAdapter {
             if (isClickedLykke) {
                 isClickedLykke = false;
             } else {
+                isClickedLykke = true;
+
                 setUpLykkeInfo(holder, Constants.LKE);
             }
         } else {
             if (isClickedBank) {
                 isClickedBank = false;
             } else {
+                isClickedBank = true;
                 setUpLykkeInfo(holder, Constants.BTC);
             }
         }
@@ -193,7 +198,6 @@ public class WalletAdapter extends BaseAdapter {
 
     private void setUpLykkeInfo(Holder holder, String parseName){
         holder.dividerView.setVisibility(View.GONE);
-        isClickedLykke = true;
         holder.relInfo.setVisibility(View.VISIBLE);
         if (isItGet) {
             List<AssetsWallet> list= new ArrayList<>();
@@ -202,10 +206,10 @@ public class WalletAdapter extends BaseAdapter {
                     lykkeWallet.getLykke().getAssets() != null) {
                 for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
                     if (assetsWallet.getIssuerId().equals(parseName)) {
-                        if (Double.valueOf(assetsWallet.getBalance()) < 0 &&
+                        if (assetsWallet.getBalance().doubleValue() < 0 &&
                                 !assetsWallet.isHideIfZero()) {
                             list.add(assetsWallet);
-                        } else if (Double.valueOf(assetsWallet.getBalance()) > 0) {
+                        } else if (assetsWallet.getBalance().doubleValue() > 0) {
                             list.add(assetsWallet);
                         }
                     }
@@ -224,7 +228,10 @@ public class WalletAdapter extends BaseAdapter {
                         holderInfo.imgPlus.setVisibility(View.GONE);
                     }
                     holderInfo.tvTitleProp.setText(assetsWallet.getName());
-                    holderInfo.tvValue.setText(assetsWallet.getBalance());
+                    holderInfo.tvValue.setText(
+                            assetsWallet.getBalance().setScale(assetsWallet.getAccuracy(),
+                                    RoundingMode.HALF_EVEN).
+                                    stripTrailingZeros().toPlainString());
                     holderInfo.relMain.setTag(assetsWallet);
                     holderInfo.relMain.setOnClickListener(new View.OnClickListener() {
                         @Override
