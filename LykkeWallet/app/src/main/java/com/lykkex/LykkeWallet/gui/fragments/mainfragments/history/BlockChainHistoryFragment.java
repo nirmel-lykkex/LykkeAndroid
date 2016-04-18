@@ -237,123 +237,11 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
         dialog.hide();
         if (result instanceof TransactionResult) {
             if (((TransactionResult) result).getTransaction() != null) {
-                isMarketOrder = false;
-                scrollViewParent.setVisibility(View.VISIBLE);
-                scrollViewParent2.setVisibility(View.GONE);
-
-                swipeRefresh.setRefreshing(false);
-                linearAmount.setVisibility(View.GONE);
-                linearAssetName.setVisibility(View.GONE);
-                linearBlockChainProgress.setVisibility(View.GONE);
-                linearButton.setVisibility(View.VISIBLE);
-                if (((TransactionResult) result).getTransaction().getHash() == null ||
-                        ((TransactionResult) result).getTransaction().getHash().isEmpty()) {
-                    linearHash.setVisibility(View.GONE);
-                   viewHash.setVisibility(View.GONE);
-                } else {
-                    linearHash.setVisibility(View.VISIBLE);
-                    viewHash.setVisibility(View.VISIBLE);
-                    labelHash.setText(((TransactionResult) result).getTransaction().getHash());
-                }
-
-                if (((TransactionResult) result).getTransaction().getDate() == null ||
-                        ((TransactionResult) result).getTransaction().getDate().isEmpty()) {
-                    linearDate.setVisibility(View.GONE);
-                    viewDate.setVisibility(View.GONE);
-                } else {
-                    linearDate.setVisibility(View.VISIBLE);
-                    viewDate.setVisibility(View.VISIBLE);
-                    labelDate.setText(((TransactionResult) result).getTransaction().getDate());
-                }
-
-                if (((TransactionResult) result).getTransaction().getConfirmations() == null ||
-                        ((TransactionResult) result).getTransaction().getConfirmations().isEmpty()) {
-                    linearConfirm.setVisibility(View.GONE);
-                    viewConfirm.setVisibility(View.GONE);
-                } else {
-                    linearConfirm.setVisibility(View.VISIBLE);
-                    viewConfirm.setVisibility(View.VISIBLE);
-                    labelConfirm.setText(((TransactionResult) result).getTransaction().getConfirmations());
-                }
-
-                if (((TransactionResult) result).getTransaction().getAssetId() == null ||
-                        ((TransactionResult) result).getTransaction().getAssetId().isEmpty()) {
-                    linearAsset.setVisibility(View.GONE);
-                    viewAsset.setVisibility(View.GONE);
-                } else {
-                    linearAsset.setVisibility(View.VISIBLE);
-                    viewAsset.setVisibility(View.VISIBLE);
-                    labelAsset.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
-                    labelAsset.setText(((TransactionResult) result).getTransaction().getAssetId());
-                }
-
-                if (((TransactionResult) result).getTransaction().getSenderId() == null ||
-                        ((TransactionResult) result).getTransaction().getSenderId().isEmpty()) {
-                    linearSender.setVisibility(View.GONE);
-                    viewSender.setVisibility(View.GONE);
-                } else {
-                    linearSender.setVisibility(View.VISIBLE);
-                    viewSender.setVisibility(View.VISIBLE);
-                    labelSender.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
-                    labelSender.setText(((TransactionResult) result).getTransaction().getSenderId());
-                }
-
-                if (((TransactionResult) result).getTransaction().getBlock() == null ||
-                        ((TransactionResult) result).getTransaction().getBlock().isEmpty()) {
-                    linearBlock.setVisibility(View.GONE);
-                    viewBlock.setVisibility(View.GONE);
-                } else {
-                    linearBlock.setVisibility(View.VISIBLE);
-                    viewBlock.setVisibility(View.VISIBLE);
-                    labelBlock.setText(((TransactionResult) result).getTransaction().getBlock());
-                }
-
-                if (((TransactionResult) result).getTransaction().getHeight() == null ||
-                        ((TransactionResult) result).getTransaction().getHeight().isEmpty()) {
-                    linearHeight.setVisibility(View.GONE);
-                    viewHeight.setVisibility(View.GONE);
-                } else {
-                    linearHeight.setVisibility(View.VISIBLE);
-                    viewHeight.setVisibility(View.VISIBLE);
-                    labelHeight.setText(((TransactionResult) result).getTransaction().getHeight());
-                }
-
-                if (((TransactionResult) result).getTransaction().getQuality() == null ||
-                        ((TransactionResult) result).getTransaction().getQuality().isEmpty()) {
-                    linearQuantity.setVisibility(View.GONE);
-                    viewQuatity.setVisibility(View.GONE);
-                } else {
-                    linearQuantity.setVisibility(View.VISIBLE);
-                    viewQuatity.setVisibility(View.VISIBLE);
-                    labelQuantity.setText(((TransactionResult) result).getTransaction().getQuality());
-                }
-
-                if (((TransactionResult) result).getTransaction().getUrl() == null ||
-                        ((TransactionResult) result).getTransaction().getUrl().isEmpty()) {
-                    linearUrl.setVisibility(View.GONE);
-                    viewUrl.setVisibility(View.GONE);
-                } else {
-                    linearUrl.setVisibility(View.VISIBLE);
-                    labelUrl.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
-                    labelUrl.setText(((TransactionResult) result).getTransaction().getUrl());
-                    viewUrl.setVisibility(View.VISIBLE);
-                }
-
-                footerBtn.setVisibility(View.VISIBLE);
-                linearButton.setVisibility(View.GONE);
-                linearAssetName.setVisibility(View.GONE);
-                viewAssetName.setVisibility(View.GONE);
-                linearAmount.setVisibility(View.GONE);
-                viewAmount.setVisibility(View.GONE);
-                linearBlockChainProgress.setVisibility(View.GONE);
-                swipeRefresh.setRefreshing(false);
-                swipeRefresh.setEnabled(false);
-                viewBlockChainInProgress.setVisibility(View.GONE);
+                initTransaction((TransactionResult) result);
             } else {
                 if (itemHistory instanceof CashInOut) {
                     scrollViewParent.setVisibility(View.VISIBLE);
                     scrollViewParent2.setVisibility(View.GONE);
-
                     initNull();
                 } else {
                     scrollViewParent.setVisibility(View.GONE);
@@ -372,6 +260,122 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
             }
 
         }
+    }
+
+    private void initTransaction(TransactionResult result) {
+        isMarketOrder = false;
+        relImage.setVisibility(View.VISIBLE);
+        scrollViewParent.setVisibility(View.VISIBLE);
+        scrollViewParent2.setVisibility(View.GONE);
+
+        swipeRefresh.setRefreshing(false);
+        linearAmount.setVisibility(View.GONE);
+        linearAssetName.setVisibility(View.GONE);
+        linearBlockChainProgress.setVisibility(View.GONE);
+        linearButton.setVisibility(View.VISIBLE);
+        if (result.getTransaction().getHash() == null ||
+                result.getTransaction().getHash().isEmpty()) {
+            linearHash.setVisibility(View.GONE);
+           viewHash.setVisibility(View.GONE);
+        } else {
+            linearHash.setVisibility(View.VISIBLE);
+            viewHash.setVisibility(View.VISIBLE);
+            labelHash.setText(result.getTransaction().getHash());
+        }
+
+        if (result.getTransaction().getDate() == null ||
+                result.getTransaction().getDate().isEmpty()) {
+            linearDate.setVisibility(View.GONE);
+            viewDate.setVisibility(View.GONE);
+        } else {
+            linearDate.setVisibility(View.VISIBLE);
+            viewDate.setVisibility(View.VISIBLE);
+            labelDate.setText(result.getTransaction().getDate());
+        }
+
+        if (result.getTransaction().getConfirmations() == null ||
+                result.getTransaction().getConfirmations().isEmpty()) {
+            linearConfirm.setVisibility(View.GONE);
+            viewConfirm.setVisibility(View.GONE);
+        } else {
+            linearConfirm.setVisibility(View.VISIBLE);
+            viewConfirm.setVisibility(View.VISIBLE);
+            labelConfirm.setText(result.getTransaction().getConfirmations());
+        }
+
+        if (result.getTransaction().getAssetId() == null ||
+                result.getTransaction().getAssetId().isEmpty()) {
+            linearAsset.setVisibility(View.GONE);
+            viewAsset.setVisibility(View.GONE);
+        } else {
+            linearAsset.setVisibility(View.VISIBLE);
+            viewAsset.setVisibility(View.VISIBLE);
+            labelAsset.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
+            labelAsset.setText(result.getTransaction().getAssetId());
+        }
+
+        if (result.getTransaction().getSenderId() == null ||
+                result.getTransaction().getSenderId().isEmpty()) {
+            linearSender.setVisibility(View.GONE);
+            viewSender.setVisibility(View.GONE);
+        } else {
+            linearSender.setVisibility(View.VISIBLE);
+            viewSender.setVisibility(View.VISIBLE);
+            labelSender.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
+            labelSender.setText(result.getTransaction().getSenderId());
+        }
+
+        if (result.getTransaction().getBlock() == null ||
+                result.getTransaction().getBlock().isEmpty()) {
+            linearBlock.setVisibility(View.GONE);
+            viewBlock.setVisibility(View.GONE);
+        } else {
+            linearBlock.setVisibility(View.VISIBLE);
+            viewBlock.setVisibility(View.VISIBLE);
+            labelBlock.setText(result.getTransaction().getBlock());
+        }
+
+        if (result.getTransaction().getHeight() == null ||
+                result.getTransaction().getHeight().isEmpty()) {
+            linearHeight.setVisibility(View.GONE);
+            viewHeight.setVisibility(View.GONE);
+        } else {
+            linearHeight.setVisibility(View.VISIBLE);
+            viewHeight.setVisibility(View.VISIBLE);
+            labelHeight.setText(result.getTransaction().getHeight());
+        }
+
+        if (result.getTransaction().getQuality() == null ||
+                result.getTransaction().getQuality().isEmpty()) {
+            linearQuantity.setVisibility(View.GONE);
+            viewQuatity.setVisibility(View.GONE);
+        } else {
+            linearQuantity.setVisibility(View.VISIBLE);
+            viewQuatity.setVisibility(View.VISIBLE);
+            labelQuantity.setText(result.getTransaction().getQuality());
+        }
+
+        if (result.getTransaction().getUrl() == null ||
+                result.getTransaction().getUrl().isEmpty()) {
+            linearUrl.setVisibility(View.GONE);
+            viewUrl.setVisibility(View.GONE);
+        } else {
+            linearUrl.setVisibility(View.VISIBLE);
+            labelUrl.setTextColor(getActivity().getResources().getColor(R.color.blue_color));
+            labelUrl.setText(result.getTransaction().getUrl());
+            viewUrl.setVisibility(View.VISIBLE);
+        }
+
+        footerBtn.setVisibility(View.VISIBLE);
+        linearButton.setVisibility(View.GONE);
+        linearAssetName.setVisibility(View.GONE);
+        viewAssetName.setVisibility(View.GONE);
+        linearAmount.setVisibility(View.GONE);
+        viewAmount.setVisibility(View.GONE);
+        linearBlockChainProgress.setVisibility(View.GONE);
+        swipeRefresh.setRefreshing(false);
+        swipeRefresh.setEnabled(false);
+        viewBlockChainInProgress.setVisibility(View.GONE);
     }
 
     private void initMarketOrder(MarketResult result){
