@@ -414,8 +414,8 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
         relImage.setVisibility(View.GONE);
         scrollViewParent.getViewTreeObserver().removeOnScrollChangedListener(listener);
         tvTitle2.setVisibility(View.VISIBLE);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        scrollViewParent.setVisibility(View.VISIBLE);
+        scrollViewParent2.setVisibility(View.GONE);
         linearAmount.setVisibility(View.VISIBLE);
         linearBlockChainProgress.setVisibility(View.VISIBLE);
         linearAssetName.setVisibility(View.VISIBLE);
