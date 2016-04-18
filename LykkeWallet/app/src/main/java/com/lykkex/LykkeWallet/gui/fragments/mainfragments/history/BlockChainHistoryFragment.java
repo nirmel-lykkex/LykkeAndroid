@@ -17,8 +17,11 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.rest.history.callback.MarketOrderCallBack;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.CashInOut;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.ItemHistory;
+import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketData;
+import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketResult;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.Trading;
 import com.lykkex.LykkeWallet.rest.trading.callback.TransactionCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.TransactionData;
@@ -45,6 +48,9 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
     SwipeRefreshLayout swipeRefresh;
     @Pref UserPref_ userPref;
     private ItemHistory itemHistory;
+
+    @ViewById TextView tvTitleMain;
+    @ViewById TextView tvTitle;
 
     @ViewById RelativeLayout tvTitle2;
     @ViewById RelativeLayout relImage;
@@ -87,42 +93,66 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
     @ViewById TextView labelAssetName;
     @ViewById LinearLayout linearButton;
     @ViewById LinearLayout linearAmount;
+    @ViewById ScrollView scrollViewParent2;
+    @ViewById LinearLayout linearAssetTrading;
+    @ViewById TextView labelAssetTrading;
+    @ViewById View viewAssetTrading;
+    @ViewById LinearLayout linearUnitPurchaesed;
+    @ViewById TextView labelUnitPurchaesed;
+    @ViewById View viewUnitPurchaesed;
+    @ViewById LinearLayout linearExecutionPrice;
+    @ViewById TextView labelExecutionPrice;
+    @ViewById View viewExecutionPrice;
+    @ViewById LinearLayout linearComissionPaid;
+    @ViewById TextView labelComissionPaid;
+    @ViewById View viewComissionPaid;
+    @ViewById LinearLayout linearTotalCost;
+    @ViewById TextView labelTotalCost;
+    @ViewById View viewTotalCost;
+    @ViewById LinearLayout linearBlockChainSettlement;
+    @ViewById TextView labelBlockChainSettlement;
+    @ViewById View viewBlockChainSettlement;
+    @ViewById LinearLayout linearPosition;
+    @ViewById TextView labelPosition;
+    @ViewById View viewPosition;
+
     private int prevScroll = 0;
     private ProgressDialog dialog;
+    private boolean isMarketOrder = false;
+    private ScrollChangeListener listener = new ScrollChangeListener();
 
     @AfterViews
     public void afterViews(){
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage(getString(R.string.waiting));
         dialog.show();
+        scrollViewParent.setVisibility(View.GONE);
+        scrollViewParent2.setVisibility(View.GONE);
         itemHistory = (ItemHistory) getArguments().getSerializable(Constants.EXTRA_HISTORY_ITEM);
         hideAllInfo();
 
-        scrollViewParent.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                int scrollY = scrollViewParent.getScrollY();
-                int defaultHeight = (int) TypedValue.
-                        applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
 
-                if (scrollY > prevScroll) {
-                    if (scrollY > defaultHeight) {
-                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
-                        lp.topMargin = (int) TypedValue.
-                                applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
-                        scrollViewParent.setLayoutParams(lp);
-                        relImage.setVisibility(View.INVISIBLE);
+        scrollViewParent.getViewTreeObserver().addOnScrollChangedListener(listener);
+        getTransaction();
+    }
 
-                        tvTitle2.setVisibility(View.VISIBLE);
-                    } else if (prevScroll - scrollY < 100) {
-                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
-                        lp.topMargin = (int) TypedValue.
-                                applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
-                        scrollViewParent.setLayoutParams(lp);
-                        relImage.setVisibility(View.VISIBLE);
-                        tvTitle2.setVisibility(View.GONE);
-                    }
-                } else {
+    private class ScrollChangeListener implements ViewTreeObserver.OnScrollChangedListener {
+        @Override
+        public void onScrollChanged() {
+            int scrollY = scrollViewParent.getScrollY();
+            int defaultHeight = (int) TypedValue.
+                    applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
+
+            if (scrollY > prevScroll) {
+                if (scrollY > defaultHeight) {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
+                    lp.topMargin = (int) TypedValue.
+                            applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
+                    scrollViewParent.setLayoutParams(lp);
+                    relImage.setVisibility(View.INVISIBLE);
+
+                    tvTitle2.setVisibility(View.VISIBLE);
+                } else if (prevScroll - scrollY < 100) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
                     lp.topMargin = (int) TypedValue.
                             applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
@@ -130,36 +160,51 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
                     relImage.setVisibility(View.VISIBLE);
                     tvTitle2.setVisibility(View.GONE);
                 }
-                prevScroll = scrollY;
-                Log.d("Liza ", "getScrollY: " + scrollY);
+            } else {
+                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) scrollViewParent.getLayoutParams();
+                lp.topMargin = (int) TypedValue.
+                        applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
+                scrollViewParent.setLayoutParams(lp);
+                relImage.setVisibility(View.VISIBLE);
+                tvTitle2.setVisibility(View.GONE);
             }
-        });
-        getTransaction();
-    }
+            prevScroll = scrollY;
+            Log.d("Liza ", "getScrollY: " + scrollY);
+        }
+    };
 
     private void getTransaction(){
-        if (itemHistory instanceof CashInOut) {
-            if ((((CashInOut) itemHistory).getAmount()).compareTo(BigDecimal.ZERO) > 1){
-                actionBar.setTitle(itemHistory.getAsset() + " " + getString(R.string.cash_in));
+        if (!isMarketOrder) {
+            if (itemHistory instanceof CashInOut) {
+                actionBar.hide();
+                TransactionCallBack callback = new TransactionCallBack(this, getActivity());
+                Call<TransactionData> call = LykkeApplication_.getInstance().getRestApi().
+                        getBcnTransactionByCashOperation(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
+                                "?id=" + itemHistory.getId());
+                call.enqueue(callback);
             } else {
-                actionBar.setTitle(itemHistory.getAsset() + " " + getString(R.string.cash_out));
+                actionBar.show();
+                scrollViewParent.getViewTreeObserver().removeOnScrollChangedListener(listener);
+                relImage.setVisibility(View.GONE);
+                tvTitle2.setVisibility(View.GONE);
+                if ((((Trading) itemHistory).getVolume()).compareTo(BigDecimal.ZERO) > 1) {
+                    actionBar.setTitle(itemHistory.getAsset() + " " + getString(R.string.exchange_in));
+                } else {
+                    actionBar.setTitle(itemHistory.getAsset() + " " + getString(R.string.exchange_out));
+                }
+                TransactionCallBack callback = new TransactionCallBack(this, getActivity());
+                Call<TransactionData> call = LykkeApplication_.getInstance().getRestApi().
+                        getBcnTransactionByExchange(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
+                                "?id=" + itemHistory.getId());
+                call.enqueue(callback);
             }
-            TransactionCallBack callback = new TransactionCallBack(this, getActivity());
-            Call<TransactionData> call = LykkeApplication_.getInstance().getRestApi().
-                    getBcnTransactionByCashOperation(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                            "?id=" + itemHistory.getId());
-            call.enqueue(callback);
         } else {
-            if ((((Trading) itemHistory).getVolume()).compareTo(BigDecimal.ZERO) > 1){
-                actionBar.setTitle(itemHistory.getAsset() + " " + getString(R.string.exchange_in));
-            } else {
-                actionBar.setTitle(itemHistory.getAsset() + " " + getString(R.string.exchange_out));
-            }
-            TransactionCallBack callback = new TransactionCallBack(this, getActivity());
-            Call<TransactionData> call = LykkeApplication_.getInstance().getRestApi().
-                    getBcnTransactionByExchange(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                            "?id=" + itemHistory.getId());
+            MarketOrderCallBack callback = new MarketOrderCallBack(this, getActivity());
+            Call<MarketData> call = LykkeApplication_.getInstance().getRestApi().
+                    getMarketOder(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
+                            "?orderId=" + itemHistory.getId());
             call.enqueue(callback);
+
         }
     }
 
@@ -183,6 +228,10 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
         dialog.hide();
         if (result instanceof TransactionResult) {
             if (((TransactionResult) result).getTransaction() != null) {
+                isMarketOrder = false;
+                scrollViewParent.setVisibility(View.VISIBLE);
+                scrollViewParent2.setVisibility(View.GONE);
+
                 swipeRefresh.setRefreshing(false);
                 linearAmount.setVisibility(View.GONE);
                 linearAssetName.setVisibility(View.GONE);
@@ -289,18 +338,81 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
                 swipeRefresh.setEnabled(false);
                 viewBlockChainInProgress.setVisibility(View.GONE);
             } else {
-                swipeRefresh.setOnRefreshListener(this);
-                swipeRefresh.setEnabled(true);
-                swipeRefresh.setRefreshing(false);
-                hideAllInfo();
-                initViewData();
+                if (itemHistory instanceof CashInOut) {
+                    scrollViewParent.setVisibility(View.VISIBLE);
+                    scrollViewParent2.setVisibility(View.GONE);
+
+                    initNull();
+                } else {
+                    scrollViewParent.setVisibility(View.GONE);
+                    scrollViewParent2.setVisibility(View.GONE);
+                    dialog.show();
+                    isMarketOrder = true;
+                    getTransaction();
+               }
             }
+        } else if (result instanceof MarketResult) {
+            if (((MarketResult) result).getMarketOrder() != null) {
+                initMarketOrder((MarketResult) result);
+            } else {
+                initNull();
+            }
+
         }
     }
 
+    private void initMarketOrder(MarketResult result){
+        initField(linearAssetTrading, labelAssetTrading,
+                viewAssetTrading, result.getMarketOrder().getAsset());
+
+        initField(linearUnitPurchaesed, labelUnitPurchaesed,
+                viewUnitPurchaesed, result.getMarketOrder().getVolume());
+
+        initField(linearExecutionPrice, labelExecutionPrice,
+                viewExecutionPrice, result.getMarketOrder().getPrice());
+
+        initField(linearComissionPaid, labelComissionPaid,
+                viewComissionPaid, result.getMarketOrder().getComission());
+
+        initField(linearTotalCost, labelTotalCost,
+                viewTotalCost, result.getMarketOrder().getTotalCost());
+
+        initField(linearBlockChainSettlement, labelBlockChainSettlement,
+                viewBlockChainSettlement, result.getMarketOrder().getBlockChainSetteled());
+
+        initField(linearPosition, labelPosition, viewPosition,
+                result.getMarketOrder().getPosition());
+
+        scrollViewParent.setVisibility(View.GONE);
+        scrollViewParent2.setVisibility(View.VISIBLE);
+
+    }
+
+    private void initField(LinearLayout linearLayout, TextView textView, View view,
+                           String data) {
+        if (data != null ){
+            linearLayout.setVisibility(View.VISIBLE);
+            textView.setText(data);
+            view.setVisibility(View.VISIBLE);
+        } else {
+            linearLayout.setVisibility(View.GONE);
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    private void initNull(){
+        swipeRefresh.setOnRefreshListener(this);
+        swipeRefresh.setEnabled(true);
+        swipeRefresh.setRefreshing(false);
+        hideAllInfo();
+        initViewData();
+    }
+
     private void initViewData(){
+        relImage.setVisibility(View.GONE);
+        scrollViewParent.getViewTreeObserver().removeOnScrollChangedListener(listener);
+        tvTitle2.setVisibility(View.VISIBLE);
         actionBar.setHomeButtonEnabled(false);
-        actionBar.hide();
         actionBar.setDisplayHomeAsUpEnabled(false);
         linearAmount.setVisibility(View.VISIBLE);
         linearBlockChainProgress.setVisibility(View.VISIBLE);
@@ -345,7 +457,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
 
     @Override
     public void onFail(Object error) {
-
+        initNull();
     }
 
     @Override

@@ -143,14 +143,17 @@
     <string name="buy">BUY</string>
     <string name="cancel">CANCEL</string>
     <string name="order_summary">ORDER SUMMARY</string>
-    <string name="exchange_in">EXCHANGE</string>
-    <string name="exchange_out">EXCHANGE</string>
+    <string name="exchange_in">BUY</string>
+    <string name="exchange_out">SELL</string>
     <string name="cash_in">CASH IN</string>
     <string name="cash_out">CASH OUT</string>
     <string name="cash_in_name">Wallet cash in</string>
     <string name="cash_out_name">Wallet cash </string>
     <string name="exchange_in_name">Buy</string>
     <string name="exchange_out_name">Sell</string>
+    <string name="unit_purchaesed">Unit purchased</string>
+    <string name="execution_price">Execution price</string>
+    <string name="commission_paid">Commission paid</string>
 
 </resources>
 

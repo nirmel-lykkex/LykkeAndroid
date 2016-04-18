@@ -23,6 +23,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="25dp"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvTitleMain"
                 android:background="@color/color_deal"
                 android:layout_marginBottom="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -651,6 +652,342 @@
                         android:id="@+id/viewUrl"
                         android:background="@color/grey_text"/>
                 </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:id="@+id/scrollViewParent2"
+            android:background="@color/white"
+            android:layout_marginBottom="100dp"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linearAssetTrading"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvAssetTrading"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/asset_name"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/labelAssetTrading"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:visibility="gone"
+                    android:id="@+id/viewAssetTrading"
+                    android:background="@color/grey_text"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linearUnitPurchaesed"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvUnitPurchaesed"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/unit_purchaesed"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/labelUnitPurchaesed"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:visibility="gone"
+                    android:id="@+id/viewUnitPurchaesed"
+                    android:background="@color/grey_text"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linearExecutionPrice"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvExecutionPrice"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/execution_price"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/labelExecutionPrice"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:visibility="gone"
+                    android:id="@+id/viewExecutionPrice"
+                    android:background="@color/grey_text"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linearComissionPaid"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvComissionPaid"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/commission_paid"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/labelComissionPaid"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:visibility="gone"
+                    android:id="@+id/viewComissionPaid"
+                    android:background="@color/grey_text"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linearTotalCost"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvTotalCost"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/total_cost"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/labelTotalCost"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:visibility="gone"
+                    android:id="@+id/viewTotalCost"
+                    android:background="@color/grey_text"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linearBlockChainSettlement"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvBlockChainSettlement"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/purchace_blockchain"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/labelBlockChainSettlement"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:visibility="gone"
+                    android:id="@+id/viewBlockChainSettlement"
+                    android:background="@color/grey_text"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linearPosition"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvPosition"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/purchace_position"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/labelPosition"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:visibility="gone"
+                    android:id="@+id/viewPosition"
+                    android:background="@color/grey_text"/>
+
             </RelativeLayout>
         </ScrollView>
         <LinearLayout
