@@ -1,5 +1,10 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -29,10 +34,13 @@ public class WithdrawFragment extends BaseFragment {
         actionBar.setTitle(R.string.withdraw_funds);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        btnProceed.addTextChangedListener(new SimpleTextWatcher(null,
+        etHashBitcoin.addTextChangedListener(new SimpleTextWatcher(null,
                 null, etHashBitcoin,
-        Constants.MIN_COUNT_SYMBOL, this,
+                Constants.MIN_COUNT_SYMBOL, this,
                 null));
+        if (getArguments() != null && getArguments().getString(Constants.EXTRA_QR_CODE_READ) != null){
+            etHashBitcoin.setText(getArguments().getString(Constants.EXTRA_QR_CODE_READ));
+        }
     }
 
     @Override
@@ -40,19 +48,31 @@ public class WithdrawFragment extends BaseFragment {
         ((BaseActivity)getActivity()).initFragment(new TradingWalletFragment_(), getArguments());
     }
 
+    @Click(R.id.tvPaste)
+    public void clickPaste(){
+        ClipboardManager  clipMan = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData.Item item = clipMan.getPrimaryClip().getItemAt(0);
+        etHashBitcoin.setText(item.getText());
+    }
+
     @Click(R.id.btnScan)
     public void clickBtnScan(){
-        ((BaseActivity)getActivity()).initFragment(new QrCodeScanFragment_(), getArguments());
+        Bundle bundle = getArguments();
+        bundle.putString(Constants.EXTRA_QR_CODE_READ, etHashBitcoin.getText().toString());
+       ((BaseActivity) getActivity()).initFragment(new QrCodeScanFragment_(), bundle);
     }
 
     @Click(R.id.btnProceed)
     public void clickBtnProceed(){
-
+        Bundle bundle = getArguments();
+        bundle.putString(Constants.EXTRA_QR_CODE_READ, etHashBitcoin.getText().toString());
+        ((BaseActivity)getActivity()).initFragment(new WithdrawFundsFragment_(), bundle);
     }
 
     @Override
     public void onSuccess(Object result) {
         if (result == null) {
+            btnProceed.setTextColor(Color.WHITE);
             btnProceed.setEnabled(true);
         }
     }
@@ -60,6 +80,7 @@ public class WithdrawFragment extends BaseFragment {
     @Override
     public void onFail(Object error) {
         if (error == null) {
+            btnProceed.setTextColor(getResources().getColor(R.color.grey_text));
             btnProceed.setEnabled(false);
         }
     }

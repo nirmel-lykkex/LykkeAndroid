@@ -65,6 +65,12 @@ public class SimpleTextWatcher  implements TextWatcher, View.OnFocusChangeListen
                 imgWell.setVisibility(View.GONE);
                 listener.onFail(type);
             }
+        } else {
+            if (editText.getText().toString().length() >= minCount) {
+               listener.onSuccess(type);
+            } else {
+               listener.onFail(type);
+            }
         }
     }
 

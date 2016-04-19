@@ -88,7 +88,7 @@
     <string name="enter_address">Enter the bitcoin address</string>
     <string name="bitcoin_wallet">Bitcoin Wallet</string>
     <string name="paste">Paste</string>
-    <string name="scan">scan</string>
+    <string name="scan">Scan QR-code</string>
     <string name="proceed">Proceed</string>
     <string name="funds_wallet">The funds from this wallet will be charged only for transaction</string>
     <string name="wallet_address">Wallet Address</string>
@@ -148,6 +148,7 @@
     <string name="labelNumberOfCoins">Number of coins</string>
     <string name="buy_rate">BUY AT PRICE </string>
     <string name="volume">Volume</string>
+    <string name="bitcoin_address">Bitcoin address</string>
     <string name="total_cost">Total cost</string>
     <string name="checkout">CHECKOUT</string>
     <string name="buy">BUY</string>

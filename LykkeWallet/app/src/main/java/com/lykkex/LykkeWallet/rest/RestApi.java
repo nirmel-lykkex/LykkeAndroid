@@ -31,6 +31,7 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.TransactionData;
 import com.lykkex.LykkeWallet.rest.wallet.request.models.CardModel;
+import com.lykkex.LykkeWallet.rest.wallet.request.models.CashOut;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
 
@@ -157,5 +158,9 @@ public interface RestApi {
     @GET("/api/MarketOrder/{orderId}")
     Call<MarketData> getMarketOder(@Header("Authorization")String authorization,
                                    @Path("orderId")  String orderId);
+
+    @POST("/api/CashOut")
+    Call<MarketData> postCachOut(@Header("Authorization")String authorization,
+                                   @Body CashOut cashOut);
 
 }

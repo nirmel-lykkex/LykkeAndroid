@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/enter_address"
         android:id="@+id/tvTile"
@@ -16,6 +19,7 @@
     <RelativeLayout
         android:layout_below="@+id/tvTile"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout4">
         <EditText
@@ -52,9 +56,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/scan"
+        android:textColor="@color/blue_color"
         android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/icon_plus"
+        android:drawableLeft="@drawable/scan"
         android:id="@+id/btnScan"
+        android:drawablePadding="3dp"
         android:layout_below="@+id/relativeLayout4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
@@ -85,6 +91,7 @@
         android:gravity="center"
         android:textSize="15sp"
         android:id="@+id/tvCenter"
+        android:background="@color/white"
         android:layout_below="@+id/btnProceed"
         android:layout_marginTop="50dp"
         android:layout_alignRight="@+id/btnProceed"
