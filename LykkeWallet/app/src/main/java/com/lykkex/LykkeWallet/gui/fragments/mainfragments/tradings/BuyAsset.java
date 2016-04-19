@@ -187,7 +187,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         ConfirmDialog dialog = new ConfirmDialog();
         Bundle args = new Bundle();
         args.putString(Constants.EXTRA_RATE, labelPrice.getText().toString());
-        args.putString(Constants.EXTRA_VOLUME, etVolume.getText().toString());
+        args.putString(Constants.EXTRA_VOLUME, etVolumeRes.toString());
         args.putString(Constants.EXTRA_TOTAL_COST, labelTotalCost.getText().toString());
         args.putString(Constants.EXTRA_ASSETPAIR_NAME, getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
         args.putInt(Constants.EXTRA_ASSETPAIR_ACCURANCY, accurancy);
