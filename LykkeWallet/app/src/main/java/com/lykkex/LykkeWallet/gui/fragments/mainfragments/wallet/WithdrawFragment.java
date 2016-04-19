@@ -42,7 +42,7 @@ public class WithdrawFragment extends BaseFragment {
 
     @Click(R.id.btnScan)
     public void clickBtnScan(){
-
+        ((BaseActivity)getActivity()).initFragment(new QrCodeScanFragment_(), getArguments());
     }
 
     @Click(R.id.btnProceed)

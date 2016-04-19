@@ -20,7 +20,9 @@
         android:id="@+id/relativeLayout4">
         <EditText
             android:paddingLeft="7dp"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_height="45dp"
             android:paddingBottom="6dp"
             android:hint="@string/bitcoin_wallet"
@@ -42,7 +44,7 @@
             android:layout_alignBaseline="@+id/etHashBitcoin"
             android:layout_alignBottom="@+id/etHashBitcoin"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp" />
+            android:layout_marginRight="22dp" />
 
     </RelativeLayout>
 
