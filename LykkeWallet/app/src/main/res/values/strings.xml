@@ -165,6 +165,8 @@
     <string name="unit_purchaesed">Unit purchased</string>
     <string name="execution_price">Execution price</string>
     <string name="commission_paid">Commission paid</string>
+    <string name="sell_at_price">SELL AT PRICE</string>
+    <string name="sell">SELL</string>
 
 </resources>
 

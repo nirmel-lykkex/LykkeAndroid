@@ -27,6 +27,7 @@ public interface Constants {
     String EXTRA_RATE_PRICE = "extra_rate_price";
     String EXTRA_ORDER = "extra_order";
     String EXTRA_DESCRIPTION = "extra_description";
+    String EXTRA_TYPE_OPERATION = "extra_type_operation";
     String EXTRA_TOTAL_COST = "extra_total_cost";
     String EXTRA_VOLUME = "extra_volume";
     String EXTRA_RATE = "extra_rate";

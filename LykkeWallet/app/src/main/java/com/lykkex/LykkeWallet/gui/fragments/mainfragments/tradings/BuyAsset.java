@@ -27,6 +27,7 @@ import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Calculate;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.OperationType;
 import com.lykkex.LykkeWallet.gui.widgets.ConfirmDialog;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
@@ -69,6 +70,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     private ArrayList<Call<RatesData>> listRates = new ArrayList<>();
     private boolean isShouldContinue = true;
+    private OperationType type = OperationType.buy;
 
     private Handler handler = new Handler();
     private Runnable run = new Runnable() {
@@ -106,8 +108,14 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         etVolume.requestFocus();
         button.setEnabled(false);
         etVolume.addTextChangedListener(this);
-        actionBar.setTitle(getString(R.string.buy) + " " +
-                getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
+        type = (OperationType) getArguments().getSerializable(Constants.EXTRA_TYPE_OPERATION);
+        if (type.equals(OperationType.buy)) {
+            actionBar.setTitle(getString(R.string.buy) + " " +
+                    getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
+        } else {
+            actionBar.setTitle(getString(R.string.sell) + " " +
+                    getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
+        }
         accurancy = getArguments().getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY);
         id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
         handler.post(run);
@@ -187,7 +195,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
         dialog.setArguments(args);
         dialog.show(getActivity().getFragmentManager(),
-                "dlg1" +new Random((int)Constants.DELAY_5000));
+                "dlg1" + new Random((int) Constants.DELAY_5000));
     }
 
     @Click(R.id.rel100)
@@ -328,7 +336,13 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
             symbols.setDecimalSeparator('.');
             format.setDecimalFormatSymbols(symbols);
 
-            etVolumeRes = (BigDecimal) format.parse(etVolume.getText().toString());
+            if (type.equals(OperationType.buy)) {
+                etVolumeRes = (BigDecimal) format.parse(etVolume.getText().toString());
+            } else {
+                etVolumeRes = ((BigDecimal) format.parse(etVolume.getText().toString())).
+                        subtract(((BigDecimal) format.parse(etVolume.getText().toString())).
+                                multiply(BigDecimal.valueOf(2)));
+            }
             setUpTotalCost();
 
             int charCount = etVolume.getText().toString().replaceAll("[^.]", "").length();
@@ -341,7 +355,10 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
                     !labelTotalCost.getText().toString().isEmpty() &&
                     !labelPrice.getText().toString().isEmpty()
                     && !etVolume.getText().toString().isEmpty()
-                    && etVolumeRes.compareTo(BigDecimal.ZERO) > 0 &&
+                    && (type.equals(OperationType.buy) &&
+                    etVolumeRes.compareTo(BigDecimal.ZERO) > 0)
+                    || (type.equals(OperationType.sell) &&
+                    etVolumeRes.compareTo(BigDecimal.ZERO) < 0)&&
                     new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
                     new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0) {
                 button.setEnabled(true);

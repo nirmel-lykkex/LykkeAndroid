@@ -19,6 +19,7 @@ import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.OperationType;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRatesCallBack;
 import com.lykkex.LykkeWallet.rest.trading.callback.DescriptionCallBack;
@@ -59,6 +60,7 @@ public class TradingDescription  extends BaseFragment {
         }
     };
 
+    @ViewById Button btnSell;
     @ViewById RelativeLayout relProgress;
     @ViewById LinearLayout linearInfo;
     @ViewById ProgressBar progressBar;
@@ -72,6 +74,7 @@ public class TradingDescription  extends BaseFragment {
     private String id;
     private int accurancy;
     private String price;
+    private String bid;
 
     @AfterViews
     public void afterViews(){
@@ -85,11 +88,14 @@ public class TradingDescription  extends BaseFragment {
         if (getArguments().getSerializable(Constants.EXTRA_DESCRIPTION) != null) {
             btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
                     (Double.parseDouble(price)).setScale(accurancy, RoundingMode.HALF_EVEN)));
+            btnSell.setText(getString(R.string.sell_at_price) + " " + String.valueOf(BigDecimal.valueOf
+                    (Double.parseDouble(price)).setScale(accurancy, RoundingMode.HALF_EVEN)));
             onSuccess(getArguments().getSerializable(Constants.EXTRA_DESCRIPTION));
         } else {
             id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
             setUpVisibility(View.VISIBLE, View.GONE);
             btnBuy.setVisibility(View.GONE);
+            btnSell.setVisibility(View.GONE);
             getDescription();
         }
     }
@@ -143,6 +149,7 @@ public class TradingDescription  extends BaseFragment {
                 resultData = (DescriptionResult) result;
                 setUpVisibility(View.GONE, View.VISIBLE);
                 btnBuy.setVisibility(View.VISIBLE);
+                btnSell.setVisibility(View.VISIBLE);
                 tvAssetClass.setText(((DescriptionResult) result).getAssetClass());
                 tvDescription.setText(((DescriptionResult) result).getDescription());
                 tvIssuerName.setText(((DescriptionResult) result).getIssuerName());
@@ -172,6 +179,12 @@ public class TradingDescription  extends BaseFragment {
                     btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
                             (Double.parseDouble(((RateResult) result).getRate().getAsk())).setScale(accurancy, RoundingMode.HALF_EVEN)));
                 }
+                if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null
+                        && getActivity() != null) {
+                    bid = ((RateResult) result).getRate().getBid();
+                    btnSell.setText(getString(R.string.sell_at_price) + " " + String.valueOf(BigDecimal.valueOf
+                            (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                }
             }
         }
     }
@@ -181,6 +194,16 @@ public class TradingDescription  extends BaseFragment {
         Bundle bundle = getArguments();
         bundle.putSerializable(Constants.EXTRA_DESCRIPTION, resultData);
         bundle.putSerializable(Constants.EXTRA_RATE_PRICE, price);
+        bundle.putSerializable(Constants.EXTRA_TYPE_OPERATION, OperationType.buy);
+        ((BaseActivity) getActivity()).initFragment(new BuyAsset_(), getArguments());
+    }
+
+    @Click(R.id.btnSell)
+    public void clickBtnSell(){
+        Bundle bundle = getArguments();
+        bundle.putSerializable(Constants.EXTRA_DESCRIPTION, resultData);
+        bundle.putSerializable(Constants.EXTRA_RATE_PRICE, bid);
+        bundle.putSerializable(Constants.EXTRA_TYPE_OPERATION, OperationType.sell);
         ((BaseActivity) getActivity()).initFragment(new BuyAsset_(), getArguments());
     }
 

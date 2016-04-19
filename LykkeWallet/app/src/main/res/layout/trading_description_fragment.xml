@@ -267,4 +267,17 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/btnSell"
+        android:background="@drawable/btn_sell"
+        android:textColor="@color/white"
+        android:layout_above="@+id/btnBuy"
+        android:layout_alignRight="@+id/btnBuy"
+        android:layout_alignEnd="@+id/btnBuy"
+        android:layout_alignLeft="@+id/btnBuy"
+        android:layout_alignStart="@+id/btnBuy" />
 </RelativeLayout>
