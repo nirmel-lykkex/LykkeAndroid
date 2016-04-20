@@ -74,6 +74,11 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
             result = WalletSinglenton.getInstance().getResult();
         }
         WalletSinglenton.getInstance().setResult(result);
+        if (result != null && result.getBankCardses() != null &&
+                result.getLykke() != null && result.getLykke().getAssets() != null &&
+                result.getBankCardses().length == 0 && result.getLykke().getAssets().length == 0){
+            isItGet = true;
+        }
         adapter = new WalletAdapter(result, getActivity(), isItGet);
         listView.setAdapter(adapter);
         swipeRefresh.setRefreshing(false);

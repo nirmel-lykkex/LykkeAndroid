@@ -16,6 +16,7 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.AddCardActivity_;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.PaymentActivity_;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.QrCodeActivity_;
+import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
@@ -37,12 +38,13 @@ public class WalletAdapter extends BaseAdapter {
     private boolean isClickedLykke = false;
     private boolean isClickedBank = false;
     private boolean isItGet = false;
-
+    private UserPref_ userPref;
 
     public WalletAdapter(LykkeWalletResult lykkeWallet, Context context,boolean isItGet){
         this.lykkeWallet = lykkeWallet;
         this.isItGet = isItGet;
         this.mContext = context;
+        userPref = new UserPref_(context);
     }
 
     @Override
@@ -114,7 +116,14 @@ public class WalletAdapter extends BaseAdapter {
             holder.imgIcon.setImageResource(R.drawable.lykke_wallet);
         }
 
+
         holder.relInfo.setVisibility(View.GONE);
+
+        if (position == 1 && isItGet && userPref.isOpenLykke().get()) {
+            setUpInfo(holder, position);
+        } else if  (position == 0 && isItGet && userPref.isOpenBank().get()) {
+            setUpInfo(holder, position);
+        }
 
         holder.relMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,16 +147,19 @@ public class WalletAdapter extends BaseAdapter {
         holder.relInfo.removeAllViews();
         if (position == 1) {
             if (isClickedLykke) {
+                userPref.isOpenLykke().put(false);
                 isClickedLykke = false;
             } else {
                 isClickedLykke = true;
-
+                userPref.isOpenLykke().put(true);
                 setUpLykkeInfo(holder, Constants.LKE);
             }
         } else {
             if (isClickedBank) {
+                userPref.isOpenBank().put(false);
                 isClickedBank = false;
             } else {
+                userPref.isOpenBank().put(true);
                 isClickedBank = true;
                 setUpLykkeInfo(holder, Constants.BTC);
             }
