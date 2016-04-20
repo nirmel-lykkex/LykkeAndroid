@@ -30,6 +30,7 @@ import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.OperationType;
 import com.lykkex.LykkeWallet.gui.widgets.ConfirmDialog;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
+import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPair;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
@@ -58,6 +59,9 @@ import retrofit2.Call;
 @EFragment(R.layout.buy_asset)
 public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListener, TextWatcher{
 
+    @ViewById TextView tvBaseAssetId;
+    @ViewById TextView tvInformation;
+    @ViewById TextView tvQautingId;
     @ViewById EditText etVolume;
     @ViewById TextView labelTotalCost;
     @ViewById View calc_keyboard;
@@ -65,6 +69,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @ViewById Button button;
     @ViewById
     LinearLayout linearRoot;
+    private AssetPair assetPair;
 
     private Double rate = 0.0;
 
@@ -109,13 +114,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         button.setEnabled(false);
         etVolume.addTextChangedListener(this);
         type = (OperationType) getArguments().getSerializable(Constants.EXTRA_TYPE_OPERATION);
-        if (type.equals(OperationType.buy)) {
-            actionBar.setTitle(getString(R.string.buy) + " " +
-                    getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
-        } else {
-            actionBar.setTitle(getString(R.string.sell) + " " +
-                    getArguments().getString(Constants.EXTRA_ASSETPAIR_NAME));
-        }
+        assetPair = (AssetPair) getArguments().getSerializable(Constants.EXTRA_ASSET_PAIR);
+        setTitle();
         accurancy = getArguments().getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY);
         id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
         handler.post(run);
@@ -126,6 +126,38 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
             linearRoot.setLayoutParams(lp);
         }
 
+    }
+
+    private void setTitle(){
+        if (type.equals(OperationType.buy)) {
+            actionBar.setTitle(getString(R.string.buy) + " " +
+                    getTitleBase());
+        } else {
+            actionBar.setTitle(getString(R.string.sell) + " " +
+                    getTitleBase());
+        }
+        tvBaseAssetId.setText(getTitleBase());
+        tvQautingId.setText(getTitleQuoting());
+    }
+
+    private String getTitleBase(){
+        String name = assetPair.getBaseAssetId();
+        if (SettingSinglenton.getInstance().getBaseAssetId().equals(assetPair.getBaseAssetId())) {
+            name =  assetPair.getQuotingAssetId();
+        } else {
+            name = assetPair.getBaseAssetId();
+        }
+        return name;
+    }
+
+    private String getTitleQuoting(){
+        String name = assetPair.getBaseAssetId();
+        if (!SettingSinglenton.getInstance().getBaseAssetId().equals(assetPair.getBaseAssetId())) {
+            name =  assetPair.getQuotingAssetId();
+        } else {
+            name = assetPair.getBaseAssetId();
+        }
+        return name;
     }
 
     private void getRates(){
@@ -158,7 +190,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Override
     public void initOnBackPressed() {
-        ((BaseActivity)getActivity()).initFragment(new TradingDescription_(),getArguments());
+        ((BaseActivity)getActivity()).initFragment(new TradingDescription_(), getArguments());
     }
 
     @Override
@@ -196,6 +228,21 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         dialog.setArguments(args);
         dialog.show(getActivity().getFragmentManager(),
                 "dlg1" + new Random((int) Constants.DELAY_5000));
+    }
+
+    private void getPrice(DecimalFormat format) throws ParseException{
+        if (type.equals(OperationType.buy)) {
+            etVolumeRes = ((BigDecimal) format.parse(etVolume.getText().toString()));
+        } else {
+            etVolumeRes = ((BigDecimal) format.parse(etVolume.getText().toString())).
+                    subtract(((BigDecimal) format.parse(etVolume.getText().toString())).
+                            multiply(BigDecimal.valueOf(2)));
+        }
+
+        String baseAssetId = SettingSinglenton.getInstance().getBaseAssetId();
+        if (!baseAssetId.equals(assetPair.getBaseAssetId())) {
+            etVolumeRes =   BigDecimal.valueOf(1).divide(etVolumeRes);
+        }
     }
 
     @Click(R.id.rel100)
@@ -324,6 +371,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     }
 
     private  BigDecimal etVolumeRes = BigDecimal.ZERO;
+
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         try {
@@ -336,13 +384,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
             symbols.setDecimalSeparator('.');
             format.setDecimalFormatSymbols(symbols);
 
-            if (type.equals(OperationType.buy)) {
-                etVolumeRes = (BigDecimal) format.parse(etVolume.getText().toString());
-            } else {
-                etVolumeRes = ((BigDecimal) format.parse(etVolume.getText().toString())).
-                        subtract(((BigDecimal) format.parse(etVolume.getText().toString())).
-                                multiply(BigDecimal.valueOf(2)));
-            }
+            getPrice(format);
             setUpTotalCost();
 
             int charCount = etVolume.getText().toString().replaceAll("[^.]", "").length();
@@ -364,12 +406,15 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
                 button.setEnabled(true);
             } else {
                 button.setEnabled(false);
+                tvInformation.setVisibility(View.GONE);
             }
         } catch (NumberFormatException ex){
             button.setEnabled(false);
+            tvInformation.setVisibility(View.GONE);
         }
         catch (ParseException e) {
             button.setEnabled(false);
+            tvInformation.setVisibility(View.GONE);
         }
     }
 
@@ -381,6 +426,16 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         if (!etVolume.getText().toString().isEmpty() && etVolumeRes.compareTo(BigDecimal.ZERO) != 0) {
             labelTotalCost.setText(String.valueOf(etVolumeRes.multiply(BigDecimal.valueOf(rate).setScale(accurancy,
                     RoundingMode.HALF_EVEN))));
+            tvInformation.setVisibility(View.VISIBLE);
+            if (type.equals(OperationType.buy)) {
+                tvInformation.setText(String.format(getString(R.string.info_sell), etVolume.getText().toString()
+                                +" " +getTitleBase(),
+                        labelTotalCost.getText().toString()+" " +getTitleQuoting()));
+            } else {
+                tvInformation.setText(String.format(getString(R.string.info_buy),  etVolume.getText().toString()
+                                +" " +getTitleBase(),
+                        labelTotalCost.getText().toString()+" " +getTitleQuoting()));
+            }
         }
 
         if ( BigDecimal.valueOf

@@ -47,7 +47,22 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:background="@color/light_blue"
-                    android:id="@+id/etVolume"/>
+                    android:id="@+id/etVolume"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/tvBaseAssetId"
+                    android:layout_toStartOf="@+id/tvBaseAssetId"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_blue"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="USD"
+                    android:id="@+id/tvBaseAssetId"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
         <View
@@ -106,6 +121,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,15 +138,32 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <TextView
-                    android:layout_width="match_parent"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_height="wrap_content"
                     android:id="@+id/labelTotalCost"
                     android:textStyle="bold"
-                    android:gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/total_cost"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@color/light_blue"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/tvQautingId"
+                    android:layout_toStartOf="@+id/tvQautingId"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_blue"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="USD"
+                    android:id="@+id/tvQautingId"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
         <View android:layout_width="match_parent"

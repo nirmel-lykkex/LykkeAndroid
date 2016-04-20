@@ -2,10 +2,12 @@ package com.lykkex.LykkeWallet.rest.trading.response.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by e.kazimirova on 16.03.2016.
  */
-public class AssetPair {
+public class AssetPair implements Serializable{
 
     @SerializedName("Group")
     private String group;
@@ -18,6 +20,20 @@ public class AssetPair {
 
     @SerializedName("Accuracy")
     private int accurancy;
+
+    @SerializedName("BaseAssetId")
+    private String baseAssetId;
+
+    @SerializedName("QuotingAssetId")
+    private String quotingAssetId;
+
+    public String getQuotingAssetId() {
+        return quotingAssetId;
+    }
+
+    public String getBaseAssetId() {
+        return baseAssetId;
+    }
 
     public String getGroup() {
         return group;

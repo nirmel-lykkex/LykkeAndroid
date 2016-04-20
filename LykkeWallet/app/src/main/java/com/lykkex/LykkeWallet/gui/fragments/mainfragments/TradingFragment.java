@@ -176,6 +176,7 @@ public class TradingFragment extends Fragment implements CallBackListener {
     private void clickItem(AssetPair pair){
         Intent intent = new Intent();
         intent.setClass(getActivity(), TradingActivity_.class);
+        intent.putExtra(Constants.EXTRA_ASSET_PAIR, pair);
         intent.putExtra(Constants.EXTRA_FRAGMENT, TradingEnum.description);
         intent.putExtra(Constants.EXTRA_ASSETPAIR_NAME, pair.getName());
         intent.putExtra(Constants.EXTRA_ASSETPAIR_ID, pair.getId());

@@ -167,6 +167,8 @@
     <string name="commission_paid">Commission paid</string>
     <string name="sell_at_price">SELL AT PRICE</string>
     <string name="sell">SELL</string>
+    <string name="info_sell">I want to sell %1$s for %2$s</string>
+    <string name="info_buy">I want to buy %1$s for %2$s</string>
 
 </resources>
 
