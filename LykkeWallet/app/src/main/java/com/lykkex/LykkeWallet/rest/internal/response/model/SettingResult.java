@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class SettingResult {
 
+    @SerializedName("DebugMode")
+    private boolean debugMode;
+
     @SerializedName("RateRefreshPeriod")
     private int rateRefreshPeriod;
 
@@ -53,5 +56,13 @@ public class SettingResult {
 
     public void setDepositUrl(String depositUrl) {
         this.depositUrl = depositUrl;
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
     }
 }

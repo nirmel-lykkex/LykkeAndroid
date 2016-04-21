@@ -37,9 +37,9 @@ public class AccountExistDataCallback extends BaseCallBack<AccountExistData> {
                 AcountExistResult data = response.body().getResult();
                 data.setEmail(email);
                 listener.onSuccess(data);
-            } else if (response != null && response.body() != null) {
-                listener.onFail(response.body().getError());
-                Toast.makeText(LykkeApplication_.getInstance(), "Something going wrong. Try again", Toast.LENGTH_LONG).show();
+            } else if (response != null && response.body() != null &&
+                    response.body().getError() != null) {
+                setUpError(response.body().getError().getMessage());
             }
         }
     }

@@ -169,6 +169,8 @@
     <string name="sell">SELL</string>
     <string name="info_sell">I want to sell %1$s for %2$s</string>
     <string name="info_buy">I want to buy %1$s for %2$s</string>
+    <string name="hold_up">HOLD UP!</string>
+    <string name="understand">OKAY, I UNDERSTOOD</string>
 
 </resources>
 

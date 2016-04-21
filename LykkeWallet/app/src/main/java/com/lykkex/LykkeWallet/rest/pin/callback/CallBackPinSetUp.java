@@ -25,8 +25,9 @@ public class CallBackPinSetUp extends BaseCallBack<Error> {
         if (!isCancel) {
             if (response != null && response.errorBody() == null) {
                 listener.onSuccess(null);
-            } else {
-                listener.onFail(null);
+            } else if (response != null && response.body() != null &&
+                    response.body().getMessage() != null) {
+                setUpError(response.body().getMessage());
             }
         }
     }

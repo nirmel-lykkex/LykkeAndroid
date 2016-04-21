@@ -21,8 +21,11 @@ public class CashOutCallBack  extends BaseCallBack<MarketData> {
 
     @Override
     public void onResponse(Call<MarketData> call, Response<MarketData> response) {
-        if (response != null && response.errorBody() == null){
+        if (response != null && response.errorBody() == null) {
             listener.onSuccess(response.body());
+        } else if (response != null && response.body() != null &&
+                response.body().getError() != null) {
+            setUpError(response.body().getError().getMessage());
         }
     }
 

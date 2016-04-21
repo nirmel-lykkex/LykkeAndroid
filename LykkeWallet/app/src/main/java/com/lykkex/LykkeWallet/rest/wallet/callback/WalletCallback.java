@@ -34,11 +34,7 @@ public class WalletCallback extends BaseCallBack<LykkeWallerData> {
             error.setCode(Constants.ERROR_401);
             listener.onFail(error);
             userPref.clear();
-            Intent intent = new Intent();
-            intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
-            activity.startActivity(intent);
-            activity.finish();
-            Toast.makeText(activity, activity.getString(R.string.not_authorized), Toast.LENGTH_LONG).show();
+            setUpError(activity.getString(R.string.not_authorized));
             return;
         }
         if (response != null && response.errorBody() == null){

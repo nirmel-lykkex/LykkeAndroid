@@ -16,12 +16,21 @@ public class SettingSinglenton {
     private BaseAsset[] baseAssets;
     private String depositUrl;
     private boolean shouldSignOrder;
+    private boolean debugMode;
 
     public static SettingSinglenton getInstance(){
         if (instance == null) {
             instance = new SettingSinglenton();
         }
         return instance;
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
     }
 
     public int getRefreshTimer() {

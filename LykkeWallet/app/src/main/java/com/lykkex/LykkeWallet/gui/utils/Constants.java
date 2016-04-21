@@ -21,6 +21,7 @@ public interface Constants {
     String BTC = "BTC";
     String LKE = "LKE";
 
+    String EXTRA_ERROR = "extra_error";
     String EXTRA_AMOUNT = "extra_amount";
     String EXTRA_ASSET_PAIR = "extra_asset_pair";
     String EXTRA_QR_CODE_READ = "extra_qr_code_read";

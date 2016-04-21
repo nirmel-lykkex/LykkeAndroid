@@ -33,8 +33,9 @@ public class LoginDataCallback extends BaseCallBack<AuthModelData> {
             if (response != null && response.body() != null && response.body().getError() == null) {
                 progressBar.setVisibility(View.GONE);
                 listener.onSuccess(response.body());
-            } else if (response != null && response.body() != null) {
-                listener.onFail(new Error());
+            } else if (response != null && response.body() != null &&
+                    response.body().getError() != null) {
+                setUpError(response.body().getError().getMessage());
             }
         }
     }

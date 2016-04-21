@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.rest.camera.callback;
 
 import android.app.Activity;
 
+import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.BaseCallBack;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
@@ -27,7 +28,7 @@ public class SubmitDocumentsDataCallback extends BaseCallBack<PersonalData> {
             if (response != null && response.body() != null) {
                 listener.onSuccess(null);
             }else if (response != null){
-                listener.onFail(null);
+                listener.onFail(activity.getString(R.string.server_error));
             }
         }
     }

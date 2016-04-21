@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.rest.base.models;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,9 +11,13 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
+import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
+import com.lykkex.LykkeWallet.gui.widgets.ErrorDialog;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
+
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,12 +47,21 @@ public abstract class BaseCallBack<BaseModel> implements Callback<BaseModel> {
             error.setCode(Constants.ERROR_401);
             listener.onFail(error);
             userPref.clear();
-            Intent intent = new Intent();
-            intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
-            activity.startActivity(intent);
-            activity.finish();
-            Toast.makeText(activity, activity.getString(R.string.not_authorized), Toast.LENGTH_LONG).show();
+            setUpError(activity.getString(R.string.not_authorized));
             return;
+        }
+    }
+
+    protected void setUpError(String error) {
+        if (SettingSinglenton.getInstance().isDebugMode()) {
+            Toast.makeText(activity, error, Toast.LENGTH_LONG).show();
+        } else {
+            ErrorDialog dialog = new ErrorDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.EXTRA_ERROR, error);
+            dialog.setArguments(bundle);
+            dialog.show(activity.getFragmentManager(),
+                    "dlg1" + new Random((int) Constants.DELAY_5000));
         }
     }
 

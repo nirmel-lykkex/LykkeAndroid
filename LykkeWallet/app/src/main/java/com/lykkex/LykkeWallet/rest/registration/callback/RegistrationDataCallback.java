@@ -28,8 +28,9 @@ public class RegistrationDataCallback extends BaseCallBack<RegistrationData> {
         if (!isCancel) {
             if (response != null && response.body() != null && response.body().getError() == null) {
                 listener.onSuccess(response.body());
-            } else if (response != null && response.body() != null) {
-                listener.onFail(null);
+            } else if (response != null && response.body() != null &&
+                    response.body().getError() != null) {
+                setUpError(response.body().getError().getMessage());
             }
         }
     }

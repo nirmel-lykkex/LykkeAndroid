@@ -134,6 +134,7 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
              singlenton.setBaseAssets(
                      ((BaseAssetResult) result).getAsset());
         } else if (result instanceof SettingResult) {
+            singlenton.setDebugMode(((SettingResult) result).isDebugMode());
             singlenton.setShouldSignOrder(
                     ((SettingResult) result).getSignOrder());
             singlenton.setDepositUrl(

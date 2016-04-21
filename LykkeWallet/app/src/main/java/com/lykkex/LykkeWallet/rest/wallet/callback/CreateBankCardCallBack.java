@@ -22,8 +22,9 @@ public class CreateBankCardCallBack extends BaseCallBack<BankCardsData> {
     public void onResponse(Call<BankCardsData> call, Response<BankCardsData> response) {
         if (response != null && response.errorBody() == null){
             listener.onSuccess(response.body());
-        } else {
-            listener.onFail(null);
+        } else if (response != null && response.body() != null &&
+                response.body().getError() != null) {
+            setUpError(response.body().getError().getMessage());
         }
     }
 

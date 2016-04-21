@@ -24,8 +24,9 @@ public class AssetPairCallBack  extends BaseCallBack<AssetPairData> {
         if (!isCancel) {
             if (response != null && response.body() != null && response.body().getError() == null) {
                 listener.onSuccess(response.body().getResult());
-            } else if (response != null && response.body() != null) {
-                listener.onFail(response.body().getError());
+            } else if (response != null && response.body() != null &&
+                    response.body().getError() != null) {
+                setUpError(response.body().getError().getMessage());
             }
         }
     }

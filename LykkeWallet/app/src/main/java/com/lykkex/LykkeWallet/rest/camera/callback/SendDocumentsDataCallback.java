@@ -30,8 +30,9 @@ public class SendDocumentsDataCallback extends BaseCallBack<PersonData> {
             Log.e("qa ", "inside success");
             if (response != null && response.body() != null && response.body().getError() == null) {
                 listener.onSuccess(response.body());
-            } else if (response != null) {
-                listener.onFail(null);
+            } else if (response != null && response.body() != null &&
+                    response.body().getError() != null) {
+                setUpError(response.body().getError().getMessage());
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.activity.pin;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
@@ -10,6 +11,7 @@ import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.widgets.ErrorDialog;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.internal.callback.SignSettingOrderCallBack;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrder;
@@ -19,6 +21,8 @@ import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+
+import java.util.Random;
 
 import retrofit2.Call;
 
@@ -74,12 +78,8 @@ public class EnterPinActivity extends BasePinActivity{
                 onFail(null);
                 countFail +=1;
             } else if (settingEnum == null){
-                Toast.makeText(this, getString(R.string.not_authorized), Toast.LENGTH_LONG).show();
+                setUpError(getString(R.string.not_authorized));
                 userPref.clear();
-                Intent intent = new Intent();
-                intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
-                startActivity(intent);
-                finish();
 
                 dialog.dismiss();
 
@@ -129,5 +129,18 @@ public class EnterPinActivity extends BasePinActivity{
         imgThird.setImageResource(R.drawable.pin_un_setup);
         imgFour.setImageResource(R.drawable.pin_un_setup);
         Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_LONG).show();
+    }
+
+    protected void setUpError(String error) {
+        if (SettingSinglenton.getInstance().isDebugMode()) {
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+        } else {
+            ErrorDialog dialog = new ErrorDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.EXTRA_ERROR, error);
+            dialog.setArguments(bundle);
+            dialog.show(getFragmentManager(),
+                    "dlg1" + new Random((int) Constants.DELAY_5000));
+        }
     }
 }

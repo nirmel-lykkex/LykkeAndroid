@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.gui.activity.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,8 +13,10 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
+import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
+import com.lykkex.LykkeWallet.gui.widgets.ErrorDialog;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
@@ -23,6 +26,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import java.util.Random;
 
 import retrofit2.Call;
 
@@ -114,13 +119,22 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
             mHandler.postDelayed(run, Constants.DELAY_5000);
         } else {
             userPref.clear();
-            Intent intent = new Intent();
-            intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
-            startActivity(intent);
-            finish();
-            Toast.makeText(this, getString(R.string.not_authorized), Toast.LENGTH_LONG).show();
+            setUpError(getString(R.string.not_authorized));
         }
 
+    }
+
+    protected void setUpError(String error) {
+        if (SettingSinglenton.getInstance().isDebugMode()) {
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+        } else {
+            ErrorDialog dialog = new ErrorDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.EXTRA_ERROR, error);
+            dialog.setArguments(bundle);
+            dialog.show(getFragmentManager(),
+                    "dlg1" + new Random((int) Constants.DELAY_5000));
+        }
     }
 }
 
