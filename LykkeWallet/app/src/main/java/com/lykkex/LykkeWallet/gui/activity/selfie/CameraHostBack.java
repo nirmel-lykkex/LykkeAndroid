@@ -48,7 +48,7 @@ public class CameraHostBack  extends SimpleCameraHost {
         fragment.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                fragment.showTakenPicture(bitmap);
+                fragment.showTakenPicture(bitmap, getPhotoPath());
             }
         });
     }

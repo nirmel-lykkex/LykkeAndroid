@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
@@ -52,6 +53,8 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -170,7 +173,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
     }
 
 
-    public void showTakenPicture(Bitmap bitmap) {
+    public void showTakenPicture(Bitmap bitmap, File path) {
       cameraView.setVisibility(View.GONE);
         if (this instanceof CameraSelfieFragment_) {
             Matrix m = new Matrix();
@@ -179,6 +182,23 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             bitmap.setDensity(DisplayMetrics.DENSITY_DEFAULT);
         }
         ivTakenPhoto.setImageBitmap(bitmap);
+       /* FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(path.getAbsolutePath() + "preview");
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            // PNG is a lossless format, the compression factor (100) is ignored
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+*/
         setUpCameraReady();
     }
 
@@ -188,6 +208,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         ivTakenPhoto.setImageBitmap(bitmap);
         setUpCameraReady();
     }
+
 
     private void setUpViewsMakingPhoto(){
         switch (controller.getCurrentState()){
@@ -445,13 +466,25 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         showProgress(call, callBackSendDocuments);
     }
 
+
     private String compressImage(String path){
         Bitmap bm = BitmapFactory.decodeFile(path);
         if (bm != null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
-            byte[] byteArrayImage = baos.toByteArray();
-            return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+            try {
+                int quintity = 100;
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG, quintity, baos);
+                byte[] byteArrayImage = baos.toByteArray();
+                while (byteArrayImage.length > 1000000) {
+                    quintity -= 10;
+                    baos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG, quintity, baos);
+                    byteArrayImage = baos.toByteArray();
+                }
+                return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+            } catch (OutOfMemoryError ex){
+                return "";
+            }
         } else {
             return "";
         }
