@@ -475,7 +475,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.JPEG, quintity, baos);
                 byte[] byteArrayImage = baos.toByteArray();
-                while (byteArrayImage.length > 1000000) {
+                while (byteArrayImage.length > 3000000) {
                     quintity -= 10;
                     baos = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.JPEG, quintity, baos);
