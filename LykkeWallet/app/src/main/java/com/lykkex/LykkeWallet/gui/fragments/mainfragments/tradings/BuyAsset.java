@@ -643,32 +643,28 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
                             && !labelTotalCost.getText().toString().startsWith(".")
                             && !labelTotalCost.getText().toString().contains("/") &&
                             !labelTotalCost.getText().toString().contains("*") &&
-                            !labelTotalCost.getText().toString().contains("-") &&
                             !labelTotalCost.getText().toString().contains("+") &&
                             !labelPrice.getText().toString().isEmpty()
                             && !labelTotalCost.getText().toString().isEmpty()
-                            && ((type.equals(OperationType.buy) &&
-                            !labelTotalCost.getText().toString().isEmpty()
-                            && etTotalRes.compareTo(BigDecimal.ZERO) > 0)
-                            || (type.equals(OperationType.sell) &&
+                            &&
+                            !labelTotalCost.getText().toString().isEmpty() &&
                             new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
-                            etTotalRes.compareTo(BigDecimal.ZERO) < 0)) &&
                             new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0)
 
                             && (charCountVolume <= 1
                             && !etVolume.getText().toString().startsWith(".")
                             && !etVolume.getText().toString().contains("/") &&
                             !etVolume.getText().toString().contains("*") &&
-                            !etVolume.getText().toString().contains("-") &&
                             !etVolume.getText().toString().contains("+") &&
                             !labelPrice.getText().toString().isEmpty()
-                            && !etVolume.getText().toString().isEmpty()
-                            && ((type.equals(OperationType.buy) &&
-                            etVolumeRes.compareTo(BigDecimal.ZERO) > 0)
-                            || (type.equals(OperationType.sell) &&
-                            etVolumeRes.compareTo(BigDecimal.ZERO) < 0)) &&
+                            && !etVolume.getText().toString().isEmpty()&&
                             new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0)){
-                        button.setEnabled(true);
+                        if ((etTotalRes.compareTo(BigDecimal.ZERO) < 0 && type.equals(OperationType.buy))
+                                || (etVolumeRes.compareTo(BigDecimal.ZERO) < 0 && type.equals(OperationType.buy))) {
+                            button.setEnabled(false);
+                        } else {
+                            button.setEnabled(true);
+                        }
                     } else {
                         button.setEnabled(false);
                         tvInformation.setVisibility(View.GONE);

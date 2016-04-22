@@ -33,7 +33,7 @@ public class LykkeApplication extends Application {
     @AfterInject
     public void init() {
         pref = new UserPref_(this);
-        //Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         setUpServer();
     }
 
