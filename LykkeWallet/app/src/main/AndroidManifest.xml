@@ -19,7 +19,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="f6c20cf95679b1a5f41d4abc481094a5046ea101" />
+            android:value="ba1542186702839de56067a2e360193fc0556afe" />
 
         <activity
             android:screenOrientation="portrait"
