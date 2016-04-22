@@ -146,7 +146,7 @@
     <string name="labelDescription">Description</string>
     <string name="labelIssuerName">Issuer name</string>
     <string name="labelNumberOfCoins">Number of coins</string>
-    <string name="buy_rate">BUY AT PRICE </string>
+    <string name="buy_rate">BUY AT  </string>
     <string name="volume">Volume</string>
     <string name="bitcoin_address">Bitcoin address</string>
     <string name="total_cost">Total cost</string>
@@ -165,7 +165,7 @@
     <string name="unit_purchaesed">Unit purchased</string>
     <string name="execution_price">Execution price</string>
     <string name="commission_paid">Commission paid</string>
-    <string name="sell_at_price">SELL AT PRICE</string>
+    <string name="sell_at_price">SELL AT </string>
     <string name="sell">SELL</string>
     <string name="info_sell">I want to sell %1$s for %2$s</string>
     <string name="info_buy">I want to buy %1$s for %2$s</string>

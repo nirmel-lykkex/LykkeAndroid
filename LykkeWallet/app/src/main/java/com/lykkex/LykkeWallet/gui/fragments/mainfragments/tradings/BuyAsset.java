@@ -63,7 +63,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @ViewById TextView tvInformation;
     @ViewById TextView tvQautingId;
     @ViewById EditText etVolume;
-    @ViewById TextView labelTotalCost;
+    @ViewById EditText labelTotalCost;
     @ViewById View calc_keyboard;
     @ViewById TextView labelPrice;
     @ViewById Button button;
@@ -95,6 +95,20 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         labelPrice.setText("0.0");
         labelTotalCost.setText("0.0");
         calc_keyboard.setVisibility(View.GONE);
+        labelTotalCost.setOnFocusChangeListener(this);
+        labelTotalCost.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.onTouchEvent(event);
+                InputMethodManager imm = (InputMethodManager)
+                        v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return true;
+            }
+        });
         etVolume.setOnFocusChangeListener(this);
         etVolume.setOnTouchListener(new View.OnTouchListener() {
 
@@ -113,6 +127,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         etVolume.requestFocus();
         button.setEnabled(false);
         etVolume.addTextChangedListener(this);
+        labelTotalCost.addTextChangedListener(new TextWatcherTotal());
         type = (OperationType) getArguments().getSerializable(Constants.EXTRA_TYPE_OPERATION);
         assetPair = (AssetPair) getArguments().getSerializable(Constants.EXTRA_ASSET_PAIR);
         setTitle();
@@ -199,7 +214,13 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
             if (((RateResult) result).getRate() != null &&
                     ((RateResult) result).getRate().getAsk() != null) {
                 rate = Double.parseDouble(((RateResult) result).getRate().getAsk());
-                setUpTotalCost();
+                if (labelTotalCost.getText().toString().isEmpty() && !labelTotalCost.isFocused()) {
+                    setUpTotalCost();
+                }
+
+                if (etVolume.getText().toString().isEmpty() && !etVolume.isFocused()) {
+                    setUpVolume();
+                }
             }
         }
     }
@@ -241,119 +262,227 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
         String baseAssetId = SettingSinglenton.getInstance().getBaseAssetId();
         if (!baseAssetId.equals(assetPair.getBaseAssetId())) {
-            etVolumeRes =   BigDecimal.valueOf(1).divide(etVolumeRes);
+            try {
+                etVolumeRes = BigDecimal.valueOf(1).divide(etVolumeRes, accurancy, RoundingMode.HALF_UP);
+            } catch (ArithmeticException ex){
+                etVolumeRes = BigDecimal.ZERO;
+            }
+        }
+    }
+
+    private void getPriceTotal(DecimalFormat format) throws ParseException{
+        if (type.equals(OperationType.buy)) {
+            etTotalRes = ((BigDecimal) format.parse(labelTotalCost.getText().toString()));
+        } else {
+            etTotalRes = ((BigDecimal) format.parse(labelTotalCost.getText().toString())).
+                    subtract(((BigDecimal) format.parse(labelTotalCost.getText().toString())).
+                            multiply(BigDecimal.valueOf(2)));
         }
     }
 
     @Click(R.id.rel100)
     public void click100(){
-        etVolume.setText("100");
-        etVolume.setSelection(etVolume.getText().toString().length());
+        if (etVolume.isFocused()) {
+            etVolume.setText("100");
+            etVolume.setSelection(etVolume.getText().toString().length());
+        } else if (labelTotalCost.isFocused()) {
+            labelTotalCost.setText("100");
+            labelTotalCost.setSelection(labelTotalCost.getText().toString().length());
+        }
     }
 
     @Click(R.id.rel1000)
     public void click1000(){
-        etVolume.setText("1000");
-        etVolume.setSelection(etVolume.getText().toString().length());
+        if (etVolume.isFocused()) {
+            etVolume.setText("1000");
+            etVolume.setSelection(etVolume.getText().toString().length());
+        } else if(labelTotalCost.isFocused()) {
+            labelTotalCost.setText("1000");
+            labelTotalCost.setSelection(labelTotalCost.getText().toString().length());
+        }
     }
 
     @Click(R.id.rel10000)
     public void click10000(){
-        etVolume.setText("10000");
-        etVolume.setSelection(etVolume.getText().toString().length());
+        if (etVolume.isFocused()) {
+            etVolume.setText("10000");
+            etVolume.setSelection(etVolume.getText().toString().length());
+        } else if(labelTotalCost.isFocused()) {
+            labelTotalCost.setText("10000");
+            labelTotalCost.setSelection(labelTotalCost.getText().toString().length());
+        }
     }
 
     @Click(R.id.rel1)
     public void click1(){
-        setUpText(etVolume.getText().toString() + "1");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "1");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "1");
+        }
     }
 
     @Click(R.id.rel2)
     public void click2(){
-        setUpText(etVolume.getText().toString() + "2");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "2");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "2");
+        }
     }
 
     @Click(R.id.rel3)
     public void click3(){
-        setUpText(etVolume.getText().toString() + "3");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "3");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "3");
+        }
     }
 
     @Click(R.id.rel4)
     public void click4(){
-        setUpText(etVolume.getText().toString() + "4");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "4");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "4");
+        }
     }
 
     @Click(R.id.rel5)
     public void click5(){
-        setUpText(etVolume.getText().toString() + "5");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "5");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "5");
+        }
     }
 
     @Click(R.id.rel6)
     public void click6(){
-        setUpText(etVolume.getText().toString() + "6");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "6");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "6");
+        }
     }
 
     @Click(R.id.rel7)
     public void click7(){
-        setUpText(etVolume.getText().toString() + "7");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "7");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "7");
+        }
     }
 
     @Click(R.id.rel8)
     public void click8(){
-        setUpText(etVolume.getText().toString() + "8");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "8");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "8");
+        }
     }
 
     @Click(R.id.rel9)
     public void click9(){
-        setUpText(etVolume.getText().toString() + "9");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "9");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "9");
+        }
     }
 
     @Click(R.id.relDot)
     public void clickDot(){
-        setUpText(etVolume.getText().toString() + ".");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + ".");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + ".");
+        }
     }
 
     @Click(R.id.rel0)
     public void click0(){
-        setUpText(etVolume.getText().toString() + "0");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "0");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "0");
+        }
     }
 
     @Click(R.id.relRemove)
     public void clickRemove(){
-        if (etVolume.getText().toString().length() > 0) {
-            setUpText(etVolume.getText().toString().substring(0, etVolume.getText().toString().length() - 1));
+        if (etVolume.isFocused()) {
+            if (etVolume.getText().toString().length() > 0) {
+                setUpTextVolume(etVolume.getText().toString().substring(0, etVolume.getText().toString().length() - 1));
+            }
+        }else if(labelTotalCost.isFocused()) {
+            if (labelTotalCost.getText().toString().length() > 0) {
+                setUpTextTotal(labelTotalCost.getText().toString().substring(0, labelTotalCost.getText().toString().length() - 1));
+            }
         }
+
     }
 
     @Click(R.id.relDivider)
     public void clickDivider(){
-        setUpText(etVolume.getText().toString() + "/");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "/");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "/");
+        }
     }
 
-    private void setUpText(String text) {
+    private void setUpTextVolume(String text) {
         etVolume.setText(text);
         etVolume.setSelection(etVolume.getText().toString().length());
     }
 
+    private void setUpTextTotal(String text) {
+        labelTotalCost.setText(text);
+        labelTotalCost.setSelection(labelTotalCost.getText().toString().length());
+    }
+
     @Click(R.id.relMultiply)
     public void clickMultiply(){
-        setUpText(etVolume.getText().toString() + "*");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "*");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "*");
+        }
     }
 
     @Click(R.id.relMinus)
     public void clickMinus(){
-        setUpText(etVolume.getText().toString() + "-");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "-");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "-");
+        }
     }
 
     @Click(R.id.relPlus)
     public void clickPlus(){
-        setUpText(etVolume.getText().toString() + "+");
+        if (etVolume.isFocused()) {
+            setUpTextVolume(etVolume.getText().toString() + "+");
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(labelTotalCost.getText().toString() + "+");
+        }
     }
 
     @Click(R.id.relEqual)
     public void clickEqual(){
-        setUpText(String.valueOf((Calculate.eval(
-                etVolume.getText().toString()))));
+        if (etVolume.isFocused()) {
+            setUpTextVolume(String.valueOf((Calculate.eval(
+                    etVolume.getText().toString(), accurancy))));
+            setUpTotalCost();
+        }else if(labelTotalCost.isFocused()) {
+            setUpTextTotal(String.valueOf((Calculate.eval(
+                    labelTotalCost.getText().toString(), accurancy))));
+            setUpVolume();
+        }
     }
 
     @Override
@@ -371,50 +500,63 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     }
 
     private  BigDecimal etVolumeRes = BigDecimal.ZERO;
+    private  BigDecimal etTotalRes = BigDecimal.ZERO;
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        try {
-            if (etVolume.getText().toString().isEmpty()) {
-                labelTotalCost.setText("0");
-            }
-            DecimalFormat format= (DecimalFormat) DecimalFormat.getInstance();
-            format.setParseBigDecimal(true);
-            DecimalFormatSymbols symbols=format.getDecimalFormatSymbols();
-            symbols.setDecimalSeparator('.');
-            format.setDecimalFormatSymbols(symbols);
+        if (etVolume.isFocused() || (!etVolume.isFocused() && !labelTotalCost.isFocused())) {
+            try {
+                if (etVolume.getText().toString().isEmpty()) {
+                    labelTotalCost.setText("0");
+                }
+                DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
+                format.setParseBigDecimal(true);
+                DecimalFormatSymbols symbols = format.getDecimalFormatSymbols();
+                symbols.setDecimalSeparator('.');
+                format.setDecimalFormatSymbols(symbols);
 
-            getPrice(format);
-            setUpTotalCost();
+                getPrice(format);
+                setUpTotalCost();
 
-            int charCount = etVolume.getText().toString().replaceAll("[^.]", "").length();
-            if (charCount <=1
-                    &&!etVolume.getText().toString().startsWith(".")
-                   &&!etVolume.getText().toString().contains("/") &&
-                    !etVolume.getText().toString().contains("*") &&
-                    !etVolume.getText().toString().contains("-") &&
-                    !etVolume.getText().toString().contains("+") &&
-                    !labelTotalCost.getText().toString().isEmpty() &&
-                    !labelPrice.getText().toString().isEmpty()
-                    && !etVolume.getText().toString().isEmpty()
-                    && (type.equals(OperationType.buy) &&
-                    etVolumeRes.compareTo(BigDecimal.ZERO) > 0)
-                    || (type.equals(OperationType.sell) &&
-                    etVolumeRes.compareTo(BigDecimal.ZERO) < 0)&&
-                    new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
-                    new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0) {
-                button.setEnabled(true);
-            } else {
+                int charCount = labelTotalCost.getText().toString().replaceAll("[^.]", "").length();
+                int charCountVolume = etVolume.getText().toString().replaceAll("[^.]", "").length();
+                if ((charCount <= 1
+                        && !labelTotalCost.getText().toString().startsWith(".")
+                        && !labelTotalCost.getText().toString().contains("/") &&
+                        !labelTotalCost.getText().toString().contains("*") &&
+                        !labelTotalCost.getText().toString().contains("+") &&
+                        !labelPrice.getText().toString().isEmpty()
+                        && !labelTotalCost.getText().toString().isEmpty()
+                        &&
+                        !labelTotalCost.getText().toString().isEmpty() &&
+                        new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
+                        new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0)
+
+                        && (charCountVolume <= 1
+                        && !etVolume.getText().toString().startsWith(".")
+                        && !etVolume.getText().toString().contains("/") &&
+                        !etVolume.getText().toString().contains("*") &&
+                        !etVolume.getText().toString().contains("+") &&
+                        !labelPrice.getText().toString().isEmpty()
+                        && !etVolume.getText().toString().isEmpty()&&
+                        new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0)){
+                    if ((etTotalRes.compareTo(BigDecimal.ZERO) < 0 && type.equals(OperationType.buy))
+                            || (etVolumeRes.compareTo(BigDecimal.ZERO) < 0 && type.equals(OperationType.buy))) {
+                        button.setEnabled(false);
+                    } else {
+                        button.setEnabled(true);
+                    }
+                } else {
+                    button.setEnabled(false);
+                    tvInformation.setVisibility(View.GONE);
+                }
+            } catch (NumberFormatException ex) {
+                button.setEnabled(false);
+                tvInformation.setVisibility(View.GONE);
+            } catch (ParseException e) {
                 button.setEnabled(false);
                 tvInformation.setVisibility(View.GONE);
             }
-        } catch (NumberFormatException ex){
-            button.setEnabled(false);
-            tvInformation.setVisibility(View.GONE);
-        }
-        catch (ParseException e) {
-            button.setEnabled(false);
-            tvInformation.setVisibility(View.GONE);
         }
     }
 
@@ -426,6 +568,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         if (!etVolume.getText().toString().isEmpty() && etVolumeRes.compareTo(BigDecimal.ZERO) != 0) {
             labelTotalCost.setText(String.valueOf(etVolumeRes.multiply(BigDecimal.valueOf(rate).setScale(accurancy,
                     RoundingMode.HALF_EVEN))));
+            etTotalRes =etVolumeRes.multiply(BigDecimal.valueOf(rate).setScale(accurancy,
+                    RoundingMode.HALF_EVEN));
             tvInformation.setVisibility(View.VISIBLE);
             if (type.equals(OperationType.buy)) {
                 tvInformation.setText(String.format(getString(R.string.info_sell), etVolume.getText().toString()
@@ -442,6 +586,106 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
                 (rate).compareTo(BigDecimal.ZERO) != 0) {
             labelPrice.setText(String.valueOf(BigDecimal.valueOf
                     (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
+        }
+    }
+
+    private void setUpVolume(){
+        if (!labelTotalCost.getText().toString().isEmpty() && etTotalRes.compareTo(BigDecimal.ZERO) != 0) {
+            etVolume.setText(String.valueOf(etTotalRes.divide(BigDecimal.valueOf(rate),accurancy,
+                    RoundingMode.HALF_EVEN)));
+            etVolumeRes = etTotalRes.divide(BigDecimal.valueOf(rate),accurancy,
+                    RoundingMode.HALF_EVEN);
+            tvInformation.setVisibility(View.VISIBLE);
+            if (type.equals(OperationType.buy)) {
+                tvInformation.setText(String.format(getString(R.string.info_sell), etVolume.getText().toString()
+                                +" " +getTitleBase(),
+                        labelTotalCost.getText().toString()+" " +getTitleQuoting()));
+            } else {
+                tvInformation.setText(String.format(getString(R.string.info_buy),  etVolume.getText().toString()
+                                +" " +getTitleBase(),
+                        labelTotalCost.getText().toString()+" " +getTitleQuoting()));
+            }
+        }
+
+        if ( BigDecimal.valueOf
+                (rate).compareTo(BigDecimal.ZERO) != 0) {
+            labelPrice.setText(String.valueOf(BigDecimal.valueOf
+                    (rate).setScale(accurancy, RoundingMode.HALF_EVEN)));
+        }
+    }
+
+    private class TextWatcherTotal implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (labelTotalCost.isFocused()) {
+                try {
+                    if (labelTotalCost.getText().toString().isEmpty()) {
+                        etVolume.setText("0");
+                    }
+                    DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
+                    format.setParseBigDecimal(true);
+                    DecimalFormatSymbols symbols = format.getDecimalFormatSymbols();
+                    symbols.setDecimalSeparator('.');
+                    format.setDecimalFormatSymbols(symbols);
+
+                    getPriceTotal(format);
+                    setUpVolume();
+
+                    int charCount = labelTotalCost.getText().toString().replaceAll("[^.]", "").length();
+                    int charCountVolume = etVolume.getText().toString().replaceAll("[^.]", "").length();
+                    if ((charCount <= 1
+                            && !labelTotalCost.getText().toString().startsWith(".")
+                            && !labelTotalCost.getText().toString().contains("/") &&
+                            !labelTotalCost.getText().toString().contains("*") &&
+                            !labelTotalCost.getText().toString().contains("-") &&
+                            !labelTotalCost.getText().toString().contains("+") &&
+                            !labelPrice.getText().toString().isEmpty()
+                            && !labelTotalCost.getText().toString().isEmpty()
+                            && ((type.equals(OperationType.buy) &&
+                            !labelTotalCost.getText().toString().isEmpty()
+                            && etTotalRes.compareTo(BigDecimal.ZERO) > 0)
+                            || (type.equals(OperationType.sell) &&
+                            new BigDecimal(labelTotalCost.getText().toString()).compareTo(BigDecimal.ZERO) != 0 &&
+                            etTotalRes.compareTo(BigDecimal.ZERO) < 0)) &&
+                            new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0)
+
+                            && (charCountVolume <= 1
+                            && !etVolume.getText().toString().startsWith(".")
+                            && !etVolume.getText().toString().contains("/") &&
+                            !etVolume.getText().toString().contains("*") &&
+                            !etVolume.getText().toString().contains("-") &&
+                            !etVolume.getText().toString().contains("+") &&
+                            !labelPrice.getText().toString().isEmpty()
+                            && !etVolume.getText().toString().isEmpty()
+                            && ((type.equals(OperationType.buy) &&
+                            etVolumeRes.compareTo(BigDecimal.ZERO) > 0)
+                            || (type.equals(OperationType.sell) &&
+                            etVolumeRes.compareTo(BigDecimal.ZERO) < 0)) &&
+                            new BigDecimal(labelPrice.getText().toString()).compareTo(BigDecimal.ZERO) != 0)){
+                        button.setEnabled(true);
+                    } else {
+                        button.setEnabled(false);
+                        tvInformation.setVisibility(View.GONE);
+                    }
+                } catch (NumberFormatException ex) {
+                    button.setEnabled(false);
+                    tvInformation.setVisibility(View.GONE);
+                } catch (ParseException e) {
+                    button.setEnabled(false);
+                    tvInformation.setVisibility(View.GONE);
+                }
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
         }
     }
 }

@@ -33,9 +33,7 @@ public class LykkeApplication extends Application {
     @AfterInject
     public void init() {
         pref = new UserPref_(this);
-        if (!BuildConfig.CHANGE_SERVER) {
-            Fabric.with(this, new Crashlytics());
-        }
+        //Fabric.with(this, new Crashlytics());
         setUpServer();
     }
 

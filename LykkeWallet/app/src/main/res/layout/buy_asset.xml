@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:background="@color/light_blue"
     android:layout_height="match_parent">
-    <com.lykkex.LykkeWallet.gui.widgets.MaxHeightScrollView
+  <!--  <com.lykkex.LykkeWallet.gui.widgets.MaxHeightScrollView
         android:layout_width="match_parent"
         android:layout_marginBottom="10dp"
         android:scrollbarFadeDuration="0"
         android:layout_height="201dp"
-        android:id="@+id/view2">
+        android:id="@+id/view2">-->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -46,6 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="right"
+                    android:paddingTop="12dp"
                     android:background="@color/light_blue"
                     android:id="@+id/etVolume"
                     android:layout_centerVertical="true"
@@ -137,14 +138,15 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent">
-                <TextView
+                <EditText
                     android:id="@+id/labelTotalCost"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/total_cost"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
+                    android:gravity="right"
+                    android:paddingTop="12dp"
                     android:background="@color/light_blue"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/tvQautingId"
@@ -168,7 +170,7 @@
         android:layout_height="0.2dp"
         android:background="@color/grey_text"/>
     </LinearLayout>
-    </com.lykkex.LykkeWallet.gui.widgets.MaxHeightScrollView>
+  <!--  </com.lykkex.LykkeWallet.gui.widgets.MaxHeightScrollView>-->
 
     <include
         android:id="@+id/calc_keyboard"

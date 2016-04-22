@@ -201,7 +201,7 @@ public class WithdrawFundsFragment extends BaseFragment implements TextWatcher, 
     @Click(R.id.relEqual)
     public void clickEqual(){
         setUpText(String.valueOf((Calculate.eval(
-                etAmount.getText().toString()))));
+                etAmount.getText().toString(), 6))));
     }
 
     @Override

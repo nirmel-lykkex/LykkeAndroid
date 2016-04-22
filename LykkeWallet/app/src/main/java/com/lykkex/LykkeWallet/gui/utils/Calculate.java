@@ -1,13 +1,14 @@
 package com.lykkex.LykkeWallet.gui.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Created by e.kazimirova on 24.03.2016.
  */
 public class Calculate {
 
-    public static BigDecimal eval(final String str) {
+    public static BigDecimal eval(final String str, final int accurancy) {
         return new Object() {
             int pos = -1, ch;
 
@@ -51,12 +52,17 @@ public class Calculate {
             }
 
             BigDecimal parseTerm() {
-                BigDecimal x = parseFactor();
-                for (;;) {
-                    eatSpace();
-                    if      (eatChar('*')) x = x.multiply(parseFactor()); // multiplication
-                    else if (eatChar('/')) x = x.divide(parseFactor()); // division
-                    else return x;
+                try {
+                    BigDecimal x = parseFactor();
+                    for (; ; ) {
+                        eatSpace();
+                        if (eatChar('*')) x = x.multiply(parseFactor()); // multiplication
+                        else if (eatChar('/'))
+                            x = x.divide(parseFactor(), accurancy, RoundingMode.HALF_UP); // division
+                        else return x;
+                    }
+                } catch (ArithmeticException ex){
+                    return BigDecimal.ZERO;
                 }
             }
 
