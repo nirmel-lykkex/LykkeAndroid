@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.rest;
 
 
 
+import com.lykkex.LykkeWallet.rest.appinfo.response.model.AppInfoData;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
@@ -162,5 +163,8 @@ public interface RestApi {
     @POST("/api/CashOut")
     Call<MarketData> postCachOut(@Header("Authorization")String authorization,
                                    @Body CashOut cashOut);
+
+    @GET("/api/ApplicationInfo")
+    Call<AppInfoData> getAppInfo(@Header("Authorization")String authorization);
 
 }

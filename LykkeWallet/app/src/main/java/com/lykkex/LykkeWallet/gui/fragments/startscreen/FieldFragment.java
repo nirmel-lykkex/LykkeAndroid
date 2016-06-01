@@ -1,14 +1,12 @@
 package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,11 +28,9 @@ import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.PasswordTextWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextAuthWatcher;
 import com.lykkex.LykkeWallet.gui.widgets.DialogChangeServer;
-import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.registration.callback.RegistrationDataCallback;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
 import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationData;
@@ -155,9 +151,9 @@ public class FieldFragment extends BaseFragment<FieldState> {
         imageView.setVisibility(View.VISIBLE);
         textView.setVisibility(View.VISIBLE);
         editTextField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        editTextField.addTextChangedListener
-                (new EmailTextWatcher(this, imageWell, buttonClear,
-                        editTextField,progressBar, buttonAction));
+        //editTextField.addTextChangedListener
+          //      (new EmailTextWatcher(this, imageWell, buttonClear,
+            //            editTextField,progressBar, buttonAction));
         editTextField.setSelection(editTextField.getText().toString().length());
         relProgress.setVisibility(View.GONE);
         tvInfo.setVisibility(View.GONE);
@@ -336,7 +332,7 @@ public class FieldFragment extends BaseFragment<FieldState> {
                 if (result != null) {
                     model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
                     if (!model.isReady()) {
-                        buttonAction.setText(R.string.action_sing_in);
+                        buttonAction.setText(R.string.action_sign_in);
                         controller.fire(FieldTrigger.EmailSignInScreen);
                         model.setIsReady(true);
                     } else {
@@ -352,7 +348,7 @@ public class FieldFragment extends BaseFragment<FieldState> {
                             (((AcountExistResult) result).getEmail())) {
                         model.setIsReady(!((AcountExistResult) result).isEmailRegistered());
                         if (!model.isReady()) {
-                            buttonAction.setText(R.string.action_sing_in);
+                            buttonAction.setText(R.string.action_sign_in);
                             controller.fire(FieldTrigger.EmailSignInScreen);
                             model.setIsReady(true);
                         }

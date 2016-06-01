@@ -163,82 +163,11 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relProgress"
+    <com.lykkex.LykkeWallet.gui.customviews.StepsIndicator_
+        android:id="@+id/stepsIndicator"
         android:layout_below="@+id/relMain"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:visibility="visible">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgFirst"
-            android:background="@drawable/submit_form_circle"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="1dp"
-            android:background="@color/grey_text"
-            android:id="@+id/imageView2"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imgFirst"
-            android:layout_toEndOf="@+id/imgFirst" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgSecond"
-            android:background="@drawable/unsubmit_form_circle"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView2"
-            android:layout_toEndOf="@+id/imageView2"
-            android:layout_marginLeft="-5dp" />
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="1dp"
-            android:background="@color/grey_text"
-            android:id="@+id/imageView3"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imgSecond"
-            android:layout_toEndOf="@+id/imgSecond" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/unsubmit_form_circle"
-            android:id="@+id/imgThird"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView3"
-            android:layout_toEndOf="@+id/imageView3"
-            android:layout_marginLeft="-5dp" />
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="1dp"
-            android:background="@color/grey_text"
-            android:id="@+id/imageView4"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imgThird"
-            android:layout_toEndOf="@+id/imgThird" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgForth"
-            android:background="@drawable/unsubmit_form_circle"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView4"
-            android:layout_toEndOf="@+id/imageView4"
-            android:layout_marginLeft="-5dp" />
-    </RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="wrap_content"

@@ -72,7 +72,7 @@ public class ErrorDialog extends DialogFragment implements View.OnClickListener 
         TextView tvError = (TextView) v.findViewById(R.id.tvError);
         tvError.setText(getArguments().getString(Constants.EXTRA_ERROR));
 
-        Button btnUnderstand = (Button) v.findViewById(R.id.btnUnderstand);
+        TextView btnUnderstand = (TextView) v.findViewById(R.id.btnUnderstand);
         btnUnderstand.setOnClickListener(this);
         return v;
     }

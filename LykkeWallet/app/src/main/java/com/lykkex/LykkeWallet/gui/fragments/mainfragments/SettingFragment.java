@@ -1,11 +1,14 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,6 +23,11 @@ import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
+import com.lykkex.LykkeWallet.rest.appinfo.callback.AppInfoCallBack;
+import com.lykkex.LykkeWallet.rest.appinfo.response.model.AppInfoData;
+import com.lykkex.LykkeWallet.rest.trading.callback.TransactionCallBack;
+import com.lykkex.LykkeWallet.rest.trading.response.model.TransactionData;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -27,16 +35,20 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import retrofit2.Call;
+
 /**
  * Created by LIZA on 29.02.2016.
  */
 @EFragment(R.layout.setting_fragment)
-public class SettingFragment extends Fragment {
+public class SettingFragment extends Fragment implements CallBackListener {
 
     @ViewById Switch switchCheck;
     @Pref  UserPref_ userPref;
     @ViewById TextView tvExit;
     @ViewById TextView tvBaseInfo;
+    @ViewById TextView tvAppVersion;
+    @ViewById TextView tvApiVersion;
 
     @AfterViews
     public void afterViews(){
@@ -76,6 +88,19 @@ public class SettingFragment extends Fragment {
                     }
                 });
 
+                try {
+                    PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+
+                    tvAppVersion.setText(getString(R.string.app_version, pInfo.versionName, pInfo.versionCode));
+
+                    AppInfoCallBack callback = new AppInfoCallBack(SettingFragment.this, getActivity());
+                    Call<AppInfoData> call = LykkeApplication_.getInstance().getRestApi().
+                            getAppInfo(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+                    call.enqueue(callback);
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    Log.e("ERROR", "Error while loading version", e);
+                }
             }
         }, Constants.DELAY_500);
     }
@@ -165,4 +190,15 @@ public class SettingFragment extends Fragment {
     }
 
 
+    @Override
+    public void onSuccess(Object result) {
+        if(result instanceof AppInfoData) {
+            tvApiVersion.setText(getString(R.string.api_version, ((AppInfoData) result).getResult().getAppVersion()));
+        }
+    }
+
+    @Override
+    public void onFail(Object error) {
+
+    }
 }

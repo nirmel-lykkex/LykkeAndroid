@@ -217,7 +217,7 @@ public class WalletAdapter extends BaseAdapter {
                     lykkeWallet.getLykke() != null &&
                     lykkeWallet.getLykke().getAssets() != null) {
                 for (AssetsWallet assetsWallet : lykkeWallet.getLykke().getAssets()) {
-                    if (assetsWallet.getIssuerId().equals(parseName)) {
+                    if (assetsWallet.getIssuerId() != null && assetsWallet.getIssuerId().equals(parseName)) {
                         if (assetsWallet.getBalance().doubleValue() < 0 &&
                                 !assetsWallet.isHideIfZero()) {
                             list.add(assetsWallet);

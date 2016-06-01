@@ -3,14 +3,11 @@ package com.lykkex.LykkeWallet.gui;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
-import com.lykkex.LykkeWallet.BuildConfig;
-import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.rest.RestApi;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EApplication;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import io.fabric.sdk.android.Fabric;
 import okhttp3.OkHttpClient;
@@ -26,9 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LykkeApplication extends Application {
 
     private RestApi restApi;
-    private  Retrofit retrofit;
-    private
-    UserPref_ pref;
+    private Retrofit retrofit;
+    private UserPref_ pref;
 
     @AfterInject
     public void init() {
@@ -40,38 +36,33 @@ public class LykkeApplication extends Application {
     public void setUpServer(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        String apiUrl = null;
+
         switch (pref.idServer().get()) {
             case 0:
-                retrofit = new Retrofit.Builder()
-                        .client(client)
-                        .baseUrl("https://lykke-api-dev.azurewebsites.net")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                apiUrl = "https://lykke-api-dev.azurewebsites.net";
                 break;
             case 1:
-                retrofit = new Retrofit.Builder()
-                        .client(client)
-                        .baseUrl("https://lykke-api-test.azurewebsites.net")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                apiUrl = "https://lykke-api-test.azurewebsites.net";
                 break;
             case 2:
-                retrofit = new Retrofit.Builder()
-                        .client(client)
-                        .baseUrl("https://lykke-api-demo.azurewebsites.net")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                apiUrl = "https://lykke-api-demo.azurewebsites.net";
                 break;
         }
 
+        retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(apiUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         restApi = retrofit.create(RestApi.class);
     }
 
-
     public RestApi getRestApi(){
         return restApi;
     }
-
 }

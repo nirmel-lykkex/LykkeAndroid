@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 
 import com.lykkex.LykkeWallet.R;
@@ -17,22 +17,33 @@ import org.androidannotations.annotations.EActivity;
  * Created by LIZA on 23.02.2016.
  */
 @EActivity(R.layout.activity_main)
-public class BaseActivity  extends ActionBarActivity {
+public class BaseActivity  extends AppCompatActivity {
 
     protected android.app.Fragment currentFragment;
 
     public void initFragment(android.app.Fragment fragment, Bundle arg) {
+        initFragment(fragment, arg, true);
+    }
+
+    public void initFragment(android.app.Fragment fragment, Bundle arg, boolean animate) {
         if (currentFragment != null) {
             getFragmentManager().beginTransaction().remove(currentFragment);
         }
         currentFragment = fragment;
         currentFragment.setArguments(arg);
         ActionBar actionBar = getSupportActionBar();
-        ((BaseFragment) currentFragment).setUpActionBar(actionBar);
+
+        if(currentFragment instanceof  BaseFragment) {
+            ((BaseFragment) currentFragment).setUpActionBar(actionBar);
+        }
+
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim);
-        transaction
-                .replace(R.id.fragmentContainer, currentFragment);
+
+        if(animate) {
+            transaction.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+        }
+
+        transaction.replace(R.id.fragmentContainer, currentFragment);
         transaction.commit();
     }
 
@@ -42,19 +53,5 @@ public class BaseActivity  extends ActionBarActivity {
 
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
-    public void initFragmentWithoutAnim(android.app.Fragment fragment, Bundle arg) {
-        if (currentFragment != null) {
-            getFragmentManager().beginTransaction().remove(currentFragment);
-        }
-        currentFragment = fragment;
-        currentFragment.setArguments(arg);
-        ActionBar actionBar = getSupportActionBar();
-        ((BaseFragment) currentFragment).setUpActionBar(actionBar);
-        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction
-                .replace(R.id.fragmentContainer, currentFragment);
-        transaction.commit();
     }
 }

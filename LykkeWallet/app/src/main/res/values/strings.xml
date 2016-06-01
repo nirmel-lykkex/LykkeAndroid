@@ -8,6 +8,8 @@
     <string name="lykke_api_test">lykke-api-test</string>
     <string name="lykke_api_dev">lykke-api-dev</string>
     <string name="lykke_api_demo">lykke-api-demo</string>
+    <string name="app_version">Version %1$s (%2$d)</string>
+    <string name="api_version">Api Version %s</string>
 
     <string name="wallet_title">WALLETS</string>
     <string name="trading_title">EXCHANGE</string>
@@ -60,7 +62,7 @@
     <string name="dear_it_checked">Dear %s you are about being reviewed by our KYC team.\nIt may take up to 15-20 minutes</string>
     <string name="succes_setup_document">Dear %s, thank you for your patience. Your documents are in order. Lets set up our security.</string>
     <string name="reupdate_doc">Dear %s, we\'re terribly sorry, but our compliance department have not accepted some of your documents. Please upload them one more time.</string>
-    <string name="action_sing_in">SIGN IN</string>
+    <string name="action_sign_in">SIGN IN</string>
     <string name = "inside">Login</string>
     <string name="action_log_in">LOG IN</string>
     <string name="send_document">SUBMIT DOCUMENTS</string>

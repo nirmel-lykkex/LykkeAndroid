@@ -9,6 +9,8 @@ import android.util.Log;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.activity.authentication.RestoreActivity_;
+import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity;
+import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
@@ -31,7 +33,7 @@ public class SplashActivity extends Activity{
             public void run() {
                 if (userPref.authToken().get().isEmpty()) {
                     Intent intent = new Intent();
-                    intent.setClass(getApplicationContext(), FieldActivity_.class);
+                    intent.setClass(getApplicationContext(), SignInActivity_.class);
                     startActivity(intent);
                     finish();
                 } else {
