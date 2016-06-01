@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -36,12 +37,14 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by LIZA on 29.02.2016.
  */
 @EFragment(R.layout.setting_fragment)
-public class SettingFragment extends Fragment implements CallBackListener {
+public class SettingFragment extends Fragment {
 
     @ViewById Switch switchCheck;
     @Pref  UserPref_ userPref;
@@ -52,8 +55,8 @@ public class SettingFragment extends Fragment implements CallBackListener {
 
     @AfterViews
     public void afterViews(){
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP){
+        int currentapiVersion = Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP){
             switchCheck.setBackgroundResource(R.drawable.switch_background);
             switchCheck.setTextAppearance(getActivity(),R.style.switchStyle);
         }
@@ -64,7 +67,10 @@ public class SettingFragment extends Fragment implements CallBackListener {
         thumbStates.addState(new int[]{android.R.attr.state_checked}, new ColorDrawable(colorOn));
         thumbStates.addState(new int[]{-android.R.attr.state_enabled}, new ColorDrawable(colorDisabled));
         thumbStates.addState(new int[]{}, new ColorDrawable(colorOff));
-        switchCheck.setThumbDrawable(thumbStates);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            switchCheck.setThumbDrawable(thumbStates);
+        }
     }
     public void onStart(){
         super.onStart();
@@ -93,10 +99,19 @@ public class SettingFragment extends Fragment implements CallBackListener {
 
                     tvAppVersion.setText(getString(R.string.app_version, pInfo.versionName, pInfo.versionCode));
 
-                    AppInfoCallBack callback = new AppInfoCallBack(SettingFragment.this, getActivity());
-                    Call<AppInfoData> call = LykkeApplication_.getInstance().getRestApi().
-                            getAppInfo(Constants.PART_AUTHORIZATION + userPref.authToken().get());
-                    call.enqueue(callback);
+                    Call<AppInfoData> call = LykkeApplication_.getInstance().getRestApi().getAppInfo();
+                    call.enqueue(new Callback<AppInfoData>() {
+                        @Override
+                        public void onResponse(Call<AppInfoData> call, Response<AppInfoData> response) {
+                            if(response.body() instanceof AppInfoData) {
+                                tvApiVersion.setText(getString(R.string.api_version, response.body().getResult().getAppVersion()));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AppInfoData> call, Throwable t) {
+                        }
+                    });
 
                 } catch (PackageManager.NameNotFoundException e) {
                     Log.e("ERROR", "Error while loading version", e);
@@ -187,18 +202,5 @@ public class SettingFragment extends Fragment implements CallBackListener {
         intent.putExtra(Constants.EXTRA_FRAGMENT, SettingEnum.personalData);
         intent.setClass(getActivity(), SettingActivity_.class);
         startActivity(intent);
-    }
-
-
-    @Override
-    public void onSuccess(Object result) {
-        if(result instanceof AppInfoData) {
-            tvApiVersion.setText(getString(R.string.api_version, ((AppInfoData) result).getResult().getAppVersion()));
-        }
-    }
-
-    @Override
-    public void onFail(Object error) {
-
     }
 }

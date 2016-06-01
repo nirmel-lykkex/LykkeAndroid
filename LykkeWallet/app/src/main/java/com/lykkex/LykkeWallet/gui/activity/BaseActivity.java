@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.gui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -40,10 +41,15 @@ public class BaseActivity  extends AppCompatActivity {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         if(animate) {
-            transaction.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+            transaction.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim, R.animator.enter_anim_pop, R.animator.exit_anim_pop);
         }
 
-        transaction.replace(R.id.fragmentContainer, currentFragment);
+        if(arg != null && arg.containsKey("replace") && arg.getBoolean("replace")) {
+            transaction.replace(R.id.fragmentContainer, currentFragment);
+        } else {
+            transaction.add(R.id.fragmentContainer, currentFragment).addToBackStack(fragment.getClass().getName());
+        }
+
         transaction.commit();
     }
 

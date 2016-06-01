@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -71,11 +72,6 @@ public class RichEditText extends RelativeLayout implements View.OnFocusChangeLi
 
     public Editable getText() {
         return editTextField.getText();
-    }
-
-    @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener l) {
-        editTextField.setOnFocusChangeListener(l);
     }
 
     @Override
