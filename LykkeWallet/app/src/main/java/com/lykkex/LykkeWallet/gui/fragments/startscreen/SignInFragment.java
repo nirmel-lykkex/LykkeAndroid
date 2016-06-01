@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 
 import android.app.Fragment;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,9 @@ import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.BuildConfig;
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication;
+import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.customviews.RichEditText;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
@@ -16,14 +20,24 @@ import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.widgets.DialogChangeServer;
+import com.lykkex.LykkeWallet.rest.appinfo.callback.AppInfoCallBack;
+import com.lykkex.LykkeWallet.rest.appinfo.response.model.AppInfoData;
+import com.lykkex.LykkeWallet.rest.emailverify.request.model.VerifyEmailRequest;
+import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyEmailData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AcountExistResult;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Murtic on 31/05/16.
@@ -46,11 +60,44 @@ public class SignInFragment extends Fragment {
     @ViewById
     Button btnChangeServer;
 
+    @Bean
+    UserManager userManager;
+
+    @App
+    LykkeApplication lykkeApplication;
+
     @Click(R.id.btnChangeServer)
     public void clickBtnChangeServer(){
         DialogChangeServer dialogChangeServer = new DialogChangeServer();
         dialogChangeServer.show(getActivity().getFragmentManager(),
                 "dlg1" +new Random((int) Constants.DELAY_5000));
+    }
+
+    @Click(R.id.buttonAction)
+    public void clickButtonAction(){
+        final RegistrationModelGUI registrationModel = userManager.getRegistrationModel();
+
+        registrationModel.setEmail(emailRichEditText.getText().toString());
+
+        if(getActivity() instanceof BaseActivity) {
+            if(userManager.isUserRegistered()) {
+
+            } else {
+                Call<VerifyEmailData> call = lykkeApplication.getRestApi().verifyEmail(new VerifyEmailRequest(registrationModel.getEmail()));
+
+                call.enqueue(new Callback<VerifyEmailData>() {
+                    @Override
+                    public void onResponse(Call<VerifyEmailData> call, Response<VerifyEmailData> response) {
+                        ((BaseActivity)getActivity()).initFragment(new ConfirmRegistrationFragment_(), null);
+                    }
+
+                    @Override
+                    public void onFailure(Call<VerifyEmailData> call, Throwable t) {
+                        // TODO: Show popup
+                    }
+                });
+            }
+        }
     }
 
     @AfterViews
@@ -61,7 +108,7 @@ public class SignInFragment extends Fragment {
             btnChangeServer.setVisibility(View.GONE);
         }
 
-        final RegistrationModelGUI registrationModel = UserManager.getInstance().getRegistrationModel();
+        final RegistrationModelGUI registrationModel = userManager.getRegistrationModel();
 
         buttonAction.setText(R.string.action_sign_up);
 
@@ -79,13 +126,10 @@ public class SignInFragment extends Fragment {
             public void onSuccess(AcountExistResult result) {
                 if (result != null) {
                     if ( emailRichEditText.getText().toString().equals(result.getEmail())) {
-                        if (result.isEmailRegistered()) {
-                            buttonAction.setText(R.string.action_sign_in);
+                        buttonAction.setText(result.isEmailRegistered() ?
+                                R.string.action_sign_in : R.string.action_sign_up);
 
-                            registrationModel.setIsReady(true);
-                        } else {
-                            buttonAction.setText(R.string.action_sign_up);
-                        }
+                        userManager.setUserRegistered(result.isEmailRegistered());
 
                         registrationModel.setIsReady(true);
 
@@ -100,7 +144,7 @@ public class SignInFragment extends Fragment {
 
             @Override
             public void onFail(Object error) {
-                Log.e("ERROR", "Error while checking if user is registered: " + error.toString());
+                Log.e("ERROR", "Error while checking if user is registered: " + (error != null ? error.toString() : ""));
             }
         }, emailRichEditText, progressBar, buttonAction));
     }
