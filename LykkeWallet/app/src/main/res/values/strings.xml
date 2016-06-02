@@ -6,12 +6,19 @@
     <string name="change_server">Change server</string>
     <string name="what_should_i_know">WHAT I SHOULD KNOW?</string>
 
-    <!-- ConfirmRegistrationFragment -->
+    <!-- ConfirmEmailFragment -->
     <string name="confirm_code_message">We\'ve sent the code to your email address \n%s</string>
     <string name="havent_received_code">Haven\'t received the code?</string>
     <string name="code">Code</string>
     <string name="confirm_code">Confirm</string>
 
+    <!-- RegistrationStep1Fragment -->
+    <string name="action_next">NEXT</string>
+    <string name="first_password_hint">Password (min 6 symbols)</string>
+    <string name="seond_password_hint">Confirm your password</string>
+    <string name="complete_your_profile">Complete your profile</string>
+    <string name="create_hint_for_password_recovery">Create hint for password recovery</string>
+    <string name="hint_for_your_password">Hint for your password</string>
 
     <string name="wallet_item">Wallets</string>
     <string name="trading_item">Trading</string>
@@ -67,9 +74,6 @@
     <string name="email_hint">Email</string>
     <string name="fullname_hint">Full name</string>
     <string name="mobile_hint">Phone number</string>
-    <string name="first_password_hint">Password (min 6 symbols)</string>
-    <string name="seond_password_hint">Confirm Password (min 6 symbols)</string>
-    <string name="complete_your_profile">Complete your profile</string>
     <string name="proedure_approve">KYC PROCEDURE</string>
     <string name="dear_it_checked">Dear %s you are about being reviewed by our KYC team.\nIt may take up to 15-20 minutes</string>
     <string name="succes_setup_document">Dear %s, thank you for your patience. Your documents are in order. Lets set up our security.</string>
@@ -83,7 +87,6 @@
 
     <string name="ok">OK</string>
     <string name="congrac">Congration!</string>
-    <string name="action_next">NEXT</string>
     <string name="registration">REGISTRATION</string>
     <string name="login">LOGIN</string>
     <string name="reshoot">PLEASE, RESHOOT</string>

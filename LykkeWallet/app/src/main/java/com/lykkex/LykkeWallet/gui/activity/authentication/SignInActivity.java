@@ -10,6 +10,7 @@ import com.lykkex.LykkeWallet.gui.fragments.startscreen.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.startscreen.FieldFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.startscreen.SignInFragment;
 import com.lykkex.LykkeWallet.gui.fragments.startscreen.SignInFragment_;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

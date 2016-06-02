@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.activity;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -7,10 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
+import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 import org.androidannotations.annotations.EActivity;
 
@@ -27,30 +31,28 @@ public class BaseActivity  extends AppCompatActivity {
     }
 
     public void initFragment(android.app.Fragment fragment, Bundle arg, boolean animate) {
-        if (currentFragment != null) {
-            getFragmentManager().beginTransaction().remove(currentFragment);
-        }
-        currentFragment = fragment;
-        currentFragment.setArguments(arg);
+        fragment.setArguments(arg);
         ActionBar actionBar = getSupportActionBar();
 
-        if(currentFragment instanceof  BaseFragment) {
-            ((BaseFragment) currentFragment).setUpActionBar(actionBar);
+        if(fragment instanceof  BaseFragment) {
+            ((BaseFragment) fragment).setUpActionBar(actionBar);
         }
 
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragmentContainer, fragment);
 
         if(animate) {
             transaction.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim, R.animator.enter_anim_pop, R.animator.exit_anim_pop);
         }
 
-        if(arg != null && arg.containsKey("replace") && arg.getBoolean("replace")) {
-            transaction.replace(R.id.fragmentContainer, currentFragment);
-        } else {
-            transaction.add(R.id.fragmentContainer, currentFragment).addToBackStack(fragment.getClass().getName());
+        if(arg == null || !arg.containsKey(Constants.SKIP_BACKSTACK) || !arg.getBoolean(Constants.SKIP_BACKSTACK)) {
+            transaction.addToBackStack(fragment.getClass().getName());
         }
 
         transaction.commit();
+
+        currentFragment = fragment;
     }
 
     public void hideKeyboard(){

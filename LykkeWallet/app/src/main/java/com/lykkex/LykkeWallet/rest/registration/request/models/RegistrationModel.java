@@ -22,6 +22,9 @@ public class RegistrationModel {
     @SerializedName("ClientInfo")
     private String clientInfo = "";
 
+    @SerializedName("Hint")
+    private String hint = "";
+
     public String getEmail() {
         return email;
     }
@@ -60,5 +63,13 @@ public class RegistrationModel {
 
     public void setClientInfo(String clientInfo) {
         this.clientInfo = clientInfo;
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 }
