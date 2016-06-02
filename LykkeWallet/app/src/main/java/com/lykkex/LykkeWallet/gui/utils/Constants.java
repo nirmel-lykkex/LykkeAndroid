@@ -18,6 +18,8 @@ public interface Constants {
     long DELAY_5000 = 5000L;
     long DELAY_500 = 500L;
 
+    String SKIP_BACKSTACK = "skip_backstack";
+
     String BTC = "BTC";
     String LKE = "LKE";
 

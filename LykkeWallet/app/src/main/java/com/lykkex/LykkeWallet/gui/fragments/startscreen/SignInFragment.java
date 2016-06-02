@@ -99,7 +99,7 @@ public class SignInFragment extends Fragment {
                         }
 
                         if(response.body().getError() == null) {
-                            ((BaseActivity) getActivity()).initFragment(new ConfirmRegistrationFragment_(), null);
+                            ((BaseActivity) getActivity()).initFragment(new ConfirmEmailFragment_(), null);
                         } else {
                             Log.e("ERROR", "Error while verifying email address: " + registrationModel.getEmail() + ", " + response.body().getError().getMessage());
 
@@ -140,6 +140,8 @@ public class SignInFragment extends Fragment {
             @Override
             public void onSuccess(AcountExistResult result) {
                 if (result != null) {
+                    if(emailRichEditText == null) return;
+
                     if ( emailRichEditText.getText().toString().equals(result.getEmail())) {
                         buttonAction.setText(result.isEmailRegistered() ?
                                 R.string.action_sign_in : R.string.action_sign_up);
