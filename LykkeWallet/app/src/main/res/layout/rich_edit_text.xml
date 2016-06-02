@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="43dp">
+    <EditText
+        android:paddingLeft="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/editTextField"
+        android:layout_centerVertical="true"
+        android:background="@drawable/filed_background"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="6dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp" />
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@android:drawable/ic_delete"
+        android:id="@+id/buttonClear"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/imageWell"
+        android:background="@drawable/ready"
+        android:adjustViewBounds="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone" />
+</RelativeLayout>

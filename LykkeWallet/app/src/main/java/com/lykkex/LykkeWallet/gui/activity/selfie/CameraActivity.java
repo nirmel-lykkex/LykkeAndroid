@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.activity.selfie;
 
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -17,7 +18,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -82,7 +82,7 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
     @AfterViews
     public void afterViews() {
         model = new CameraModelGUI();
-        initFragmentWithoutAnim(new CameraSelfieFragment_(), null);
+        initFragment(new CameraSelfieFragment_(), null, false);
     }
 
     @Override
@@ -106,9 +106,9 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
         return ((BaseCameraFragment) currentFragment).getCameraHost();
     }
 
-    public void initFragment(android.app.Fragment fragment, Bundle bundle, CameraController cameraController,
+    public void initFragment(Fragment fragment, Bundle bundle, CameraController cameraController,
                              CameraModelGUI model){
-        initFragmentWithoutAnim(fragment, bundle);
+        initFragment(fragment, bundle, false);
         this.controller = cameraController;
         this.model = model;
     }
