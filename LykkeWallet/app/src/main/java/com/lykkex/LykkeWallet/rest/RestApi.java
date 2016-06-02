@@ -2,11 +2,15 @@ package com.lykkex.LykkeWallet.rest;
 
 
 
+import com.lykkex.LykkeWallet.rest.appinfo.response.model.AppInfoData;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.DocumentAnswerData;
 import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
+import com.lykkex.LykkeWallet.rest.emailverify.request.model.VerifyEmailRequest;
+import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyCodeData;
+import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyEmailData;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.HistoryData;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketData;
 import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
@@ -36,7 +40,6 @@ import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
 
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -163,4 +166,12 @@ public interface RestApi {
     Call<MarketData> postCachOut(@Header("Authorization")String authorization,
                                    @Body CashOut cashOut);
 
+    @GET("/api/ApplicationInfo")
+    Call<AppInfoData> getAppInfo();
+
+    @POST("/api/EmailVerification")
+    Call<VerifyEmailData> verifyEmail(@Body VerifyEmailRequest model);
+
+    @GET("/api/EmailVerification")
+    Call<VerifyCodeData> verifyCode(@Query("email") String email, @Query("code") String code);
 }

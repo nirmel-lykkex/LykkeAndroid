@@ -13,6 +13,7 @@ import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.ErrorDialog;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
@@ -56,12 +57,7 @@ public abstract class BaseCallBack<BaseModel> implements Callback<BaseModel> {
         if (SettingSinglenton.getInstance().isDebugMode()) {
             Toast.makeText(activity, error, Toast.LENGTH_LONG).show();
         } else {
-            ErrorDialog dialog = new ErrorDialog();
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.EXTRA_ERROR, error);
-            dialog.setArguments(bundle);
-            dialog.show(activity.getFragmentManager(),
-                    "dlg1" + new Random((int) Constants.DELAY_5000));
+            LykkeUtils.showError(activity.getFragmentManager(), error);
         }
     }
 

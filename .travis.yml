@@ -1,0 +1,18 @@
+before_install:
+- cd LykkeWallet
+language: android
+jdk: oraclejdk7
+android:
+  components:
+  - extra-android-m2repository
+  - build-tools-23.0.1
+  - android-23
+script: gradle assemble
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: BZsUf5lST4PQe2pECdFBb2Ax05zVomCDvE35k4WwOUjeuuS6XYjYUfynia9uEOoOFnRbPMc+XnYXFoNvDaEnsTNDONS9BDqQystdMagkOyDmv8T1+TwdyIEaJdYJ0NTFb2KThZ5UtewguftDiJEk3DK30f24F+PormSPmNqug0v54nO/YL/B3o0LmpJ29pOCkOVzXdEEW0VNH1FUuOLAa78oCpX2J5V65FroVSWj/WS35QM0GUJY6Sev7vOqmrIzyhGIm0rK4F16pMoYC+Sj80OyCgfkR1VJF/qcpbh811URJLH4JkHtR0HO1XhLcpF7PhKO2X0dlDqh6Wmy4PWWxU6Ko/zc/U0//id30qRKtCyoe4cJLIAlj8ZY5nfmDfXcK3rmVAKG7dbJA2Qb+tx1GtF/m7QUlw65JSlSz+USp4s3+0pnXtIcNgLZU/IkbPUgyec/8GxuX2DKR/CdjBH7DIdxQYZNkYlmLnNJy/3Os0YAEvu3PmNnqEdbEEsJTXJnU5ETo3EoBUmhiu32bVAiJsrBxqC6TP6dPeosSf9DbpQg++XL0cWKC/E1pa4yVqu1q8g82LWSSucoF1zQTSEFyRQ/WPa4OH7FAngkGifoRK/17GMUkvexMhAAgD4mws3VBXTn2vAQs+7RA9Y6LHeTY4Ti2nzAIcvj+8uxCyAhq4o=
+  file: app/build/outputs/apk/app-dev-release-unsigned.apk
+  on:
+    tags: true

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.customviews.RichEditText;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.registration.callback.AccountExistDataCallback;
 import com.lykkex.LykkeWallet.rest.registration.response.models.AccountExistData;
@@ -20,12 +21,10 @@ import retrofit2.Call;
 /**
  * Created by e.kazimirova on 09.02.2016.
  */
-public class EmailTextWatcher implements TextWatcher, View.OnFocusChangeListener {
+public class EmailTextWatcher implements TextWatcher {
 
     private AccountExistDataCallback callback;
-    private EditText editText;
-    private ImageView imgWell;
-    private Button clear;
+    private RichEditText richEditText;
     private ProgressBar progressBar;
 
     private static String REGEX_VALIDATION = "(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}" +
@@ -36,27 +35,15 @@ public class EmailTextWatcher implements TextWatcher, View.OnFocusChangeListener
             "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"+
             "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     private Button buttonAction;
-    private boolean isOnFocus;
 
     public EmailTextWatcher(CallBackListener<AcountExistResult> listener,
-                            ImageView imgWell, Button clear, final EditText editText,
+                            RichEditText richEditText,
                             ProgressBar progressBar, Button buttnAction) {
         this.callback = new AccountExistDataCallback(listener, progressBar, null);
-        callback.setEmail(editText.getText().toString());
-        this.editText = editText;
+        callback.setEmail(richEditText.getText().toString());
+        this.richEditText = richEditText;
         this.progressBar = progressBar;
         this.buttonAction = buttnAction;
-        this.imgWell = imgWell;
-        this.clear = clear;
-        if (editText != null) {
-            this.editText.setOnFocusChangeListener(this);
-        }
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editText.setText("");
-            }
-        });
     }
 
     @Override
@@ -65,36 +52,21 @@ public class EmailTextWatcher implements TextWatcher, View.OnFocusChangeListener
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         buttonAction.setEnabled(false);
-        setUpClearButton(charSequence.toString());
-            if (charSequence.toString().matches(REGEX_VALIDATION)){
-                progressBar.setVisibility(View.VISIBLE);
-                callback.setEmail(editText.getText().toString());
-                Call<AccountExistData> call  =
-                        LykkeApplication_.getInstance().getRestApi().accountExis(editText.
-                                getText().toString());
-                call.enqueue(callback);
-             } else {
-                imgWell.setVisibility(View.GONE);
-            }
+        richEditText.setUpClearButton(charSequence.toString());
+
+        if (charSequence.toString().matches(REGEX_VALIDATION)){
+            progressBar.setVisibility(View.VISIBLE);
+            callback.setEmail(richEditText.getText().toString());
+            Call<AccountExistData> call  =
+                    LykkeApplication_.getInstance().getRestApi().accountExis(richEditText.
+                            getText().toString());
+            call.enqueue(callback);
+         } else {
+            richEditText.setReady(false);
+        }
 
     }
 
     @Override
     public void afterTextChanged(Editable editable) {}
-
-    @Override
-    public void onFocusChange(View view, boolean b) {
-        isOnFocus = b;
-        setUpClearButton(editText.getText().toString());
-    }
-
-    private void setUpClearButton(String charSequence){
-        if (clear != null) {
-            if (charSequence.toString().length() >= Constants.MIN_COUNT_SYMBOL && isOnFocus) {
-                clear.setVisibility(View.VISIBLE);
-            }else {
-                clear.setVisibility(View.GONE);
-            }
-        }
-    }
 }
