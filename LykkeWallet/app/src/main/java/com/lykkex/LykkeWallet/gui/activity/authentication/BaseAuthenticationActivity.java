@@ -15,6 +15,7 @@ import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.ErrorDialog;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
@@ -128,12 +129,7 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
         if (SettingSinglenton.getInstance().isDebugMode()) {
             Toast.makeText(this, error, Toast.LENGTH_LONG).show();
         } else {
-            ErrorDialog dialog = new ErrorDialog();
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.EXTRA_ERROR, error);
-            dialog.setArguments(bundle);
-            dialog.show(getFragmentManager(),
-                    "dlg1" + new Random((int) Constants.DELAY_5000));
+            LykkeUtils.showError(getFragmentManager(), error);
         }
     }
 }

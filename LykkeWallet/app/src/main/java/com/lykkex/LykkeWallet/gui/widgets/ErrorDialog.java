@@ -44,6 +44,7 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.concurrent.RunnableFuture;
 
 import retrofit2.Call;
 
@@ -52,6 +53,8 @@ import retrofit2.Call;
  */
 
 public class ErrorDialog extends DialogFragment implements View.OnClickListener {
+
+    private Runnable callback;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,23 +77,28 @@ public class ErrorDialog extends DialogFragment implements View.OnClickListener 
 
         TextView btnUnderstand = (TextView) v.findViewById(R.id.btnUnderstand);
         btnUnderstand.setOnClickListener(this);
+
         return v;
     }
-
-
 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnUnderstand:
                 dismiss();
-                Intent intent = new Intent();
-                intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
-                startActivity(intent);
-                getActivity().finish();
+
+                if(callback != null) {
+                    callback.run();
+                }
 
                 break;
         }
-
     }
 
+    public Runnable getCallback() {
+        return callback;
+    }
+
+    public void setCallback(Runnable callback) {
+        this.callback = callback;
+    }
 }

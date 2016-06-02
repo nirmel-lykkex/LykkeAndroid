@@ -18,6 +18,7 @@ import com.lykkex.LykkeWallet.gui.customviews.RichEditText;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.widgets.DialogChangeServer;
@@ -72,12 +73,30 @@ public class ConfirmRegistrationFragment extends Fragment {
         call.enqueue(new Callback<VerifyCodeData>() {
             @Override
             public void onResponse(Call<VerifyCodeData> call, Response<VerifyCodeData> response) {
-                Log.d("DEBUG", "NEXT!");
+                if(response.body() == null) {
+                    Log.e("ERROR", "Unexpected error while confirming code for email: " +
+                            userManager.getRegistrationModel().getEmail() + ", " + response.errorBody());
+
+                    LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming code.");
+
+                    return;
+                }
+
+                if(response.body().getError() != null) {
+                    LykkeUtils.showError(getFragmentManager(), response.body().getError().getMessage());
+                } else if(!response.body().getResult().getPassed()){
+                    LykkeUtils.showError(getFragmentManager(), "Incorrect code.");
+                } else {
+                    // TODO: Registration process
+                }
             }
 
             @Override
             public void onFailure(Call<VerifyCodeData> call, Throwable t) {
-                // TODO: Show popup
+                LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming code.");
+
+                Log.e("ERROR", "Unexpected error while confirming code for email: " +
+                        userManager.getRegistrationModel().getEmail(), t);
             }
         });
     }
