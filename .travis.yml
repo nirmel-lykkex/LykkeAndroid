@@ -1,5 +1,6 @@
 before_install:
 - cd LykkeWallet
+- chmod +x gradlew
 language: android
 jdk: oraclejdk7
 android:
