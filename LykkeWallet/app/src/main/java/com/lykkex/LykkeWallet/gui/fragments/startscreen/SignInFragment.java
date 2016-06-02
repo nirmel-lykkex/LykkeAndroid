@@ -17,6 +17,7 @@ import com.lykkex.LykkeWallet.gui.customviews.RichEditText;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.utils.validation.EmailTextWatcher;
 import com.lykkex.LykkeWallet.gui.widgets.DialogChangeServer;
@@ -81,19 +82,36 @@ public class SignInFragment extends Fragment {
 
         if(getActivity() instanceof BaseActivity) {
             if(userManager.isUserRegistered()) {
-
+                // TODO: LOG IN!
             } else {
                 Call<VerifyEmailData> call = lykkeApplication.getRestApi().verifyEmail(new VerifyEmailRequest(registrationModel.getEmail()));
 
                 call.enqueue(new Callback<VerifyEmailData>() {
                     @Override
                     public void onResponse(Call<VerifyEmailData> call, Response<VerifyEmailData> response) {
-                        ((BaseActivity)getActivity()).initFragment(new ConfirmRegistrationFragment_(), null);
+                        if(response.body() == null) {
+                            Log.e("ERROR", "Unexpected error while confirming email: " +
+                                    userManager.getRegistrationModel().getEmail() + ", " + response.errorBody());
+
+                            LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming email.");
+
+                            return;
+                        }
+
+                        if(response.body().getError() == null) {
+                            ((BaseActivity) getActivity()).initFragment(new ConfirmRegistrationFragment_(), null);
+                        } else {
+                            Log.e("ERROR", "Error while verifying email address: " + registrationModel.getEmail() + ", " + response.body().getError().getMessage());
+
+                            LykkeUtils.showError(getFragmentManager(), response.body().getError().getMessage());
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<VerifyEmailData> call, Throwable t) {
-                        // TODO: Show popup
+                        Log.e("ERROR", "Error while verifying email address: " + registrationModel.getEmail(), t);
+
+                        LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming email.");
                     }
                 });
             }
@@ -117,9 +135,6 @@ public class SignInFragment extends Fragment {
 
             getArguments().clear();
         }
-
-        emailRichEditText.setText(registrationModel.getEmail());
-        emailRichEditText.setHint(R.string.email_hint);
 
         emailRichEditText.addTextWatcher(new EmailTextWatcher(new CallBackListener<AcountExistResult>() {
             @Override
@@ -147,5 +162,8 @@ public class SignInFragment extends Fragment {
                 Log.e("ERROR", "Error while checking if user is registered: " + (error != null ? error.toString() : ""));
             }
         }, emailRichEditText, progressBar, buttonAction));
+
+        emailRichEditText.setText(registrationModel.getEmail());
+        emailRichEditText.setHint(R.string.email_hint);
     }
 }
