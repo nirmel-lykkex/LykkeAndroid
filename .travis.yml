@@ -19,4 +19,3 @@ deploy:
   file: app/build/outputs/apk/app-dev-release-unsigned.apk
   on:
     tags: true
-    jdk: oraclejdk8
