@@ -88,7 +88,8 @@ public class AuthenticationActivity extends BaseAuthenticationActivity {
                     return;
                 }
 
-                finishActivity(AUTHENTICATION_REQUEST_CODE);
+                // Close parent activity in case everything is fines
+                setResult(RESULT_OK);
 
                 AuthenticationActivity.this.onSuccess(response.body());
 

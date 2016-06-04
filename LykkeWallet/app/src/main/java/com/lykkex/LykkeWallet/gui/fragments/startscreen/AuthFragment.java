@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -76,11 +77,19 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
         intent.putExtra(Constants.EXTRA_AUTH_REQUEST, authRequest);
         intent.setClass(getActivity(), AuthenticationActivity_.class);
 
-        getActivity().startActivityForResult(intent, AuthenticationActivity.AUTHENTICATION_REQUEST_CODE);
-
-        getActivity().finish();
+        startActivityForResult(intent, AuthenticationActivity.AUTHENTICATION_REQUEST_CODE);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == AuthenticationActivity.AUTHENTICATION_REQUEST_CODE) {
+            if(resultCode == Activity.RESULT_OK) {
+                getActivity().finish();
+            }
+        }
+    }
 
     public void initOnBackPressed() {
         Bundle bundle = new Bundle();
