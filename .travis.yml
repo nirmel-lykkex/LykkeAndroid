@@ -1,6 +1,7 @@
 before_install:
 - cd LykkeWallet
 - chmod +x gradlew
+- ls app/build/outputs/apk
 language: android
 jdk: oraclejdk7
 android:
@@ -17,3 +18,4 @@ deploy:
   file: app/build/outputs/apk/app-dev-release-unsigned.apk
   on:
     tags: true
+    jdk: oraclejdk8
