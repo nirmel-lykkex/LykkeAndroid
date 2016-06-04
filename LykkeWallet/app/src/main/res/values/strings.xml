@@ -17,8 +17,14 @@
     <string name="first_password_hint">Password (min 6 symbols)</string>
     <string name="seond_password_hint">Confirm your password</string>
     <string name="complete_your_profile">Complete your profile</string>
+
+    <!-- RegistrationStep2Fragment -->
     <string name="create_hint_for_password_recovery">Create hint for password recovery</string>
     <string name="hint_for_your_password">Hint for your password</string>
+
+    <!-- RegistrationStep3Fragment -->
+    <string name="fullname_hint">Full name</string>
+
 
     <string name="wallet_item">Wallets</string>
     <string name="trading_item">Trading</string>
@@ -72,7 +78,6 @@
     <string name="url">URL</string>
 
     <string name="email_hint">Email</string>
-    <string name="fullname_hint">Full name</string>
     <string name="mobile_hint">Phone number</string>
     <string name="proedure_approve">KYC PROCEDURE</string>
     <string name="dear_it_checked">Dear %s you are about being reviewed by our KYC team.\nIt may take up to 15-20 minutes</string>

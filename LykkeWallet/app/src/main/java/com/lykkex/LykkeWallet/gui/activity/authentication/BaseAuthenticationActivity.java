@@ -4,14 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
+import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
+import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
+import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep3Fragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -19,11 +27,13 @@ import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.ErrorDialog;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
+import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
 import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelResult;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -31,15 +41,17 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.util.Random;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by LIZA on 22.02.2016.
  */
 @EActivity
-public abstract class BaseAuthenticationActivity extends Activity implements CallBackListener {
+public abstract class BaseAuthenticationActivity extends AppCompatActivity {
 
-    protected  @ViewById ProgressBar progressBar;
-    protected  @Pref  UserPref_ userPref;
+    protected @ViewById ProgressBar progressBar;
+    protected @Pref  UserPref_ userPref;
     protected Handler mHandler = new Handler();
     protected int count = 0;
     private Runnable run = new Runnable() {
@@ -48,19 +60,24 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
             startRequest();
         }
     };
+    protected @ViewById TextView textView;
+
+    @App
+    protected LykkeApplication lykkeApplication;
 
     public void onStart(){
         super.onStart();
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    @Override
     public void onSuccess(Object result) {
-       // progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+
         if (result instanceof Error) {
             onFail(result);
         } else if  (result != null && result instanceof AuthModelData) {
             AuthModelData res = (AuthModelData) result;
+
             if (res.getResult().getPersonalData().getAddress() != null) {
                 userPref.address().put(res.getResult().getPersonalData().getAddress());
             }
@@ -111,9 +128,11 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
 
     protected abstract void startRequest();
 
-    @Override
     public void onFail(Object error) {
+        if(!(error instanceof Error)) return;
+
         count +=1;
+
         mHandler.removeCallbacks(run);
 
         if (count <= 3 && (error == null || ((Error)error).getCode() != Constants.ERROR_401)) {
@@ -122,7 +141,6 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
             userPref.clear();
             setUpError(getString(R.string.not_authorized));
         }
-
     }
 
     protected void setUpError(String error) {
@@ -130,6 +148,65 @@ public abstract class BaseAuthenticationActivity extends Activity implements Cal
             Toast.makeText(this, error, Toast.LENGTH_LONG).show();
         } else {
             LykkeUtils.showError(getFragmentManager(), error);
+        }
+    }
+
+    protected void handleNextStep(AuthModelData data) {
+        switch (KysStatusEnum.valueOf(data.getResult().getKycStatus())){
+            case Ok:
+                if (data.getResult().getPinIsEntered()) {
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), EnterPinActivity_.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), SetUpPinActivity_.class);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
+            case NeedToFillData:
+                if(data.getResult().getPersonalData().getFullName() == null) {
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), RegistrationStep3Fragment_.class);
+                    startActivity(intent);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    textView.setText(R.string.check_documents);
+
+                    Call<CameraData> callCamera = lykkeApplication.getRestApi().checkDocuments();
+                    callCamera.enqueue(new Callback<CameraData>() {
+                        @Override
+                        public void onResponse(Call<CameraData> call, Response<CameraData> response) {
+                            progressBar.setVisibility(View.GONE);
+
+                            if (!response.isSuccess() || response.body() == null) {
+                                Log.e("ERROR", "Unexpected error while checking user documents: " +
+                                        userPref.email().get() + ", " + response.errorBody());
+
+                                LykkeUtils.showError(getFragmentManager(), "Unexpected error while checking user documents.");
+
+                                return;
+                            }
+
+                            Intent intent = new Intent();
+                            intent.putExtra(Constants.EXTRA_CAMERA_DATA, response.body().getResult());
+                            intent.setClass(getBaseContext(), CameraActivity_.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailure(Call<CameraData> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
+
+                            BaseAuthenticationActivity.this.onFail(null);
+                        }
+                    });
+                }
+                break;
         }
     }
 }

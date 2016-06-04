@@ -26,6 +26,7 @@ public class EmailTextWatcher implements TextWatcher {
     private AccountExistDataCallback callback;
     private RichEditText richEditText;
     private ProgressBar progressBar;
+    private CallBackListener<AcountExistResult> listener;
 
     private static String REGEX_VALIDATION = "(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}" +
     "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
@@ -44,6 +45,7 @@ public class EmailTextWatcher implements TextWatcher {
         this.richEditText = richEditText;
         this.progressBar = progressBar;
         this.buttonAction = buttnAction;
+        this.listener = listener;
     }
 
     @Override
@@ -51,6 +53,11 @@ public class EmailTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        this.callback.cancel();
+
+        this.callback = new AccountExistDataCallback(listener, progressBar, null);
+        callback.setEmail(richEditText.getText().toString());
+
         buttonAction.setEnabled(false);
         richEditText.setUpClearButton(charSequence.toString());
 

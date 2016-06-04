@@ -199,7 +199,7 @@ public class KysActivity extends Activity implements CallBackListener {
 
     @Override
     public void onFail(Object error) {
-        if (((Error)error).getCode() == Constants.ERROR_401) {
+        if (error instanceof Error && ((Error)error).getCode() == Constants.ERROR_401) {
             stopHandler();
         }
     }

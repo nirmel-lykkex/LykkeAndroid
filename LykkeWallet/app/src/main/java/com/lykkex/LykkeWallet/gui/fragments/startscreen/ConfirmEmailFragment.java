@@ -62,7 +62,7 @@ public class ConfirmEmailFragment extends Fragment {
         call.enqueue(new Callback<VerifyCodeData>() {
             @Override
             public void onResponse(Call<VerifyCodeData> call, Response<VerifyCodeData> response) {
-                if(response.body() == null) {
+                if(!response.isSuccess()) {
                     Log.e("ERROR", "Unexpected error while confirming code for email: " +
                             userManager.getRegistrationModel().getEmail() + ", " + response.errorBody());
 

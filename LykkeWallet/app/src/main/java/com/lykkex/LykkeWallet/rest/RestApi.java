@@ -14,6 +14,8 @@ import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyEmailData;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.HistoryData;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketData;
 import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
+import com.lykkex.LykkeWallet.rest.registration.request.models.SetFullNameModel;
+import com.lykkex.LykkeWallet.rest.registration.response.models.SetFullNameData;
 import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
@@ -68,7 +70,7 @@ public interface RestApi {
     Call<AuthModelData> getAuth(@Body AuthRequest request);
 
     @GET("/api/CheckDocumentsToUpload")
-    Call<CameraData> checkDocuments(@Header("Authorization") String authorization);
+    Call<CameraData> checkDocuments();
 
     @POST("/api/KycDocuments")
     Call<PersonData> kysDocuments(@Header("Authorization") String authorization,
@@ -174,4 +176,7 @@ public interface RestApi {
 
     @GET("/api/EmailVerification")
     Call<VerifyCodeData> verifyCode(@Query("email") String email, @Query("code") String code);
+
+    @POST("/api/ClientFullName")
+    Call<SetFullNameData> setClientFullName(@Body SetFullNameModel model);
 }

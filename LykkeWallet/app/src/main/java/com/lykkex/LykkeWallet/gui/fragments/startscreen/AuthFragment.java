@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.activity.authentication.AuthenticationActivity;
 import com.lykkex.LykkeWallet.gui.activity.authentication.AuthenticationActivity_;
 import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
@@ -54,7 +55,11 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         authRequest = new AuthModelGUI();
-        authRequest.setEmail(getArguments().getString(Constants.EXTRA_EMAIL));
+
+        if(getArguments() != null) {
+            authRequest.setEmail(getArguments().getString(Constants.EXTRA_EMAIL));
+        }
+
         editTextLogin.setText(authRequest.getEmail());
         passwordTextWatcher = new SimpleTextAuthWatcher(null, null,
                 editTextPassword, this, Constants.MIN_COUNT_SYMBOL_PASSWORD);
@@ -66,13 +71,13 @@ public class AuthFragment extends BaseFragment<FieldState> implements CallBackLi
 
     @Click(R.id.buttonLogin)
     public void clickAction() {
-        buttonLogin.setEnabled(false);
-        progressBar.setVisibility(View.VISIBLE);
         authRequest.setPassword(editTextPassword.getText().toString());
         Intent intent = new Intent();
         intent.putExtra(Constants.EXTRA_AUTH_REQUEST, authRequest);
         intent.setClass(getActivity(), AuthenticationActivity_.class);
-        startActivity(intent);
+
+        getActivity().startActivityForResult(intent, AuthenticationActivity.AUTHENTICATION_REQUEST_CODE);
+
         getActivity().finish();
     }
 

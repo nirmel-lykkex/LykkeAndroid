@@ -82,14 +82,17 @@ public class SignInFragment extends Fragment {
 
         if(getActivity() instanceof BaseActivity) {
             if(userManager.isUserRegistered()) {
-                // TODO: LOG IN!
+                Bundle args = new Bundle();
+                args.putString(Constants.EXTRA_EMAIL, userManager.getRegistrationModel().getEmail());
+
+                ((BaseActivity) getActivity()).initFragment(new AuthFragment_(), args);
             } else {
                 Call<VerifyEmailData> call = lykkeApplication.getRestApi().verifyEmail(new VerifyEmailRequest(registrationModel.getEmail()));
 
                 call.enqueue(new Callback<VerifyEmailData>() {
                     @Override
                     public void onResponse(Call<VerifyEmailData> call, Response<VerifyEmailData> response) {
-                        if(response.body() == null) {
+                        if(!response.isSuccess()) {
                             Log.e("ERROR", "Unexpected error while confirming email: " +
                                     userManager.getRegistrationModel().getEmail() + ", " + response.errorBody());
 

@@ -2,9 +2,7 @@ package com.lykkex.LykkeWallet.gui.fragments.statesegments;
 
 import com.github.oxo42.stateless4j.StateMachine;
 import com.github.oxo42.stateless4j.StateMachineConfig;
-import com.github.oxo42.stateless4j.delegates.Action;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
-import com.lykkex.LykkeWallet.gui.fragments.startscreen.FieldFragment;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.FieldState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.FieldTrigger;
 

@@ -110,7 +110,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
             } else {
                 CheckDocumentCallBack callback = new CheckDocumentCallBack(this, getActivity());
                 Call<CameraData> call = LykkeApplication_.getInstance().getRestApi().
-                        checkDocuments(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+                        checkDocuments();
                 call.enqueue(callback);
             }
         }
