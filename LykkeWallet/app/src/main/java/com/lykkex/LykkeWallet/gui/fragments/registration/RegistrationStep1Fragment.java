@@ -61,6 +61,9 @@ public class RegistrationStep1Fragment extends Fragment {
     @AfterViews
     void afterViews() {
         stepsIndicator.setCurrentStep(1);
+
+        passwordEditText.setText(userManager.getRegistrationModel().getPasswordFirst());
+        confirmPasswordEditText.setText(userManager.getRegistrationModel().getSecondPassword());
     }
 
     @AfterTextChange(R.id.passwordEditText)

@@ -4,9 +4,11 @@ import android.util.Log;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
+import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 
 import retrofit2.Call;
@@ -21,6 +23,9 @@ public class RestoreActivity extends BaseAuthenticationActivity {
 
     @App
     LykkeApplication application;
+
+    @Bean
+    UserManager userManager;
 
     public void onStart(){
         super.onStart();
@@ -42,6 +47,8 @@ public class RestoreActivity extends BaseAuthenticationActivity {
 
                     return;
                 }
+
+                userManager.setRegistrationResult(response.body().getResult());
 
                 RestoreActivity.this.onSuccess(response.body());
 

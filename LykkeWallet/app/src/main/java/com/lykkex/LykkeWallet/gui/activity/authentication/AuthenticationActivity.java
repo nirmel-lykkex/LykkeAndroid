@@ -6,9 +6,12 @@ import android.util.Log;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
+import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
+
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 
 import retrofit2.Call;
@@ -22,6 +25,9 @@ import retrofit2.Response;
 public class AuthenticationActivity extends BaseAuthenticationActivity {
 
     public static Integer AUTHENTICATION_REQUEST_CODE = 901;
+
+    @Bean
+    UserManager userManager;
 
     public void onStart(){
         super.onStart();
@@ -70,6 +76,8 @@ public class AuthenticationActivity extends BaseAuthenticationActivity {
 
                 // Close parent activity in case everything is fines
                 setResult(RESULT_OK);
+
+                userManager.setRegistrationResult(response.body().getResult());
 
                 AuthenticationActivity.this.onSuccess(response.body());
 

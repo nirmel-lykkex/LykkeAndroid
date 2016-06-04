@@ -61,6 +61,8 @@ public class RegistrationStep2Fragment extends Fragment {
     @AfterViews
     void afterViews() {
         stepsIndicator.setCurrentStep(1);
+
+        hintEditText.setText(userManager.getRegistrationModel().getHint());
     }
 
     @AfterTextChange(R.id.hintEditText)

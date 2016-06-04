@@ -17,6 +17,7 @@ import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep3Fragment_;
+import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep4Fragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -158,9 +159,20 @@ public abstract class BaseAuthenticationActivity extends AppCompatActivity {
                 }
                 break;
             case NeedToFillData:
-                if(data.getResult().getPersonalData().getFullName() == null) {
+                String fullName = data.getResult().getPersonalData().getFullName();
+                String phoneNumber = data.getResult().getPersonalData().getPhone();
+
+                if(fullName == null || fullName.isEmpty()) {
                     Intent intent = new Intent();
-                    intent.setClass(getBaseContext(), RegistrationStep3Fragment_.class);
+                    intent.setClass(getBaseContext(), SignInActivity_.class);
+                    intent.putExtra("fragmentId", SignInActivity.REGISTRATION_STEP_3);
+
+                    startActivity(intent);
+                } else if(phoneNumber == null || phoneNumber.isEmpty()) {
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), SignInActivity_.class);
+                    intent.putExtra("fragmentId", SignInActivity.REGISTRATION_STEP_4);
+
                     startActivity(intent);
                 } else {
                     progressBar.setVisibility(View.VISIBLE);

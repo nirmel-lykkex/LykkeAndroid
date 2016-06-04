@@ -22,16 +22,26 @@
         android:layout_width="match_parent"
         android:layout_height="24dp" />
 
-    <EditText
-        android:id="@+id/fullNameEditText"
+    <com.lykkex.LykkeWallet.gui.customviews.RichButton_
+        android:id="@+id/countryButton"
+        android:layout_marginTop="125dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="310dp"
+        android:layout_height="43dp" />
+
+    <com.lykkex.LykkeWallet.gui.customviews.ExtendedEditText
+        android:id="@+id/phoneEditText"
         android:layout_width="310dp"
         android:layout_height="43dp"
-        android:hint="@string/fullname_hint"
-        android:layout_marginTop="125dp"
+        android:hint="@string/your_phone_number"
+        android:layout_below="@id/countryButton"
+        android:layout_marginTop="15dp"
         android:paddingBottom="6dp"
         android:paddingStart="10dp"
+        android:paddingLeft="10dp"
         android:paddingEnd="10dp"
         android:paddingTop="5dp"
+        android:inputType="phone"
         android:background="@drawable/filed_background"
         android:layout_centerHorizontal="true" />
 
@@ -43,7 +53,19 @@
         android:textColor="@color/grey_text"
         android:background="@drawable/submitbutton"
         android:id="@+id/buttonAction"
-        android:text="@string/action_next"
-        android:layout_below="@+id/fullNameEditText"
+        android:text="@string/submit"
+        android:layout_below="@+id/phoneEditText"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="@string/please_select_country_code_and_enter_number"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/buttonAction"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

@@ -56,17 +56,18 @@ public class AuthFragment extends BaseFragment {
             authRequest.setEmail(getArguments().getString(Constants.EXTRA_EMAIL));
         }
 
+
         editTextLogin.setText(authRequest.getEmail());
         passwordTextWatcher = new SimpleTextAuthWatcher(null, null,
                 editTextPassword, new CallBackListener() {
             @Override
             public void onSuccess(Object result) {
-
+                buttonLogin.setEnabled(true);
             }
 
             @Override
             public void onFail(Object error) {
-
+                // Skip
             }
         }, Constants.MIN_COUNT_SYMBOL_PASSWORD);
 

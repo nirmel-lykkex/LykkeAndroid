@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
@@ -63,6 +64,8 @@ public class RegistrationStep3Fragment extends Fragment {
     @AfterViews
     void afterViews() {
         stepsIndicator.setCurrentStep(1);
+
+        fullNameEditText.setText(userManager.getRegistrationModel().getFullName());
     }
 
     @AfterTextChange(R.id.fullNameEditText)
@@ -90,6 +93,8 @@ public class RegistrationStep3Fragment extends Fragment {
                 }
 
                 new UserPref_(getActivity()).fullName().put(model.getFullName());
+
+                ((BaseActivity) getActivity()).initFragment(new RegistrationStep4Fragment_(), null);
             }
 
             @Override
