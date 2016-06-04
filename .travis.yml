@@ -16,6 +16,12 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: kIXpXvhP/X/V/O2K6IWPDH1MC2vrffeXd4L/t7j8uAePC+oPpfGHnJ40Nx1iAE77Who3W/uhzfhUj20mWdXXHreSsdbn/1NfGOqCti2Nr50REy/Hg3u0EkqSiX++zKnmiAJBAZSPlx9u9wXXaBzcebP1D+qmMrapwmJiEWOI3qvb5+d/vCp/0WETY/OJ6D3tcdFV9r4l9kZhVGV+FmzW1hEiy0cfw3AkR0OyIAHOQ2swMjxZUz3jymmtgGP3y/gsBXStDpf2xiy8JeJWaJPuXX7qwrjKJxFpaVCE+6A5PFO1yRcbBp6U26Khys7vTZRHFtJMzHCXwno+awF9jCwfh0iluh52L6kbO2ROWj1o00ZFqk91utbzP+lPZlkvfNZmmBepn2qzy0kgGo13d9MGfm7btJXnmNgq+teS71KvlYRySFD16U+N3BLnfqdQrrS0o6BMrQqqszsi2wqHpHaYoRAg0mLqTtNhM9NyJVTxYZNV70ePl/Ug5xEihgZgp2d4UW/iWcXTx+riLU8rW8J+uq+v8Ex/CSfVuC5L5u/UApcKj+/yYnRm63hrSTFvpHy+/X+HpwFhAlCnnfbikd6PRiJqY+jknbzhWZRoDLWL6lvQmojKcJxOQq+WJamYqR85YaWEgsq7nJvAzXMufbbapFjoose7bttUUVlsb2i02+E=
-  file: app/build/outputs/apk/app-dev-release-unsigned.apk
+  file:
+    - "app/build/outputs/apk/app-dev-release-unsigned.apk"
+    - "app/build/outputs/apk/app-dev-debug.apk"
+    - "app/build/outputs/apk/app-prod-debug.apk"
+    - "app/build/outputs/apk/app-dev-debug-unaligned.apk"
+    - "app/build/outputs/apk/app-prod-debug-unaligned.apk"
+    - "app/build/outputs/apk/app-prod-release-unsigned.apk"
   on:
     tags: true
