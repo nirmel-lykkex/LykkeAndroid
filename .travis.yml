@@ -1,6 +1,7 @@
 before_install:
 - cd LykkeWallet
 - chmod +x gradlew
+before_deploy:
 - ls app/build/outputs/apk
 language: android
 jdk: oraclejdk7
