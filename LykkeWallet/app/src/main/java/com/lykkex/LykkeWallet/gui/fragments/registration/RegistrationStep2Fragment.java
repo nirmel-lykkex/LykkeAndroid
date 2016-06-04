@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.registration;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Point;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
@@ -108,14 +110,12 @@ public class RegistrationStep2Fragment extends Fragment {
 
                     RegistrationData data = response.body();
 
-                    Intent intent = new Intent();
-                    intent.setClass(getActivity(),  RegistrationStep3Fragment_.class);
-
                     new UserPref_(getActivity()).authToken().put(data.getResult().getToken());
                     new UserPref_(getActivity()).fullName().put(data.getResult().getPersonalData().getFullName());
 
-                    startActivity(intent);
-                    getActivity().finish();
+                    getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                    ((BaseActivity) getActivity()).initFragment(new RegistrationStep3Fragment_(), null);
                 }
 
                 @Override
