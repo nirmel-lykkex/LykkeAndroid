@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Handler;
@@ -14,23 +13,19 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.lykkex.LykkeWallet.BuildConfig;
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
+import com.lykkex.LykkeWallet.gui.LykkeApplication;
+import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity_;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.SettingActivity_;
 import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-import com.lykkex.LykkeWallet.rest.appinfo.callback.AppInfoCallBack;
 import com.lykkex.LykkeWallet.rest.appinfo.response.model.AppInfoData;
-import com.lykkex.LykkeWallet.rest.trading.callback.TransactionCallBack;
-import com.lykkex.LykkeWallet.rest.trading.response.model.TransactionData;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -52,6 +47,9 @@ public class SettingFragment extends Fragment {
     @ViewById TextView tvBaseInfo;
     @ViewById TextView tvAppVersion;
     @ViewById TextView tvApiVersion;
+
+    @App
+    LykkeApplication lykkeApplication;
 
     @AfterViews
     public void afterViews(){
@@ -99,7 +97,7 @@ public class SettingFragment extends Fragment {
 
                     tvAppVersion.setText(getString(R.string.app_version, pInfo.versionName, pInfo.versionCode));
 
-                    Call<AppInfoData> call = LykkeApplication_.getInstance().getRestApi().getAppInfo();
+                    Call<AppInfoData> call = lykkeApplication.getRestApi().getAppInfo();
                     call.enqueue(new Callback<AppInfoData>() {
                         @Override
                         public void onResponse(Call<AppInfoData> call, Response<AppInfoData> response) {
@@ -178,7 +176,7 @@ public class SettingFragment extends Fragment {
     public void clickExit(){
         userPref.clear();
         Intent intent = new Intent();
-        intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
+        intent.setClass(lykkeApplication, SignInActivity_.class);
         getActivity().startActivity(intent);
         getActivity().finish();
     }

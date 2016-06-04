@@ -2,51 +2,15 @@ package com.lykkex.LykkeWallet.gui.widgets;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
-import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.DealResultFragment_;
-import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
-import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSignIn;
-import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
-import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
-import com.lykkex.LykkeWallet.rest.trading.callback.PurchaseAssetCallBack;
-import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
-import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
-import com.lykkex.LykkeWallet.rest.trading.response.model.OrderResult;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.concurrent.RunnableFuture;
-
-import retrofit2.Call;
 
 /**
  * Created by e.kazimirova on 24.03.2016.

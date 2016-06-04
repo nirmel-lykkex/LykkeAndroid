@@ -13,6 +13,7 @@ import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.trading.callback.PurchaseAssetCallBack;
 import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
 import com.lykkex.LykkeWallet.rest.trading.response.model.Order;
@@ -34,7 +35,7 @@ import retrofit2.Call;
  */
 @EFragment(R.layout.deal_fragment)
 public class DealResultFragment extends BaseFragment implements
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener, CallBackListener {
 
     @Pref UserPref_ userPref;
     @ViewById TextView labelAsset;
@@ -123,7 +124,7 @@ public class DealResultFragment extends BaseFragment implements
 
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         getActivity().finish();
     }
@@ -171,11 +172,6 @@ public class DealResultFragment extends BaseFragment implements
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 

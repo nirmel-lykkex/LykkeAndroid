@@ -49,23 +49,8 @@ public class QrCodeScanFragment extends BaseFragment implements  ZXingScannerVie
         ((BaseActivity)getActivity()).initFragment(new WithdrawFragment_(), bundle);
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         ((BaseActivity)getActivity()).initFragment(new WithdrawFragment_(), getArguments());
-    }
-
-    @Override
-    public void onSuccess(Object result) {
-
-    }
-
-    @Override
-    public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
-
     }
 }

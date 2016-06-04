@@ -1,27 +1,11 @@
 package com.lykkex.LykkeWallet.gui.activity.authentication;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
-import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
-import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
-import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
-import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
-import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep3Fragment_;
-import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
-import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-import com.lykkex.LykkeWallet.rest.base.models.Error;
-import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
-
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
 
@@ -45,8 +29,7 @@ public class RestoreActivity extends BaseAuthenticationActivity {
     }
 
     public void startRequest(){
-        Call<AuthModelData> call = application.getRestApi().
-                getRegistrationData(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+        Call<AuthModelData> call = application.getRestApi().getRegistrationData();
 
         call.enqueue(new Callback<AuthModelData>() {
             @Override

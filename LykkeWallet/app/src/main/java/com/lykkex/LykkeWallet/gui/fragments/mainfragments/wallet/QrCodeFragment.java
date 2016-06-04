@@ -23,6 +23,7 @@ import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.trading.callback.EmailCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.EmailData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.SendEmail;
@@ -43,7 +44,7 @@ import retrofit2.Call;
  * Created by LIZA on 15.04.2016.
  */
 @EFragment(R.layout.fragment_qr_code)
-public class QrCodeFragment extends BaseFragment{
+public class QrCodeFragment extends BaseFragment implements CallBackListener {
 
     private AssetsWallet assetsWallet;
     private String hashCode;
@@ -119,7 +120,7 @@ public class QrCodeFragment extends BaseFragment{
         clipboard.setPrimaryClip(clip);
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         ((BaseActivity)getActivity()).initFragment(new TradingWalletFragment_(),getArguments());
     }
@@ -134,11 +135,6 @@ public class QrCodeFragment extends BaseFragment{
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 }

@@ -25,6 +25,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:paddingTop="5dp"
+        android:inputType="number"
         android:background="@drawable/filed_background"
         android:layout_centerHorizontal="true" />
 

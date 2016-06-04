@@ -41,11 +41,9 @@ public class TradingActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    @Deprecated
     public void onBackPressed(){
-        ((BaseFragment)currentFragment).initOnBackPressed();
+        //((BaseFragment)currentFragment).initOnBackPressed();
     }
-
-
 }
 

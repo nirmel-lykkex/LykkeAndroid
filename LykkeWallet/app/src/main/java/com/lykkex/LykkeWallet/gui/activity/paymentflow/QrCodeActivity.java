@@ -21,9 +21,9 @@ public class QrCodeActivity extends BaseActivity {
         initFragment(new TradingWalletFragment_(), getIntent().getExtras());
     }
 
-    @Override
+    @Deprecated
     public void onBackPressed(){
-        ((BaseFragment)currentFragment).initOnBackPressed();
+        //((BaseFragment)currentFragment).initOnBackPressed();
     }
 
     @Override

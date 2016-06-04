@@ -1,19 +1,16 @@
 package com.lykkex.LykkeWallet.gui.activity.pin;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.MainActivity_;
-import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
+import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
-import com.lykkex.LykkeWallet.gui.widgets.ErrorDialog;
-import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.internal.callback.SignSettingOrderCallBack;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrder;
 import com.lykkex.LykkeWallet.rest.internal.response.model.SettingSignOrderData;
@@ -22,8 +19,6 @@ import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-
-import java.util.Random;
 
 import retrofit2.Call;
 
@@ -111,7 +106,7 @@ public class EnterPinActivity extends BasePinActivity{
                     Toast.makeText(this, getString(R.string.not_authorized), Toast.LENGTH_LONG).show();
                     userPref.clear();
                     Intent intent = new Intent();
-                    intent.setClass(LykkeApplication_.getInstance(), FieldActivity_.class);
+                    intent.setClass(LykkeApplication_.getInstance(), SignInActivity_.class);
                     startActivity(intent);
                     finish();
 

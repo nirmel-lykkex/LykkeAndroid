@@ -75,7 +75,8 @@ public class PersonalDataFragment extends BaseFragment implements CallBackListen
         SendDocumentsDataCallback callback = new SendDocumentsDataCallback(this, getActivity());
         call.enqueue(callback);
     }
-    @Override
+
+    @Deprecated
     public void initOnBackPressed() {
         getActivity().finish();
     }
@@ -163,11 +164,6 @@ public class PersonalDataFragment extends BaseFragment implements CallBackListen
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 }

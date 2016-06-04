@@ -14,16 +14,13 @@ import org.androidannotations.annotations.EFragment;
 /**
  * Created by e.kazimirova on 09.02.2016.
  */
-@EFragment(R.layout.auth_fragment)
-public abstract class BaseFragment<State> extends android.app.Fragment implements CallBackListener, Consume<State> {
+public abstract class BaseFragment extends android.app.Fragment {
 
     protected ActionBar actionBar;
 
     public void setUpActionBar(ActionBar actionBar){
         this.actionBar = actionBar;
     }
-
-    public abstract void initOnBackPressed();
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

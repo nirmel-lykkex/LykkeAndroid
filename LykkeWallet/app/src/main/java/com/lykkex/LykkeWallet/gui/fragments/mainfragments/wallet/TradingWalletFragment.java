@@ -10,6 +10,7 @@ import com.lykkex.LykkeWallet.gui.adapters.HistoryAdapter;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.history.callback.HistoryCallBack;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.History;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.HistoryData;
@@ -27,7 +28,7 @@ import retrofit2.Call;
  * Created by LIZA on 18.04.2016.
  */
 @EFragment(R.layout.trading_wallet_fragment)
-public class TradingWalletFragment extends BaseFragment {
+public class TradingWalletFragment extends BaseFragment implements CallBackListener {
 
     private AssetsWallet assetsWallet;
 
@@ -52,7 +53,7 @@ public class TradingWalletFragment extends BaseFragment {
 
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         getActivity().finish();
     }
@@ -68,11 +69,6 @@ public class TradingWalletFragment extends BaseFragment {
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 

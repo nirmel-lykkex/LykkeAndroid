@@ -11,6 +11,7 @@ import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.internal.callback.BaseAssetCallback;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
@@ -27,7 +28,7 @@ import retrofit2.Call;
  * Created by LIZA on 15.03.2016.
  */
 @EFragment(R.layout.base_asset_fragment)
-public class BaseAssetFragment extends BaseFragment {
+public class BaseAssetFragment extends BaseFragment implements CallBackListener {
 
     @ViewById  ListView listView;
     @ViewById ProgressBar progressBar;
@@ -58,7 +59,8 @@ public class BaseAssetFragment extends BaseFragment {
         listView.setAdapter(assetAdapter);
 
     }
-    @Override
+
+    @Deprecated
     public void initOnBackPressed() {
         getActivity().finish();
     }
@@ -73,11 +75,6 @@ public class BaseAssetFragment extends BaseFragment {
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 }

@@ -28,6 +28,7 @@ import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Calculate;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.OperationType;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.ConfirmDialog;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPair;
@@ -57,7 +58,7 @@ import retrofit2.Call;
  * Created by e.kazimirova on 21.03.2016.
  */
 @EFragment(R.layout.buy_asset)
-public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListener, TextWatcher{
+public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListener, TextWatcher, CallBackListener {
 
     @ViewById TextView tvBaseAssetId;
     @ViewById TextView tvInformation;
@@ -203,7 +204,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         handler.postDelayed(run, SettingSinglenton.getInstance().getRefreshTimer());
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         ((BaseActivity)getActivity()).initFragment(new TradingDescription_(), getArguments());
     }
@@ -227,11 +228,6 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 

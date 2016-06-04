@@ -1,35 +1,15 @@
 package com.lykkex.LykkeWallet.gui.activity.authentication;
 
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.LykkeApplication;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
-import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
-import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
-import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
-import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep3Fragment_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
-import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-import com.lykkex.LykkeWallet.rest.base.models.Error;
-import com.lykkex.LykkeWallet.rest.camera.callback.CheckDocumentCallBack;
-import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
-import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
-import com.lykkex.LykkeWallet.rest.login.callback.LoginDataCallback;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -34,6 +34,7 @@ import com.lykkex.LykkeWallet.gui.fragments.statesegments.states.CameraState;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.DialogProgress;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.camera.callback.CheckDocumentCallBack;
@@ -63,8 +64,8 @@ import retrofit2.Call;
  * Created by LIZA on 23.02.2016.
  */
 @EFragment(R.layout.selfie_activity_time)
-public abstract class BaseCameraFragment extends BaseFragment<CameraState> implements
-        CameraHostProvider {
+public abstract class BaseCameraFragment extends BaseFragment implements
+        CameraHostProvider, CallBackListener {
 
     protected @ViewById ImageView imgFirst;
     protected @ViewById ImageView imgSecond;
@@ -574,7 +575,7 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
         }
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         switch (controller.getCurrentState()) {
             case Idle:
@@ -610,16 +611,9 @@ public abstract class BaseCameraFragment extends BaseFragment<CameraState> imple
     }
 
 
-    @Override
+    @Deprecated
     public void onFail(Object error) {
         dialog.dismiss();
         progressDialog.dismiss();
     }
-
-    @Override
-    public void onConsume(CameraState cameraState) {
-
-    }
-
-
 }

@@ -12,6 +12,7 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextWatcher;
 
 import org.androidannotations.annotations.AfterViews;
@@ -23,7 +24,7 @@ import org.androidannotations.annotations.ViewById;
  * Created by LIZA on 18.04.2016.
  */
 @EFragment(R.layout.withdraw_fragment)
-public class WithdrawFragment extends BaseFragment {
+public class WithdrawFragment extends BaseFragment implements CallBackListener {
 
     @ViewById EditText etHashBitcoin;
     @ViewById Button btnProceed;
@@ -43,7 +44,7 @@ public class WithdrawFragment extends BaseFragment {
         }
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         ((BaseActivity)getActivity()).initFragment(new TradingWalletFragment_(), getArguments());
     }
@@ -83,10 +84,5 @@ public class WithdrawFragment extends BaseFragment {
             btnProceed.setTextColor(getResources().getColor(R.color.grey_text));
             btnProceed.setEnabled(false);
         }
-    }
-
-    @Override
-    public void onConsume(Object o) {
-
     }
 }

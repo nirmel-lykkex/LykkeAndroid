@@ -85,9 +85,9 @@ public class CameraActivity extends BaseActivity implements CameraHostProvider{
         initFragment(new CameraSelfieFragment_(), null, false);
     }
 
-    @Override
+    @Deprecated
     public void onBackPressed(){
-        ((BaseFragment)currentFragment).initOnBackPressed();
+        //((BaseFragment)currentFragment).initOnBackPressed();
     }
 
     @Override

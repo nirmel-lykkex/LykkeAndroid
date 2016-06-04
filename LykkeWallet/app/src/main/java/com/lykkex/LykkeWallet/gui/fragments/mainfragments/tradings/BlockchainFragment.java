@@ -17,6 +17,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.widgets.LockableScrollView;
 import com.lykkex.LykkeWallet.rest.trading.callback.TransactionCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.Order;
@@ -35,7 +36,7 @@ import retrofit2.Call;
  * Created by e.kazimirova on 25.03.2016.
  */
 @EFragment(R.layout.blockchaing_fragment)
-public class BlockchainFragment extends BaseFragment {
+public class BlockchainFragment extends BaseFragment implements CallBackListener {
 
     @Pref  UserPref_ userPref;
     @ViewById RelativeLayout tvTitle2;
@@ -125,7 +126,7 @@ public class BlockchainFragment extends BaseFragment {
         initOnBackPressed();
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         getActivity().finish();
     }
@@ -228,11 +229,6 @@ public class BlockchainFragment extends BaseFragment {
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 }

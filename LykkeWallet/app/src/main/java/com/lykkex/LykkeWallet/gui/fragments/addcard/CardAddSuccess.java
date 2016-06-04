@@ -12,7 +12,7 @@ import org.androidannotations.annotations.EFragment;
  * Created by LIZA on 06.03.2016.
  */
 @EFragment(R.layout.card_add_success)
-public class CardAddSuccess extends BaseFragment{
+public class CardAddSuccess extends BaseFragment {
 
     @AfterViews
     public void afterViews(){
@@ -23,25 +23,5 @@ public class CardAddSuccess extends BaseFragment{
     @Click(R.id.btnStart)
     public void clickStart(){
         getActivity().finish();
-    }
-
-    @Override
-    public void initOnBackPressed() {
-        getActivity().finish();
-    }
-
-    @Override
-    public void onSuccess(Object result) {
-
-    }
-
-    @Override
-    public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
-
     }
 }

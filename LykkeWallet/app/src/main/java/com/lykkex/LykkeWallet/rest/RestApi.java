@@ -15,6 +15,7 @@ import com.lykkex.LykkeWallet.rest.history.reposnse.model.HistoryData;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketData;
 import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
 import com.lykkex.LykkeWallet.rest.registration.request.models.SetFullNameModel;
+import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodesData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.SetFullNameData;
 import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
@@ -55,16 +56,13 @@ import retrofit2.http.Query;
 public interface RestApi {
 
     @GET("/api/AccountExist")
-    Call<AccountExistData> accountExis(
-            @Query("email") String email);
+    Call<AccountExistData> accountExis(@Query("email") String email);
 
     @POST("/api/Registration")
-    Call<RegistrationData> registration(
-            @Body RegistrationModel registrationModel);
+    Call<RegistrationData> registration(@Body RegistrationModel registrationModel);
 
     @GET("/api/Registration")
-    Call<AuthModelData> getRegistrationData(
-            @Header("Authorization") String authorization);
+    Call<AuthModelData> getRegistrationData();
 
     @POST("/api/Auth")
     Call<AuthModelData> getAuth(@Body AuthRequest request);
@@ -179,4 +177,7 @@ public interface RestApi {
 
     @POST("/api/ClientFullName")
     Call<SetFullNameData> setClientFullName(@Body SetFullNameModel model);
+
+    @GET("/api/CountryPhoneCodes")
+    Call<CountryPhoneCodesData> getCountryPhoneCodes();
 }

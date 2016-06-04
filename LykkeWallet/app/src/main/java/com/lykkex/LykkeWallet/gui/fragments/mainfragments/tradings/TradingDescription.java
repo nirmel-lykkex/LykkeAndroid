@@ -20,6 +20,7 @@ import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.OperationType;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRatesCallBack;
 import com.lykkex.LykkeWallet.rest.trading.callback.DescriptionCallBack;
@@ -47,7 +48,7 @@ import retrofit2.Call;
  * Created by e.kazimirova on 18.03.2016.
  */
 @EFragment(R.layout.trading_description_fragment)
-public class TradingDescription  extends BaseFragment {
+public class TradingDescription  extends BaseFragment implements CallBackListener {
 
     private ArrayList<Call<RatesData>> listRates = new ArrayList<>();
     private boolean isShouldContinue = true;
@@ -136,7 +137,7 @@ public class TradingDescription  extends BaseFragment {
         handler.postDelayed(run, SettingSinglenton.getInstance().getRefreshTimer());
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         getActivity().finish();
     }
@@ -215,11 +216,6 @@ public class TradingDescription  extends BaseFragment {
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 }

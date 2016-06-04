@@ -3,13 +3,10 @@ package com.lykkex.LykkeWallet.gui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.activity.authentication.RestoreActivity_;
-import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity;
 import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -43,6 +40,6 @@ public class SplashActivity extends Activity{
                     finish();
                     startActivity(intent);
                 }            }
-        }, Constants.DELAY_5000);
+        }, Constants.DELAY_500);
     }
 }

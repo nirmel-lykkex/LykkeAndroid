@@ -12,6 +12,7 @@ import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.statesegments.triggers.CameraTrigger;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.camera.callback.SubmitDocumentsDataCallback;
 import com.lykkex.LykkeWallet.rest.login.response.model.PersonalData;
@@ -28,7 +29,7 @@ import retrofit2.Call;
  * Created by LIZA on 23.02.2016.
  */
 @EFragment(R.layout.documents_was_send)
-public class SubmitFragment extends BaseFragment{
+public class SubmitFragment extends BaseFragment implements CallBackListener {
 
     private CameraModelGUI model;
     @Pref UserPref_ userPref;
@@ -56,7 +57,7 @@ public class SubmitFragment extends BaseFragment{
 
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         ((CameraActivity)getActivity()).initFragment(new CameraSelfieFragment_(),
                 getArguments());
@@ -72,11 +73,6 @@ public class SubmitFragment extends BaseFragment{
 
     @Override
     public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
 
     }
 }

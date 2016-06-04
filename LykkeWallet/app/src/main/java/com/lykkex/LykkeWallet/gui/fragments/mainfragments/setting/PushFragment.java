@@ -43,23 +43,4 @@ public class PushFragment extends BaseFragment {
         switchNewAsset.setThumbDrawable(thumbStates);
         switchOrder.setThumbDrawable(thumbStates);
     }
-    @Override
-    public void initOnBackPressed() {
-        getActivity().finish();
-    }
-
-    @Override
-    public void onSuccess(Object result) {
-
-    }
-
-    @Override
-    public void onFail(Object error) {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
-
-    }
 }

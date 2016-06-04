@@ -1,12 +1,8 @@
 package com.lykkex.LykkeWallet.rest.wallet.callback;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.authentication.FieldActivity_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.base.models.BaseCallBack;
@@ -14,7 +10,6 @@ import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**

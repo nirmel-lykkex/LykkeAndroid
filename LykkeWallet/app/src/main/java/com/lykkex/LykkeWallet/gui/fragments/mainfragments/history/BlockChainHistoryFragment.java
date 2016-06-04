@@ -18,6 +18,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.history.callback.MarketOrderCallBack;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.CashInOut;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.ItemHistory;
@@ -42,7 +43,7 @@ import retrofit2.Call;
  * Created by LIZA on 12.04.2016.
  */
 @EFragment(R.layout.blockchaing_history_fragment)
-public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRefreshLayout.OnRefreshListener{
+public class BlockChainHistoryFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, CallBackListener {
 
 
     @ViewById
@@ -212,7 +213,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
         }
     }
 
-    @Override
+    @Deprecated
     public void initOnBackPressed() {
         getActivity().finish();
     }
@@ -478,10 +479,5 @@ public class BlockChainHistoryFragment extends BaseFragment implements   SwipeRe
     public void onFail(Object error) {
         dialog.hide();
         initNull();
-    }
-
-    @Override
-    public void onConsume(Object o) {
-
     }
 }

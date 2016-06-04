@@ -177,14 +177,4 @@ public class AddCard extends BaseFragment implements CallBackListener {
             dialog.dismiss();
         }
     }
-
-    @Override
-    public void initOnBackPressed() {
-
-    }
-
-    @Override
-    public void onConsume(Object o) {
-
-    }
 }
