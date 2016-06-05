@@ -1,23 +1,22 @@
-package com.lykkex.LykkeWallet.gui.fragments.startscreen;
+package com.lykkex.LykkeWallet.gui.fragments.registration;
 
 import android.app.Fragment;
-import android.os.Bundle;
+import android.content.Intent;
 import android.text.Editable;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
-import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep1Fragment;
-import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep1Fragment_;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
+import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
-import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyCodeData;
+import com.lykkex.LykkeWallet.rest.mobileverify.model.VerifyCodeData;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
@@ -34,17 +33,17 @@ import retrofit2.Response;
 /**
  * Created by Murtic on 31/05/16.
  */
-@EFragment(R.layout.confirm_email_fragment)
-public class ConfirmEmailFragment extends Fragment {
+@EFragment(R.layout.confirm_mobile_phone_fragment)
+public class ConfirmMobilePhoneFragment extends Fragment {
+
+    @ViewById
+    StepsIndicator stepsIndicator;
 
     @ViewById
     EditText codeEditText;
 
     @ViewById
     Button buttonAction;
-
-    @ViewById
-    ProgressBar progressBar;
 
     @ViewById
     TextView confirmCodeMessage;
@@ -57,14 +56,14 @@ public class ConfirmEmailFragment extends Fragment {
 
     @Click(R.id.buttonAction)
     public void clickButtonAction(){
-        Call<VerifyCodeData> call = lykkeApplication.getRestApi().verifyCode(userManager.getRegistrationModel().getEmail(), codeEditText.getText().toString());
+        Call<VerifyCodeData> call = lykkeApplication.getRestApi().verifyMobilePhoneCode(userManager.getRegistrationResult().getPersonalData().getPhone(), codeEditText.getText().toString());
 
         call.enqueue(new Callback<VerifyCodeData>() {
             @Override
             public void onResponse(Call<VerifyCodeData> call, Response<VerifyCodeData> response) {
                 if(!response.isSuccess()) {
-                    Log.e("ERROR", "Unexpected error while confirming code for email: " +
-                            userManager.getRegistrationModel().getEmail() + ", " + response.errorBody());
+                    Log.e("ERROR", "Unexpected error while confirming code for phone number: " +
+                            userManager.getRegistrationResult().getPersonalData().getPhone() + ", " + response.errorBody());
 
                     LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming code.");
 
@@ -76,7 +75,11 @@ public class ConfirmEmailFragment extends Fragment {
                 } else if(!response.body().getResult().getPassed()){
                     LykkeUtils.showError(getFragmentManager(), "Incorrect code.");
                 } else {
-                    ((BaseActivity) getActivity()).initFragment(new RegistrationStep1Fragment_(), null);
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), CameraActivity_.class);
+                    startActivity(intent);
+
+                    getActivity().finish();
                 }
             }
 
@@ -85,7 +88,7 @@ public class ConfirmEmailFragment extends Fragment {
                 LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming code.");
 
                 Log.e("ERROR", "Unexpected error while confirming code for email: " +
-                        userManager.getRegistrationModel().getEmail(), t);
+                        userManager.getRegistrationResult().getPersonalData().getPhone(), t);
             }
         });
     }
@@ -97,7 +100,9 @@ public class ConfirmEmailFragment extends Fragment {
 
     @AfterViews
     void afterViews() {
-        confirmCodeMessage.setText(getResources().getString(R.string.confirm_code_message, userManager.getRegistrationModel().getEmail()));
+        stepsIndicator.setCurrentStep(1);
+
+        confirmCodeMessage.setText(getResources().getString(R.string.confirm_mobile_phone_code_message, userManager.getRegistrationResult().getPersonalData().getPhone()));
     }
 
     @AfterTextChange(R.id.codeEditText)

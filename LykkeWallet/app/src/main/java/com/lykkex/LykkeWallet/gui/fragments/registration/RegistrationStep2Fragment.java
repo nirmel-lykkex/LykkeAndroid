@@ -114,6 +114,8 @@ public class RegistrationStep2Fragment extends Fragment {
                     getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                     ((BaseActivity) getActivity()).initFragment(new RegistrationStep3Fragment_(), null);
+
+                    userManager.setRegistrationResult(data.getResult());
                 }
 
                 @Override

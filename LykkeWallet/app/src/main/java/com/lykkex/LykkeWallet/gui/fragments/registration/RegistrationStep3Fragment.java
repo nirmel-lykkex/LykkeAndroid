@@ -65,12 +65,12 @@ public class RegistrationStep3Fragment extends Fragment {
     void afterViews() {
         stepsIndicator.setCurrentStep(1);
 
-        fullNameEditText.setText(userManager.getRegistrationModel().getFullName());
+        fullNameEditText.setText(userManager.getRegistrationResult().getPersonalData().getFullName());
     }
 
     @AfterTextChange(R.id.fullNameEditText)
     void onHintChange(Editable text) {
-        userManager.getRegistrationModel().setFullName(text.toString());
+        userManager.getRegistrationResult().getPersonalData().setFullName(text.toString());
 
         buttonAction.setEnabled(text.toString().length() > 0);
     }

@@ -30,6 +30,9 @@
     <string name="your_phone_number">Your phone number</string>
     <string name="please_select_country_code_and_enter_number">Please select your country code and enter your mobile phone number.</string>
 
+    <!-- ConfirmMobilePhoneFragment -->
+    <string name="confirm_mobile_phone_code_message">Please enter the 4-digit code just sent to your mobile phone %s</string>
+
     <string name="wallet_item">Wallets</string>
     <string name="trading_item">Trading</string>
     <string name="history_item">History</string>

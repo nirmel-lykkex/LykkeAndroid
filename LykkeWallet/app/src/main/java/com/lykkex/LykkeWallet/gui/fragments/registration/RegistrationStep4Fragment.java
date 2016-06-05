@@ -14,13 +14,20 @@ import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.customviews.ExtendedEditText;
 import com.lykkex.LykkeWallet.gui.customviews.RichButton;
 import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
+import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
+import com.lykkex.LykkeWallet.gui.fragments.startscreen.ConfirmEmailFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
+import com.lykkex.LykkeWallet.rest.emailverify.request.model.VerifyEmailRequest;
+import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyEmailData;
+import com.lykkex.LykkeWallet.rest.mobileverify.model.VerifyMobilePhoneData;
+import com.lykkex.LykkeWallet.rest.mobileverify.request.VerifyMobilePhoneRequest;
 import com.lykkex.LykkeWallet.rest.registration.request.models.SetFullNameModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodeData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodesData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodesResult;
+import com.lykkex.LykkeWallet.rest.registration.response.models.RegistrationResult;
 import com.lykkex.LykkeWallet.rest.registration.response.models.SetFullNameData;
 
 import org.androidannotations.annotations.AfterTextChange;
@@ -64,7 +71,38 @@ public class RegistrationStep4Fragment extends Fragment {
 
     @Click(R.id.buttonAction)
     public void clickButtonAction(){
+        final RegistrationResult registrationResult = userManager.getRegistrationResult();
 
+        Call<VerifyMobilePhoneData> call = lykkeApplication.getRestApi().verifyMobilePhoneNumber(new VerifyMobilePhoneRequest(registrationResult.getPersonalData().getPhone()));
+
+        call.enqueue(new Callback<VerifyMobilePhoneData>() {
+            @Override
+            public void onResponse(Call<VerifyMobilePhoneData> call, Response<VerifyMobilePhoneData> response) {
+                if(!response.isSuccess()) {
+                    Log.e("ERROR", "Unexpected error while confirming mobile phone number: " +
+                            registrationResult.getPersonalData().getPhone() + ", " + response.errorBody());
+
+                    LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming mobile phone number.");
+
+                    return;
+                }
+
+                if(response.body().getError() == null) {
+                    ((BaseActivity) getActivity()).initFragment(new ConfirmMobilePhoneFragment_(), null);
+                } else {
+                    Log.e("ERROR", "Error while verifying mobile code number: " + registrationResult.getPersonalData().getPhone() + ", " + response.body().getError().getMessage());
+
+                    LykkeUtils.showError(getFragmentManager(), response.body().getError().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VerifyMobilePhoneData> call, Throwable t) {
+                Log.e("ERROR", "Error while verifying mobile phone number: " + registrationResult.getPersonalData().getPhone(), t);
+
+                LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming mobile phone number.");
+            }
+        });
     }
 
     @Click(R.id.countryButton)
@@ -113,7 +151,7 @@ public class RegistrationStep4Fragment extends Fragment {
             countryButton.setText(currentCode.getName());
             phoneEditText.setPrefix(currentCode.getPrefix() + " | ");
 
-            phoneEditText.setText(userManager.getRegistrationModel().getMobile().replace(currentCode.getPrefix(), ""));
+            phoneEditText.setText(userManager.getRegistrationResult().getPersonalData().getPhone().replace(currentCode.getPrefix(), ""));
         }
 
         userManager.setCountryPhoneCodes(res);
@@ -121,7 +159,7 @@ public class RegistrationStep4Fragment extends Fragment {
 
     @AfterTextChange(R.id.phoneEditText)
     void onPhoneChange(Editable text) {
-        userManager.getRegistrationModel().setMobile(phoneEditText.getPrefix().replace(" | ", "") + text.toString());
+        userManager.getRegistrationResult().getPersonalData().setPhone(phoneEditText.getPrefix().replace(" | ", "") + text.toString());
 
         buttonAction.setEnabled(text.toString().length() > 0);
     }

@@ -6,14 +6,22 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/confirmCodeMessage"
-        android:text="@string/confirm_code_message"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/tvInfo"
+        android:textSize="18sp"
+        android:visibility="visible"
+        android:text="@string/complete_your_profile"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <com.lykkex.LykkeWallet.gui.customviews.StepsIndicator_
+        android:id="@+id/stepsIndicator"
+        android:layout_below="@id/tvInfo"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="24dp" />
 
     <EditText
         android:id="@+id/codeEditText"
@@ -37,16 +45,30 @@
         android:textColor="@color/grey_text"
         android:background="@drawable/submitbutton"
         android:id="@+id/buttonAction"
+
         android:text="@string/confirm_code"
         android:layout_below="@+id/codeEditText"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/tvHaventReceivedCode"
-        android:layout_below="@id/buttonAction"
-        android:text="@string/havent_received_code"
+        android:id="@+id/confirmCodeMessage"
+        android:text="@string/confirm_mobile_phone_code_message"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/buttonAction"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvHaventReceivedCode"
+        android:layout_below="@id/confirmCodeMessage"
+        android:text="@string/havent_received_code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/blue_color"
         android:gravity="center_horizontal"
