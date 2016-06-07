@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
         applicationId "com.lykkex.LykkeWallet"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 3
         versionName "1.2"
@@ -82,7 +82,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.commonsware.cwac:camera:0.6.+'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
@@ -97,5 +96,3 @@ dependencies {
     compile 'com.google.zxing:core:3.2.1'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
 }
-
-

@@ -1,6 +1,9 @@
 package com.lykkex.LykkeWallet.gui.managers;
 
+import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
+import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
+import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
 import com.lykkex.LykkeWallet.rest.login.response.model.AuthModelData;
 import com.lykkex.LykkeWallet.rest.registration.request.models.RegistrationModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodesResult;
@@ -21,6 +24,10 @@ public class UserManager {
     private boolean isUserRegistered = false;
 
     private RegistrationResult registrationResult;
+
+    private CameraModel cameraModel;
+
+    private CameraResult cameraResult;
 
     public UserManager() {
     }
@@ -51,5 +58,21 @@ public class UserManager {
 
     public void setRegistrationResult(RegistrationResult registrationResult) {
         this.registrationResult = registrationResult;
+    }
+
+    public CameraModel getCameraModel() {
+        return cameraModel;
+    }
+
+    public void setCameraModel(CameraModel cameraModel) {
+        this.cameraModel = cameraModel;
+    }
+
+    public CameraResult getCameraResult() {
+        return cameraResult;
+    }
+
+    public void setCameraResult(CameraResult cameraResult) {
+        this.cameraResult = cameraResult;
     }
 }

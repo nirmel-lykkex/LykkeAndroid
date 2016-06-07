@@ -73,8 +73,7 @@ public interface RestApi {
     Call<CameraData> checkDocuments();
 
     @POST("/api/KycDocuments")
-    Call<PersonData> kysDocuments(@Header("Authorization") String authorization,
-            @Body CameraModel cameraModel);
+    Call<PersonData> kysDocuments( @Body CameraModel cameraModel);
 
     @TIMEOUT(10000)
     @GET("/api/KycStatus")
@@ -82,7 +81,7 @@ public interface RestApi {
 
     @TIMEOUT(10000)
     @POST("/api/KycStatus")
-    Call<PersonalData> kysDocuments(@Header("Authorization") String authorization);
+    Call<PersonalData> kysDocuments();
 
     @POST ("/api/PinSecurity")
     Call<Error> postPinSecurite(@Header("Authorization")String authorization,

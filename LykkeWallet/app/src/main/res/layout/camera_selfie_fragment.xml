@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relBackground"
+    android:background="@color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvInfo"
+        android:textSize="18sp"
+        android:visibility="visible"
+        android:text="@string/take_a_selfie"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <com.lykkex.LykkeWallet.gui.customviews.StepsIndicator_
+        android:id="@+id/stepsIndicator"
+        android:layout_below="@id/tvInfo"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="24dp" />
+    <Button
+        android:layout_marginTop="10dp"
+        android:enabled="false"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/grey_text"
+        android:background="@drawable/submitbutton"
+        android:id="@+id/buttonAction"
+        android:text="@string/nice_submit"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/relButtons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_above="@id/buttonAction">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/open_file"
+                android:id="@+id/buttonFile"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/change_photo"
+                android:id="@+id/buttonShoot"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="310dp"
+        android:layout_height="43dp"
+        android:layout_below="@id/stepsIndicator"
+        android:layout_above="@id/relButtons"
+        android:layout_marginTop="20dp"
+        android:padding="40dp"
+        android:src="@drawable/make_photo"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

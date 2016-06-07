@@ -16,6 +16,7 @@ import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
+import com.lykkex.LykkeWallet.rest.camera.response.models.CameraResult;
 import com.lykkex.LykkeWallet.rest.mobileverify.model.VerifyCodeData;
 
 import org.androidannotations.annotations.AfterTextChange;
@@ -77,6 +78,7 @@ public class ConfirmMobilePhoneFragment extends Fragment {
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), CameraActivity_.class);
+                    intent.putExtra(Constants.EXTRA_CAMERA_DATA, new CameraResult());
                     startActivity(intent);
 
                     getActivity().finish();

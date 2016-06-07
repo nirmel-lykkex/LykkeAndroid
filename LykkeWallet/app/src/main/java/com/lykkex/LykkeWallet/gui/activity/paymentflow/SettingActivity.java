@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.activity.paymentflow;
 
+import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.lykkex.LykkeWallet.R;
@@ -24,15 +25,19 @@ public class SettingActivity extends BaseActivity {
         SettingEnum status = (SettingEnum) getIntent().getExtras().getSerializable(Constants.EXTRA_FRAGMENT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        Bundle args = new Bundle();
+        args.putBoolean(Constants.SKIP_BACKSTACK, true);
+
         switch (status) {
             case personalData:
-                initFragment(new PersonalDataFragment_(), null);
+                initFragment(new PersonalDataFragment_(), args);
                 break;
             case pushnotifications:
-                initFragment(new PushFragment_(), null);
+                initFragment(new PushFragment_(), args);
                 break;
             case baseasset:
-                initFragment(new BaseAssetFragment_(), null);
+                initFragment(new BaseAssetFragment_(), args);
                 break;
         }
     }

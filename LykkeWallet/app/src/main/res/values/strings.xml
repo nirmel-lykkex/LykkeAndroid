@@ -33,6 +33,10 @@
     <!-- ConfirmMobilePhoneFragment -->
     <string name="confirm_mobile_phone_code_message">Please enter the 4-digit code just sent to your mobile phone %s</string>
 
+    <!-- CameraSelfieFragment -->
+    <string name="take_a_selfie">Take a selfie</string>
+    <string name="nice_submit">NICE, SUBMIT</string>
+
     <string name="wallet_item">Wallets</string>
     <string name="trading_item">Trading</string>
     <string name="history_item">History</string>
@@ -104,7 +108,7 @@
     <string name="reshoot">PLEASE, RESHOOT</string>
     <string name="save">NICE, SUBMIT</string>
     <string name="make_selfie">Make a selfie</string>
-    <string name="id_card">Make a photo of your passport or other ID</string>
+    <string name="id_card">Take a photo of your passport or other ID</string>
     <string name="bitcoin">BITCOIN</string>
     <string name="deposit_bitcoin">DEPOSIT</string>
     <string name="withdraw">WITHDRAW</string>
@@ -121,7 +125,7 @@
     <string name="email_me">EMAIL ME</string>
     <string name="copy">COPY</string>
     <string name="check_email">Please check your %s mailbox.</string>
-    <string name="proof_adress">Make a photo of your Proof of Address</string>
+    <string name="proof_adress">Take a photo of your Proof of Address</string>
     <string name="waiting">Waiting...</string>
     <string name="it_was_created">You can change your credit card information at any time</string>
     <string name="continue_string">CONTINUE</string>

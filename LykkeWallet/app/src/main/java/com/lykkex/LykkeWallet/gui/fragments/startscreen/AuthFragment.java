@@ -11,7 +11,6 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.authentication.AuthenticationActivity;
 import com.lykkex.LykkeWallet.gui.activity.authentication.AuthenticationActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
-import com.lykkex.LykkeWallet.gui.fragments.controllers.FieldController;
 import com.lykkex.LykkeWallet.gui.fragments.models.AuthModelGUI;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
@@ -19,7 +18,6 @@ import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextAuthWatcher;
 import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextWatcher;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -30,7 +28,6 @@ import org.androidannotations.annotations.ViewById;
 @EFragment(R.layout.auth_fragment)
 public class AuthFragment extends BaseFragment {
 
-    @Bean FieldController controller;
     private AuthModelGUI authRequest;
     private ActionBar actionBar;
     @ViewById EditText editTextLogin;
