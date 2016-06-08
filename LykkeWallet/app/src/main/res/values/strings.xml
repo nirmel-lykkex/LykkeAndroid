@@ -45,7 +45,7 @@
     <string name="desposit_securely_text">Deposit bitcoins and digital assets to multisig wallets with an encrypted private key</string>
 
     <string name="wallet_item">Wallets</string>
-    <string name="trading_item">Trading</string>
+    <string name="exchange_item">Exchange</string>
     <string name="history_item">History</string>
     <string name="setting_item">Settings</string>
     <string name="app_name">Lykke Wallet</string>

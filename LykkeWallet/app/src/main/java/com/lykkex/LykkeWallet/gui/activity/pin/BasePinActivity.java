@@ -28,7 +28,7 @@ public class BasePinActivity extends Activity implements CallBackListener{
     protected @ViewById ImageView imgSecond;
     protected @ViewById ImageView imgThird;
     protected @ViewById ImageView imgFour;
-    protected @ViewById TextView textView4;
+    protected @ViewById TextView tvEnterPin;
     protected @ViewById RelativeLayout relPin;
     protected @ViewById RelativeLayout relResult;
     protected @Pref UserPref_ userPref;
@@ -37,7 +37,7 @@ public class BasePinActivity extends Activity implements CallBackListener{
 
     @AfterViews
     public void afterViews(){
-        textView4.setText("");
+        tvEnterPin.setText("");
         dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
         dialog.setMessage(getString(R.string.waiting));

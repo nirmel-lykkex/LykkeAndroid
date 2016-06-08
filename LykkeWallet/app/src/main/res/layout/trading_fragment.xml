@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
@@ -13,6 +13,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp" />
     <LinearLayout
+        android:id="@+id/headerContainer"
+        android:layout_below="@id/tvSelect"
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="4dp"
@@ -45,17 +47,19 @@
             android:id="@+id/tvChange" />
     </LinearLayout>
     <TextView
+        android:layout_below="@+id/headerContainer"
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:id="@+id/lykke_section"
+        android:id="@+id/lykkeSection"
         android:padding="8dp"
         android:textStyle="bold"
         android:drawablePadding="8dp"
         android:drawableLeft="@drawable/lykke_wallet"
         android:text="@string/lykke_title"/>
-    <RelativeLayout
+    <ScrollView
+        android:layout_below="@+id/lykkeSection"
         android:layout_width="match_parent"
         android:background="@color/light_blue"
         android:layout_height="wrap_content">
@@ -65,13 +69,12 @@
             android:layout_height="wrap_content"
             android:id ="@+id/linearEntity"
             android:background="@color/light_blue"></LinearLayout>
+    </ScrollView>
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
-</LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:visibility="visible"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>

@@ -48,9 +48,4 @@ public class QrCodeScanFragment extends BaseFragment implements  ZXingScannerVie
         bundle.putString(Constants.EXTRA_QR_CODE_READ, rawResult.getText());
         ((BaseActivity)getActivity()).initFragment(new WithdrawFragment_(), bundle);
     }
-
-    @Deprecated
-    public void initOnBackPressed() {
-        ((BaseActivity)getActivity()).initFragment(new WithdrawFragment_(), getArguments());
-    }
 }

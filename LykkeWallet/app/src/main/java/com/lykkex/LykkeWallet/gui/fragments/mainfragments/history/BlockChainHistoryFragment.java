@@ -213,11 +213,6 @@ public class BlockChainHistoryFragment extends BaseFragment implements SwipeRefr
         }
     }
 
-    @Deprecated
-    public void initOnBackPressed() {
-        getActivity().finish();
-    }
-
     @Click(R.id.btnClose)
     public void btnClose(){
         getActivity().finish();

@@ -17,20 +17,17 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.OperationType;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
-import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRatesCallBack;
 import com.lykkex.LykkeWallet.rest.trading.callback.DescriptionCallBack;
 import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.DescriptionResult;
-import com.lykkex.LykkeWallet.rest.trading.response.model.Rate;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RatesResult;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -74,8 +71,8 @@ public class TradingDescription  extends BaseFragment implements CallBackListene
     @Pref UserPref_ userPref;
     private String id;
     private int accurancy;
-    private String price;
-    private String bid;
+    private Double price;
+    private Double bid;
 
     @AfterViews
     public void afterViews(){
@@ -84,13 +81,13 @@ public class TradingDescription  extends BaseFragment implements CallBackListene
 
     public void onStart(){
         super.onStart();
-        price = getArguments().getString(Constants.EXTRA_RATE_PRICE);
+        price = getArguments().getDouble(Constants.EXTRA_RATE_PRICE);
         accurancy = getArguments().getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY);
         if (getArguments().getSerializable(Constants.EXTRA_DESCRIPTION) != null) {
             btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
-                    (Double.parseDouble(price)).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                    (price).setScale(accurancy, RoundingMode.HALF_EVEN)));
             btnSell.setText(getString(R.string.sell_at_price) + " " + String.valueOf(BigDecimal.valueOf
-                    (Double.parseDouble(price)).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                    (price).setScale(accurancy, RoundingMode.HALF_EVEN)));
             onSuccess(getArguments().getSerializable(Constants.EXTRA_DESCRIPTION));
         } else {
             id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
@@ -134,12 +131,7 @@ public class TradingDescription  extends BaseFragment implements CallBackListene
     }
 
     private void startHandler(){
-        handler.postDelayed(run, SettingSinglenton.getInstance().getRefreshTimer());
-    }
-
-    @Deprecated
-    public void initOnBackPressed() {
-        getActivity().finish();
+        handler.postDelayed(run, SettingManager.getInstance().getRefreshTimer());
     }
 
     private DescriptionResult resultData = null;
@@ -178,13 +170,13 @@ public class TradingDescription  extends BaseFragment implements CallBackListene
                         && getActivity() != null) {
                     price = ((RateResult) result).getRate().getAsk();
                     btnBuy.setText(getString(R.string.buy_rate) + " " + String.valueOf(BigDecimal.valueOf
-                            (Double.parseDouble(((RateResult) result).getRate().getAsk())).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                            (((RateResult) result).getRate().getAsk()).setScale(accurancy, RoundingMode.HALF_EVEN)));
                 }
                 if (((RateResult) result).getRate() != null && ((RateResult) result).getRate().getBid() != null
                         && getActivity() != null) {
                     bid = ((RateResult) result).getRate().getBid();
                     btnSell.setText(getString(R.string.sell_at_price) + " " + String.valueOf(BigDecimal.valueOf
-                            (Double.parseDouble(((RateResult) result).getRate().getBid())).setScale(accurancy, RoundingMode.HALF_EVEN)));
+                            (((RateResult) result).getRate().getBid()).setScale(accurancy, RoundingMode.HALF_EVEN)));
                 }
             }
         }

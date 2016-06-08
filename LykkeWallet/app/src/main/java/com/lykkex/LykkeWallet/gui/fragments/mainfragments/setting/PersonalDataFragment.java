@@ -76,11 +76,6 @@ public class PersonalDataFragment extends BaseFragment implements CallBackListen
         call.enqueue(callback);
     }
 
-    @Deprecated
-    public void initOnBackPressed() {
-        getActivity().finish();
-    }
-
     @Override
     public void onSuccess(Object result) {
         if (result instanceof PersonData) {

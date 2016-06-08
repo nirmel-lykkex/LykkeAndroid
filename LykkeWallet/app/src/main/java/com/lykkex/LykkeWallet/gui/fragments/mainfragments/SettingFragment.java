@@ -20,7 +20,7 @@ import com.lykkex.LykkeWallet.gui.activity.paymentflow.SettingActivity_;
 import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.appinfo.response.model.AppInfoData;
 
@@ -77,12 +77,12 @@ public class SettingFragment extends Fragment {
             public void run() {
 
                 tvExit.setText(getString(R.string.exit) + " " + userPref.email().get());
-                tvBaseInfo.setText(SettingSinglenton.getInstance().getBaseAssetId());
-                switchCheck.setChecked(SettingSinglenton.getInstance().isShouldSignOrder());
+                tvBaseInfo.setText(SettingManager.getInstance().getBaseAssetId());
+                switchCheck.setChecked(SettingManager.getInstance().isShouldSignOrder());
                 switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (b != SettingSinglenton.getInstance().isShouldSignOrder()) {
+                        if (b != SettingManager.getInstance().isShouldSignOrder()) {
                             switchCheck.setChecked(!b);
                             Intent intent = new Intent();
                             intent.setClass(getActivity(), EnterPinActivity_.class);

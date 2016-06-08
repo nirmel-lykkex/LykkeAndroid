@@ -120,11 +120,6 @@ public class QrCodeFragment extends BaseFragment implements CallBackListener {
         clipboard.setPrimaryClip(clip);
     }
 
-    @Deprecated
-    public void initOnBackPressed() {
-        ((BaseActivity)getActivity()).initFragment(new TradingWalletFragment_(),getArguments());
-    }
-
     @Override
     public void onSuccess(Object result) {
         if (result instanceof SendEmail) {

@@ -123,12 +123,7 @@ public class BlockchainFragment extends BaseFragment implements CallBackListener
 
     @Click(R.id.btnClose)
     public void clickClose(){
-        initOnBackPressed();
-    }
-
-    @Deprecated
-    public void initOnBackPressed() {
-        getActivity().finish();
+        onBackPressed();
     }
 
     @Override

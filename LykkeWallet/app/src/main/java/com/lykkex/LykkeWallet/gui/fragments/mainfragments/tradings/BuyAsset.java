@@ -3,14 +3,11 @@ package com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.ContentFrameLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -24,7 +21,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Calculate;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.OperationType;
@@ -41,7 +38,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -158,7 +154,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     private String getTitleBase(){
         String name = assetPair.getBaseAssetId();
-        if (SettingSinglenton.getInstance().getBaseAssetId().equals(assetPair.getBaseAssetId())) {
+        if (SettingManager.getInstance().getBaseAssetId().equals(assetPair.getBaseAssetId())) {
             name =  assetPair.getQuotingAssetId();
         } else {
             name = assetPair.getBaseAssetId();
@@ -168,7 +164,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     private String getTitleQuoting(){
         String name = assetPair.getBaseAssetId();
-        if (!SettingSinglenton.getInstance().getBaseAssetId().equals(assetPair.getBaseAssetId())) {
+        if (!SettingManager.getInstance().getBaseAssetId().equals(assetPair.getBaseAssetId())) {
             name =  assetPair.getQuotingAssetId();
         } else {
             name = assetPair.getBaseAssetId();
@@ -201,12 +197,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     }
 
     private void startHandler(){
-        handler.postDelayed(run, SettingSinglenton.getInstance().getRefreshTimer());
-    }
-
-    @Deprecated
-    public void initOnBackPressed() {
-        ((BaseActivity)getActivity()).initFragment(new TradingDescription_(), getArguments());
+        handler.postDelayed(run, SettingManager.getInstance().getRefreshTimer());
     }
 
     @Override
@@ -214,7 +205,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
         if (result instanceof RateResult) {
             if (((RateResult) result).getRate() != null &&
                     ((RateResult) result).getRate().getAsk() != null) {
-                rate = Double.parseDouble(((RateResult) result).getRate().getAsk());
+                rate = ((RateResult) result).getRate().getAsk();
                 if (labelTotalCost.getText().toString().isEmpty() && !labelTotalCost.isFocused()) {
                     setUpTotalCost();
                 }
@@ -256,7 +247,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
                             multiply(BigDecimal.valueOf(2)));
         }
 
-        String baseAssetId = SettingSinglenton.getInstance().getBaseAssetId();
+        String baseAssetId = SettingManager.getInstance().getBaseAssetId();
         if (!baseAssetId.equals(assetPair.getBaseAssetId())) {
             try {
                 etVolumeRes = BigDecimal.valueOf(1).divide(etVolumeRes, accurancy, RoundingMode.HALF_UP);
@@ -483,6 +474,8 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Override
     public void onFocusChange(View view, boolean b) {
+        if(calc_keyboard == null) return;
+
         if (b){
             calc_keyboard.setVisibility(View.VISIBLE);
         } else {

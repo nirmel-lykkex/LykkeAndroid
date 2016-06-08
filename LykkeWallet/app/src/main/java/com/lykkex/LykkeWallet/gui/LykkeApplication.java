@@ -6,8 +6,11 @@ import android.graphics.Point;
 import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
+import com.lykkex.LykkeWallet.gui.utils.CustomJsonFloatDeserializer;
 import com.lykkex.LykkeWallet.rest.RestApi;
 
 import org.androidannotations.annotations.AfterInject;
@@ -78,10 +81,14 @@ public class LykkeApplication extends Application {
                 break;
         }
 
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Float.class, new CustomJsonFloatDeserializer())
+                .create();
+
         retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(apiUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         restApi = retrofit.create(RestApi.class);

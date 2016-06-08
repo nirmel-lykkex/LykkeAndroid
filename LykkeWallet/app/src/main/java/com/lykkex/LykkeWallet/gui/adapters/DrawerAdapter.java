@@ -47,7 +47,7 @@ public class DrawerAdapter extends BaseAdapter {
         listModel.add(drawerModel);
 
         drawerModel = new DrawerModel(LykkeApplication_.getInstance().
-                getResources().getString(R.string.trading_item),
+                getResources().getString(R.string.exchange_item),
                 R.drawable.trading_inactive, R.drawable.trading_active,
                 LykkeApplication_.getInstance().
                         getResources().getString(R.string.trading_title));

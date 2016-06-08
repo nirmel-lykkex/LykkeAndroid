@@ -53,9 +53,9 @@ public class TradingWalletFragment extends BaseFragment implements CallBackListe
 
     }
 
-    @Deprecated
-    public void initOnBackPressed() {
-        getActivity().finish();
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

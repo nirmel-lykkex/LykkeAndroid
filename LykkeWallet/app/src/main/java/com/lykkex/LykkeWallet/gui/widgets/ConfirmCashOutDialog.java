@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,31 +20,16 @@ import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.DealResultFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketData;
 import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSignIn;
 import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
-import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
-import com.lykkex.LykkeWallet.rest.trading.callback.PurchaseAssetCallBack;
-import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
-import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
-import com.lykkex.LykkeWallet.rest.trading.response.model.OrderResult;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
-import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 import com.lykkex.LykkeWallet.rest.wallet.callback.CashOutCallBack;
 import com.lykkex.LykkeWallet.rest.wallet.request.models.CashOut;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 

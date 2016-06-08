@@ -11,13 +11,13 @@ public class Rate {
     private String id;
 
     @SerializedName("Bid")
-    private String bid;
+    private Double bid;
 
     @SerializedName("Ask")
-    private String ask;
+    private Double ask;
 
     @SerializedName("ChngGrph")
-    private float[] pchng;
+    private Float[] pchng;
 
     public String getId() {
         return id;
@@ -27,27 +27,27 @@ public class Rate {
         this.id = id;
     }
 
-    public String getBid() {
+    public Double getBid() {
         return bid;
     }
 
-    public void setBid(String bid) {
+    public void setBid(Double bid) {
         this.bid = bid;
     }
 
-    public String getAsk() {
+    public Double getAsk() {
         return ask;
     }
 
-    public void setAsk(String ask) {
+    public void setAsk(Double ask) {
         this.ask = ask;
     }
 
-    public float[] getPchng() {
+    public Float[] getPchng() {
         return pchng;
     }
 
-    public void setPchng(float[] pchng) {
+    public void setPchng(Float[] pchng) {
         this.pchng = pchng;
     }
 

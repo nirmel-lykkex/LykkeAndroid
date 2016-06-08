@@ -27,7 +27,7 @@ public class SetUpPinActivity extends BasePinActivity{
     public void afterViews(){
         userPref.pin().put("");
         super.afterViews();
-        textView4.setText(R.string.enter_pin);
+        tvEnterPin.setText(R.string.enter_pin);
     }
 
     protected void setUpVisibility(){
@@ -37,7 +37,7 @@ public class SetUpPinActivity extends BasePinActivity{
                 if (userPref.pin().get().isEmpty()){
                     userPref.pin().put(pin);
                     resetUp();
-                    textView4.setText(R.string.re_enter_pin);
+                    tvEnterPin.setText(R.string.re_enter_pin);
                 } else if (userPref.pin().get().equals(pin)){
                     dialog.show();
                     CallBackPinSetUp callback = new CallBackPinSetUp(this, this);
@@ -47,7 +47,7 @@ public class SetUpPinActivity extends BasePinActivity{
                     call.enqueue(callback);
                 } else {
                     resetUp();
-                    textView4.setText(R.string.wrong_pin);
+                    tvEnterPin.setText(R.string.wrong_pin);
                     userPref.pin().put("");
                 }
                 break;

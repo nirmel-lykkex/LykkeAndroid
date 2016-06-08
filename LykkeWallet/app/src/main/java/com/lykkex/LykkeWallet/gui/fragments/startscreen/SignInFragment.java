@@ -32,6 +32,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.IOException;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -99,8 +100,11 @@ public class SignInFragment extends BaseFragment {
                     @Override
                     public void onResponse(Call<VerifyEmailData> call, Response<VerifyEmailData> response) {
                         if(!response.isSuccess()) {
-                            Log.e("ERROR", "Unexpected error while confirming email: " +
-                                    userManager.getRegistrationModel().getEmail() + ", " + response.errorBody());
+                            try {
+                                Log.e("ERROR", "Unexpected error while confirming email: " +
+                                        userManager.getRegistrationModel().getEmail() + ", " + response.errorBody().string());
+                            } catch (IOException e) {
+                            }
 
                             LykkeUtils.showError(getFragmentManager(), "Unexpected error while confirming email.");
 

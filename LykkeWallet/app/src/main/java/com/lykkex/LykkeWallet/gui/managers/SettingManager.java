@@ -1,15 +1,13 @@
-package com.lykkex.LykkeWallet.gui.models;
+package com.lykkex.LykkeWallet.gui.managers;
 
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
-
-import java.util.List;
 
 /**
  * Created by LIZA on 03.03.2016.
  */
-public class SettingSinglenton {
+public class SettingManager {
 
-    private static SettingSinglenton instance;
+    private static SettingManager instance;
     private int refreshTimer  = 15;
     private String  baseAssetId;
     private String baseAssetSymbol;
@@ -18,9 +16,9 @@ public class SettingSinglenton {
     private boolean shouldSignOrder;
     private boolean debugMode;
 
-    public static SettingSinglenton getInstance(){
+    public static SettingManager getInstance(){
         if (instance == null) {
-            instance = new SettingSinglenton();
+            instance = new SettingManager();
         }
         return instance;
     }

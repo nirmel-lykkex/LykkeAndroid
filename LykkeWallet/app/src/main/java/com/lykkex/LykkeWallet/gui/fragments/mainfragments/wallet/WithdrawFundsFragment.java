@@ -74,11 +74,6 @@ public class WithdrawFundsFragment extends BaseFragment implements TextWatcher, 
                 "dlg1" + new Random((int) Constants.DELAY_5000));
     }
 
-    @Deprecated
-    public void initOnBackPressed() {
-        ((BaseActivity)getActivity()).initFragment(new WithdrawFragment_(), getArguments());
-    }
-
     @Click(R.id.rel100)
     public void click100(){
         etAmount.setText("100");

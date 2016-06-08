@@ -11,11 +11,9 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.trading.callback.PurchaseAssetCallBack;
-import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
 import com.lykkex.LykkeWallet.rest.trading.response.model.Order;
 import com.lykkex.LykkeWallet.rest.trading.response.model.OrderData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.OrderResult;
@@ -122,11 +120,6 @@ public class DealResultFragment extends BaseFragment implements
             labelPosition.setText(order.getPosition());
         }
 
-    }
-
-    @Deprecated
-    public void initOnBackPressed() {
-        getActivity().finish();
     }
 
     @Click(R.id.btnClose)

@@ -119,10 +119,10 @@ public interface RestApi {
                                                     @Body SettingSignOrder order);
 
     @GET("api/AssetPairs")
-    Call<AssetPairData> getAssetPairs(@Header("Authorization")String authorization);
+    Call<AssetPairData> getAssetPairs();
 
     @GET("api/AssetPairRates")
-    Call<RatesData> getAssetPairsRates(@Header("Authorization")String authorization);
+    Call<RatesData> getAssetPairsRates();
 
     @GET("api/AssetPairRates/{id}")
     Call<RateData> getAssetPairsRate(@Header("Authorization")String authorization,

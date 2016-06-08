@@ -44,11 +44,6 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
         }
     }
 
-    @Deprecated
-    public void initOnBackPressed() {
-        ((BaseActivity)getActivity()).initFragment(new TradingWalletFragment_(), getArguments());
-    }
-
     @Click(R.id.tvPaste)
     public void clickPaste(){
         ClipboardManager  clipMan = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);

@@ -17,9 +17,9 @@ public class MakeTradeModel {
     private String volume;
 
     @SerializedName("Rate")
-    private String rate;
+    private Double rate;
 
-    public MakeTradeModel(String baseAsset, String assetPair, String volume, String rate) {
+    public MakeTradeModel(String baseAsset, String assetPair, String volume, Double rate) {
         this.baseAsset = baseAsset;
         this.assetPair = assetPair;
         this.volume = volume;
@@ -50,11 +50,11 @@ public class MakeTradeModel {
         this.volume = volume;
     }
 
-    public String getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 

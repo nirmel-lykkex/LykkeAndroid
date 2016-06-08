@@ -8,7 +8,7 @@ import com.lykkex.LykkeWallet.R;
 
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
@@ -48,7 +48,7 @@ public abstract class BaseCallBack<BaseModel> implements Callback<BaseModel> {
     }
 
     protected void setUpError(String error) {
-        if (SettingSinglenton.getInstance().isDebugMode()) {
+        if (SettingManager.getInstance().isDebugMode()) {
             Toast.makeText(activity, error, Toast.LENGTH_LONG).show();
         } else {
             LykkeUtils.showError(activity.getFragmentManager(), error);

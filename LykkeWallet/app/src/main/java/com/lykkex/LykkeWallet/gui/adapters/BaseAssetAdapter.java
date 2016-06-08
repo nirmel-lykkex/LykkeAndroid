@@ -8,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.internal.callback.BaseAssetCallback;
@@ -103,7 +102,7 @@ public class BaseAssetAdapter extends BaseAdapter implements CallBackListener{
             }
         });
 
-        if (SettingSinglenton.getInstance().getBaseAssetId().equals(
+        if (SettingManager.getInstance().getBaseAssetId().equals(
                 list[position].getId())){
             imgAsset.setVisibility(View.VISIBLE);
         } else {
@@ -125,7 +124,7 @@ public class BaseAssetAdapter extends BaseAdapter implements CallBackListener{
     public void onSuccess(Object result) {
         if (result instanceof BaseAssetResult){
             dialog.hide();
-            SettingSinglenton.getInstance().setBaseAssetId(id);
+            SettingManager.getInstance().setBaseAssetId(id);
             mContext.finish();
         }
     }

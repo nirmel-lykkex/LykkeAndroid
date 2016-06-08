@@ -8,7 +8,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.MainActivity_;
 import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.rest.internal.callback.SignSettingOrderCallBack;
@@ -33,6 +33,7 @@ public class EnterPinActivity extends BasePinActivity{
     public void afterViews(){
         super.afterViews();
 
+        tvEnterPin.setText(getString(R.string.enter_pin));
     }
 
     protected void setUpVisibility(){
@@ -85,14 +86,14 @@ public class EnterPinActivity extends BasePinActivity{
             if (result instanceof SettingSignOrder) {
                 dialog.dismiss();
 
-                SettingSinglenton.getInstance().setShouldSignOrder
-                        (!SettingSinglenton.getInstance().isShouldSignOrder());
+                SettingManager.getInstance().setShouldSignOrder
+                        (!SettingManager.getInstance().isShouldSignOrder());
                 Toast.makeText(this, R.string.sign_orders_was_changed, Toast.LENGTH_LONG).show();
                 finish();
             } else {
                 if (((SecurityData)result).getResult().isPassed()) {
                     SettingSignOrder order = new SettingSignOrder();
-                    order.setSignOrderBeforeGo(!SettingSinglenton.getInstance().isShouldSignOrder());
+                    order.setSignOrderBeforeGo(!SettingManager.getInstance().isShouldSignOrder());
                     SignSettingOrderCallBack callBack = new SignSettingOrderCallBack(this, this);
                     Call<SettingSignOrderData> call = LykkeApplication_.getInstance().getRestApi().
                             postSettingSignOrder(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
@@ -128,7 +129,7 @@ public class EnterPinActivity extends BasePinActivity{
     }
 
     protected void setUpError(String error) {
-        if (SettingSinglenton.getInstance().isDebugMode()) {
+        if (SettingManager.getInstance().isDebugMode()) {
             Toast.makeText(this, error, Toast.LENGTH_LONG).show();
         } else {
             LykkeUtils.showError(getFragmentManager(), error);

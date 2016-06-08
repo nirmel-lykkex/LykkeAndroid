@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +22,11 @@ import android.widget.Toast;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.DealResultFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.DealResultFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
 import com.lykkex.LykkeWallet.rest.pin.callback.CallBackPinSignIn;
 import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
 import com.lykkex.LykkeWallet.rest.trading.callback.AssetPairRateCallBack;
@@ -41,12 +38,9 @@ import com.lykkex.LykkeWallet.rest.trading.response.model.RateData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RateResult;
 import com.lykkex.LykkeWallet.rest.trading.response.model.RatesData;
 
-import org.androidannotations.annotations.sharedpreferences.Pref;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Set;
 
 import retrofit2.Call;
 
@@ -58,7 +52,7 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
 
     private String volume;
     private String totalCost;
-    private String rate;
+    private Double rate;
     private int accurancy;
 
     private TextView valueTotalCost;
@@ -130,7 +124,7 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
 
 
         totalCost = getArguments().getString(Constants.EXTRA_TOTAL_COST);
-        rate = getArguments().getString(Constants.EXTRA_RATE);
+        rate = getArguments().getDouble(Constants.EXTRA_RATE);
         volume = getArguments().getString(Constants.EXTRA_VOLUME);
         accurancy = getArguments().getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY);
         id = getArguments().getString(Constants.EXTRA_ASSETPAIR_ID);
@@ -239,11 +233,11 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
     }
 
     private void startHandler(){
-        handler.postDelayed(run, SettingSinglenton.getInstance().getRefreshTimer());
+        handler.postDelayed(run, SettingManager.getInstance().getRefreshTimer());
     }
 
     private void setUpValues(){
-        valuePrice.setText(rate);
+        valuePrice.setText(rate.toString());
         valueTotalCost.setText(totalCost);
         valueVolume.setText(volume);
         setUpCircles();
@@ -396,7 +390,7 @@ public class ConfirmDialog  extends DialogFragment implements View.OnClickListen
     private void generatePurhaseAsset(){
         setUpVisibility(View.GONE, View.VISIBLE);
         tvProgress.setText(R.string.sending_order);
-        MakeTradeModel model = new MakeTradeModel(SettingSinglenton.getInstance().getBaseAssetId(),
+        MakeTradeModel model = new MakeTradeModel(SettingManager.getInstance().getBaseAssetId(),
                 id, volume, rate);
         PurchaseAssetCallBack callback = new PurchaseAssetCallBack(this, getActivity());
         Call<OrderData> call  = LykkeApplication_.getInstance().getRestApi().

@@ -16,10 +16,8 @@ import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
-import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep3Fragment_;
-import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep4Fragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
@@ -29,8 +27,6 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -136,7 +132,7 @@ public abstract class BaseAuthenticationActivity extends AppCompatActivity {
     }
 
     protected void setUpError(String error) {
-        if (SettingSinglenton.getInstance().isDebugMode()) {
+        if (SettingManager.getInstance().isDebugMode()) {
             Toast.makeText(this, error, Toast.LENGTH_LONG).show();
         } else {
             LykkeUtils.showError(getFragmentManager(), error);

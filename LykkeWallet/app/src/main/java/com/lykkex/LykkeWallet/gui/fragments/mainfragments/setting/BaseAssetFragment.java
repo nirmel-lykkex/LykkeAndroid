@@ -9,11 +9,10 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.adapters.BaseAssetAdapter;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.internal.callback.BaseAssetCallback;
-import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetResult;
 
@@ -44,8 +43,8 @@ public class BaseAssetFragment extends BaseFragment implements CallBackListener 
         Call<BaseAssetData> call = LykkeApplication_.getInstance().
                 getRestApi().getBaseAssets(Constants.PART_AUTHORIZATION + pref.authToken().get());
         call.enqueue(baseAssetCallback);
-        if (SettingSinglenton.getInstance().getBaseAssets() == null
-                || SettingSinglenton.getInstance().getBaseAssets().length == 0){
+        if (SettingManager.getInstance().getBaseAssets() == null
+                || SettingManager.getInstance().getBaseAssets().length == 0){
             progressBar.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
         } else {
@@ -58,20 +57,15 @@ public class BaseAssetFragment extends BaseFragment implements CallBackListener 
 
     private void setUpAdapter(){
         BaseAssetAdapter assetAdapter = new BaseAssetAdapter
-                (SettingSinglenton.getInstance().getBaseAssets(), getActivity(),pref);
+                (SettingManager.getInstance().getBaseAssets(), getActivity(),pref);
         listView.setAdapter(assetAdapter);
 
-    }
-
-    @Deprecated
-    public void initOnBackPressed() {
-        getActivity().finish();
     }
 
     @Override
     public void onSuccess(Object result) {
         if (result instanceof BaseAssetResult){
-            SettingSinglenton.getInstance().setBaseAssets(((BaseAssetResult) result).getAsset());
+            SettingManager.getInstance().setBaseAssets(((BaseAssetResult) result).getAsset());
             setUpAdapter();
         }
     }

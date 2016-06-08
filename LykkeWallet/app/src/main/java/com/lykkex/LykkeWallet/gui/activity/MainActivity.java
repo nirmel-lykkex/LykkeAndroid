@@ -6,30 +6,22 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.adapters.DrawerAdapter;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.HistoryFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.HistoryFragment_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.SettingFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.SettingFragment_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment_;
-import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.internal.callback.BaseAssetCallback;
 import com.lykkex.LykkeWallet.rest.internal.callback.SettingCallBack;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
@@ -56,7 +48,7 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
     UserPref_ pref;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mTitle;
-    private SettingSinglenton singlenton;
+    private SettingManager singlenton;
 
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -69,7 +61,7 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
         getSetting();
         getBaseAssets();
         adapter = new DrawerAdapter(this);
-        singlenton = SettingSinglenton.getInstance();
+        singlenton = SettingManager.getInstance();
 
         drawerListView.setAdapter(adapter);
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());

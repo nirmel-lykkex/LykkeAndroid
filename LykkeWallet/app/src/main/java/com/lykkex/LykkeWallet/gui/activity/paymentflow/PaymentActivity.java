@@ -1,6 +1,5 @@
 package com.lykkex.LykkeWallet.gui.activity.paymentflow;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
@@ -12,7 +11,7 @@ import android.widget.ProgressBar;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
-import com.lykkex.LykkeWallet.gui.models.SettingSinglenton;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 
@@ -68,7 +67,7 @@ public class PaymentActivity extends ActionBarActivity {
 
         Map<String, String> extraHeaders = new HashMap<>();
         extraHeaders.put("Authorization", Constants.PART_AUTHORIZATION + userPref.authToken().get());
-        webViewPayment.loadUrl(SettingSinglenton.getInstance().getDepositUrl()+
+        webViewPayment.loadUrl(SettingManager.getInstance().getDepositUrl()+
                 String.format(Constants.SETUP_URL_PAYMENT,
                         userPref.email().get(),
                         assetId),
@@ -76,7 +75,7 @@ public class PaymentActivity extends ActionBarActivity {
     }
 
     private String getAssetName(String assetId){
-        SettingSinglenton setting = SettingSinglenton.getInstance();
+        SettingManager setting = SettingManager.getInstance();
         for (BaseAsset asset : setting.getBaseAssets()) {
             if (asset.getId().equals(assetId)) {
                 return asset.getName();
