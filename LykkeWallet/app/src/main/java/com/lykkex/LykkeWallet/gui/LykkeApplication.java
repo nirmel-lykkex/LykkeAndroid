@@ -2,6 +2,7 @@ package com.lykkex.LykkeWallet.gui;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;

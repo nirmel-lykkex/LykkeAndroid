@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep1Fragment;
 import com.lykkex.LykkeWallet.gui.fragments.registration.RegistrationStep1Fragment_;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
@@ -35,7 +36,7 @@ import retrofit2.Response;
  * Created by Murtic on 31/05/16.
  */
 @EFragment(R.layout.confirm_email_fragment)
-public class ConfirmEmailFragment extends Fragment {
+public class ConfirmEmailFragment extends BaseFragment {
 
     @ViewById
     EditText codeEditText;

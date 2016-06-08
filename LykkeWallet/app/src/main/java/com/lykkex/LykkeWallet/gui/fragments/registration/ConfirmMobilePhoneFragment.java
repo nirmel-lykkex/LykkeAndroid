@@ -13,6 +13,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
 import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.LykkeUtils;
@@ -35,7 +36,7 @@ import retrofit2.Response;
  * Created by Murtic on 31/05/16.
  */
 @EFragment(R.layout.confirm_mobile_phone_fragment)
-public class ConfirmMobilePhoneFragment extends Fragment {
+public class ConfirmMobilePhoneFragment extends BaseFragment {
 
     @ViewById
     StepsIndicator stepsIndicator;

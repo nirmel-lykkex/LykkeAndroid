@@ -4,6 +4,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
@@ -30,7 +31,7 @@ public class CameraIdCardFragment extends CameraBaseFragment {
     void afterViews() {
         super.afterViews();
 
-        userManager.getCameraModel().setType(CameraType.IdCard.toString());
+        setCameraType(CameraType.IdCard);
 
         tvInfo.setText(getString(R.string.id_card));
     }
@@ -44,7 +45,7 @@ public class CameraIdCardFragment extends CameraBaseFragment {
                 progressDialog.dismiss();
                 userManager.getCameraResult().setIdCard(false);
 
-                ((BaseActivity)getActivity()).initFragment(new CameraProofOfAddressFragment_(), null, false);
+                ((CameraActivity)getActivity()).goToNextStep();
             }
 
             @Override
@@ -54,8 +55,8 @@ public class CameraIdCardFragment extends CameraBaseFragment {
             }
         }, getActivity());
 
-        call.enqueue(callback);
-
         showProgress(call, callback);
+
+        call.enqueue(callback);
     }
 }

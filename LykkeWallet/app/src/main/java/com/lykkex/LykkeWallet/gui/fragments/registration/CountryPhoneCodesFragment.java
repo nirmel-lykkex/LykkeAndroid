@@ -12,6 +12,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.adapters.CountryPhoneCodesAdapter;
 import com.lykkex.LykkeWallet.gui.customviews.RichButton;
 import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodeData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodesData;
@@ -36,7 +37,7 @@ import retrofit2.Response;
  * Created by Murtic on 31/05/16.
  */
 @EFragment(R.layout.country_phone_codes_list_fragment)
-public class CountryPhoneCodesFragment extends Fragment {
+public class CountryPhoneCodesFragment extends BaseFragment {
 
     @ViewById
     ListViewCompat countryPhoneCodesList;

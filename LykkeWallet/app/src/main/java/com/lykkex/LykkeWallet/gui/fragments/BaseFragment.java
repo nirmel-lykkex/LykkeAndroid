@@ -30,4 +30,7 @@ public abstract class BaseFragment extends android.app.Fragment {
             if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
+
+    public void onBackPressed() {
+    }
 }

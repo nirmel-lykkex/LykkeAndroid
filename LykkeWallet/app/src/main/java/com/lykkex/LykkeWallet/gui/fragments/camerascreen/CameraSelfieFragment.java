@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
 import com.lykkex.LykkeWallet.gui.adapters.CountryPhoneCodesAdapter;
 import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
 import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
@@ -66,7 +67,7 @@ public class CameraSelfieFragment extends CameraBaseFragment {
     void afterViews() {
         super.afterViews();
 
-        userManager.getCameraModel().setType(CameraType.Selfie.toString());
+        setCameraType(CameraType.Selfie);
     }
 
     protected void sendImage(){
@@ -78,7 +79,7 @@ public class CameraSelfieFragment extends CameraBaseFragment {
                 progressDialog.dismiss();
                 userManager.getCameraResult().setSelfie(false);
 
-                ((BaseActivity)getActivity()).initFragment(new CameraIdCardFragment_(), null, false);
+                ((CameraActivity)getActivity()).goToNextStep();
             }
 
             @Override
@@ -88,8 +89,8 @@ public class CameraSelfieFragment extends CameraBaseFragment {
             }
         }, getActivity());
 
-        call.enqueue(callback);
-
         showProgress(call, callback);
+
+        call.enqueue(callback);
     }
 }

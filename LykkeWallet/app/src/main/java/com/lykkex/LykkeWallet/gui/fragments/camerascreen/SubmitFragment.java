@@ -8,6 +8,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.KysActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
+import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.models.CameraModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
@@ -44,12 +45,16 @@ public class SubmitFragment extends BaseFragment {
     @AfterViews
     public void afterViews(){
         CameraResult model = (CameraResult) getArguments().getSerializable(Constants.EXTRA_CAMERA_MODEL_GUI);
-        if (model.isProofOfAddress() || model.isIdCard() || model.isSelfie()) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        } else {
-            actionBar.setDisplayHomeAsUpEnabled(false);
+
+        if(actionBar != null) {
+            if (model.isProofOfAddress() || model.isIdCard() || model.isSelfie()) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            } else {
+                actionBar.setDisplayHomeAsUpEnabled(false);
+            }
         }
-        textView3.setText(String.format(getString(R.string.dear_it_checked),
+
+        textView3.setText(String.format(getString(R.string.dear_it_checked_submit),
                 userPref.fullName().get()));
     }
 

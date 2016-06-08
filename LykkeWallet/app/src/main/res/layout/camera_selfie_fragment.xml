@@ -44,6 +44,8 @@
         android:layout_marginLeft="30dp"
         android:layout_above="@id/buttonAction">
         <RelativeLayout
+            android:id="@+id/buttonFileContainer"
+            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1">
@@ -56,6 +58,8 @@
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/buttonShootContainer"
+            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1">

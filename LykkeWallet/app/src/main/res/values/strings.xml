@@ -37,6 +37,9 @@
     <string name="take_a_selfie">Take a selfie</string>
     <string name="nice_submit">NICE, SUBMIT</string>
 
+    <!-- SubmitFragment -->
+    <string name="dear_it_checked_submit">Dear %s you are about being reviewed by our KYC team.</string>
+
     <string name="wallet_item">Wallets</string>
     <string name="trading_item">Trading</string>
     <string name="history_item">History</string>
@@ -91,7 +94,7 @@
     <string name="email_hint">Email</string>
     <string name="mobile_hint">Phone number</string>
     <string name="proedure_approve">KYC PROCEDURE</string>
-    <string name="dear_it_checked">Dear %s you are about being reviewed by our KYC team.\nIt may take up to 15-20 minutes</string>
+    <string name="dear_it_checked">Dear %s, your information is being reviewed by our KYC team.\nAs soon as process is completed we will inform you by email.</string>
     <string name="succes_setup_document">Dear %s, thank you for your patience. Your documents are in order. Lets set up our security.</string>
     <string name="reupdate_doc">Dear %s, we\'re terribly sorry, but our compliance department have not accepted some of your documents. Please upload them one more time.</string>
     <string name = "inside">Login</string>
@@ -102,7 +105,7 @@
     <string name="server_error">Server error</string>
 
     <string name="ok">OK</string>
-    <string name="congrac">Congration!</string>
+    <string name="congrac">CONGRATULATIONS!</string>
     <string name="registration">REGISTRATION</string>
     <string name="login">LOGIN</string>
     <string name="reshoot">PLEASE, RESHOOT</string>
@@ -136,7 +139,7 @@
     <string name="cancel_waiting">Tap to cancel the upload operation</string>
     <string name="was_created">LYKKE WALLET WAS SUCCESSFULLY CREATED!</string>
     <string name="info_oops">Dear %s, we\'re terribly sorry, but Lykke Wallet can\'t be created based on the KYC information that you have provided.</string>
-    <string name="code_generated">Your private code is generated</string>
+    <string name="code_generated">We have generated your private key.</string>
     <string name="not_authorized">401 Not authorized</string>
     <string name="connect_to_server">Connection to server.\nPlease wait...</string>
     <string name="check_documents">Documents validation.\nPlease wait...</string>

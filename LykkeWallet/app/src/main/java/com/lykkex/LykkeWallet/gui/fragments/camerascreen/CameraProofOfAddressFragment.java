@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
+import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.camera.callback.SendDocumentsDataCallback;
@@ -31,7 +32,7 @@ public class CameraProofOfAddressFragment extends CameraBaseFragment {
     void afterViews() {
         super.afterViews();
 
-        userManager.getCameraModel().setType(CameraType.ProofOfAddress.toString());
+        setCameraType(CameraType.ProofOfAddress);
 
         tvInfo.setText(getString(R.string.proof_adress));
     }
@@ -48,7 +49,7 @@ public class CameraProofOfAddressFragment extends CameraBaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constants.EXTRA_CAMERA_MODEL_GUI, userManager.getCameraResult());
 
-                ((BaseActivity)getActivity()).initFragment(new SubmitFragment_(), bundle, false);
+                ((CameraActivity)getActivity()).goToNextStep();
             }
 
             @Override
@@ -58,8 +59,8 @@ public class CameraProofOfAddressFragment extends CameraBaseFragment {
             }
         }, getActivity());
 
-        call.enqueue(callback);
-
         showProgress(call, callback);
+
+        call.enqueue(callback);
     }
 }

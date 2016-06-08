@@ -77,7 +77,7 @@ public interface RestApi {
 
     @TIMEOUT(10000)
     @GET("/api/KycStatus")
-    Call<DocumentAnswerData> getKycStatus(@Header("Authorization") String authorization);
+    Call<DocumentAnswerData> getKycStatus();
 
     @TIMEOUT(10000)
     @POST("/api/KycStatus")

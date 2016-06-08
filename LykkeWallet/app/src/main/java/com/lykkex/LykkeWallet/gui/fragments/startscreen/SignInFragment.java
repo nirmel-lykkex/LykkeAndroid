@@ -13,6 +13,7 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.customviews.RichEditText;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -41,7 +42,7 @@ import retrofit2.Response;
  * Created by Murtic on 31/05/16.
  */
 @EFragment(R.layout.sign_in_fragment)
-public class SignInFragment extends Fragment {
+public class SignInFragment extends BaseFragment {
 
     @ViewById
     RichEditText emailRichEditText;

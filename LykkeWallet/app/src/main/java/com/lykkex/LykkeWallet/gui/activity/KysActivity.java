@@ -14,6 +14,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.pin.SetUpPinActivity_;
 import com.lykkex.LykkeWallet.gui.activity.selfie.CameraActivity_;
+import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
 import com.lykkex.LykkeWallet.gui.fragments.models.KysStatusEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -52,6 +53,9 @@ public class KysActivity extends Activity implements CallBackListener {
 
     @ViewById RelativeLayout sendDocumentRel;
     @ViewById ProgressBar progressBarsendDocument;
+
+    @ViewById StepsIndicator stepsIndicator;
+
     private ArrayList<Call<DocumentAnswerData>> listCallDoc = new ArrayList<>();
 
     @AfterViews
@@ -72,6 +76,8 @@ public class KysActivity extends Activity implements CallBackListener {
             fireKysStatus(getIntent().getExtras().getSerializable(Constants.EXTRA_KYS_STATUS).
                     toString());
         }
+
+        stepsIndicator.setCurrentStep(3);
     }
 
     @Click(R.id.btnUnderstandOops)
@@ -108,7 +114,7 @@ public class KysActivity extends Activity implements CallBackListener {
         sendDocumentRel.setVisibility(View.VISIBLE);
         CheckSecurityDocumentCallBack callback = new CheckSecurityDocumentCallBack(this, this);
         Call<DocumentAnswerData> call  = LykkeApplication_.getInstance().getRestApi().
-                getKycStatus(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+                getKycStatus();
         call.enqueue(callback);
         listCallDoc.add(call);
 

@@ -14,6 +14,7 @@ import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.customviews.StepsIndicator;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.models.RegistrationModelGUI;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.managers.UserManager;
@@ -36,7 +37,7 @@ import retrofit2.Response;
  * Created by Murtic on 31/05/16.
  */
 @EFragment(R.layout.registration_step_2_fragment)
-public class RegistrationStep2Fragment extends Fragment {
+public class RegistrationStep2Fragment extends BaseFragment {
 
     @ViewById
     StepsIndicator stepsIndicator;

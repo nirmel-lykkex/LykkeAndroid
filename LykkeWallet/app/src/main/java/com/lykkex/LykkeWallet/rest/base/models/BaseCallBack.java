@@ -40,8 +40,9 @@ public abstract class BaseCallBack<BaseModel> implements Callback<BaseModel> {
             Error error = new Error();
             error.setCode(Constants.ERROR_401);
             listener.onFail(error);
-            userPref.clear();
+
             setUpError(activity.getString(R.string.not_authorized));
+
             return;
         }
     }
