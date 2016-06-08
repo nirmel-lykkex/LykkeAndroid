@@ -251,7 +251,7 @@ public abstract class CameraBaseFragment extends BaseFragment {
             selectedImage = rotateBitmap(selectedImage, orientation);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            selectedImage.compress(Bitmap.CompressFormat.JPEG, 85, stream);
             byte[] byteArray = stream.toByteArray();
 
             userManager.getCameraModel().setData(Base64.encodeToString(byteArray, Base64.DEFAULT));

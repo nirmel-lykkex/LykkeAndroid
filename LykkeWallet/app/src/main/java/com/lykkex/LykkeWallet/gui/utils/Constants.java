@@ -18,6 +18,7 @@ public interface Constants {
     long DELAY_5000 = 5000L;
     long DELAY_500 = 500L;
 
+    String VERTICAL_ANIMATION = "vertical_animation";
     String SKIP_BACKSTACK = "skip_backstack";
 
     String BTC = "BTC";

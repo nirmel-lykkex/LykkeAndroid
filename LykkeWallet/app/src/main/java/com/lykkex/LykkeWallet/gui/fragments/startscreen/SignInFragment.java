@@ -72,6 +72,14 @@ public class SignInFragment extends BaseFragment {
                 "dlg1" +new Random((int) Constants.DELAY_5000));
     }
 
+    @Click({ R.id.tvWhatShouldKnow, R.id.whatShouldKnowImageView })
+    public void clickWhatShouldKnow() {
+        Bundle args = new Bundle();
+        args.putBoolean(Constants.VERTICAL_ANIMATION, true);
+
+        ((BaseActivity) getActivity()).initFragment(new DepositFragment_(), args);
+    }
+
     @Click(R.id.buttonAction)
     public void clickButtonAction(){
         final RegistrationModelGUI registrationModel = userManager.getRegistrationModel();

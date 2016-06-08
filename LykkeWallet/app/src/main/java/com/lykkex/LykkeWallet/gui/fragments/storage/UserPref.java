@@ -42,6 +42,9 @@ public interface UserPref {
     int idServer();
 
     @DefaultBoolean(true)
+    boolean isDepositVisible();
+
+    @DefaultBoolean(true)
     boolean isOpenBank();
 
     @DefaultBoolean(true)

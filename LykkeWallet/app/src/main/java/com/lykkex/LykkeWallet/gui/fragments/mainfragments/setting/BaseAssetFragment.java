@@ -36,7 +36,10 @@ public class BaseAssetFragment extends BaseFragment implements CallBackListener 
 
     @AfterViews
     public void afterViews(){
-        actionBar.setTitle(R.string.base_asset_title);
+        if(actionBar != null) {
+            actionBar.setTitle(R.string.base_asset_title);
+        }
+
         BaseAssetCallback baseAssetCallback = new BaseAssetCallback(this, getActivity());
         Call<BaseAssetData> call = LykkeApplication_.getInstance().
                 getRestApi().getBaseAssets(Constants.PART_AUTHORIZATION + pref.authToken().get());

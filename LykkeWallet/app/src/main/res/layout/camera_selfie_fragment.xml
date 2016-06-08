@@ -74,8 +74,8 @@
     </LinearLayout>
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="310dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/stepsIndicator"
         android:layout_above="@id/relButtons"
         android:layout_marginTop="20dp"

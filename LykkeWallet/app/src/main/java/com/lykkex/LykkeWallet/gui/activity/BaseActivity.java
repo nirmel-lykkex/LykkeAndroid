@@ -32,10 +32,10 @@ public class BaseActivity  extends AppCompatActivity {
     protected BaseFragment currentFragment;
 
     public void initFragment(BaseFragment fragment, Bundle arg) {
-        initFragment(fragment, arg, true);
+        initFragment(fragment, arg, false);
     }
 
-    public void initFragment(BaseFragment fragment, Bundle arg, boolean animate) {
+    public void initFragment(BaseFragment fragment, Bundle arg, boolean skipAnimation) {
         fragment.setArguments(arg);
         ActionBar actionBar = getSupportActionBar();
 
@@ -43,11 +43,15 @@ public class BaseActivity  extends AppCompatActivity {
 
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-        transaction.replace(R.id.fragmentContainer, fragment, fragment.getClass().getSimpleName());
-
-        if(animate) {
-            transaction.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim, R.animator.enter_anim_pop, R.animator.exit_anim_pop);
+        if(!skipAnimation) {
+            if(arg != null && arg.getBoolean(Constants.VERTICAL_ANIMATION, false)) {
+                transaction.setCustomAnimations(R.animator.enter_anim_y, R.animator.exit_anim_y, R.animator.enter_anim_pop_y, R.animator.exit_anim_pop_y);
+            } else {
+                transaction.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim, R.animator.enter_anim_pop, R.animator.exit_anim_pop);
+            }
         }
+
+        transaction.replace(R.id.fragmentContainer, fragment, fragment.getClass().getSimpleName());
 
         if(currentFragment != null && (arg == null || !arg.containsKey(Constants.SKIP_BACKSTACK) || !arg.getBoolean(Constants.SKIP_BACKSTACK))) {
             transaction.addToBackStack(fragment.getClass().getSimpleName());

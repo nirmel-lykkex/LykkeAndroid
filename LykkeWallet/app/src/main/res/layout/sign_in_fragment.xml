@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/what_should_i_know"
-        android:id="@+id/textView"
+        android:id="@+id/tvWhatShouldKnow"
         android:layout_above="@+id/whatShouldKnowImageView"
         android:layout_centerHorizontal="true" />
 

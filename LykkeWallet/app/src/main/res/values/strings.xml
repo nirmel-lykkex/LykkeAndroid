@@ -40,6 +40,10 @@
     <!-- SubmitFragment -->
     <string name="dear_it_checked_submit">Dear %s you are about being reviewed by our KYC team.</string>
 
+    <!-- DepositFragment -->
+    <string name="deposit_securely">DEPOSIT SECURELY</string>
+    <string name="desposit_securely_text">Deposit bitcoins and digital assets to multisig wallets with an encrypted private key</string>
+
     <string name="wallet_item">Wallets</string>
     <string name="trading_item">Trading</string>
     <string name="history_item">History</string>
