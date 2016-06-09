@@ -34,10 +34,17 @@ import retrofit2.Call;
 public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
         CallBackListener{
 
-    @ViewById SwipeRefreshLayout swipeRefresh;
-    @ViewById ListView listView;
+    @ViewById
+    SwipeRefreshLayout swipeRefresh;
+
+    @ViewById
+    ListView listView;
+
     private WalletAdapter adapter;
-    @Pref  UserPref_ userPref;
+
+    @Pref
+    UserPref_ userPref;
+
     private boolean shouldShowError = false;
     private boolean isItGet = false;
 
@@ -56,33 +63,31 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private void refreshContent(){
         WalletCallback callback = new WalletCallback(this, getActivity());
-        Call<LykkeWallerData> call = LykkeApplication_.getInstance().
-                getRestApi().getLykkeWallet(Constants.PART_AUTHORIZATION + userPref.authToken().get());
+        Call<LykkeWallerData> call = LykkeApplication_.getInstance().getRestApi().getLykkeWallet();
         call.enqueue(callback);
-
     }
-
 
     private void setUpAdapter(LykkeWalletResult result, boolean isItGet){
         if ((result == null || result.getBankCardses() == null
                 || result.getLykke() == null || result.getLykke().getAssets() == null ) ||
-                (result != null
-                        && result.getBankCardses() != null &&
+                (result != null && result.getBankCardses() != null &&
                         result.getLykke() != null && result.getLykke().getAssets() != null &&
-                        result.getBankCardses().length == 0 && result.getLykke().getAssets().length == 0)
-                        && isItGet){
+                        result.getBankCardses().length == 0 &&
+                        result.getLykke().getAssets().length == 0) && isItGet){
             result = WalletSinglenton.getInstance().getResult();
         }
+
         WalletSinglenton.getInstance().setResult(result);
+
         if (result != null && result.getBankCardses() != null &&
                 result.getLykke() != null && result.getLykke().getAssets() != null &&
                 result.getBankCardses().length == 0 && result.getLykke().getAssets().length == 0){
             isItGet = true;
         }
+
         adapter = new WalletAdapter(result, getActivity(), isItGet);
         listView.setAdapter(adapter);
         swipeRefresh.setRefreshing(false);
-
     }
 
     @Override

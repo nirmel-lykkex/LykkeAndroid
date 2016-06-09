@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +12,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-
         <ImageView
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
@@ -36,19 +34,17 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imgIcon"
             android:layout_toEndOf="@+id/imgIcon" />
-
-
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relInfo"
+        android:visibility="gone"
         android:orientation="vertical"
         android:layout_below="@+id/relMain"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
@@ -57,6 +53,5 @@
         android:id="@+id/dividerView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
-
 </RelativeLayout>
 

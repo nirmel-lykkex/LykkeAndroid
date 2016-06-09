@@ -98,6 +98,7 @@ public class DealResultFragment extends BaseFragment implements
         if (order.getTotalCost() == null || order.getTotalCost().isEmpty()) {
             linearCost.setVisibility(View.GONE);
         } else {
+            // TODO: Check error here
             labelCost.setText(new BigDecimal(order.getTotalCost()).
                     setScale(Constants.DEFAULT_PRECISION)
                     .toString());

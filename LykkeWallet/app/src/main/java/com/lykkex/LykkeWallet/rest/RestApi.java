@@ -92,7 +92,7 @@ public interface RestApi {
                                          @Query("Pin") String pin);
 
     @GET("/api/Wallets")
-    Call<LykkeWallerData> getLykkeWallet(@Header("Authorization")String authorization);
+    Call<LykkeWallerData> getLykkeWallet();
 
     @GET("/api/AppSettings")
     Call<SettingData> getAppSettings(@Header("Authorization")String authorization);
