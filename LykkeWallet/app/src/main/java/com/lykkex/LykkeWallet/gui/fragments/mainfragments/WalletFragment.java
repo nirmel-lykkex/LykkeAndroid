@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.adapters.WalletAdapter;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -31,7 +32,7 @@ import retrofit2.Call;
  * Created by LIZA on 29.02.2016.
  */
 @EFragment(R.layout.wallet_fragment)
-public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
+public class WalletFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         CallBackListener{
 
     @ViewById
@@ -90,6 +91,10 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
         swipeRefresh.setRefreshing(false);
     }
 
+    public void refreshAdapter() {
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onRefresh() {
         refreshContent();
@@ -100,8 +105,7 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
         if (result instanceof Error && shouldShowError && ((Error)result).getCode() !=
                 Constants.ERROR_401 && userPref.email().get() != null &&
                 !userPref.email().get().isEmpty()) {
-            Toast.makeText(getContext(), getString(R.string.server_error),
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.server_error), Toast.LENGTH_LONG).show();
         }
         shouldShowError = true;
         isItGet = true;
@@ -113,8 +117,7 @@ public class WalletFragment extends Fragment implements SwipeRefreshLayout.OnRef
         if ((error == null || ((Error)error).getCode() !=
                 Constants.ERROR_401) && shouldShowError && getActivity() != null
                 ){
-            Toast.makeText(getActivity(), getString(R.string.server_error),
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.server_error), Toast.LENGTH_LONG).show();
         }
         LykkeWalletResult res = new LykkeWalletResult();
         setUpAdapter(res, isItGet);

@@ -5,13 +5,10 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by e.kazimirova on 28.03.2016.
  */
-public class MarketOrder extends ItemHistory{
+public class MarketOrder extends ItemHistory {
 
     @SerializedName("OrderType")
     private String orderType;
-
-    @SerializedName("Volume")
-    private String volume;
 
     @SerializedName("Price")
     private String price;
@@ -43,10 +40,6 @@ public class MarketOrder extends ItemHistory{
 
     public String getOrderType() {
         return orderType;
-    }
-
-    public String getVolume() {
-        return volume;
     }
 
     public String getPrice() {

@@ -1,4 +1,4 @@
-package com.lykkex.LykkeWallet.gui.customviews;
+package com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet;
 
 import android.content.Context;
 import android.util.AttributeSet;

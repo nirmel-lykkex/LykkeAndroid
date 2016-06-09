@@ -18,6 +18,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity_;
 import com.lykkex.LykkeWallet.gui.activity.paymentflow.SettingActivity_;
 import com.lykkex.LykkeWallet.gui.activity.pin.EnterPinActivity_;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.enums.SettingEnum;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.managers.SettingManager;
@@ -39,7 +40,7 @@ import retrofit2.Response;
  * Created by LIZA on 29.02.2016.
  */
 @EFragment(R.layout.setting_fragment)
-public class SettingFragment extends Fragment {
+public class SettingFragment extends BaseFragment {
 
     @ViewById Switch switchCheck;
     @Pref  UserPref_ userPref;

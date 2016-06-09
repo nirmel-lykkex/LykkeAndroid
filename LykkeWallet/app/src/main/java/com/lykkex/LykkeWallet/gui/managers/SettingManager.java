@@ -2,6 +2,12 @@ package com.lykkex.LykkeWallet.gui.managers;
 
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by LIZA on 03.03.2016.
  */
@@ -11,7 +17,7 @@ public class SettingManager {
     private int refreshTimer  = 15;
     private String  baseAssetId;
     private String baseAssetSymbol;
-    private BaseAsset[] baseAssets;
+    private Map<String, BaseAsset> baseAssets;
     private String depositUrl;
     private boolean shouldSignOrder;
     private boolean debugMode;
@@ -21,6 +27,10 @@ public class SettingManager {
             instance = new SettingManager();
         }
         return instance;
+    }
+
+    private SettingManager() {
+        this.baseAssets = new LinkedHashMap<>();
     }
 
     public boolean isDebugMode() {
@@ -55,12 +65,18 @@ public class SettingManager {
         this.baseAssetSymbol = baseAssetSymbol;
     }
 
-    public BaseAsset[] getBaseAssets() {
-        return baseAssets;
+    public List<BaseAsset> getBaseAssets() {
+        return new ArrayList(baseAssets.values());
     }
 
     public void setBaseAssets(BaseAsset[] baseAssets) {
-        this.baseAssets = baseAssets;
+        for(BaseAsset baseAsset : baseAssets) {
+            this.baseAssets.put(baseAsset.getId(), baseAsset);
+        }
+    }
+
+    public BaseAsset getBaseAsset(String id) {
+        return baseAssets.get(id);
     }
 
     public String getDepositUrl() {

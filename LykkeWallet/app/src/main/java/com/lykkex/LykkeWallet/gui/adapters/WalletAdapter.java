@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import com.lykkex.LykkeWallet.gui.customviews.WalletListItem;
-import com.lykkex.LykkeWallet.gui.customviews.WalletListItem_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet.WalletListItem;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet.WalletListItem_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
@@ -36,7 +36,7 @@ public class WalletAdapter extends BaseAdapter {
 
         if(lykkeWallet != null) {
             for (AssetsWallet wallet : lykkeWallet.getLykke().getAssets()) {
-                if (wallet.getBalance().doubleValue() < 0 && !wallet.isHideIfZero()) {
+                if (wallet.getBalance().doubleValue() <= 0 && wallet.isHideIfZero()) {
                     continue;
                 }
 

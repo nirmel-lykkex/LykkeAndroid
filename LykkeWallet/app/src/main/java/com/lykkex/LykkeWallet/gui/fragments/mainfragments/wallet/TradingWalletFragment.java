@@ -61,7 +61,7 @@ public class TradingWalletFragment extends BaseFragment implements CallBackListe
     @Override
     public void onSuccess(Object result) {
         if (result instanceof History) {
-            dialog.hide();
+            dialog.dismiss();
             adapter = new HistoryAdapter(((History) result).getList(), getActivity());
             listView.setAdapter(adapter);
         }
@@ -74,9 +74,8 @@ public class TradingWalletFragment extends BaseFragment implements CallBackListe
 
     private void getHistory(){
         HistoryCallBack callBack = new HistoryCallBack(this, getActivity());
-        Call<HistoryData> call = LykkeApplication_.getInstance().getRestApi().getHistory
-                (Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                        "?assetId=" + assetsWallet.getAssetPairId());
+        Call<HistoryData> call = LykkeApplication_.getInstance().getRestApi()
+                .getHistory(assetsWallet.getId());
         call.enqueue(callBack);
     }
 

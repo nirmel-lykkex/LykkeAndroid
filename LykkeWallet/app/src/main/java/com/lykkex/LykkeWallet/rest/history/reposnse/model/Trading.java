@@ -9,10 +9,4 @@ import java.math.BigDecimal;
  */
 public class Trading extends ItemHistory {
 
-    @SerializedName("Volume")
-    private BigDecimal volume;
-
-    public BigDecimal getVolume() {
-        return volume;
-    }
 }

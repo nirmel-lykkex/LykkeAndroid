@@ -13,6 +13,18 @@ public class BaseAsset {
     @SerializedName("Name")
     protected String name;
 
+    @SerializedName("HideDeposit")
+    protected Boolean hideDeposit = false;
+
+    @SerializedName("HideWithdraw")
+    protected Boolean hideWithdraw = false;
+
+    @SerializedName("Symbol")
+    protected String symbol;
+
+    @SerializedName("Accuracy")
+    protected String accuracy;
+
     public String getId() {
         return id;
     }
@@ -29,4 +41,35 @@ public class BaseAsset {
         this.name = name;
     }
 
+    public Boolean getHideDeposit() {
+        return hideDeposit;
+    }
+
+    public void setHideDeposit(Boolean hideDeposit) {
+        this.hideDeposit = hideDeposit;
+    }
+
+    public Boolean getHideWithdraw() {
+        return hideWithdraw;
+    }
+
+    public void setHideWithdraw(Boolean hideWithdraw) {
+        this.hideWithdraw = hideWithdraw;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(String accuracy) {
+        this.accuracy = accuracy;
+    }
 }

@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.setting;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -29,9 +30,14 @@ import retrofit2.Call;
 @EFragment(R.layout.base_asset_fragment)
 public class BaseAssetFragment extends BaseFragment implements CallBackListener {
 
-    @ViewById  ListView listView;
-    @ViewById ProgressBar progressBar;
-    @Pref  UserPref_ pref;
+    @ViewById
+    ListView listView;
+
+    @ViewById
+    ProgressBar progressBar;
+
+    @Pref
+    UserPref_ pref;
 
     @AfterViews
     public void afterViews(){
@@ -40,11 +46,11 @@ public class BaseAssetFragment extends BaseFragment implements CallBackListener 
         }
 
         BaseAssetCallback baseAssetCallback = new BaseAssetCallback(this, getActivity());
-        Call<BaseAssetData> call = LykkeApplication_.getInstance().
-                getRestApi().getBaseAssets(Constants.PART_AUTHORIZATION + pref.authToken().get());
+        Call<BaseAssetData> call = LykkeApplication_.getInstance().getRestApi().getBaseAssets();
         call.enqueue(baseAssetCallback);
+
         if (SettingManager.getInstance().getBaseAssets() == null
-                || SettingManager.getInstance().getBaseAssets().length == 0){
+                || SettingManager.getInstance().getBaseAssets().size() == 0){
             progressBar.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
         } else {
@@ -57,9 +63,8 @@ public class BaseAssetFragment extends BaseFragment implements CallBackListener 
 
     private void setUpAdapter(){
         BaseAssetAdapter assetAdapter = new BaseAssetAdapter
-                (SettingManager.getInstance().getBaseAssets(), getActivity(),pref);
+                (SettingManager.getInstance().getBaseAssets(), getActivity());
         listView.setAdapter(assetAdapter);
-
     }
 
     @Override
@@ -72,6 +77,6 @@ public class BaseAssetFragment extends BaseFragment implements CallBackListener 
 
     @Override
     public void onFail(Object error) {
-
+        Log.e(BaseAssetFragment.class.getSimpleName(), "Error while loading base assets");
     }
 }

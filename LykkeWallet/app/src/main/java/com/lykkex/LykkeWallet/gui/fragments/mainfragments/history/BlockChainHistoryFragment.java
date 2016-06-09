@@ -230,7 +230,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements SwipeRefr
 
     @Override
     public void onSuccess(Object result) {
-        dialog.hide();
+        dialog.dismiss();
         if (result instanceof TransactionResult) {
             if (((TransactionResult) result).getTransaction() != null) {
                 initTransaction((TransactionResult) result);
@@ -379,7 +379,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements SwipeRefr
                 viewAssetTrading, result.getMarketOrder().getAsset());
 
         initField(linearUnitPurchaesed, labelUnitPurchaesed,
-                viewUnitPurchaesed, result.getMarketOrder().getVolume());
+                viewUnitPurchaesed, result.getMarketOrder().getVolume().toPlainString());
 
         initField(linearExecutionPrice, labelExecutionPrice,
                 viewExecutionPrice, result.getMarketOrder().getPrice());
@@ -472,7 +472,7 @@ public class BlockChainHistoryFragment extends BaseFragment implements SwipeRefr
 
     @Override
     public void onFail(Object error) {
-        dialog.hide();
+        dialog.dismiss();
         initNull();
     }
 }

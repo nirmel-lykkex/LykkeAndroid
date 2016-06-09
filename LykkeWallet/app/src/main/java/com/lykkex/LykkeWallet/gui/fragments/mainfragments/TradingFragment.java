@@ -12,6 +12,7 @@ import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.customviews.TraidingItem;
 import com.lykkex.LykkeWallet.gui.customviews.TraidingItem_;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.managers.AssetPairManager;
 import com.lykkex.LykkeWallet.gui.managers.SettingManager;
@@ -40,7 +41,7 @@ import retrofit2.Response;
  * Created by LIZA on 29.02.2016.
  */
 @EFragment(R.layout.trading_fragment)
-public class TradingFragment extends Fragment {
+public class TradingFragment extends BaseFragment {
 
     @Pref
     UserPref_ pref;
@@ -146,7 +147,7 @@ public class TradingFragment extends Fragment {
 
         if (assetPairManager.isCollapsed()) {
             for (AssetPair pair : result.getAssetPairs()) {
-                TraidingItem traidingItem = TraidingItem_.build(getContext());
+                TraidingItem traidingItem = TraidingItem_.build(getActivity());
                 traidingItem.setAssetPair(pair);
 
                 linearEntity.addView(traidingItem);

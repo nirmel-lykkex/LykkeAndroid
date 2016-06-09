@@ -17,6 +17,8 @@ import com.lykkex.LykkeWallet.gui.activity.HistoryActivity;
 import com.lykkex.LykkeWallet.gui.activity.HistoryActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.history.BlockChainHistoryFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.tradings.BlockchainFragment_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet.HistoryItem;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet.HistoryItem_;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.CashInOut;
@@ -35,7 +37,7 @@ import java.util.List;
 public class HistoryAdapter extends BaseAdapter {
 
     private List<ItemHistory> list = new ArrayList<>();
-    private  Context context;
+    private Context context;
 
     public HistoryAdapter(List<ItemHistory> list, Context context){
         this.list = list;
@@ -59,70 +61,15 @@ public class HistoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, final View convertView, ViewGroup viewGroup) {
-         View view = convertView;
+        HistoryItem view = (HistoryItem) convertView;
+
         if (view == null) {
-            LayoutInflater lInflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = lInflater.inflate(R.layout.history_item, viewGroup, false);
+            view = HistoryItem_.build(context);
         }
 
-        TextView tvName = (TextView) view.findViewById(R.id.tvName);
-        TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
-        TextView tvAmount = (TextView) view.findViewById(R.id.tvAmount);
-        ImageView imgLykke = (ImageView) view.findViewById(R.id.imgLykke);
+        view.render(list.get(position));
 
-        ItemHistory item = list.get(position);
-        tvDateTime.setText(item.getDateTime());
-
-        if (item instanceof CashInOut) {
-            if (((CashInOut) item).getAmount().compareTo(BigDecimal.ZERO) > 0 ) {
-                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.cash_in_name));
-            } else {
-                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.cash_out_name));
-            }
-            setUpColor(tvAmount, (((CashInOut) item).getAmount()).
-                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset()),  RoundingMode.HALF_EVEN).
-                    stripTrailingZeros().toPlainString());
-        } else {
-            if (((Trading) item).getVolume().compareTo(BigDecimal.ZERO) > 0 ) {
-                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.exchange_in_name));
-            } else {
-                tvName.setText(item.getAsset() + " " + context.getResources().getString(R.string.exchange_out_name));
-            }
-            setUpColor(tvAmount, ((Trading) item).getVolume().
-                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset()),
-                            RoundingMode.HALF_EVEN).stripTrailingZeros().toPlainString());
-        }
-
-        if (item.getIconId().equals("BTC")){
-            imgLykke.setBackgroundResource(R.drawable.bitcoin);
-        } else if (item.getIconId().equals("LKE")){
-            imgLykke.setBackgroundResource(R.drawable.logo);
-        }
-
-        view.setClickable(true);
-        view.setTag(item);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, HistoryActivity_.class);
-                intent.putExtra(Constants.EXTRA_HISTORY_ITEM, (ItemHistory) view.getTag());
-                ((BaseActivity)context).startActivity(intent);
-            }
-        });
         return view;
-
-    }
-
-    private void setUpColor(TextView tvAmount, String amount){
-        if (new BigDecimal(amount).compareTo(BigDecimal.ZERO) == -1) {
-            tvAmount.setText(amount);
-            tvAmount.setTextColor(context.getResources().getColor(R.color.red_minus));
-        } else {
-            tvAmount.setText("+" + amount);
-            tvAmount.setTextColor(context.getResources().getColor(R.color.green_plus));
-        }
 
     }
 }

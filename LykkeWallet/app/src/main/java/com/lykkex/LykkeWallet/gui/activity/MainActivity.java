@@ -1,11 +1,12 @@
 package com.lykkex.LykkeWallet.gui.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import com.lykkex.LykkeWallet.gui.adapters.DrawerAdapter;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.HistoryFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.SettingFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.managers.SettingManager;
@@ -41,13 +43,21 @@ import retrofit2.Call;
  */
 @EActivity(R.layout.main_activity)
 public class MainActivity  extends BaseActivity implements CallBackListener{
+
     private DrawerAdapter adapter;
-    @ViewById DrawerLayout drawerLayout;
-    @ViewById ListView drawerListView;
+
+    @ViewById
+    DrawerLayout drawerLayout;
+
+    @ViewById
+    ListView drawerListView;
+
     @Pref
     UserPref_ pref;
     private ActionBarDrawerToggle mDrawerToggle;
+
     private String mTitle;
+
     private SettingManager singlenton;
 
     public void onCreate(Bundle bundle){
@@ -56,6 +66,7 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
     }
+
     @AfterViews
     public void afterViews() {
         getSetting();
@@ -99,10 +110,23 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
     }
 
     private void getBaseAssets(){
-        BaseAssetCallback baseAssetCallback = new BaseAssetCallback(this, this);
         Call<BaseAssetData> call = LykkeApplication_.getInstance().
-                getRestApi().getBaseAssets(Constants.PART_AUTHORIZATION + pref.authToken().get());
-        call.enqueue(baseAssetCallback);
+                getRestApi().getBaseAssets();
+        call.enqueue(new BaseAssetCallback(new CallBackListener<BaseAssetResult>() {
+            @Override
+            public void onSuccess(BaseAssetResult result) {
+                singlenton.setBaseAssets(result.getAsset());
+
+                if(currentFragment instanceof WalletFragment) {
+                    ((WalletFragment) currentFragment).refreshAdapter();
+                }
+            }
+
+            @Override
+            public void onFail(Object error) {
+                Log.e(MainActivity.class.getSimpleName(), "Error while loading base assets");
+            }
+        }, this));
     }
 
     @Override
@@ -122,10 +146,7 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
 
     @Override
     public void onSuccess(Object result) {
-        if (result instanceof BaseAssetResult) {
-             singlenton.setBaseAssets(
-                     ((BaseAssetResult) result).getAsset());
-        } else if (result instanceof SettingResult) {
+        if (result instanceof SettingResult) {
             singlenton.setDebugMode(((SettingResult) result).isDebugMode());
             singlenton.setShouldSignOrder(
                     ((SettingResult) result).getSignOrder());
@@ -178,7 +199,7 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainer, fragment).commit();
 

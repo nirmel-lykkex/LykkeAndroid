@@ -98,14 +98,13 @@ public interface RestApi {
     Call<SettingData> getAppSettings(@Header("Authorization")String authorization);
 
     @GET("/api/BaseAsset")
-    Call<BaseAssetData> getBaseAsset(@Header("Authorization")String authorization);
+    Call<BaseAssetData> getBaseAsset();
 
     @GET("/api/BaseAssets")
-    Call<BaseAssetData> getBaseAssets(@Header("Authorization")String authorization);
+    Call<BaseAssetData> getBaseAssets();
 
     @POST("/api/BaseAsset")
-    Call<BaseAssetData> postBaseAsset(@Header("Authorization")String authorization,
-                                      @Body IdBaseAsset id);
+    Call<BaseAssetData> postBaseAsset(@Body IdBaseAsset id);
 
     @POST("/api/BankCards")
     Call<BankCardsData> postBankCards(@Header("Authorization")String authorization,
@@ -144,9 +143,8 @@ public interface RestApi {
     Call<TransactionData> getBlockChainTransaction(@Header("Authorization")String authorization,
                                             @Path("orderId") String orderId);
 
-    @GET("api/Transactions{assetId}")
-    Call<HistoryData> getHistory(@Header("Authorization")String authorization,
-                                 @Path("assetId") String assetId);
+    @GET("api/Transactions")
+    Call<HistoryData> getHistory(@Query("assetId") String assetId);
 
     @GET("/api/BcnTransactionByCashOperation/{id}")
     Call<TransactionData> getBcnTransactionByCashOperation(@Header("Authorization")String authorization,

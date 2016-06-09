@@ -3,12 +3,14 @@ package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.adapters.HistoryAdapter;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
@@ -28,16 +30,20 @@ import retrofit2.Call;
  * Created by LIZA on 29.02.2016.
  */
 @EFragment(R.layout.history_fragment)
-public class HistoryFragment extends Fragment implements CallBackListener, SwipeRefreshLayout.OnRefreshListener{
+public class HistoryFragment extends BaseFragment implements CallBackListener, SwipeRefreshLayout.OnRefreshListener{
 
-    @Pref UserPref_ userPref;
+    @Pref
+    UserPref_ userPref;
+
     private ProgressDialog dialog;
+
     @ViewById
     SwipeRefreshLayout swipeRefresh;
+
     private HistoryAdapter adapter;
+
     @ViewById
     ListView listView;
-
 
     @AfterViews
     public void afterViews(){
@@ -50,16 +56,14 @@ public class HistoryFragment extends Fragment implements CallBackListener, Swipe
 
     private void getHistory(){
         HistoryCallBack callBack = new HistoryCallBack(this, getActivity());
-        Call<HistoryData> call = LykkeApplication_.getInstance().getRestApi().getHistory
-                (Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                        "?assetId=null");
+        Call<HistoryData> call = LykkeApplication_.getInstance().getRestApi().getHistory("null");
         call.enqueue(callBack);
     }
 
     @Override
     public void onSuccess(Object result) {
         if (result instanceof History) {
-            dialog.hide();
+            dialog.dismiss();
             adapter = new HistoryAdapter(((History) result).getList(), getActivity());
             listView.setAdapter(adapter);
             swipeRefresh.setRefreshing(false);
@@ -68,7 +72,7 @@ public class HistoryFragment extends Fragment implements CallBackListener, Swipe
 
     @Override
     public void onFail(Object error) {
-
+        Log.e(HistoryFragment.class.getSimpleName(), "Error while loading history.");
     }
 
     @Override
