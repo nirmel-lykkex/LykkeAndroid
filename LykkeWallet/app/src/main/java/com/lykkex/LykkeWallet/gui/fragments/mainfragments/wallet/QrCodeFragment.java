@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,51 +47,78 @@ import retrofit2.Call;
 @EFragment(R.layout.fragment_qr_code)
 public class QrCodeFragment extends BaseFragment implements CallBackListener {
 
+    @Pref
+    UserPref_ userPref;
+
+    @ViewById
+    ImageView qrCodeImg;
+
+    @ViewById
+    TextView tvHashCode;
+
+    @ViewById
+    TextView tvWalletAddress;
+
     private AssetsWallet assetsWallet;
     private String hashCode;
-    @Pref UserPref_ userPref;
-    @ViewById ImageView qrCodeImg;
-    @ViewById TextView tvHashCode;
-    @ViewById TextView tvWalletAddress;
 
     @AfterViews
     public void afterViews(){
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         assetsWallet = (AssetsWallet) getArguments().getSerializable(Constants.EXTRA_ASSET);
+
         if (isColoredMultising()){
             hashCode = WalletSinglenton.getInstance().getResult().getColoredMultiSig();
         } else {
             hashCode = WalletSinglenton.getInstance().getResult().getMultiSig();
         }
+
         actionBar.setTitle(getString(R.string.deposit_bitcoin) + " " + assetsWallet.getAssetPairId() );
 
         tvWalletAddress.setAlpha((float) 0.6);
         tvHashCode.setText(hashCode);
-        try {
-            Bitmap qrCode = generateQrCode(hashCode);
-            qrCodeImg.setImageBitmap(qrCode);
-        } catch (WriterException e) {
-            e.printStackTrace();
+
+        final View rootView = getView();
+
+        if(rootView != null) {
+            rootView.post(new Runnable() {
+                @Override
+                public void run() {
+                    int width = rootView.getMeasuredWidth();
+                    try {
+                        Bitmap qrCode = generateQrCode("bitcoin:" + hashCode, (int)(width / 1.5));
+
+                        qrCodeImg.setImageBitmap(qrCode);
+                    } catch (WriterException e) {
+                    }
+                }
+            });
         }
     }
 
-    public static Bitmap generateQrCode(String myCodeText) throws WriterException {
+    public static Bitmap generateQrCode(String myCodeText, int size) throws WriterException {
         Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
         hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H); // H = 30% damage
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-        int size = 256;
-
-        BitMatrix bitMatrix = qrCodeWriter.encode(myCodeText, BarcodeFormat.QR_CODE, size, size, hintMap);
+        BitMatrix bitMatrix = qrCodeWriter.encode(myCodeText, BarcodeFormat.QR_CODE, size, size, null);
         int width = bitMatrix.getWidth();
-        Bitmap bmp = Bitmap.createBitmap(width, width, Bitmap.Config.RGB_565);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < width; y++) {
-                bmp.setPixel(y, x, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+
+        int[] pixels = new int[width * width];
+        for (int y = 0; y < width; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                pixels[offset + x] = bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE;
             }
         }
+
+        Bitmap bmp = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
+
+        bmp.setPixels(pixels, 0, width, 0, 0, width, width);
+
         return bmp;
     }
 

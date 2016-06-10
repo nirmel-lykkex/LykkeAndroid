@@ -32,11 +32,14 @@ public class TradingWalletFragment extends BaseFragment implements CallBackListe
 
     private AssetsWallet assetsWallet;
 
-    @Pref UserPref_ userPref;
-    @ViewById ListView listView;
+    @Pref
+    UserPref_ userPref;
+
+    @ViewById
+    ListView listView;
+
     private ProgressDialog dialog;
     private HistoryAdapter adapter;
-
 
     @AfterViews
     public void afterViews(){
@@ -50,12 +53,6 @@ public class TradingWalletFragment extends BaseFragment implements CallBackListe
         assetsWallet = (AssetsWallet) getArguments().getSerializable(Constants.EXTRA_ASSET);
 
         getHistory();
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
     @Override
