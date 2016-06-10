@@ -102,7 +102,7 @@ public class SettingFragment extends BaseFragment {
                     call.enqueue(new Callback<AppInfoData>() {
                         @Override
                         public void onResponse(Call<AppInfoData> call, Response<AppInfoData> response) {
-                            if(response.body() instanceof AppInfoData) {
+                            if(response.body() instanceof AppInfoData && isAdded()) {
                                 tvApiVersion.setText(getString(R.string.api_version, response.body().getResult().getAppVersion()));
                             }
                         }

@@ -131,6 +131,7 @@
     <string name="wallet_address">Wallet Address</string>
     <string name="email_me">EMAIL ME</string>
     <string name="copy">COPY</string>
+    <string name="copied">Copied.</string>
     <string name="check_email">Please check your %s mailbox.</string>
     <string name="proof_adress">Take a photo of your Proof of Address</string>
     <string name="waiting">Waiting...</string>

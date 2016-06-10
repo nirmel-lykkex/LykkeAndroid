@@ -1,6 +1,8 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet;
 
 import android.app.ProgressDialog;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.lykkex.LykkeWallet.R;
@@ -9,11 +11,13 @@ import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.adapters.HistoryAdapter;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
+import com.lykkex.LykkeWallet.gui.managers.SettingManager;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.rest.history.callback.HistoryCallBack;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.History;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.HistoryData;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.AssetsWallet;
 
 import org.androidannotations.annotations.AfterViews;
@@ -38,6 +42,12 @@ public class TradingWalletFragment extends BaseFragment implements CallBackListe
     @ViewById
     ListView listView;
 
+    @ViewById
+    Button btnWithdraw;
+
+    @ViewById
+    Button btnDeposit;
+
     private ProgressDialog dialog;
     private HistoryAdapter adapter;
 
@@ -51,6 +61,20 @@ public class TradingWalletFragment extends BaseFragment implements CallBackListe
         dialog.setMessage(getString(R.string.waiting));
         dialog.show();
         assetsWallet = (AssetsWallet) getArguments().getSerializable(Constants.EXTRA_ASSET);
+
+        BaseAsset baseAsset = SettingManager.getInstance().getBaseAsset(assetsWallet.getId());
+
+        if (baseAsset == null || baseAsset.getHideWithdraw()) {
+            btnWithdraw.setVisibility(Button.INVISIBLE);
+        } else {
+            btnWithdraw.setVisibility(Button.VISIBLE);
+        }
+
+        if (baseAsset == null || baseAsset.getHideWithdraw()) {
+            btnDeposit.setVisibility(Button.INVISIBLE);
+        } else {
+            btnDeposit.setVisibility(Button.VISIBLE);
+        }
 
         getHistory();
     }

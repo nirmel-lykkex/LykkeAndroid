@@ -155,7 +155,7 @@ public interface RestApi {
                                                            @Path("id") String orderId);
 
     @POST("/api/SendBlockchainEmail")
-    Call<EmailData> sendBlockchainEmail(@Header("Authorization")String authorization);
+    Call<EmailData> sendBlockchainEmail(@Query(value = "assetId") String assetId);
 
     @GET("/api/MarketOrder/{orderId}")
     Call<MarketData> getMarketOder(@Header("Authorization")String authorization,

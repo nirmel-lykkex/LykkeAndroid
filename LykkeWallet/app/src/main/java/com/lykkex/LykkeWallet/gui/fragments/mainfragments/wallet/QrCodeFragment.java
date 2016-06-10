@@ -88,7 +88,7 @@ public class QrCodeFragment extends BaseFragment implements CallBackListener {
                 public void run() {
                     int width = rootView.getMeasuredWidth();
                     try {
-                        Bitmap qrCode = generateQrCode("bitcoin:" + hashCode, (int)(width / 1.5));
+                        Bitmap qrCode = generateQrCode("bitcoin:" + hashCode, (int)(width / 1.25));
 
                         qrCodeImg.setImageBitmap(qrCode);
                     } catch (WriterException e) {
@@ -134,9 +134,7 @@ public class QrCodeFragment extends BaseFragment implements CallBackListener {
     @Click(R.id.btnEmailMe)
     public void clickEmailMe(){
         EmailCallBack callBack = new EmailCallBack(this, getActivity());
-        Call<EmailData> call = LykkeApplication_.getInstance().getRestApi().sendBlockchainEmail(
-                Constants.PART_AUTHORIZATION + userPref.authToken().get()
-        );
+        Call<EmailData> call = LykkeApplication_.getInstance().getRestApi().sendBlockchainEmail(assetsWallet.getId());
         call.enqueue(callBack);
     }
 
@@ -146,6 +144,8 @@ public class QrCodeFragment extends BaseFragment implements CallBackListener {
                 Activity.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(hashCode, hashCode);
         clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(getActivity(), getString(R.string.copied), Toast.LENGTH_LONG).show();
     }
 
     @Override

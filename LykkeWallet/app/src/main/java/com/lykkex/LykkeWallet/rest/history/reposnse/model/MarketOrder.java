@@ -2,6 +2,8 @@ package com.lykkex.LykkeWallet.rest.history.reposnse.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 /**
  * Created by e.kazimirova on 28.03.2016.
  */
@@ -37,6 +39,16 @@ public class MarketOrder extends ItemHistory {
     @SerializedName("Accuracy")
     private String accuracy;
 
+    @SerializedName("Volume")
+    private BigDecimal volume;
+
+    public BigDecimal getVolume() {
+        return volume;
+    }
+
+    public void setVolume(BigDecimal volume) {
+        this.volume = volume;
+    }
 
     public String getOrderType() {
         return orderType;

@@ -26,9 +26,6 @@ public class ItemHistory implements Serializable{
     @SerializedName("IconId")
     private String iconId;
 
-    @SerializedName("Volume")
-    private BigDecimal volume;
-
     @SerializedName("BlockChainHash")
     private String blockChainHash;
 
@@ -75,14 +72,6 @@ public class ItemHistory implements Serializable{
 
     public void setIconId(String iconId) {
         this.iconId = iconId;
-    }
-
-    public BigDecimal getVolume() {
-        return volume;
-    }
-
-    public void setVolume(BigDecimal volume) {
-        this.volume = volume;
     }
 
     public String getBlockChainHash() {

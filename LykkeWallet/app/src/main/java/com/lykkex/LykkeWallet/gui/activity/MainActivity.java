@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
 import com.lykkex.LykkeWallet.gui.adapters.DrawerAdapter;
+import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.HistoryFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.SettingFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment_;
@@ -172,7 +173,8 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
     }
 
     private void selectItem(int position) {
-        Fragment fragment = null;
+        BaseFragment fragment = null;
+
         switch (position) {
             case 0:
                 fragment = new WalletFragment_();
@@ -199,9 +201,10 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment).commit();
+            Bundle args = new Bundle();
+            args.putBoolean(Constants.SKIP_BACKSTACK, true);
+
+            initFragment(fragment, args);
 
             drawerListView.setItemChecked(position, true);
             setTitle(mTitle);

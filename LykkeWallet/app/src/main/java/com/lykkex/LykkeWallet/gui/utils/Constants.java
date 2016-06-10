@@ -51,6 +51,7 @@ public interface Constants {
     String EXTRA_ASSET_NAME = "extra_asset_name";
     String EXTRA_ASSET_ID = "extra_asset_id";
     String EXTRA_ASSET = "extra_asset";
+    String EXTRA_DEPOSIT = "extra_deposit";
     String PART_AUTHORIZATION = "Bearer ";
     String JPG = "jpg";
 
