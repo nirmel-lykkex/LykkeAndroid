@@ -40,18 +40,22 @@ public class StepsIndicator extends RelativeLayout {
     public void afterViews() {
         final View rootView = getRootView();
 
-        rootView.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = rootView.getMeasuredWidth();
+        try {
+            rootView.post(new Runnable() {
+                @Override
+                public void run() {
+                    int width = rootView.getMeasuredWidth();
 
-                for(View view : linesViews) {
-                    view.getLayoutParams().width = width / 5;
+                    for (View view : linesViews) {
+                        view.getLayoutParams().width = width / 5;
 
-                    view.requestLayout();
+                        view.requestLayout();
+                    }
                 }
-            }
-        });
+            });
+        } catch (NoSuchFieldError e) {
+            //Quick fix for layout designer
+        }
     }
 
     public StepsIndicator(Context context, AttributeSet attrs) {

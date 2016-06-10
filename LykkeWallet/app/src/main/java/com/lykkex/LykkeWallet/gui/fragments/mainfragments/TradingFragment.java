@@ -166,7 +166,7 @@ public class TradingFragment extends BaseFragment {
 
     private void getRates(){
         if (isShouldContinue) {
-            Call<RatesData> call = LykkeApplication_.getInstance().getRestApi().getAssetPairsRates();
+            Call<RatesData> call = lykkeApplication.getRestApi().getAssetPairsRates();
             listRates.add(call);
 
             call.enqueue(new Callback<RatesData>() {

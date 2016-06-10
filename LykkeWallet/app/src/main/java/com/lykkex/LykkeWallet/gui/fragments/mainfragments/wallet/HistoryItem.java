@@ -78,9 +78,15 @@ public class HistoryItem extends RelativeLayout {
             } else {
                 tvName.setText(item.getAsset() + " " + getContext().getResources().getString(R.string.exchange_out_name));
             }
+
+            BaseAsset baseAsset = SettingManager.getInstance().getBaseAsset(item.getAsset());
+
+            int accurancy = baseAsset != null ? baseAsset.getAccuracy()
+                    : WalletSinglenton.getInstance().getAccurancy(item.getAsset());
+
             setUpColor(tvAmount, ((Trading) item).getVolume().
-                    setScale(WalletSinglenton.getInstance().getAccurancy(item.getAsset()),
-                            RoundingMode.HALF_EVEN).stripTrailingZeros().toPlainString());
+                    setScale(accurancy, RoundingMode.HALF_EVEN).stripTrailingZeros()
+                    .toPlainString());
         }
 
         if (item.getIconId().equals("BTC")){

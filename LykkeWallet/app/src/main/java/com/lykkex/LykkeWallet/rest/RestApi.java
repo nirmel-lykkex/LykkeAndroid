@@ -3,6 +3,7 @@ package com.lykkex.LykkeWallet.rest;
 
 
 import com.lykkex.LykkeWallet.rest.appinfo.response.model.AppInfoData;
+import com.lykkex.LykkeWallet.rest.base.models.BaseModel;
 import com.lykkex.LykkeWallet.rest.base.models.Error;
 import com.lykkex.LykkeWallet.rest.camera.request.models.CameraModel;
 import com.lykkex.LykkeWallet.rest.camera.response.models.CameraData;
@@ -19,6 +20,7 @@ import com.lykkex.LykkeWallet.rest.mobileverify.request.VerifyMobilePhoneRequest
 import com.lykkex.LykkeWallet.rest.registration.request.models.SetFullNameModel;
 import com.lykkex.LykkeWallet.rest.registration.response.models.CountryPhoneCodesData;
 import com.lykkex.LykkeWallet.rest.registration.response.models.SetFullNameData;
+import com.lykkex.LykkeWallet.rest.trading.request.model.InvertAssetPairRequest;
 import com.lykkex.LykkeWallet.rest.trading.request.model.MakeTradeModel;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
 import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
@@ -184,5 +186,9 @@ public interface RestApi {
     Call<VerifyMobilePhoneData> verifyMobilePhoneNumber(@Body VerifyMobilePhoneRequest model);
 
     @GET("/api/CheckMobilePhone")
-    Call<com.lykkex.LykkeWallet.rest.mobileverify.model.VerifyCodeData> verifyMobilePhoneCode(@Query("phoneNumber") String phoneNumber, @Query("code") String code);
+    Call<com.lykkex.LykkeWallet.rest.mobileverify.model.VerifyCodeData>
+        verifyMobilePhoneCode(@Query("phoneNumber") String phoneNumber, @Query("code") String code);
+
+    @POST("/api/InvertedAssetPairs")
+    Call<Void> invertAssetPairs(@Body InvertAssetPairRequest model);
 }

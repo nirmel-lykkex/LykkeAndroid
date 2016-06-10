@@ -23,7 +23,7 @@ public class BaseAsset {
     protected String symbol;
 
     @SerializedName("Accuracy")
-    protected String accuracy;
+    protected Integer accuracy;
 
     public String getId() {
         return id;
@@ -65,11 +65,11 @@ public class BaseAsset {
         this.symbol = symbol;
     }
 
-    public String getAccuracy() {
+    public Integer getAccuracy() {
         return accuracy;
     }
 
-    public void setAccuracy(String accuracy) {
+    public void setAccuracy(Integer accuracy) {
         this.accuracy = accuracy;
     }
 }

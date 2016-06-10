@@ -17,7 +17,13 @@ public class Rate {
     private Double ask;
 
     @SerializedName("ChngGrph")
-    private Float[] pchng;
+    private Float[] chngGrph;
+
+    @SerializedName("PChng")
+    private Float pchng;
+
+    @SerializedName("Inverted")
+    private Boolean inverted;
 
     public String getId() {
         return id;
@@ -43,12 +49,27 @@ public class Rate {
         this.ask = ask;
     }
 
-    public Float[] getPchng() {
+    public Float[] getChngGrph() {
+        return chngGrph;
+    }
+
+    public void setChngGrph(Float[] chngGrph) {
+        this.chngGrph = chngGrph;
+    }
+
+    public Float getPchng() {
         return pchng;
     }
 
-    public void setPchng(Float[] pchng) {
+    public void setPchng(Float pchng) {
         this.pchng = pchng;
     }
 
+    public Boolean getInverted() {
+        return inverted;
+    }
+
+    public void setInverted(Boolean inverted) {
+        this.inverted = inverted;
+    }
 }
