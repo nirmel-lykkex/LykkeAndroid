@@ -88,7 +88,7 @@ public class TraidingItem extends RelativeLayout {
 
     }
 
-    @Click(R.id.exchangeSwitchAssets)
+    @Click({R.id.exchangeSwitchAssets, R.id.quotingAssetId, R.id.baseAssetId})
     public void onSwitch() {
         InvertAssetPairRequest request = new InvertAssetPairRequest(assetPair.getId(), !assetPair.getInverted());
 
