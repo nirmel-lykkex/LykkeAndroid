@@ -79,7 +79,7 @@
     <string name="purchace_total_cost">Total cost</string>
     <string name="purchace_blockchain">Blockchain settlement</string>
     <string name="amount">Amount</string>
-    <string name="asset_name">Asset</string>
+    <string name="asset_name">Asset name</string>
     <string name="purchace_blockchain_progress">In progress</string>
     <string name="purchace_position">Position</string>
     <string name="purchace_close">CLOSE</string>

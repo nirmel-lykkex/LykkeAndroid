@@ -109,6 +109,8 @@ public class HistoryItem extends RelativeLayout {
 
         if(item.getBlockChainHash() == null || item.getBlockChainHash().isEmpty()) {
             setAlpha(0.5f);
+        } else {
+            setAlpha(1f);
         }
     }
 

@@ -30,11 +30,29 @@
                 android:text="@string/blockchain_title"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/footerBtn"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:id="@+id/btnCloseBlockChain"
+                android:background="@drawable/sign_inactive"
+                android:text="@string/purchace_close"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:id="@+id/scrollViewParent"
             android:background="@color/white"
-            android:layout_marginBottom="100dp"
+            android:layout_above="@id/footerBtn"
             android:layout_height="wrap_content">
             <RelativeLayout
                 android:background="@color/white"
@@ -661,13 +679,11 @@
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
-
         <ScrollView
             android:layout_width="match_parent"
             android:id="@+id/scrollViewParent2"
             android:background="@color/white"
             android:visibility="gone"
-            android:layout_marginBottom="100dp"
             android:layout_height="wrap_content">
             <RelativeLayout
                 android:background="@color/white"
@@ -820,6 +836,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:id="@+id/linearComissionPaid"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:background="@color/white"
                         android:paddingLeft="8dp"
@@ -912,6 +929,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:id="@+id/linearBlockChainSettlement"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:background="@color/white"
                         android:paddingLeft="8dp"
@@ -958,6 +976,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:id="@+id/linearPosition"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:background="@color/white"
                         android:paddingLeft="8dp"
@@ -1004,27 +1023,6 @@
             </RelativeLayout>
 
         </ScrollView>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/footerBtn"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="54dp">
-            <Button
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="8dp"
-                android:id="@+id/btnCloseBlockChain"
-                android:background="@drawable/sign_inactive"
-                android:text="@string/purchace_close"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-
         <LinearLayout
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"

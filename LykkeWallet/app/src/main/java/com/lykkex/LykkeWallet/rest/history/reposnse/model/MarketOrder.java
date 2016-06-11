@@ -13,7 +13,7 @@ public class MarketOrder extends ItemHistory {
     private String orderType;
 
     @SerializedName("Price")
-    private String price;
+    private BigDecimal price;
 
     @SerializedName("BaseAsset")
     private String baseAsset;
@@ -28,16 +28,16 @@ public class MarketOrder extends ItemHistory {
     private String blockChainSetteled;
 
     @SerializedName("TotalCost")
-    private String totalCost;
+    private BigDecimal totalCost;
 
     @SerializedName("Comission")
-    private String comission;
+    private BigDecimal comission;
 
     @SerializedName("Position")
-    private String position;
+    private BigDecimal position;
 
     @SerializedName("Accuracy")
-    private String accuracy;
+    private Integer accuracy;
 
     @SerializedName("Volume")
     private BigDecimal volume;
@@ -54,7 +54,7 @@ public class MarketOrder extends ItemHistory {
         return orderType;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -74,19 +74,19 @@ public class MarketOrder extends ItemHistory {
         return blockChainSetteled;
     }
 
-    public String getTotalCost() {
+    public BigDecimal getTotalCost() {
         return totalCost;
     }
 
-    public String getComission() {
+    public BigDecimal getComission() {
         return comission;
     }
 
-    public String getPosition() {
+    public BigDecimal getPosition() {
         return position;
     }
 
-    public String getAccuracy() {
+    public Integer getAccuracy() {
         return accuracy;
     }
 }

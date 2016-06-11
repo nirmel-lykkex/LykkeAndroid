@@ -12,6 +12,7 @@ import com.lykkex.LykkeWallet.rest.camera.response.models.PersonData;
 import com.lykkex.LykkeWallet.rest.emailverify.request.model.VerifyEmailRequest;
 import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyCodeData;
 import com.lykkex.LykkeWallet.rest.emailverify.response.model.VerifyEmailData;
+import com.lykkex.LykkeWallet.rest.history.reposnse.model.ExchangeData;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.HistoryData;
 import com.lykkex.LykkeWallet.rest.history.reposnse.model.MarketData;
 import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
@@ -153,15 +154,16 @@ public interface RestApi {
                                                            @Path("id") String orderId);
 
     @GET("/api/BcnTransactionByExchange/{id}")
-    Call<TransactionData> getBcnTransactionByExchange(@Header("Authorization")String authorization,
-                                                           @Path("id") String orderId);
+    Call<TransactionData> getBcnTransactionByExchange(@Path("id") String orderId);
 
     @POST("/api/SendBlockchainEmail")
     Call<EmailData> sendBlockchainEmail(@Query(value = "assetId") String assetId);
 
-    @GET("/api/MarketOrder/{orderId}")
-    Call<MarketData> getMarketOder(@Header("Authorization")String authorization,
-                                   @Path("orderId")  String orderId);
+    @GET("/api/MarketOrder")
+    Call<MarketData> getMarketOder(@Query("orderId") String orderId);
+
+    @GET("/api/ExchangeInfo")
+    Call<ExchangeData> getExchangeInfo(@Query("exchangeId") String exchangeId);
 
     @POST("/api/CashOut")
     Call<MarketData> postCachOut(@Header("Authorization")String authorization,
