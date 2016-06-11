@@ -25,6 +25,7 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import retrofit2.Call;
 
@@ -84,14 +85,14 @@ public class DealResultFragment extends BaseFragment implements
             linearPrice.setVisibility(View.GONE);
         } else {
             labelPrice.setText(new BigDecimal(order.getPrice()).setScale(getArguments().
-                    getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY)).toString());
+                    getInt(Constants.EXTRA_ASSETPAIR_ACCURANCY), RoundingMode.HALF_EVEN).toString());
         }
 
         if (order.getComission()== null || order.getComission().isEmpty()){
             linearComission.setVisibility(View.GONE);
         } else {
-            labelComission.setText(new BigDecimal(order.getComission()).setScale(Constants.DEFAULT_PRECISION)
-                    .toString());
+            labelComission.setText(new BigDecimal(order.getComission())
+                    .setScale(Constants.DEFAULT_PRECISION).toString());
         }
 
 
@@ -100,8 +101,7 @@ public class DealResultFragment extends BaseFragment implements
         } else {
             // TODO: Check error here
             labelCost.setText(new BigDecimal(order.getTotalCost()).
-                    setScale(Constants.DEFAULT_PRECISION)
-                    .toString());
+                    setScale(Constants.DEFAULT_PRECISION).toString());
         }
 
         if (Boolean.parseBoolean(order.getBlockchainSetteled())) {
