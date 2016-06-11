@@ -70,7 +70,9 @@ public class RegistrationStep2Fragment extends BaseFragment {
     void onHintChange(Editable text) {
         userManager.getRegistrationModel().setHint(text.toString());
 
-        buttonAction.setEnabled(text.toString().length() > 0);
+        if(buttonAction != null) {
+            buttonAction.setEnabled(text.toString().length() > 0);
+        }
     }
 
     private void sendRegistrationRequest(){
