@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -47,7 +48,6 @@ public class SettingFragment extends BaseFragment {
     @ViewById TextView tvExit;
     @ViewById TextView tvBaseInfo;
     @ViewById TextView tvAppVersion;
-    @ViewById TextView tvApiVersion;
 
     @App
     LykkeApplication lykkeApplication;
@@ -94,7 +94,7 @@ public class SettingFragment extends BaseFragment {
                 });
 
                 try {
-                    PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+                    final PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
 
                     tvAppVersion.setText(getString(R.string.app_version, pInfo.versionName, pInfo.versionCode));
 
@@ -103,7 +103,7 @@ public class SettingFragment extends BaseFragment {
                         @Override
                         public void onResponse(Call<AppInfoData> call, Response<AppInfoData> response) {
                             if(response.body() instanceof AppInfoData && isAdded()) {
-                                tvApiVersion.setText(getString(R.string.api_version, response.body().getResult().getAppVersion()));
+                                tvAppVersion.setText(getString(R.string.api_app_version, pInfo.versionName, pInfo.versionCode, response.body().getResult().getAppVersion()));
                             }
                         }
 
@@ -119,58 +119,28 @@ public class SettingFragment extends BaseFragment {
         }, Constants.DELAY_500);
     }
 
-    @Click(R.id.relPersonalData)
+    @Click({R.id.relPersonalData, R.id.tvPersonal, R.id.imgPersonalData})
     public void clickRelPresonal(){
         clickPersonal();
     }
 
-    @Click(R.id.tvPersonal)
-    public void clickTvPresonal(){
-        clickPersonal();
-    }
-
-    @Click(R.id.imgPersonalData)
-    public void clickImgPersonal(){
-        clickPersonal();
-    }
-
-    @Click(R.id.relPush)
+    @Click({R.id.relPush, R.id.imgPush, R.id.tvPush})
     public void clickRelPush(){
         clickPush();
     }
 
-    @Click(R.id.imgPush)
-    public void clickImgPush(){
-        clickPush();
-    }
-
-    @Click(R.id.tvPush)
-    public void clickTvPush(){
-        clickPush();
-    }
-
-    @Click(R.id.tvBaseCurrency)
+    @Click({R.id.tvBaseCurrency, R.id.relBaseCurrency, R.id.imgBaseCurrency})
     public void clickTvBaseCurrency(){
         clickBaseCurrency();
     }
 
-    @Click(R.id.relBaseCurrency)
-    public void clickRelBaseCurrency(){
-        clickBaseCurrency();
+    @Click({R.id.relTermsOfUse, R.id.termsOfUse})
+    public void clickOnTermsOfUse(){
+        clickTermsOfUse();
     }
 
-    @Click(R.id.imgBaseCurrency)
-    public void clickImgBaseCurrency(){
-        clickBaseCurrency();
-    }
-
-    @Click(R.id.relExit)
+    @Click({R.id.relExit, R.id.tvExit})
     public void clickRelExit(){
-        clickExit();
-    }
-
-    @Click(R.id.tvExit)
-    public void clickTvExit(){
         clickExit();
     }
 
@@ -180,6 +150,12 @@ public class SettingFragment extends BaseFragment {
         intent.setClass(lykkeApplication, SignInActivity_.class);
         getActivity().startActivity(intent);
         getActivity().finish();
+    }
+
+    public void clickTermsOfUse(){
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://lykkewallet.lykkex.com/terms_of_use.html"));
+        startActivity(i);
     }
 
     public void clickBaseCurrency(){
