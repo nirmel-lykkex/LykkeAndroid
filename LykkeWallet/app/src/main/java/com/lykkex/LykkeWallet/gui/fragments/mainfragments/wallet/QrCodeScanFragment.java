@@ -22,7 +22,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 @EFragment(R.layout.qr_code_scan_fragment)
 public class QrCodeScanFragment extends BaseFragment implements  ZXingScannerView.ResultHandler {
 
-    @ViewById ZXingScannerView mScannerView;
+    @ViewById
+    ZXingScannerView mScannerView;
 
     @AfterViews
     public void afterViews(){

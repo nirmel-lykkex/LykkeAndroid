@@ -12,12 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.utils.Calculate;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.widgets.ConfirmCashOutDialog;
-import com.lykkex.LykkeWallet.gui.widgets.ConfirmDialog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -36,9 +34,14 @@ import java.util.Random;
 @EFragment(R.layout.withdraw_funds_fragment)
 public class WithdrawFundsFragment extends BaseFragment implements TextWatcher, View.OnFocusChangeListener {
 
-    @ViewById  EditText etAmount;
-    @ViewById  Button button;
-    @ViewById View calc_keyboard;
+    @ViewById
+    EditText etAmount;
+
+    @ViewById
+    Button button;
+
+    @ViewById
+    View calcKeyboard;
 
     @AfterViews
     public void afterViews(){
@@ -187,10 +190,12 @@ public class WithdrawFundsFragment extends BaseFragment implements TextWatcher, 
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        if (b){
-            calc_keyboard.setVisibility(View.VISIBLE);
-        } else {
-            calc_keyboard.setVisibility(View.GONE);
+        if(isAdded() && calcKeyboard != null) {
+            if (b) {
+                calcKeyboard.setVisibility(View.VISIBLE);
+            } else {
+                calcKeyboard.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -200,6 +205,7 @@ public class WithdrawFundsFragment extends BaseFragment implements TextWatcher, 
     }
 
     private BigDecimal etAmountRes = BigDecimal.ZERO;
+
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         try {

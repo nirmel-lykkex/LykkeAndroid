@@ -1,9 +1,12 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,8 +29,13 @@ import org.androidannotations.annotations.ViewById;
 @EFragment(R.layout.withdraw_fragment)
 public class WithdrawFragment extends BaseFragment implements CallBackListener {
 
-    @ViewById EditText etHashBitcoin;
-    @ViewById Button btnProceed;
+    protected static final int REQUEST_CAMERA_PERMISSION = 102;
+
+    @ViewById
+    EditText etHashBitcoin;
+
+    @ViewById
+    Button btnProceed;
 
     @AfterViews
     public void afterViews(){
@@ -53,9 +61,36 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
 
     @Click(R.id.btnScan)
     public void clickBtnScan(){
+        scan();
+    }
+
+    private void scan() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        REQUEST_CAMERA_PERMISSION);
+
+                return;
+            }
+        }
+
         Bundle bundle = getArguments();
         bundle.putString(Constants.EXTRA_QR_CODE_READ, etHashBitcoin.getText().toString());
-       ((BaseActivity) getActivity()).initFragment(new QrCodeScanFragment_(), bundle);
+        ((BaseActivity) getActivity()).initFragment(new QrCodeScanFragment_(), bundle);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CAMERA_PERMISSION:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    scan();
+                }
+        }
     }
 
     @Click(R.id.btnProceed)

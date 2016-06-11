@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,9 @@ public class ConfirmCashOutDialog extends DialogFragment implements View.OnClick
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View v = inflater.inflate(R.layout.confirm_cash_out_dialog, null);
         valueBitcoinAddress = (TextView) v.findViewById(R.id.valueBitcoinAddress);
+
+        valueBitcoinAddress.setMovementMethod(new ScrollingMovementMethod());
+
         valueAmount = (TextView) v.findViewById(R.id.valueAmount);
         imgDot1 = (ImageView) v.findViewById(R.id.imgDot1);
         imgDot2 = (ImageView) v.findViewById(R.id.imgDot2);

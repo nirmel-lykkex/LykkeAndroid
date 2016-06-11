@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:paddingBottom="6dp"
             android:hint="@string/bitcoin_wallet"
             android:id="@+id/etHashBitcoin"
@@ -36,6 +36,9 @@
             android:paddingRight="10dp"
             android:paddingEnd="10dp"
             android:paddingTop="5dp"
+            android:minLines="1"
+            android:maxLines="3"
+            android:inputType="textMultiLine"
             android:layout_marginTop="40dp" />
 
         <TextView

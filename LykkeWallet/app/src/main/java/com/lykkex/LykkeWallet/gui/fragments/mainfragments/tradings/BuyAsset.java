@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
-import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.managers.SettingManager;
@@ -61,7 +60,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     @ViewById TextView tvQautingId;
     @ViewById EditText etVolume;
     @ViewById EditText labelTotalCost;
-    @ViewById View calc_keyboard;
+    @ViewById View calcKeyboard;
     @ViewById TextView labelPrice;
     @ViewById Button button;
     @ViewById
@@ -91,7 +90,7 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
     public void afterViews(){
         labelPrice.setText("0.0");
         labelTotalCost.setText("0.0");
-        calc_keyboard.setVisibility(View.GONE);
+        calcKeyboard.setVisibility(View.GONE);
         labelTotalCost.setOnFocusChangeListener(this);
         labelTotalCost.setOnTouchListener(new View.OnTouchListener() {
 
@@ -474,12 +473,12 @@ public class BuyAsset  extends BaseFragment  implements View.OnFocusChangeListen
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        if(calc_keyboard == null) return;
+        if(calcKeyboard == null) return;
 
         if (b){
-            calc_keyboard.setVisibility(View.VISIBLE);
+            calcKeyboard.setVisibility(View.VISIBLE);
         } else {
-            calc_keyboard.setVisibility(View.GONE);
+            calcKeyboard.setVisibility(View.GONE);
         }
     }
 
