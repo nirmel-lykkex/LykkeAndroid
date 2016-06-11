@@ -18,6 +18,7 @@ import com.lykkex.LykkeWallet.gui.adapters.DrawerAdapter;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.HistoryFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.SettingFragment_;
+import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.TradingFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.WalletFragment_;
@@ -120,6 +121,8 @@ public class MainActivity  extends BaseActivity implements CallBackListener{
 
                 if(currentFragment instanceof WalletFragment) {
                     ((WalletFragment) currentFragment).refreshAdapter();
+                } else if(currentFragment instanceof TradingFragment) {
+                    ((TradingFragment) currentFragment).renderBaseAssets();
                 }
             }
 

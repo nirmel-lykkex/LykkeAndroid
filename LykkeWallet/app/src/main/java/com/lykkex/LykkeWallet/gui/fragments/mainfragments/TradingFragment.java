@@ -1,11 +1,13 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
+import android.app.Activity;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
@@ -16,6 +18,12 @@ import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.managers.AssetPairManager;
 import com.lykkex.LykkeWallet.gui.managers.SettingManager;
+import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
+import com.lykkex.LykkeWallet.rest.internal.callback.BaseAssetCallback;
+import com.lykkex.LykkeWallet.rest.internal.request.model.IdBaseAsset;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAsset;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetData;
+import com.lykkex.LykkeWallet.rest.internal.response.model.BaseAssetResult;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPair;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairData;
 import com.lykkex.LykkeWallet.rest.trading.response.model.AssetPairsResult;
@@ -32,6 +40,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +60,9 @@ public class TradingFragment extends BaseFragment {
 
     @ViewById
     LinearLayout linearEntity;
+
+    @ViewById
+    LinearLayout assetsContainer;
 
     @App
     LykkeApplication lykkeApplication;
@@ -112,6 +124,62 @@ public class TradingFragment extends BaseFragment {
         }
     }
 
+    public void renderBaseAssets() {
+        assetsContainer.removeAllViews();
+
+        List<BaseAsset> baseAssets = SettingManager.getInstance().getBaseAssets();
+
+        if (baseAssets != null) {
+            for (final BaseAsset baseAsset : baseAssets) {
+                TextView assetView = new TextView(getActivity());
+                assetView.setText(baseAsset.getName());
+                assetView.setTag(baseAsset.getId());
+                assetView.setMinWidth(215);
+                assetView.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                if(baseAsset.getId().equals(SettingManager.getInstance().getBaseAssetId())) {
+                    assetView.setTextColor(getResources().getColor(R.color.blue_color));
+                }
+
+                assetView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setBaseAsset(baseAsset);
+                    }
+                });
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.weight = baseAssets.size();
+
+                assetsContainer.addView(assetView, params);
+            }
+        }
+    }
+
+    private void setBaseAsset(final BaseAsset baseAsset){
+        IdBaseAsset asset = new IdBaseAsset(baseAsset.getId());
+        Call<BaseAssetData> call = LykkeApplication_.getInstance().getRestApi().
+                postBaseAsset(asset);
+        BaseAssetCallback baseAssetCallback = new BaseAssetCallback(new CallBackListener<BaseAssetResult>() {
+            @Override
+            public void onSuccess(BaseAssetResult result) {
+                SettingManager.getInstance().setBaseAssetId(baseAsset.getId());
+
+                renderBaseAssets();
+
+                getAssetPairs();
+                getRates();
+            }
+
+            @Override
+            public void onFail(Object error) {
+                Log.e(TradingFragment.class.getSimpleName(), "Error while setting base asset");
+            }
+        }, getActivity());
+
+        call.enqueue(baseAssetCallback);
+    }
+
     private void getAssetPairs(){
         Call<AssetPairData> call = lykkeApplication.getRestApi().getAssetPairs();
 
@@ -141,6 +209,8 @@ public class TradingFragment extends BaseFragment {
 
     private void setUpView(AssetPairsResult result){
         if (getActivity() == null) return;
+
+        renderBaseAssets();
 
         linearEntity.removeAllViews();
         progressBar.setVisibility(View.GONE);
