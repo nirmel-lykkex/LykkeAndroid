@@ -33,20 +33,32 @@ public class ItemHistory implements Serializable{
         return id;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public Date getDateTime() {
+        if(dateTime != null) {
+            dateTime += " GMT";
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z");
+
+            try {
+                Date date = format.parse(dateTime);
+
+                return date;
+            } catch (ParseException e) {
+            }
+        }
+
+        return null;
     }
 
     public String getFormatedDateTime() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat newFormat = new SimpleDateFormat("M/d/yy, h:mm a");
 
-        try {
-            Date date = format.parse(dateTime);
+        Date d = getDateTime();
 
-            return newFormat.format(date);
-        } catch (ParseException e) {
+        if(d == null) {
             return dateTime;
+        } else {
+            return newFormat.format(d);
         }
     }
 

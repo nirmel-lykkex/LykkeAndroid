@@ -39,10 +39,6 @@ public class History {
     }
 
     private class DateComparator implements Comparator<ItemHistory> {
-
-        private SimpleDateFormat getSimpleFormat(){
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        }
         private boolean asc;
 
         public DateComparator(boolean asc) {
@@ -54,21 +50,9 @@ public class History {
             if (lhs.getDateTime() == null || rhs.getDateTime() == null) {
                 return 1;
             }
-            int indexLhs = lhs.getDateTime().indexOf(".");
-            int indexRhs = rhs.getDateTime().indexOf(".");
-            if (indexLhs != -1) {
-                lhs.setDateTime(lhs.getDateTime().substring(0, indexLhs));
-            }
-            if (indexRhs != -1) {
-                rhs.setDateTime(rhs.getDateTime().substring(0, indexRhs));
-            }
-            try {
-                return (asc ? 1 : -1) * getSimpleFormat().parse(lhs.getDateTime())
-                        .compareTo(getSimpleFormat().parse(rhs.getDateTime()));
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return 1;
-            }
+
+            return (asc ? 1 : -1) * lhs.getDateTime()
+                    .compareTo(rhs.getDateTime());
         }
     }
 }
