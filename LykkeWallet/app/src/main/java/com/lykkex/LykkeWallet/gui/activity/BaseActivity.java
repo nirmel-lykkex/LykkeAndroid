@@ -12,7 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
@@ -70,6 +73,11 @@ public class BaseActivity  extends AppCompatActivity {
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    public void hideSoftKeyboard(View v){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
     @Override
     public void onBackPressed() {
         if(currentFragment != null) {
@@ -85,6 +93,38 @@ public class BaseActivity  extends AppCompatActivity {
 
             if(fragment instanceof BaseFragment) {
                 currentFragment = (BaseFragment) fragment;
+            }
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+
+        View view = findViewById(android.R.id.content);
+
+        if(view != null && view instanceof ViewGroup) {
+            hideSoftKeyFromViewGroup((ViewGroup) view);
+        }
+    }
+
+    public void hideSoftKeyFromViewGroup(ViewGroup viewGroup) {
+        for(int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+
+            if(child instanceof EditText) {
+                child.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if(! hasFocus) {
+                            hideSoftKeyboard(v);
+                        }
+                    }
+                });
+            }
+
+            if(child instanceof ViewGroup) {
+                hideSoftKeyFromViewGroup((ViewGroup) child);
             }
         }
     }

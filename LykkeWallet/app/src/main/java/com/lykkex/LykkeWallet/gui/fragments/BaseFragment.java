@@ -2,18 +2,16 @@ package com.lykkex.LykkeWallet.gui.fragments;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-
-import com.lykkex.LykkeWallet.R;
-import com.lykkex.LykkeWallet.gui.utils.Consume;
-import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
-
-import org.androidannotations.annotations.EFragment;
+import android.view.View;
+import android.view.ViewGroup;
+import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 
 /**
  * Created by e.kazimirova on 09.02.2016.
  */
+
 public abstract class BaseFragment extends android.app.Fragment {
 
     protected ActionBar actionBar;
@@ -32,5 +30,14 @@ public abstract class BaseFragment extends android.app.Fragment {
     }
 
     public void onBackPressed() {
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(view != null && view instanceof ViewGroup && getActivity() != null && getActivity() instanceof BaseActivity) {
+            ((BaseActivity)getActivity()).hideSoftKeyFromViewGroup((ViewGroup) view);
+        }
     }
 }
