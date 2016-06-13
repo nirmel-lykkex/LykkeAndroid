@@ -1,12 +1,14 @@
 package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 
-import android.app.Fragment;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.BuildConfig;
 import com.lykkex.LykkeWallet.R;
@@ -59,6 +61,9 @@ public class SignInFragment extends BaseFragment {
 
     @ViewById
     Button btnChangeServer;
+
+    @ViewById
+    TextView tvAppVersion;
 
     @Bean
     UserManager userManager;
@@ -138,6 +143,13 @@ public class SignInFragment extends BaseFragment {
         } else {
             btnChangeServer.setVisibility(View.GONE);
         }
+
+        try {
+            PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+
+            tvAppVersion.setText(getString(R.string.app_version, pInfo.versionName, pInfo.versionCode));
+        } catch (PackageManager.NameNotFoundException e) { }
+
 
         final RegistrationModelGUI registrationModel = userManager.getRegistrationModel();
 

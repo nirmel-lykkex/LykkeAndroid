@@ -28,6 +28,15 @@
         android:layout_below="@+id/emailRichEditText"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/tvAppVersion"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +44,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/arrow_down"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/tvAppVersion"
         android:layout_centerHorizontal="true" />
 
     <TextView
