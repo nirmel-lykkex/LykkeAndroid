@@ -3,6 +3,7 @@ package com.lykkex.LykkeWallet.gui.widgets;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication_;
+import com.lykkex.LykkeWallet.gui.activity.authentication.SignInActivity_;
 import com.lykkex.LykkeWallet.gui.fragments.storage.UserPref_;
 import com.lykkex.LykkeWallet.gui.models.WalletSinglenton;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
@@ -375,7 +377,14 @@ public class ConfirmCashOutDialog extends DialogFragment implements View.OnClick
             } else if (!((SecurityData) result).getResult().isPassed()){
                 Toast.makeText(getActivity(), getString(R.string.wrong_pin), Toast.LENGTH_LONG).show();
                 if (count >= 3){
-                    dismiss();
+                    userPref.clear();
+                    userPref.isDepositVisible().put(false);
+
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), SignInActivity_.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
                 }
             }
         } else {
