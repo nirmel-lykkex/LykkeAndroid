@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
@@ -45,6 +46,9 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
     EditText etHashBitcoin;
 
     @ViewById
+    TextView tvPaste;
+
+    @ViewById
     Button btnProceed;
 
     @App
@@ -68,8 +72,14 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
     @Click(R.id.tvPaste)
     public void clickPaste(){
         ClipboardManager  clipMan = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData.Item item = clipMan.getPrimaryClip().getItemAt(0);
-        etHashBitcoin.setText(item.getText());
+
+        if(clipMan != null) {
+            ClipData.Item item = clipMan.getPrimaryClip().getItemAt(0);
+
+            if(item != null && item.getText() != null) {
+                etHashBitcoin.setText(item.getText());
+            }
+        }
     }
 
     @Click(R.id.btnScan)
@@ -118,6 +128,12 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
         if (result == null) {
             String pubkeyAddress = etHashBitcoin.getText().toString();
 
+            if(pubkeyAddress.length() > 0) {
+                tvPaste.setVisibility(TextView.GONE);
+            } else {
+                tvPaste.setVisibility(TextView.VISIBLE);
+            }
+
             if(pubkeyAddress.length() < 26 || pubkeyAddress.length() > 35 ||
                     !Arrays.asList('1', '2', '3', 'm', 'n').contains(pubkeyAddress.charAt(0))) {
                 btnProceed.setTextColor(getResources().getColor(R.color.grey_text));
@@ -152,6 +168,8 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
     @Override
     public void onFail(Object error) {
         if (error == null) {
+            tvPaste.setVisibility(TextView.VISIBLE);
+
             btnProceed.setTextColor(getResources().getColor(R.color.grey_text));
             btnProceed.setEnabled(false);
         }

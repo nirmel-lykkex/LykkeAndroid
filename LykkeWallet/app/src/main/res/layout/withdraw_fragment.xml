@@ -36,9 +36,8 @@
             android:paddingRight="10dp"
             android:paddingEnd="10dp"
             android:paddingTop="5dp"
-            android:minLines="1"
-            android:maxLines="3"
-            android:inputType="textMultiLine"
+            android:maxLines="1"
+            android:inputType="text"
             android:layout_marginTop="40dp" />
 
         <TextView
