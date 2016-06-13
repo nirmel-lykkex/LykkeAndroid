@@ -46,6 +46,7 @@ import com.lykkex.LykkeWallet.rest.wallet.request.models.CardModel;
 import com.lykkex.LykkeWallet.rest.wallet.request.models.CashOut;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.BankCardsData;
 import com.lykkex.LykkeWallet.rest.wallet.response.models.LykkeWallerData;
+import com.lykkex.LykkeWallet.rest.wallet.response.models.ValidatePubkeyAddressData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -191,4 +192,7 @@ public interface RestApi {
 
     @POST("/api/InvertedAssetPairs")
     Call<Void> invertAssetPairs(@Body InvertAssetPairRequest model);
+
+    @GET("/api/PubkeyAddressValidation")
+    Call<ValidatePubkeyAddressData> validatePubkeyAddress(@Query("pubkeyAddress") String pubkeyAddress);
 }

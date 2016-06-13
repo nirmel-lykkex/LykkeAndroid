@@ -8,20 +8,30 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.lykkex.LykkeWallet.R;
+import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
 import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 import com.lykkex.LykkeWallet.gui.utils.validation.CallBackListener;
 import com.lykkex.LykkeWallet.gui.utils.validation.SimpleTextWatcher;
+import com.lykkex.LykkeWallet.rest.wallet.response.models.ValidatePubkeyAddressData;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Arrays;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by LIZA on 18.04.2016.
@@ -36,6 +46,9 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
 
     @ViewById
     Button btnProceed;
+
+    @App
+    LykkeApplication lykkeApplication;
 
     @AfterViews
     public void afterViews(){
@@ -103,8 +116,36 @@ public class WithdrawFragment extends BaseFragment implements CallBackListener {
     @Override
     public void onSuccess(Object result) {
         if (result == null) {
-            btnProceed.setTextColor(Color.WHITE);
-            btnProceed.setEnabled(true);
+            String pubkeyAddress = etHashBitcoin.getText().toString();
+
+            if(pubkeyAddress.length() < 26 || pubkeyAddress.length() > 35 ||
+                    !Arrays.asList('1', '2', '3', 'm', 'n').contains(pubkeyAddress.charAt(0))) {
+                btnProceed.setTextColor(getResources().getColor(R.color.grey_text));
+                btnProceed.setEnabled(false);
+            } else {
+                lykkeApplication.getRestApi().validatePubkeyAddress(etHashBitcoin.getText().toString())
+                    .enqueue(new Callback<ValidatePubkeyAddressData>() {
+                        @Override
+                        public void onResponse(Call<ValidatePubkeyAddressData> call,
+                                               Response<ValidatePubkeyAddressData> response) {
+                            if (response.isSuccess() && response.body().getResult().getValid()) {
+                                btnProceed.setTextColor(Color.WHITE);
+                                btnProceed.setEnabled(true);
+                            } else {
+                                btnProceed.setTextColor(getResources().getColor(R.color.grey_text));
+                                btnProceed.setEnabled(false);
+                                Log.e(WithdrawFragment.class.getSimpleName(), "Error while validating pubkey address");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ValidatePubkeyAddressData> call, Throwable t) {
+                            btnProceed.setTextColor(getResources().getColor(R.color.grey_text));
+                            btnProceed.setEnabled(false);
+                            Log.e(WithdrawFragment.class.getSimpleName(), "Error while validating pubkey address", t);
+                        }
+                    });
+            }
         }
     }
 
