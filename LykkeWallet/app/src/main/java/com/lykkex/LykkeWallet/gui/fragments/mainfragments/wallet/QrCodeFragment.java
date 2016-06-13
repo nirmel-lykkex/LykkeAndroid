@@ -75,7 +75,7 @@ public class QrCodeFragment extends BaseFragment implements CallBackListener {
             hashCode = WalletSinglenton.getInstance().getResult().getMultiSig();
         }
 
-        actionBar.setTitle(getString(R.string.deposit_bitcoin) + " " + assetsWallet.getAssetPairId() );
+        actionBar.setTitle(getString(R.string.deposit_bitcoin) + " " + assetsWallet.getName() );
 
         tvWalletAddress.setAlpha((float) 0.6);
         tvHashCode.setText(hashCode);
