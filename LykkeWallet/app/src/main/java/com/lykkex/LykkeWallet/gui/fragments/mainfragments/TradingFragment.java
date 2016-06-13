@@ -1,6 +1,7 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
 import android.app.Activity;
+import android.graphics.Point;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
@@ -134,7 +135,12 @@ public class TradingFragment extends BaseFragment {
                 TextView assetView = new TextView(getActivity());
                 assetView.setText(baseAsset.getName());
                 assetView.setTag(baseAsset.getId());
-                assetView.setMinWidth(215);
+
+                Point size = new Point();
+
+                getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+                assetView.setMinWidth(size.x / 5);
+
                 assetView.setGravity(Gravity.CENTER_HORIZONTAL);
 
                 if(baseAsset.getId().equals(SettingManager.getInstance().getBaseAssetId())) {

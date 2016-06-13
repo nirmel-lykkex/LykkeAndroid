@@ -1,13 +1,9 @@
 package com.lykkex.LykkeWallet.gui.activity.paymentflow;
 
-import android.view.MenuItem;
-
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
-import com.lykkex.LykkeWallet.gui.fragments.BaseFragment;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet.QrCodeFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.mainfragments.wallet.TradingWalletFragment_;
-import com.lykkex.LykkeWallet.gui.fragments.startscreen.DepositFragment_;
 import com.lykkex.LykkeWallet.gui.utils.Constants;
 
 import org.androidannotations.annotations.AfterViews;
@@ -26,15 +22,5 @@ public class QrCodeActivity extends BaseActivity {
         } else {
             initFragment(new TradingWalletFragment_(), getIntent().getExtras());
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

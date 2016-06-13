@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -19,7 +20,7 @@ import org.androidannotations.annotations.EActivity;
  * Created by LIZA on 23.02.2016.
  */
 @EActivity(R.layout.activity_main)
-public class BaseActivity  extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     protected BaseFragment currentFragment;
 
@@ -116,5 +117,16 @@ public class BaseActivity  extends AppCompatActivity {
                 hideSoftKeyFromViewGroup((ViewGroup) child);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

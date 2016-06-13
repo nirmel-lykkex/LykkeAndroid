@@ -3,6 +3,7 @@ package com.lykkex.LykkeWallet.gui.fragments.startscreen;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;

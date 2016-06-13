@@ -1,19 +1,12 @@
 package com.lykkex.LykkeWallet.gui.activity.selfie;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 
 import com.lykkex.LykkeWallet.R;
 import com.lykkex.LykkeWallet.gui.LykkeApplication;
 import com.lykkex.LykkeWallet.gui.activity.BaseActivity;
-import com.lykkex.LykkeWallet.gui.activity.selfie.util.FileUtil;
-import com.lykkex.LykkeWallet.gui.fragments.camerascreen.CameraIdCardFragment;
 import com.lykkex.LykkeWallet.gui.fragments.camerascreen.CameraIdCardFragment_;
-import com.lykkex.LykkeWallet.gui.fragments.camerascreen.CameraProofOfAddressFragment;
 import com.lykkex.LykkeWallet.gui.fragments.camerascreen.CameraProofOfAddressFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.camerascreen.CameraSelfieFragment_;
 import com.lykkex.LykkeWallet.gui.fragments.camerascreen.SubmitFragment_;
@@ -97,15 +90,5 @@ public class CameraActivity extends BaseActivity {
             bundle.putSerializable(Constants.EXTRA_CAMERA_MODEL_GUI, getIntent().getSerializableExtra(Constants.EXTRA_CAMERA_DATA));
             initFragment(new SubmitFragment_(), bundle);
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
