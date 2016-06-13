@@ -51,7 +51,7 @@ public class ItemHistory implements Serializable{
     }
 
     public String getFormatedDateTime() {
-        SimpleDateFormat newFormat = new SimpleDateFormat("M/d/yy, h:mm a");
+        SimpleDateFormat newFormat = new SimpleDateFormat("M/d/yy h:mm a");
 
         Date d = getDateTime();
 

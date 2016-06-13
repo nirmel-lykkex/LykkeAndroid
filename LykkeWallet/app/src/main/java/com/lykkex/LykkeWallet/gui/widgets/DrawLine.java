@@ -20,20 +20,20 @@ public class DrawLine extends View {
     public DrawLine(Context context) {
         super(context);
         paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(3);
     }
 
     public DrawLine(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(3);
     }
 
 
     public DrawLine(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(3);
     }
 
 
