@@ -29,6 +29,7 @@ public class WalletCallback extends BaseCallBack<LykkeWallerData> {
             error.setCode(Constants.ERROR_401);
             listener.onFail(error);
             userPref.clear();
+            userPref.isDepositVisible().put(false);
             setUpError(activity.getString(R.string.not_authorized));
             return;
         }

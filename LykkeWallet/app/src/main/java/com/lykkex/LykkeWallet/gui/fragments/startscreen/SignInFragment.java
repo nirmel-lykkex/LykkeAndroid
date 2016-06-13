@@ -178,7 +178,6 @@ public class SignInFragment extends BaseFragment {
             }
         }, emailRichEditText, progressBar, buttonAction));
 
-        emailRichEditText.setText(registrationModel.getEmail());
         emailRichEditText.setHint(R.string.email_hint);
     }
 }

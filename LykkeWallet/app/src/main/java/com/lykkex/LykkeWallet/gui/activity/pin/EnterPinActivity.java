@@ -115,6 +115,8 @@ public class EnterPinActivity extends BasePinActivity{
 
     private void signOut() {
         userPref.clear();
+        userPref.isDepositVisible().put(false);
+
         Intent intent = new Intent();
         intent.setClass(getBaseContext(), SignInActivity_.class);
         startActivity(intent);

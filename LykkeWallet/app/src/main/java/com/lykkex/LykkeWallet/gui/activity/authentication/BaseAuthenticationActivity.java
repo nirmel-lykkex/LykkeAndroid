@@ -127,6 +127,8 @@ public abstract class BaseAuthenticationActivity extends AppCompatActivity {
             mHandler.postDelayed(run, Constants.DELAY_5000);
         } else {
             userPref.clear();
+            userPref.isDepositVisible().put(false);
+
             setUpError(getString(R.string.not_authorized));
         }
     }

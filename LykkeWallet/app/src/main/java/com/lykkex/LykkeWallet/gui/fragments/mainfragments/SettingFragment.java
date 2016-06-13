@@ -174,6 +174,8 @@ public class SettingFragment extends BaseFragment {
 
     public void clickExit(){
         userPref.clear();
+        userPref.isDepositVisible().put(false);
+
         Intent intent = new Intent();
         intent.setClass(lykkeApplication, SignInActivity_.class);
         getActivity().startActivity(intent);
