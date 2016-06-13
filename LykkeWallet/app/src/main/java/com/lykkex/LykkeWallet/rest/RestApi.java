@@ -91,8 +91,7 @@ public interface RestApi {
                                 @Body PinRequest pin);
 
     @GET ("/api/PinSecurity")
-    Call<SecurityData> signInPinSecurite(@Header("Authorization")String authorization,
-                                         @Query("Pin") String pin);
+    Call<SecurityData> signInPinSecurite(@Query("Pin") String pin);
 
     @GET("/api/Wallets")
     Call<LykkeWallerData> getLykkeWallet();
@@ -117,8 +116,7 @@ public interface RestApi {
     Call<PersonData> getPersonalData(@Header("Authorization")String authorization);
 
     @POST("api/SettingSignOrder")
-    Call<SettingSignOrderData> postSettingSignOrder(@Header("Authorization")String authorization,
-                                                    @Body SettingSignOrder order);
+    Call<SettingSignOrderData> postSettingSignOrder(@Body SettingSignOrder order);
 
     @GET("api/AssetPairs")
     Call<AssetPairData> getAssetPairs();

@@ -300,8 +300,7 @@ public class ConfirmCashOutDialog extends DialogFragment implements View.OnClick
                 imgDot4.setImageResource(R.drawable.pin_setup);
                 CallBackPinSignIn callback = new CallBackPinSignIn(this, getActivity());
                 Call<SecurityData> call  = LykkeApplication_.getInstance().getRestApi().
-                        signInPinSecurite(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                                pin);
+                        signInPinSecurite(pin);
                 call.enqueue(callback);
                 clearSetupCircule();
                 break;

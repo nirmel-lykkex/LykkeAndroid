@@ -1,6 +1,9 @@
 package com.lykkex.LykkeWallet.gui.activity.pin;
 
 import android.content.Intent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.lykkex.LykkeWallet.R;
@@ -19,6 +22,7 @@ import com.lykkex.LykkeWallet.rest.pin.response.model.SecurityData;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import retrofit2.Call;
 
@@ -29,6 +33,10 @@ import retrofit2.Call;
 public class EnterPinActivity extends BasePinActivity{
 
     private int countFail = 0;
+
+    @ViewById
+    RelativeLayout pinIndicator;
+
     @AfterViews
     public void afterViews(){
         super.afterViews();
@@ -43,15 +51,12 @@ public class EnterPinActivity extends BasePinActivity{
                 dialog.show();
                 CallBackPinSignIn callback = new CallBackPinSignIn(this, this);
                 Call<SecurityData> call  = LykkeApplication_.getInstance().getRestApi().
-                        signInPinSecurite(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                                pin);
+                        signInPinSecurite(pin);
                 call.enqueue(callback);
                 break;
 
         }
     }
-
-
 
     @Override
     public void onSuccess(Object result) {
@@ -73,10 +78,8 @@ public class EnterPinActivity extends BasePinActivity{
             } else if (countFail < 2 && settingEnum == null) {
                 dialog.dismiss();
                 onFail(null);
-                countFail +=1;
             } else if (settingEnum == null){
-                setUpError(getString(R.string.not_authorized));
-                userPref.clear();
+                signOut();
 
                 dialog.dismiss();
 
@@ -96,19 +99,12 @@ public class EnterPinActivity extends BasePinActivity{
                     order.setSignOrderBeforeGo(!SettingManager.getInstance().isShouldSignOrder());
                     SignSettingOrderCallBack callBack = new SignSettingOrderCallBack(this, this);
                     Call<SettingSignOrderData> call = LykkeApplication_.getInstance().getRestApi().
-                            postSettingSignOrder(Constants.PART_AUTHORIZATION + userPref.authToken().get(),
-                                    order);
+                            postSettingSignOrder(order);
                     call.enqueue(callBack);
                 } else if (countFail < 2) {
                     dialog.dismiss();
                     onFail(null);
-                    countFail +=1;
                 } else {
-                    Toast.makeText(this, getString(R.string.not_authorized), Toast.LENGTH_LONG).show();
-                    userPref.clear();
-                    Intent intent = new Intent();
-                    intent.setClass(LykkeApplication_.getInstance(), SignInActivity_.class);
-                    startActivity(intent);
                     finish();
 
                     dialog.dismiss();
@@ -117,22 +113,28 @@ public class EnterPinActivity extends BasePinActivity{
         }
     }
 
+    private void signOut() {
+        userPref.clear();
+        Intent intent = new Intent();
+        intent.setClass(getBaseContext(), SignInActivity_.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onFail(Object error) {
+        countFail +=1;
+
+        tvEnterPin.setText(getString(R.string.num_attempts_left, 3 - countFail));
+
         dialog.dismiss();
         pin = "";
         imgFirst.setImageResource(R.drawable.pin_un_setup);
         imgSecond.setImageResource(R.drawable.pin_un_setup);
         imgThird.setImageResource(R.drawable.pin_un_setup);
         imgFour.setImageResource(R.drawable.pin_un_setup);
-        Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_LONG).show();
-    }
 
-    protected void setUpError(String error) {
-        if (SettingManager.getInstance().isDebugMode()) {
-            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-        } else {
-            LykkeUtils.showError(getFragmentManager(), error);
-        }
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+        pinIndicator.startAnimation(animation);
     }
 }
