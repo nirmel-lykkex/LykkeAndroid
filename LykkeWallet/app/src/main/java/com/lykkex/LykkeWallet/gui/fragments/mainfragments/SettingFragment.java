@@ -1,5 +1,6 @@
 package com.lykkex.LykkeWallet.gui.fragments.mainfragments;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -8,7 +9,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -43,11 +43,22 @@ import retrofit2.Response;
 @EFragment(R.layout.setting_fragment)
 public class SettingFragment extends BaseFragment {
 
-    @ViewById Switch switchCheck;
-    @Pref  UserPref_ userPref;
-    @ViewById TextView tvExit;
-    @ViewById TextView tvBaseInfo;
-    @ViewById TextView tvAppVersion;
+    protected static final int REQUEST_CALL_PHONE_PERMISSION = 201;
+
+    @ViewById
+    Switch switchCheck;
+
+    @Pref
+    UserPref_ userPref;
+
+    @ViewById
+    TextView tvExit;
+
+    @ViewById
+    TextView tvBaseInfo;
+
+    @ViewById
+    TextView tvAppVersion;
 
     @App
     LykkeApplication lykkeApplication;
@@ -144,6 +155,23 @@ public class SettingFragment extends BaseFragment {
         clickExit();
     }
 
+    @Click(R.id.btnCallSupport)
+    public void onCallSupport(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.CALL_PHONE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{Manifest.permission.CALL_PHONE},
+                        REQUEST_CALL_PHONE_PERMISSION);
+
+                return;
+            }
+        }
+
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:+41 61 588 04 02"));
+        startActivity(intent);
+    }
+
     public void clickExit(){
         userPref.clear();
         Intent intent = new Intent();
@@ -177,5 +205,17 @@ public class SettingFragment extends BaseFragment {
         intent.putExtra(Constants.EXTRA_FRAGMENT, SettingEnum.personalData);
         intent.setClass(getActivity(), SettingActivity_.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CALL_PHONE_PERMISSION:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    onCallSupport();
+                }
+        }
     }
 }
